@@ -18,13 +18,13 @@ package com.aionemu.gameserver.taskmanager.tasks;
 
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.group.GroupEvent;
-import com.aionemu.gameserver.taskmanager.AbstractFIFOPeriodicTaskManager;
+import com.aionemu.gameserver.taskmanager.AbstractIterativePeriodicTaskManager;
 
 /**
  * @author Sarynth
  *
  */
-public final class GroupUpdater extends AbstractFIFOPeriodicTaskManager<Player>
+public final class GroupUpdater extends AbstractIterativePeriodicTaskManager<Player>
 {
 	private static final class SingletonHolder
 	{
@@ -46,6 +46,9 @@ public final class GroupUpdater extends AbstractFIFOPeriodicTaskManager<Player>
 	{
 		if (player.getPlayerGroup() != null)
 			player.getPlayerGroup().updateGroupUIToEvent(player, GroupEvent.MOVEMENT);
+		
+		// Remove task from list. It will be re-added if player moves again.
+		this.stopTask(player);
 	}
 	
 	@Override

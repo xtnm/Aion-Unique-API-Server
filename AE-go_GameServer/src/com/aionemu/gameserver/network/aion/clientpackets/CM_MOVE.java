@@ -208,7 +208,7 @@ public class CM_MOVE extends AionClientPacket
 		
 		if (player.isInGroup())
 		{
-			GroupUpdater.getInstance().add(player);
+			GroupUpdater.getInstance().startTask(player);
 		}
 		
 		float distance = playerZ - z;
