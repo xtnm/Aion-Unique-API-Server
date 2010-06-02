@@ -75,7 +75,9 @@ public class ServiceProxy
 	private SpawnEngine				spawnEngine;
 	@Inject
 	private EnchantService			enchantService;
-
+	@Inject
+	private KiskService				kiskService;
+	
 	/**
 	 * @return the world
 	 */
@@ -256,5 +258,13 @@ public class ServiceProxy
 	public EnchantService getEnchantService()
 	{
 		return enchantService;
+	}
+	
+	/**
+	 * @return the kiskService
+	 */
+	public KiskService getKiskService()
+	{
+		return kiskService;
 	}
 }

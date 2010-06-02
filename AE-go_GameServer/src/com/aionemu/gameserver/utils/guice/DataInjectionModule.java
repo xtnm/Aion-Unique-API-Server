@@ -63,6 +63,7 @@ import com.aionemu.gameserver.services.GroupService;
 import com.aionemu.gameserver.services.InstanceService;
 import com.aionemu.gameserver.services.ItemRemodelService;
 import com.aionemu.gameserver.services.ItemService;
+import com.aionemu.gameserver.services.KiskService;
 import com.aionemu.gameserver.services.LegionService;
 import com.aionemu.gameserver.services.MailService;
 import com.aionemu.gameserver.services.PeriodicSaveService;
@@ -151,6 +152,7 @@ public class DataInjectionModule extends AbstractModule
 		bind(AnnouncementService.class).asEagerSingleton();
 		bind(ChatService.class).asEagerSingleton();
 		bind(ItemRemodelService.class).in(Scopes.SINGLETON);
+		bind(KiskService.class).in(Scopes.SINGLETON);
 	}
 	
 	@Provides

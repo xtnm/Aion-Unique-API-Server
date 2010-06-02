@@ -52,6 +52,7 @@ import com.aionemu.gameserver.services.BrokerService;
 import com.aionemu.gameserver.services.ChatService;
 import com.aionemu.gameserver.services.ClassChangeService;
 import com.aionemu.gameserver.services.GroupService;
+import com.aionemu.gameserver.services.KiskService;
 import com.aionemu.gameserver.services.LegionService;
 import com.aionemu.gameserver.services.MailService;
 import com.aionemu.gameserver.services.PeriodicSaveService;
@@ -97,7 +98,9 @@ public class CM_ENTER_WORLD extends AionClientPacket
 	private BrokerService		brokerService;
 	@Inject
 	private ChatService			chatService;
-
+	@Inject
+	private KiskService			kiskService;
+	
 	/**
 	 * Constructs new instance of <tt>CM_ENTER_WORLD </tt> packet
 	 * 
@@ -201,7 +204,8 @@ public class CM_ENTER_WORLD extends AionClientPacket
 			
 			sendPacket(new SM_STATS_INFO(player));
 			sendPacket(new SM_CUBE_UPDATE(player, 6));
-
+			
+			kiskService.onLogin(player);
 			teleportService.sendSetBindPoint(player);
 
 			sendPacket(new SM_MACRO_LIST(player));

@@ -235,8 +235,8 @@ public class SpawnEngine
 	{
 		int npcId = spawn.getSpawnGroup().getNpcid();
 		NpcTemplate template = npcData.getNpcTemplate(npcId);
-		Kisk kisk = new Kisk(aionObjectsIDFactory.nextId(), injector.getInstance(KiskController.class), spawn, template);
-		kisk.setCreator(creator);
+		Kisk kisk = new Kisk(aionObjectsIDFactory.nextId(), injector.getInstance(KiskController.class),
+			spawn, template, creator);
 		kisk.setKnownlist(new StaticObjectKnownList(kisk));
 		kisk.setEffectController(new EffectController(kisk));
 		kisk.getController().onRespawn();

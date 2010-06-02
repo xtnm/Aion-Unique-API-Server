@@ -27,6 +27,7 @@ import com.aionemu.gameserver.model.templates.NpcTemplate;
 import com.aionemu.gameserver.model.templates.spawn.SpawnTemplate;
 import com.aionemu.gameserver.model.templates.stats.KiskStatsTemplate;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_KISK_UPDATE;
+import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 
 /**
@@ -35,22 +36,18 @@ import com.aionemu.gameserver.utils.PacketSendUtility;
  */
 public class Kisk extends Npc
 {
-	/**
-	 * Creator of this kisk.
-	 *  - Avoid Use. Owner may log out.
-	 */
-	private Player		creator;
+	private String				ownerName;
+	private Legion				ownerLegion;
+	private Race				ownerRace;
+	private int					ownerObjectId;
 	
-	private String		ownerName;
-	private Legion		ownerLegion;
-	private Race		ownerRace;
-	
-	private KiskStatsTemplate kiskStatsTemplate;
+	private KiskStatsTemplate	kiskStatsTemplate;
 
-	private int			remainingResurrections;
-	private long		kiskSpawnTime;
+	private int					remainingResurrections;
+	private long				kiskSpawnTime;
 	
-	private final List<Player> kiskMembers = new ArrayList<Player>();
+	private final List<Player>	kiskMembers = new ArrayList<Player>();
+	private int					currentMemberCount = 0;
 
 	
 	/**
@@ -60,7 +57,7 @@ public class Kisk extends Npc
 	 * @param spawnTemplate
 	 * @param objectTemplate
 	 */
-	public Kisk(int objId, NpcController controller, SpawnTemplate spawnTemplate, NpcTemplate npcTemplate)
+	public Kisk(int objId, NpcController controller, SpawnTemplate spawnTemplate, NpcTemplate npcTemplate, Player owner)
 	{
 		super(objId, controller, spawnTemplate, npcTemplate);
 		
@@ -70,6 +67,11 @@ public class Kisk extends Npc
 		
 		remainingResurrections = this.kiskStatsTemplate.getMaxResurrects();
 		kiskSpawnTime = System.currentTimeMillis() / 1000;
+		
+		this.ownerName = owner.getName();
+		this.ownerLegion = owner.getLegion();
+		this.ownerRace = owner.getCommonData().getRace();
+		this.ownerObjectId = owner.getObjectId();
 	}
 	
 	/**
@@ -87,35 +89,16 @@ public class Kisk extends Npc
 		return false;
 	}
 
-	/**
-	 * @return the creator
-	 */
-	public Player getCreator()
-	{
-		return creator;
-	}
-
-	/**
-	 * @param creator the player
-	 */
-	public void setCreator(Player creator)
-	{
-		this.creator = creator;
-		this.ownerName = creator.getName();
-		this.ownerLegion = creator.getLegion();
-		this.ownerRace = creator.getCommonData().getRace();
-	}
-	
 	@Override
-	protected boolean isEnemyNpc(Npc visibleObject)
+	protected boolean isEnemyNpc(Npc npc)
 	{
-		return this.creator.isEnemyNpc(visibleObject);
+		return npc instanceof Monster || npc.isAggressiveTo(this);
 	}
 
 	@Override
-	protected boolean isEnemyPlayer(Player visibleObject)
+	protected boolean isEnemyPlayer(Player player)
 	{
-		return this.creator.isEnemyPlayer(visibleObject);
+		return player.getCommonData().getRace() != this.ownerRace;
 	}
 	
 	/**
@@ -125,18 +108,6 @@ public class Kisk extends Npc
 	public NpcObjectType getNpcObjectType()
 	{
 		return NpcObjectType.NORMAL;
-	}
-
-	@Override
-	public Creature getActingCreature()
-	{
-		return this.creator;
-	}
-	
-	@Override
-	public Creature getMaster()
-	{
-		return this.creator;
 	}
 	
 	/**
@@ -162,7 +133,7 @@ public class Kisk extends Npc
 	 */
 	public int getCurrentMemberCount()
 	{
-		return this.kiskMembers.size();
+		return this.currentMemberCount;
 	}
 
 	/**
@@ -255,7 +226,7 @@ public class Kisk extends Npc
 			}
 		}
 		
-		if (this.kiskMembers.size() >= getMaxMembers())
+		if (this.getCurrentMemberCount() >= getMaxMembers())
 			return false;
 		
 		return true;
@@ -263,36 +234,34 @@ public class Kisk extends Npc
 	
 	/**
 	 * @param player
-	 * @return true if player was added
 	 */
-	public boolean addPlayer(Player player)
+	public void addPlayer(Player player)
 	{
-		if(kiskMembers.contains(player))
-			return false;
-		
-		if (player.getKisk() != null)
-			player.getKisk().removePlayer(player);
-
 		kiskMembers.add(player);
-		
 		player.setKisk(this);
+		this.currentMemberCount++;
 		this.broadcastKiskUpdate();
-		return true;
 	}
 
 	/**
 	 * @param player
-	 * @return true if member was removed
 	 */
-	public boolean removePlayer(Player player)
+	public void reAddPlayer(Player player)
 	{
-		if(!kiskMembers.contains(player))
-			return false;
-		
+		kiskMembers.add(player);
+		player.setKisk(this);
+		PacketSendUtility.sendPacket(player, new SM_KISK_UPDATE(this));
+	}
+	
+	/**
+	 * @param player
+	 */
+	public void removePlayer(Player player)
+	{
 		kiskMembers.remove(player);
 		player.setKisk(null);
+		this.currentMemberCount--;
 		this.broadcastKiskUpdate();
-		return true;
 	}
 	
 	/**
@@ -316,15 +285,19 @@ public class Kisk extends Npc
 			}
 		}
 	}
-
+	
 	/**
-	 * Probably not needed, but better to clear them anyways.
+	 * @param message
 	 */
-	public void clearOnDeath()
+	public void broadcastPacket(SM_SYSTEM_MESSAGE message)
 	{
-		this.kiskMembers.clear();
+		for (Player member : kiskMembers)
+		{
+			if (member != null)
+				PacketSendUtility.sendPacket(member, message);
+		}
 	}
-
+	
 	/**
 	 * @param player
 	 */
@@ -342,7 +315,7 @@ public class Kisk extends Npc
 	}
 
 	/**
-	 * @return
+	 * @return ownerRace
 	 */
 	public Race getOwnerRace()
 	{
@@ -350,11 +323,19 @@ public class Kisk extends Npc
 	}
 
 	/**
-	 * @return
+	 * @return ownerName
 	 */
 	public String getOwnerName()
 	{
 		return this.ownerName;
+	}
+	
+	/**
+	 * @return ownerObjectId
+	 */
+	public int getOwnerObjectId()
+	{
+		return this.ownerObjectId;
 	}
 
 }

@@ -80,21 +80,14 @@ public class SM_NPC_INFO extends AionServerPacket
 	 */
 	public SM_NPC_INFO(Player player, Kisk kisk)
 	{
-		Player owner = (Player)kisk.getMaster();
 		this.npc = kisk;
-		npcTypeId = (player.isAggroFrom(kisk) ?
+		npcTypeId = (kisk.isAggroFrom(player) ?
 			NpcType.ATTACKABLE.getId() : NpcType.NON_ATTACKABLE.getId());
 		npcTemplate = kisk.getObjectTemplate();
 		npcId = kisk.getNpcId();
-		if(owner != null)
-		{
-			masterObjId = owner.getObjectId();
-			masterName = owner.getName();
-		}
-		else
-		{
-			masterName = kisk.getOwnerName();
-		}
+		
+		masterObjId = kisk.getOwnerObjectId();
+		masterName = kisk.getOwnerName();
 	}
 	
 	/**

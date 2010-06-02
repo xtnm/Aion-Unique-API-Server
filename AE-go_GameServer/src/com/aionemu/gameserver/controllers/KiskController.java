@@ -23,9 +23,7 @@ import com.aionemu.gameserver.model.gameobjects.Creature;
 import com.aionemu.gameserver.model.gameobjects.Kisk;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.gameobjects.player.RequestResponseHandler;
-import com.aionemu.gameserver.network.aion.serverpackets.SM_DIE;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_EMOTION;
-import com.aionemu.gameserver.network.aion.serverpackets.SM_LEVEL_UPDATE;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_QUESTION_WINDOW;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_ATTACK_STATUS.TYPE;
@@ -59,17 +57,8 @@ public class KiskController extends NpcController
 	@Override
 	public void onDespawn(boolean forced)
 	{
-		
 		final Kisk kisk = (Kisk)this.getOwner();
-		
-		List<Player> members = kisk.getCurrentMemberList();
-		for(Player member : members)
-		{
-			PacketSendUtility.sendPacket(member, SM_SYSTEM_MESSAGE.STR_BINDSTONE_IS_REMOVED);
-			member.setKisk(null);
-			sp.getTeleportService().sendSetBindPoint(member);
-		}
-		
+		kisk.broadcastPacket(SM_SYSTEM_MESSAGE.STR_BINDSTONE_IS_REMOVED);
 		removeKisk(kisk);
 	}
 	
@@ -77,29 +66,14 @@ public class KiskController extends NpcController
 	public void onDie(Creature lastAttacker)
 	{
 		final Kisk kisk = (Kisk)this.getOwner();
-		
-		List<Player> members = kisk.getCurrentMemberList();
-		for(Player member : members)
-		{
-			PacketSendUtility.sendPacket(member, SM_SYSTEM_MESSAGE.STR_BINDSTONE_IS_DESTROYED);
-		}
-		
+		PacketSendUtility.broadcastPacket(kisk, new SM_EMOTION(kisk, 13, 0, 0));
+		kisk.broadcastPacket(SM_SYSTEM_MESSAGE.STR_BINDSTONE_IS_DESTROYED);
 		removeKisk(kisk);
 	}
 	
 	private void removeKisk(final Kisk kisk)
 	{
-		PacketSendUtility.broadcastPacket(kisk, new SM_EMOTION(kisk, 13, 0, 0));
-		
-		// Remove players from kisk bind point and send updates.
-		List<Player> members = kisk.getCurrentMemberList();
-		for(Player member : members)
-		{
-			member.setKisk(null);
-			sp.getTeleportService().sendSetBindPoint(member);
-			if (member.getLifeStats().isAlreadyDead())
-				PacketSendUtility.sendPacket(member, new SM_DIE(ReviveType.BIND_REVIVE));
-		}
+		sp.getKiskService().removeKisk(kisk);
 		
 		// Schedule World Removal
 		addTask(TaskId.DECAY, ThreadPoolManager.getInstance().schedule(new Runnable()
@@ -107,7 +81,8 @@ public class KiskController extends NpcController
 			@Override
 			public void run()
 			{
-				sp.getWorld().despawn(kisk);
+				if (kisk != null && kisk.isSpawned())
+					sp.getWorld().despawn(kisk);
 			}
 		}, 3 * 1000));
 	}
@@ -138,18 +113,7 @@ public class KiskController extends NpcController
 						PacketSendUtility.sendPacket(responder, SM_SYSTEM_MESSAGE.STR_CANNOT_REGISTER_BINDSTONE_HAVE_NO_AUTHORITY);
 						return;
 					}
-					
-					// Adds responder to kisk, and sends SM_KISK_UPDATE
-					kisk.addPlayer(responder);
-					
-					// Send Bind Point Data (Adds the Kisk Info)
-					sp.getTeleportService().sendSetBindPoint(responder);
-					
-					// Send System Message
-					PacketSendUtility.sendPacket(responder, SM_SYSTEM_MESSAGE.STR_BINDSTONE_REGISTER);
-					
-					// Send Animated Bind Flash
-					PacketSendUtility.broadcastPacket(responder, new SM_LEVEL_UPDATE(responder.getObjectId(), 2, responder.getCommonData().getLevel()), true);
+					sp.getKiskService().onBind(kisk, responder);
 				}
 	
 				@Override
