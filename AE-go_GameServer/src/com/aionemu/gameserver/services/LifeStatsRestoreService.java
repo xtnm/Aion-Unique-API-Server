@@ -18,6 +18,7 @@ package com.aionemu.gameserver.services;
 
 import java.util.concurrent.Future;
 
+import com.aionemu.gameserver.configs.administration.AdminConfig;
 import com.aionemu.gameserver.model.gameobjects.Creature;
 import com.aionemu.gameserver.model.gameobjects.stats.CreatureLifeStats;
 import com.aionemu.gameserver.model.gameobjects.stats.PlayerLifeStats;
@@ -157,7 +158,7 @@ public class LifeStatsRestoreService
 					lifeStats.triggerFpRestore();
 				}
 			}
-			else
+			else if (lifeStats.getOwner().getAccessLevel() < AdminConfig.GM_FLIGHT_UNLIMITED)
 			{
 				lifeStats.reduceFp(1);
 			}
