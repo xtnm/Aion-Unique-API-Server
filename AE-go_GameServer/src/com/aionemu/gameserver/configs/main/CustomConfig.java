@@ -26,6 +26,12 @@ public class CustomConfig
 	@Property(key = "gameserver.factions.speaking.mode", defaultValue = "0")
 	public static int		FACTIONS_SPEAKING_MODE;
 
+	/*
+	* Factions search mode
+	*/
+	@Property(key = "gameserver.factions.search.mode", defaultValue = "false")
+	public static boolean	FACTIONS_SEARCH_MODE;
+
 	/**
 	 * Skill autolearn
 	 */

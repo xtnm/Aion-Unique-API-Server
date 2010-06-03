@@ -22,6 +22,7 @@ import java.util.List;
 
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.gameobjects.player.FriendList.Status;
+import com.aionemu.gameserver.configs.main.CustomConfig;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_PLAYER_SEARCH;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
@@ -115,6 +116,8 @@ public class CM_PLAYER_SEARCH extends AionClientPacket
 			else if(classMask > 0 && (player.getPlayerClass().getMask() & classMask) == 0)
 				continue;
 			else if(region > 0 && player.getActiveRegion().getMapId() != region)
+				continue;
+			else if((player.getCommonData().getRace() != activePlayer.getCommonData().getRace())&& (CustomConfig.FACTIONS_SEARCH_MODE == false))
 				continue;
 			else
 			// This player matches criteria
