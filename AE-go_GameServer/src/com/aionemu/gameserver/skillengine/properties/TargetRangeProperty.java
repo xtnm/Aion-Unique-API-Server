@@ -93,8 +93,9 @@ extends Property
 					if(skill.getEffector() instanceof Trap && ((Trap) skill.getEffector()).getCreator() == nextCreature)
 						continue;
 					
+					//TODO: here value +4 till better move controller developed
 					if(nextCreature instanceof Creature 
-						&& MathUtil.isInRange(firstTarget, nextCreature, distance))
+						&& MathUtil.isIn3dRange(firstTarget, nextCreature, distance + 4))
 					{
 						effectedList.add((Creature) nextCreature);
 						counter++;
@@ -112,7 +113,7 @@ extends Property
 						for(Player member : group.getMembers())
 						{
 							//TODO: here value +4 till better move controller developed
-							if(MathUtil.isInRange(effector, member, distance + 4))
+							if(MathUtil.isIn3dRange(effector, member, distance + 4))
 								effectedList.add(member);
 						}
 					}
