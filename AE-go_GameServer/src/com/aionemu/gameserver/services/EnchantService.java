@@ -310,7 +310,7 @@ public class EnchantService
 		}
 		catch(Exception ex)
 		{
-			log.error(ex.getCause() != null ? ex.getCause().getMessage() : null);
+			log.error(ex.getCause() != null ? ex.getCause().getMessage() : "Error on item equip.");
 		}
 	}
 	

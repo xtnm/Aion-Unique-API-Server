@@ -334,8 +334,12 @@ public class World
 	 */
 	public void despawn(VisibleObject object)
 	{
-		object.getActiveRegion().getParent().removeObject(object);
-		object.getActiveRegion().remove(object);
+		if(object.getActiveRegion() != null)
+		{ // can be null if an instance gets deleted?
+			if(object.getActiveRegion().getParent() != null)
+				object.getActiveRegion().getParent().removeObject(object);
+			object.getActiveRegion().remove(object);
+		}
 		object.getPosition().setIsSpawned(false);
 		if(object.getSpawn() != null)
 			object.getSpawn().setSpawned(false, object.getInstanceId());

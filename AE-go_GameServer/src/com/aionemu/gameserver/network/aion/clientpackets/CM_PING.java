@@ -64,8 +64,11 @@ public class CM_PING extends AionClientPacket
 			// PingInterval should be 3min (180000ms)
 			if(pingInterval < 100000)// client timer cheat
 			{
-				String name = getConnection().getActivePlayer().getName();
-				log.info("[AUDIT] possible client timer cheat: " + pingInterval + " " + name);
+				String ip = getConnection().getIP();
+				String name = "[unknown]";
+				if(getConnection().getActivePlayer() != null)
+					name = getConnection().getActivePlayer().getName();
+				log.info("[AUDIT] possible client timer cheat: " + pingInterval + " by " + name + ", ip=" + ip);
 				//getConnection().close(new SM_QUIT_RESPONSE(), true);
 			}
 

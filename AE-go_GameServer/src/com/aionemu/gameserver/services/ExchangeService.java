@@ -163,6 +163,9 @@ public class ExchangeService
 		Player partner = getCurrentParter(activePlayer);
 		Exchange currentExchange = getCurrentExchange(activePlayer);
 
+		if (currentExchange == null)
+			return;
+
 		if(currentExchange.isLocked())
 			return;
 

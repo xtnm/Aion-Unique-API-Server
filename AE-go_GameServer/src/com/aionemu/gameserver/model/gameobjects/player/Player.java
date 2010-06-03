@@ -54,6 +54,7 @@ import com.aionemu.gameserver.network.aion.AionConnection;
 import com.aionemu.gameserver.services.PlayerService;
 import com.aionemu.gameserver.skillengine.task.CraftingTask;
 import com.aionemu.gameserver.utils.rates.Rates;
+import com.aionemu.gameserver.utils.rates.RegularRates;
 import com.aionemu.gameserver.world.zone.ZoneInstance;
 
 /**
@@ -746,6 +747,8 @@ public class Player extends Creature
 	 */
 	public Rates getRates()
 	{
+		if(rates == null)
+			rates = new RegularRates();
 		return rates;
 	}
 

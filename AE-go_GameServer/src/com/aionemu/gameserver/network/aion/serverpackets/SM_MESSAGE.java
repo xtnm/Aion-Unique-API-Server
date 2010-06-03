@@ -123,7 +123,7 @@ public class SM_MESSAGE extends AionServerPacket
 		if(race != null)
 		{
 			canRead = chatType.isSysMsg() || CustomConfig.FACTIONS_SPEAKING_MODE == 1 || player.getAccessLevel() > 0
-				|| con.getActivePlayer().getAccessLevel() > 0;
+				|| (con.getActivePlayer() != null && con.getActivePlayer().getAccessLevel() > 0);
 		}
 
 		writeC(buf, chatType.toInteger()); // type
