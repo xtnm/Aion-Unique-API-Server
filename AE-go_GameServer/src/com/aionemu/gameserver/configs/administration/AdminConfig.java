@@ -113,6 +113,9 @@ public class AdminConfig
 	@Property(key = "gameserver.administration.command.reloadspawns", defaultValue = "3")
 	public static int	COMMAND_RELOADSPAWNS;
 
+	@Property(key = "gameserver.administration.command.resurrect", defaultValue = "3")
+	public static int	COMMAND_RESURRECT;
+
 	@Property(key = "gameserver.administration.command.revoke", defaultValue = "3")
 	public static int	COMMAND_REVOKE;
 
