@@ -266,21 +266,27 @@ public class NpcController extends CreatureController<Npc>
 				break;
 			case 29:
 				// soul healing
+				final long expLost = player.getCommonData().getExpRecoverable();
+				final double factor = (expLost < 1000000 ?
+					0.25 - (0.00000015 * expLost) 
+					: 0.1);
+				final int price = (int) (expLost * factor);
+				
 				RequestResponseHandler responseHandler = new RequestResponseHandler(npc){
 					@Override
 					public void acceptRequest(Creature requester, Player responder)
 					{
-						Long lossexp = responder.getCommonData().getExpRecoverable();
-						if(player.getInventory().getKinahItem().getItemCount() > lossexp)
+						if(player.getInventory().getKinahItem().getItemCount() >= price)
 						{
-							PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.EXP(String.valueOf(lossexp
-								.intValue())));// TODO check
-							// SM_SYSTEM_MESSAGE
+							PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.EXP(String.valueOf(expLost)));
 							PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.SOUL_HEALED());
 							player.getCommonData().resetRecoverableExp();
-							player.getInventory().decreaseKinah(lossexp.intValue());
+							player.getInventory().decreaseKinah(price);
 						}
-						// TODO not enought kinah message
+						else
+						{
+							PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.NOT_ENOUGH_KINAH(price));
+						}
 					}
 
 					@Override
@@ -296,12 +302,14 @@ public class NpcController extends CreatureController<Npc>
 					if(result)
 					{
 						PacketSendUtility.sendPacket(player, new SM_QUESTION_WINDOW(
-							SM_QUESTION_WINDOW.STR_SOUL_HEALING, 0, String.valueOf(player.getCommonData()
-								.getExpRecoverable())));
+							SM_QUESTION_WINDOW.STR_SOUL_HEALING, 0, String.valueOf(price)
+						));
 					}
 				}
 				else
+				{
 					PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.DONT_HAVE_RECOVERED_EXP());
+				}
 				break;
 			case 35:
 				// Godstone socketing
