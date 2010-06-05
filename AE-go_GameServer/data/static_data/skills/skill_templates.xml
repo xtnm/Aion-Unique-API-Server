@@ -33751,6 +33751,9 @@
         <useconditions>
             <playermove allow="false"/>
         </useconditions>
+   		<effects>
+			<forcedmove move_to_distance="0" duration="2000" effectid="20000" e="1" element="WIND" hoptype="SKILLLV"/>
+		</effects>
     </skill_template>
     <skill_template skill_id="8442" name="STR_SYSTEM_SKILL_CH_Chant_BoostFly_G1_Effect" nameId="577295" stack="SYSTEM_SKILL_CH_CHANT_BOOSTFLY_EFFECT" lvl="1" skilltype="MAGICAL" skillsubtype="NONE" tslot="CHANT" activation="PROVOKED" cooldown="0" duration="0">
         <setproperties>

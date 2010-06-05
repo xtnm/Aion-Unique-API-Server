@@ -207,6 +207,8 @@
 				minOccurs="0" maxOccurs="1" />
 			<xs:element name="skilllauncher" type="SkillLauncherEffect"
 				minOccurs="0" maxOccurs="1" />
+			<xs:element name="forcedmove" type="ForcedMoveEffect"
+				minOccurs="0" maxOccurs="1" />				
 		</xs:sequence>
 		<xs:attribute name="food" type="xs:boolean"/>
 	</xs:complexType>
@@ -1045,6 +1047,14 @@
 		</xs:complexContent>
 	</xs:complexType>
 
+	<xs:complexType name="ForcedMoveEffect">
+		<xs:complexContent>
+			<xs:extension base="Effect">
+				<xs:attribute name="move_to_distance" type="xs:int" />	
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
 	<!-- CONDITIONS -->
 
 	<xs:complexType name="MpCondition">
