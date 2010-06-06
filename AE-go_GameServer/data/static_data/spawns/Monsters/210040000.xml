@@ -2052,7 +2052,7 @@
 		<object x="172.26779" y="2674.312" z="116.7191" h="36"/>
 		<object x="206.29408" y="2679.5796" z="116.7191" h="93"/>
 	</spawn>
-	<!-- Graveknight Fighter (Monster Normal lvl:44)-->
+	<!-- Graveknight Fighter (Monster Normal lvl:45)-->
 	<spawn map="210040000" npcid="212009" pool="55" interval="295">
 		<object x="154.88521" y="2436.3562" z="127.875" h="20"/>
 		<object x="232.886" y="2573.2002" z="123.5" h="20"/>
