@@ -62,6 +62,8 @@ public class SpawnGroup
 	private int npcid;
 	@XmlAttribute(name = "map")
 	private int mapid;
+	@XmlAttribute(name = "rw")
+	private int randomWalk;
 	
 	@XmlElement(name = "object")
 	private List<SpawnTemplate> objects;
@@ -104,6 +106,14 @@ public class SpawnGroup
 			Logger.getLogger(SpawnGroup.class).warn(
 				"Incorrect pool value for spawn group. MapId:" + mapid + " Npc: " + npcid);
 			this.pool = objects.size();
+		}
+
+		if(randomWalk != 0)
+		{
+			for(SpawnTemplate spawn : objects)
+			{
+				spawn.setRandomWalkNr(randomWalk);
+			}
 		}
 	}
 

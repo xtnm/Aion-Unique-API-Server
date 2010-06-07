@@ -122,6 +122,17 @@ public class SpawnTemplate
 		return walkerId;
 	}
 
+	/**
+	 * Set the randomWalk value only if it is 0.
+	 * @param rw
+	 */
+	protected void setRandomWalkNr(int rw) {
+		if(randomWalk == 0)
+		{
+			randomWalk = rw;
+		}
+	}
+
 	public int getRandomWalkNr()
 	{
 		return randomWalk;

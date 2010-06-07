@@ -65,9 +65,9 @@ public class WalkDesire extends AbstractDesire implements MoveDesire
 		}
 		else if(isRandomWalk && NpcMovementConfig.ACTIVE_NPC_MOVEMENT)
 		{
-			walkArea = Math.max(5, owner.getSpawn().getRandomWalkNr());
+			walkArea = Math.max(5, owner.getSpawn().getRandomWalkNr()); // The walk area is at least 5 meter.
 			halfWalkArea = walkArea / 2f;
-			minRandomDistance = walkArea / 5f;
+			minRandomDistance = Math.min(walkArea / 5f, 2); // The stop distance is between 1 and 2 meter.
 
 			route = null;
 			randomPoint = new RouteStep(owner.getX(), owner.getY(), owner.getZ());

@@ -35,6 +35,7 @@
 		<xs:attribute name="pool" type="xs:int" />
 		<xs:attribute name="npcid" type="xs:int" />
 		<xs:attribute name="map" type="xs:int" />
+		<xs:attribute name="rw" type="xs:int" />
 	</xs:complexType>
 	
 	<xs:simpleType name="Heading">
