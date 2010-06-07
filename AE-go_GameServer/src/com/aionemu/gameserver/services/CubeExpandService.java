@@ -67,16 +67,16 @@ public class CubeExpandService
 			 * Check if our player can pay the cubic expand price
 			 */
 			final int price = getPriceByLevel(expandTemplate, player.getCubeSize() + 1);
-			if(price > player.getInventory().getKinahItem().getItemCount())
-			{
-				PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.CUBEEXPAND_NOT_ENOUGH_KINAH);
-				return;
-			}
 
 			RequestResponseHandler responseHandler = new RequestResponseHandler(npc){
 				@Override
 				public void acceptRequest(Creature requester, Player responder)
 				{
+					if(price > player.getInventory().getKinahItem().getItemCount())
+					{
+						PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.CUBEEXPAND_NOT_ENOUGH_KINAH);
+						return;
+					}
 					expand(responder);
 					player.getInventory().decreaseKinah(price);
 				}

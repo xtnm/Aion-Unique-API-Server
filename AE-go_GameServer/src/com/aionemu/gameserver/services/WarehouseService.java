@@ -73,16 +73,15 @@ public class WarehouseService
 				 * Check if our player can pay the warehouse expand price
 				 */
 				final int price = getPriceByLevel(expandTemplate, player.getWarehouseSize() + 1);
-				if(player.getInventory().getKinahItem().getItemCount() < price)
-				{
-					PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1300831));
-					return;
-				}
-
 				RequestResponseHandler responseHandler = new RequestResponseHandler(npc){
 					@Override
 					public void acceptRequest(Creature requester, Player responder)
 					{
+						if(player.getInventory().getKinahItem().getItemCount() < price)
+						{
+							PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1300831));
+							return;
+						}
 						expand(responder);
 						player.getInventory().decreaseKinah(price);
 					}

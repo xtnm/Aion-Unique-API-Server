@@ -606,7 +606,7 @@
 	</spawn>
 	<!-- Lumias (NPC Normal lvl:40)-->
 	<spawn map="110010000" npcid="203773" pool="1" interval="295">
-		<object x="1800.38600" y="1495.87950" z="579.06006" h="90"/>
+		<object x="1800.38600" y="1495.87950" z="579.06006" h="0"/>
 	</spawn>
 	<!-- Lustiena (NPC Normal lvl:40)-->
 	<spawn map="110010000" npcid="203868" pool="1" interval="295">

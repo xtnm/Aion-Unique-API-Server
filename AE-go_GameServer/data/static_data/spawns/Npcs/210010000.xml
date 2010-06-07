@@ -82,7 +82,7 @@
 	</spawn>
 	<!-- Feira (NPC Normal lvl:10)-->
 	<spawn map="210010000" npcid="203072" pool="1" interval="295">
-		<object x="588.6266" y="1095.1138" z="101.49129" h="67"/>
+		<object x="588.6266" y="1095.1138" z="101.49129" h="64"/>
 	</spawn>
 	<!-- Forest Protector Noah (NPC Normal lvl:10)-->
 	<spawn map="210010000" npcid="730007" pool="1" interval="295">
