@@ -47,7 +47,7 @@ public class OneTimeBoostSkillAttackEffect extends BufEffect
 
 			private int count = 0;
 			@Override
-			public void attacked(Creature creature)
+			public void attack(Creature creature)
 			{
 				if(count < stopCount)
 					count++;
