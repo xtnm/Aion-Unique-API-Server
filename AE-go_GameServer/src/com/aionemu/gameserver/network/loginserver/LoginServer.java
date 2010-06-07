@@ -209,7 +209,7 @@ public class LoginServer
 		 */
 		if(loginServer == null || loginServer.getState() != State.AUTHED)
 		{
-			System.out.println("LS !!! " + (loginServer == null ? "NULL" : loginServer.getState()));
+			log.warn("LS !!! " + (loginServer == null ? "NULL" : loginServer.getState()));
 			// TODO! somme error packet!
 			client.close(/* closePacket, */true);
 			return;
