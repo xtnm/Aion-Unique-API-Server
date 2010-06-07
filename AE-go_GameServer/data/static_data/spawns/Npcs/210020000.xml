@@ -656,8 +656,8 @@
 		<object x="283.37350" y="2748.05180" z="271.13574" h="15"/>
 	</spawn>
 	<!-- Obelisk (Object Normal lvl:3)-->
-	<spawn map="210020000" npcid="700255" pool="1" interval="295">
-		<object x="1766.00620" y="894.89250" z="422.73627" h="78"/>
+	<spawn map="210020000" npcid="700343" pool="1" interval="295">
+		<object x="1766.0062" y="894.8925" z="422.73627" h="96"/>
 	</spawn>
 	<!-- Octavia (NPC Normal lvl:45)-->
 	<spawn map="210020000" npcid="203925" pool="1" interval="295">
@@ -831,7 +831,7 @@
 	</spawn>
 	<!-- Tanis (NPC Elite lvl:45)-->
 	<spawn map="210020000" npcid="204013" pool="1" interval="295">
-		<object x="1768.12570" y="895.13520" z="423.00000" h="37"/>
+		<object x="1768.1257" y="895.1352" z="423" h="96"/>
 	</spawn>
 	<!-- Tareash (NPC Normal lvl:45)-->
 	<spawn map="210020000" npcid="203962" pool="1" interval="295">

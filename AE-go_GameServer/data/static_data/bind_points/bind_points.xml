@@ -14,6 +14,7 @@
 	<bind_point name="Agairon Village" npcid="700017" bindid="7" mapid="210020000" posX="1945.8" posY="2014.7" posZ="361.6" price="8910"/>
 	<bind_point name="Kuriullu Mountain Outpost" npcid="700018" bindid="8" mapid="210020000" posX="2415.1" posY="2755.7" posZ="364.2" price="10450"/>
 	<bind_point name="Outpost Ruins" npcid="700019" bindid="9" mapid="210020000" posX="943.8" posY="2208.3" posZ="252.4" price="7370"/>
+	<bind_point name="Eltnen Observatory" npcid="700343" bindid="45" mapid="210020000" posX="1768.215" posY="892.12" posZ="422.125" price="10698"/>
 	<!-- Verteron -->
 	<bind_point name="Verteron Citadel" npcid="700020" bindid="10" mapid="210030000" posX="1690.4" posY="1481.4" posZ="121.4" price="1050"/>
 	<bind_point name="Pilgrim's Respite" npcid="700021" bindid="11" mapid="210030000" posX="2051.8" posY="2408.5" posZ="275.1" price="1980"/>
