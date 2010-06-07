@@ -26,6 +26,7 @@ import com.aionemu.gameserver.dataholders.loadingutils.XmlServiceProxy;
 import com.aionemu.gameserver.model.gameobjects.Item;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_ITEM_USAGE_ANIMATION;
+import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 
@@ -47,13 +48,20 @@ public class EnchantItemAction extends AbstractItemAction
 	}
 
 	@Override
-	public void act(final Player player, final Item parentItem, final Item targetItem)
+	public boolean canAct(Player player, Item parentItem, Item targetItem)
 	{
 		if(targetItem == null)
 		{ // no item selected.
-			return;
+			PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_ITEM_ERROR);
+			return false;
 		}
 
+		return true;
+	}
+
+	@Override
+	public void act(final Player player, final Item parentItem, final Item targetItem)
+	{
 		PacketSendUtility.sendPacket(player, new SM_ITEM_USAGE_ANIMATION(player.getObjectId(),
 			parentItem.getObjectId(), parentItem.getItemTemplate().getTemplateId(), 5000, 0, 0));
 		

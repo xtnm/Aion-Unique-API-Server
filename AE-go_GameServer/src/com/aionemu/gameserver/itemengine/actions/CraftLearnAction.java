@@ -42,32 +42,40 @@ public class CraftLearnAction extends AbstractItemAction
 	protected int recipeid;
 
 	@Override
+	public boolean canAct(Player player, Item parentItem, Item targetItem)
+	{
+		RecipeTemplate template = DataManager.RECIPE_DATA.getRecipeTemplateById(recipeid);
+		if(template == null)
+			return false;
+
+		if(template.getRace().ordinal() != player.getCommonData().getRace().getRaceId())
+			return false;
+
+		if(player.getRecipeList().isRecipePresent(recipeid))
+		{
+			PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1330060));
+			return false;
+		}
+
+		if(!player.getSkillList().isSkillPresent(template.getSkillid()))
+		{
+			PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1330062, DataManager.SKILL_DATA
+				.getSkillTemplate(template.getSkillid()).getName()));
+			return false;
+		}
+
+		if(template.getSkillpoint() > player.getSkillList().getSkillLevel(template.getSkillid()))
+		{
+			PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1330063));
+			return false;
+		}
+		return true;
+	}
+
+	@Override
 	public void act(Player player, Item parentItem, Item targetItem)
 	{
 		RecipeTemplate template = DataManager.RECIPE_DATA.getRecipeTemplateById(recipeid);
-		if (template == null)
-			return;
-
-		if (template.getRace().ordinal() != player.getCommonData().getRace().getRaceId())
-			return;
-
-		if (player.getRecipeList().isRecipePresent(recipeid))
-		{
-			PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1330060));
-			return;
-		}
-
-		if (!player.getSkillList().isSkillPresent(template.getSkillid()))
-		{
-			PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1330062, DataManager.SKILL_DATA.getSkillTemplate(template.getSkillid()).getName()));
-			return;
-		}
-
-		if (template.getSkillpoint() > player.getSkillList().getSkillLevel(template.getSkillid()))
-		{
-			PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1330063));
-			return;
-		}
 		
 		PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.USE_ITEM(new DescriptionId(parentItem.getItemTemplate().getNameId())));
 		PacketSendUtility.sendPacket(player, new SM_ITEM_USAGE_ANIMATION(player.getObjectId(), parentItem.getObjectId(), parentItem.getItemTemplate().getTemplateId()));

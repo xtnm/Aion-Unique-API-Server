@@ -24,6 +24,7 @@ import javax.xml.bind.annotation.XmlType;
 import com.aionemu.gameserver.model.gameobjects.Item;
 import com.aionemu.gameserver.model.gameobjects.PersistentState;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
+import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_UPDATE_ITEM;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_UPDATE_PLAYER_APPEARANCE;
 import com.aionemu.gameserver.utils.PacketSendUtility;
@@ -43,13 +44,20 @@ public class DyeAction extends AbstractItemAction
 	protected String color;
 
 	@Override
-	public void act(Player player, Item parentItem, Item targetItem)
+	public boolean canAct(Player player, Item parentItem, Item targetItem)
 	{
 		if(targetItem == null)
 		{ // no item selected.
-			return;
+			PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_ITEM_ERROR);
+			return false;
 		}
 
+		return true;
+	}
+
+	@Override
+	public void act(Player player, Item parentItem, Item targetItem)
+	{
 		if (targetItem.getItemTemplate().isItemDyePermitted())
 		{
 			if (color.equals("no"))

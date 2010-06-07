@@ -20,6 +20,12 @@ public class QuestStartAction extends AbstractItemAction {
     @XmlAttribute
 	protected int questid;
 
+	@Override
+	public boolean canAct(Player player, Item parentItem, Item targetItem)
+	{
+		return true;
+	}
+
     @Override
 	public void act(Player player, Item parentItem, Item targetItem)
 	{

@@ -74,16 +74,26 @@ public class ToyPetSpawnAction extends AbstractItemAction
 	{		
 		xsp = u.getAdapter(XmlServiceProxy.class);
 	}
-	
+
 	@Override
-	public void act(Player player, Item parentItem, Item targetItem)
-	{
+	public boolean canAct(Player player, Item parentItem, Item targetItem) {
 		if (player.getFlyState() != 0)
 		{
 			PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_CANNOT_USE_BINDSTONE_ITEM_WHILE_FLYING);
-			return;
+			return false;
 		}
-		
+		if(player.isInInstance())
+		{
+			PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_CANNOT_REGISTER_BINDSTONE_FAR_FROM_NPC);
+			return false;
+		}
+
+		return true;
+	}
+
+	@Override
+	public void act(Player player, Item parentItem, Item targetItem)
+	{
 		SpawnEngine spawnEngine = xsp.getSpawnEngine();
 		float x = player.getX();
 		float y = player.getY();

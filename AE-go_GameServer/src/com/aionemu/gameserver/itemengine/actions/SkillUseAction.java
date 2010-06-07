@@ -56,6 +56,12 @@ public class SkillUseAction extends AbstractItemAction
 	}
 
 	@Override
+	public boolean canAct(Player player, Item parentItem, Item targetItem)
+	{
+		return SkillEngine.getInstance().getSkill(player, skillid, level, player.getTarget()) != null;
+	}
+
+	@Override
 	public void act(Player player, Item parentItem, Item targetItem)
 	{
 		Skill skill = SkillEngine.getInstance().getSkill(player, skillid, level, player.getTarget());

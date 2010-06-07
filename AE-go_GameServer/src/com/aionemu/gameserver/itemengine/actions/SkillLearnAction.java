@@ -49,11 +49,14 @@ public class SkillLearnAction extends AbstractItemAction
 	protected SkillRace race;
 
 	@Override
+	public boolean canAct(Player player, Item parentItem, Item targetItem)
+	{
+		return validateConditions(player);
+	}
+
+	@Override
 	public void act(Player player, Item parentItem, Item targetItem)
 	{
-		if(!validateConditions(player))
-			return;
-
 		//item animation and message
 		ItemTemplate itemTemplate = parentItem.getItemTemplate();
 		//PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.USE_ITEM(itemTemplate.getDescription()));

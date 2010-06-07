@@ -36,6 +36,16 @@ public abstract class AbstractItemAction
 	 * This instance should be set in unmarshal method
 	 */
 	protected XmlServiceProxy xsp;
+
+	/**
+	 * Check if an item can be used.
+	 * @param player
+	 * @param parentItem
+	 * @param targetItem
+	 * @return
+	 */
+	public abstract boolean canAct(Player player, Item parentItem, Item targetItem);
+
 	/**
 	 * 
 	 * @param player
