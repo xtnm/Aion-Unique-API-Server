@@ -79,32 +79,29 @@ public class AccountController
 	{
 		AionConnection	con = accountsOnLS.get(key.accountId);
 
-		if(con != null)
+		if(con != null && con.getSessionKey().checkSessionKey(key))
 		{
-			if(con.getSessionKey().checkSessionKey(key))
-			{
-				/**
-				 * account is successful logged in on gs remove it from here
-				 */
-				accountsOnLS.remove(key.accountId);
+			/**
+			 * account is successful logged in on gs remove it from here
+			 */
+			accountsOnLS.remove(key.accountId);
 
-				GameServerInfo	gsi = gsConnection.getGameServerInfo();
-				Account			acc = con.getAccount();
+			GameServerInfo gsi = gsConnection.getGameServerInfo();
+			Account acc = con.getAccount();
 
-				/**
-				 * Add account to accounts on GameServer list and update accounts last server
-				 */
-				gsi.addAccountToGameServer(acc);
+			/**
+			 * Add account to accounts on GameServer list and update accounts last server
+			 */
+			gsi.addAccountToGameServer(acc);
 
-				acc.setLastServer(gsi.getId());
-				getAccountDAO().updateLastServer(acc.getId(), acc.getLastServer());
+			acc.setLastServer(gsi.getId());
+			getAccountDAO().updateLastServer(acc.getId(), acc.getLastServer());
 
-				/**
-				 * Send response to GameServer
-				 */
-				gsConnection.sendPacket(new SM_ACCOUNT_AUTH_RESPONSE(key.accountId, true, acc.getName(), acc
-					.getAccessLevel(), acc.getMembership()));
-			}
+			/**
+			 * Send response to GameServer
+			 */
+			gsConnection.sendPacket(new SM_ACCOUNT_AUTH_RESPONSE(key.accountId, true, acc.getName(), acc
+				.getAccessLevel(), acc.getMembership()));
 		}
 		else
 		{
