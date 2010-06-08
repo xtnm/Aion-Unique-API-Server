@@ -153,13 +153,13 @@ public class Skill
 		}	
 		
 		int skillDuration = skillTemplate.getDuration();
-		int cooldown = skillTemplate.getCooldown();
-		if(cooldown != 0)
-			effector.setSkillCoolDown(skillTemplate.getSkillId(), cooldown * 100 + skillDuration + System.currentTimeMillis());
-		
 		int currentStat = effector.getGameStats().getCurrentStat(StatEnum.BOOST_CASTING_TIME);
 		this.duration = skillDuration + Math.round(skillDuration * (currentStat - 100) / 100f);
 
+		int cooldown = skillTemplate.getCooldown();
+		if(cooldown != 0)
+			effector.setSkillCoolDown(skillTemplate.getSkillId(), cooldown * 100 + this.duration + System.currentTimeMillis());
+		
 		if(duration < 0)
 			duration = 0;
 		
@@ -201,7 +201,7 @@ public class Skill
 		final int unk = 0;
 
 		PacketSendUtility.broadcastPacketAndReceive(effector, new SM_CASTSPELL(effector.getObjectId(), skillTemplate
-			.getSkillId(), skillLevel, unk, targetObjId, skillTemplate.getDuration()));
+			.getSkillId(), skillLevel, unk, targetObjId, this.duration));
 	}
 	
 	/**
