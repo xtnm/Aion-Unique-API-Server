@@ -17,6 +17,7 @@ import org.apache.log4j.Logger;
 import com.aionemu.commons.database.dao.DAOManager;
 import com.aionemu.gameserver.dao.InventoryDAO;
 import com.aionemu.gameserver.model.DescriptionId;
+import com.aionemu.gameserver.model.Race;
 import com.aionemu.gameserver.model.gameobjects.Creature;
 import com.aionemu.gameserver.model.gameobjects.Item;
 import com.aionemu.gameserver.model.gameobjects.PersistentState;
@@ -78,6 +79,24 @@ public class Equipment
 			return null;
 		}
 		
+		if(owner.getAccessLevel() == 0)
+		{
+			switch(itemTemplate.getRace())
+			{
+				case ASMODIANS:
+					if(owner.getCommonData().getRace() != Race.ASMODIANS)
+						return null;
+					break;
+				case ELYOS:
+					if(owner.getCommonData().getRace() != Race.ELYOS)
+						return null;
+					break;
+			}	
+
+			if(!itemTemplate.isAllowedFor(owner.getCommonData().getPlayerClass(), owner.getLevel()))
+				return null;
+		}
+
 		int itemSlotToEquip = 0;
 		
 		synchronized(equipment)
