@@ -23,12 +23,15 @@ import com.aionemu.commons.utils.concurrent.RunnableStatsManager;
 
 /**
  * @author lord_rex and MrPoke 
- * 	based on l2j-free engines.
+ * 		based on l2j-free engines.
  */
 public abstract class AbstractFIFOPeriodicTaskManager<T> extends AbstractPeriodicTaskManager
 {
-	protected static final Logger	log		= Logger.getLogger(AbstractFIFOPeriodicTaskManager.class);
-	private final AEFastSet<T>		queue	= new AEFastSet<T>();
+	protected static final Logger	log			= Logger.getLogger(AbstractFIFOPeriodicTaskManager.class);
+
+	private final AEFastSet<T>		queue		= new AEFastSet<T>();
+
+	private final AEFastSet<T>		activeTasks	= new AEFastSet<T>();
 
 	public AbstractFIFOPeriodicTaskManager(int period)
 	{
@@ -48,36 +51,22 @@ public abstract class AbstractFIFOPeriodicTaskManager<T> extends AbstractPeriodi
 		}
 	}
 
-	private final T getFirst()
-	{
-		writeLock();
-		try
-		{
-			return queue.getFirst();
-		}
-		finally
-		{
-			writeUnlock();
-		}
-	}
-
-	private final void remove(T t)
-	{
-		writeLock();
-		try
-		{
-			queue.remove(t);
-		}
-		finally
-		{
-			writeUnlock();
-		}
-	}
-
 	@Override
 	public final void run()
 	{
-		for(T task; (task = getFirst()) != null;)
+		writeLock();
+		try
+		{
+			activeTasks.addAll(queue);
+
+			queue.clear();
+		}
+		finally
+		{
+			writeUnlock();
+		}
+
+		for(T task; (task = activeTasks.removeFirst()) != null;)
 		{
 			final long begin = System.nanoTime();
 
@@ -87,13 +76,11 @@ public abstract class AbstractFIFOPeriodicTaskManager<T> extends AbstractPeriodi
 			}
 			catch(RuntimeException e)
 			{
-				log.error("", e);
+				log.warn("", e);
 			}
 			finally
 			{
 				RunnableStatsManager.handleStats(task.getClass(), getCalledMethodName(), System.nanoTime() - begin);
-
-				remove(task);
 			}
 		}
 	}
