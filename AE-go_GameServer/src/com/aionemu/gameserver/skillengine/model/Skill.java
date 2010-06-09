@@ -22,6 +22,7 @@ import java.util.List;
 
 import com.aionemu.gameserver.controllers.movement.StartMovingListener;
 import com.aionemu.gameserver.model.gameobjects.Creature;
+import com.aionemu.gameserver.model.gameobjects.Npc;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.gameobjects.stats.StatEnum;
 import com.aionemu.gameserver.model.templates.item.ItemTemplate;
@@ -107,32 +108,34 @@ public class Skill
 	}
 
 	/**
-	 *  Skill entry point
+	 * Check if the skill can be used
+	 * 
+	 * @return True if the skill can be used
 	 */
-	public void useSkill()
+	public boolean canUseSkill()
 	{
 		if(!skillTemplate.isActive() 
 			&& skillTemplate.isPassive()
 			&& skillTemplate.isProvoked()
 			&& skillTemplate.isToggle())
-			return;
+			return false;
 		
 		if(!setProperties(skillTemplate.getInitproperties()))
-			return;
+			return false;
 		
 		if(!preCastCheck())
-			return;
+			return false;
 		
 		if(!setProperties(skillTemplate.getSetproperties()))
-			return;
+			return false;
 		
-		//start casting
 		effector.setCasting(this);
-		
 		Iterator<Creature> effectedIter = effectedList.iterator();
 		while(effectedIter.hasNext())
 		{
 			Creature effected = effectedIter.next();
+			if(effected == null)
+				effected = effector;
 
 			if(effector instanceof Player)
 			{
@@ -145,12 +148,25 @@ public class Skill
 					effectedIter.remove();
 			}
 		}
+		effector.setCasting(null);
 		
 		if(effectedList.size() == 0)
 		{
-			effector.setCasting(null);
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 *  Skill entry point
+	 */
+	public void useSkill()
+	{
+		if (!canUseSkill())
 			return;
-		}	
+
+		//start casting
+		effector.setCasting(this);
 		
 		int skillDuration = skillTemplate.getDuration();
 		int currentStat = effector.getGameStats().getCurrentStat(StatEnum.BOOST_CASTING_TIME);

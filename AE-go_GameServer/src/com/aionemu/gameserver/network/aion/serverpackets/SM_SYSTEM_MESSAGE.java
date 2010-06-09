@@ -676,6 +676,16 @@ public class SM_SYSTEM_MESSAGE extends AionServerPacket
 		return new SM_SYSTEM_MESSAGE(1400133, charName);
 	}
 
+	/**
+	 * You cannot use an item while running a Private Store.
+	 */
+	public static SM_SYSTEM_MESSAGE STR_MSG_CANNOT_USE_ITEM_WHILE_PRIVATE_STORE	= new SM_SYSTEM_MESSAGE(1300048, new DescriptionId(2800123));
+
+	/**
+	 * You can use this skill only while flying.
+	 */
+	public static SM_SYSTEM_MESSAGE STR_SKILL_RESTRICTION_FLY_ONLY		= new SM_SYSTEM_MESSAGE(1300113);
+
 	public static SM_SYSTEM_MESSAGE	STR_ITEM_ERROR						= new SM_SYSTEM_MESSAGE(1300514);
 
 	/**

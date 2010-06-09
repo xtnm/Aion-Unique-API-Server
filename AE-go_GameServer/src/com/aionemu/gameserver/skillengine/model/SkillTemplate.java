@@ -308,4 +308,9 @@ public class SkillTemplate
 	{
 		return getEffects() != null && getEffects().isResurrect();
 	}
+
+	public boolean hasItemHealFpEffect()
+	{
+		return getEffects() != null && getEffects().isItemHealFp();
+	}
 }

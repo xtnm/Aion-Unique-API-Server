@@ -182,4 +182,18 @@ public class Effects
 		}
 		return false;
 	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean isItemHealFp()
+	{
+		for(EffectTemplate template : getEffects())
+		{
+			if(template instanceof ItemHealFpEffect)
+				return true;
+		}
+		return false;
+	}
 }

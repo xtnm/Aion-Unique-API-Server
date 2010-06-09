@@ -38,19 +38,31 @@ public class PlayerRestrictions extends AbstractRestrictions
 	@Override
 	public boolean canAffectBySkill(Player player, VisibleObject target)
 	{
-		if(((Creature) target).getLifeStats().isAlreadyDead()
-			&& !player.getCastingSkill().getSkillTemplate().hasResurrectEffect())
+		Skill skill = player.getCastingSkill();
+		if(skill == null)
+			return false;
+
+		if(((Creature) target).getLifeStats().isAlreadyDead() && !skill.getSkillTemplate().hasResurrectEffect())
 		{
 			PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.INVALID_TARGET());
 			return false;
 		}
-		
+
+		if(skill.getSkillTemplate().hasItemHealFpEffect() && !player.isInState(CreatureState.FLYING))
+		{ // player must be flying when using flight potions
+			PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_SKILL_RESTRICTION_FLY_ONLY);
+			return false;
+		}
+
 		if(player.getEffectController().isAbnormalState(EffectId.CANT_ATTACK_STATE))
 			return false;
-		
-		if(player.isInState(CreatureState.RESTING) || player.isInState(CreatureState.PRIVATE_SHOP))
+
+		if(player.isInState(CreatureState.PRIVATE_SHOP))
+		{
+			PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_MSG_CANNOT_USE_ITEM_WHILE_PRIVATE_STORE);
 			return false;
-		
+		}
+
 		return true;
 	}
 	
