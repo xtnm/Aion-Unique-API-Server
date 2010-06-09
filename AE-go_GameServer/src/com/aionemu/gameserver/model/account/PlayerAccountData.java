@@ -17,11 +17,11 @@
 package com.aionemu.gameserver.model.account;
 
 import java.sql.Timestamp;
+import java.util.List;
 
-import com.aionemu.gameserver.model.gameobjects.player.Equipment;
+import com.aionemu.gameserver.model.gameobjects.Item;
 import com.aionemu.gameserver.model.gameobjects.player.PlayerAppearance;
 import com.aionemu.gameserver.model.gameobjects.player.PlayerCommonData;
-import com.aionemu.gameserver.model.gameobjects.player.Storage;
 import com.aionemu.gameserver.model.legion.Legion;
 import com.aionemu.gameserver.model.legion.LegionMember;
 
@@ -38,15 +38,13 @@ public class PlayerAccountData
 {
 	private PlayerCommonData	playerCommonData;
 	private PlayerAppearance	appereance;
-	private Storage				inventory;
-	private Storage				warehouse;
-	private Equipment			equipment;
+	private List<Item>			equipment;
 	private Timestamp			creationDate;
 	private Timestamp			deletionDate;
 	private LegionMember		legionMember;
 
 	public PlayerAccountData(PlayerCommonData playerCommonData, PlayerAppearance appereance,
-		Equipment equipment, LegionMember legionMember)
+		List<Item> equipment, LegionMember legionMember)
 	{
 		this.playerCommonData = playerCommonData;
 		this.appereance = appereance;
@@ -136,41 +134,9 @@ public class PlayerAccountData
 	}
 
 	/**
-	 * @return the inventory
-	 */
-	public Storage getInventory()
-	{
-		return inventory;
-	}
-
-	/**
-	 * @param inventory the inventory to set
-	 */
-	public void setInventory(Storage inventory)
-	{
-		this.inventory = inventory;
-	}
-
-	/**
-	 * @return the warehouse
-	 */
-	public Storage getWarehouse()
-	{
-		return warehouse;
-	}
-
-	/**
-	 * @param warehouse the warehouse to set
-	 */
-	public void setWarehouse(Storage warehouse)
-	{
-		this.warehouse = warehouse;
-	}
-
-	/**
 	 * @return the equipment
 	 */
-	public Equipment getEquipment()
+	public List<Item> getEquipment()
 	{
 		return equipment;
 	}
@@ -178,7 +144,7 @@ public class PlayerAccountData
 	/**
 	 * @param equipment the equipment to set
 	 */
-	public void setEquipment(Equipment equipment)
+	public void setEquipment(List<Item> equipment)
 	{
 		this.equipment = equipment;
 	}

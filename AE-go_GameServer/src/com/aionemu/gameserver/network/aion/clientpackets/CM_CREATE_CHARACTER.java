@@ -17,12 +17,16 @@
 package com.aionemu.gameserver.network.aion.clientpackets;
 
 import java.sql.Timestamp;
+import java.util.List;
 
+import com.aionemu.commons.database.dao.DAOManager;
+import com.aionemu.gameserver.dao.InventoryDAO;
 import com.aionemu.gameserver.model.Gender;
 import com.aionemu.gameserver.model.PlayerClass;
 import com.aionemu.gameserver.model.Race;
 import com.aionemu.gameserver.model.account.Account;
 import com.aionemu.gameserver.model.account.PlayerAccountData;
+import com.aionemu.gameserver.model.gameobjects.Item;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.gameobjects.player.PlayerAppearance;
 import com.aionemu.gameserver.model.gameobjects.player.PlayerCommonData;
@@ -209,8 +213,8 @@ public class CM_CREATE_CHARACTER extends AionClientPacket
 		}
 		else
 		{
-			PlayerAccountData accPlData = new PlayerAccountData(playerCommonData, playerAppearance, player.getEquipment(), null);
-			accPlData.setInventory(player.getInventory());
+			List<Item> equipment = DAOManager.getDAO(InventoryDAO.class).loadEquipment(player.getObjectId());
+			PlayerAccountData accPlData = new PlayerAccountData(playerCommonData, playerAppearance, equipment, null);
 
 			accPlData.setCreationDate(new Timestamp(System.currentTimeMillis()));
 			playerService.storeCreationTime(player.getObjectId(), accPlData.getCreationDate());

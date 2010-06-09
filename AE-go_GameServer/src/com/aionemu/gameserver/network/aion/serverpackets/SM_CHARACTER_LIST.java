@@ -61,10 +61,4 @@ public class SM_CHARACTER_LIST extends PlayerInfo
 			writeB(buf, new byte[14]);
 		}
 	}
-
-	/**
-	 * @param buf
-	 * @param playerData
-	 * @param items
-	 */
 }

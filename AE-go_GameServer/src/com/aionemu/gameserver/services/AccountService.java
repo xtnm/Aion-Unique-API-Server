@@ -32,7 +32,7 @@ import com.aionemu.gameserver.dataholders.PlayerInitialData;
 import com.aionemu.gameserver.model.account.Account;
 import com.aionemu.gameserver.model.account.AccountTime;
 import com.aionemu.gameserver.model.account.PlayerAccountData;
-import com.aionemu.gameserver.model.gameobjects.player.Equipment;
+import com.aionemu.gameserver.model.gameobjects.Item;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.gameobjects.player.PlayerAppearance;
 import com.aionemu.gameserver.model.gameobjects.player.PlayerCommonData;
@@ -147,14 +147,12 @@ public class AccountService
 			Player player = new Player(controllerFactory.playerController(), playerCommonData, appereance);
 
 			
-			LegionMember legionMember = DAOManager.getDAO(LegionMemberDAO.class).loadLegionMember(player.getObjectId(),
-				legionService);
+			LegionMember legionMember = DAOManager.getDAO(LegionMemberDAO.class).loadLegionMember(playerOid,legionService);
 			
 			/**
 			 * Load only equipment and its stones to display on character selection screen
 			 */
-			Equipment equipment = DAOManager.getDAO(InventoryDAO.class).loadEquipment(player);
-			itemService.loadItemStones(equipment.getEquippedItemsWithoutStigma());
+			List<Item> equipment = DAOManager.getDAO(InventoryDAO.class).loadEquipment(playerOid);
 			
 			PlayerAccountData acData = new PlayerAccountData(playerCommonData, appereance, equipment,
 				legionMember);

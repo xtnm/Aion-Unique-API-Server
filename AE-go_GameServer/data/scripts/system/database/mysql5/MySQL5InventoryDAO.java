@@ -140,6 +140,45 @@ public class MySQL5InventoryDAO extends InventoryDAO
 		return equipment;
 	}
 
+	@Override
+	public List<Item> loadEquipment(int playerId)
+	{
+		final List<Item> items = new ArrayList<Item>();
+		final int storage = 0;
+		final int equipped = 1;
+		final int owner = playerId;
+
+		DB.select(SELECT_QUERY, new ParamReadStH()
+		{
+			@Override
+			public void setParams(PreparedStatement stmt) throws SQLException
+			{
+				stmt.setInt(1, owner);
+				stmt.setInt(2, storage);
+				stmt.setInt(3, equipped);
+			}
+
+			@Override
+			public void handleRead(ResultSet rset) throws SQLException
+			{
+				while(rset.next())
+				{
+					int itemUniqueId = rset.getInt("itemUniqueId");
+					int itemId = rset.getInt("itemId");
+					int itemCount = rset.getInt("itemCount");
+					int itemColor = rset.getInt("itemColor");
+					int isSoulBound = rset.getInt("isSoulBound");
+					int slot = rset.getInt("slot");
+					int enchant = rset.getInt("enchant");
+					int itemSkin = rset.getInt("itemSkin");
+					Item item = new Item(itemUniqueId, itemId, itemCount, itemColor, true, isSoulBound == 1, slot, storage, enchant, itemSkin);
+					items.add(item);
+				}
+			}
+		});
+		return items;
+	}
+
 	public int getPlayerAccountId(final int playerId)
 	{
 		final List<Integer> owner = new ArrayList<Integer>();

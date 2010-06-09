@@ -234,6 +234,12 @@ public class PlayerService
 		player.setPlayerStatsTemplate(playerStatsData.getTemplate(player));
 
 		player.setGameStats(new PlayerGameStats(playerStatsData, player));
+
+		Equipment equipment = DAOManager.getDAO(InventoryDAO.class).loadEquipment(player);
+		itemService.loadItemStones(equipment.getEquippedItemsWithoutStigma());
+		equipment.setOwner(player);
+		player.setEquipment(equipment);
+
 		player.setLifeStats(new PlayerLifeStats(player, player.getPlayerStatsTemplate().getMaxHp(), player
 			.getPlayerStatsTemplate().getMaxMp()));
 		player.setEffectController(new PlayerEffectController(player));
@@ -242,13 +248,6 @@ public class PlayerService
 		
 		player.setQuestStateList(DAOManager.getDAO(PlayerQuestListDAO.class).load(player));
 		player.setRecipeList(DAOManager.getDAO(PlayerRecipesDAO.class).load(player.getObjectId()));
-
-		/**
-		 * Equipment should be already loaded in account
-		 */
-		Equipment equipment = playerAccountData.getEquipment();
-		equipment.setOwner(player);
-		player.setEquipment(equipment);
 		
 		/**
 		 * Account warehouse should be already loaded in account
@@ -256,26 +255,14 @@ public class PlayerService
 		Storage accWarehouse = account.getAccountWarehouse();
 		player.setStorage(accWarehouse, StorageType.ACCOUNT_WAREHOUSE);
 		
-		/**
-		 * Check CUBE storage in account and if missing - load
-		 */
-		Storage inventory = playerAccountData.getInventory();
-		if(inventory == null)
-		{
-			inventory = DAOManager.getDAO(InventoryDAO.class).loadStorage(player, StorageType.CUBE);
-			itemService.loadItemStones(inventory.getStorageItems());
-		}
+		Storage inventory = DAOManager.getDAO(InventoryDAO.class).loadStorage(player, StorageType.CUBE);
+		itemService.loadItemStones(inventory.getStorageItems());
+
 		player.setStorage(inventory, StorageType.CUBE);
 		
-		/**
-		 * Check WAREHOUSE storage in account and if missing - load
-		 */
-		Storage warehouse = playerAccountData.getWarehouse();
-		if(warehouse == null)
-		{
-			warehouse = DAOManager.getDAO(InventoryDAO.class).loadStorage(player, StorageType.REGULAR_WAREHOUSE);
-			itemService.loadItemStones(warehouse.getStorageItems());
-		}
+		Storage warehouse = DAOManager.getDAO(InventoryDAO.class).loadStorage(player, StorageType.REGULAR_WAREHOUSE);
+		itemService.loadItemStones(warehouse.getStorageItems());
+
 		player.setStorage(warehouse, StorageType.REGULAR_WAREHOUSE);
 		
 		/**
@@ -428,13 +415,6 @@ public class PlayerService
 
 		player.getCommonData().setOnline(false);
 		player.getCommonData().setLastOnline(new Timestamp(System.currentTimeMillis()));
-
-		/**
-		 * Store regular warehouse and cube storages in account data
-		 */
-		PlayerAccountData playerAccountData = player.getClientConnection().getAccount().getPlayerAccountData(player.getObjectId());
-		playerAccountData.setWarehouse(player.getWarehouse());
-		playerAccountData.setInventory(player.getInventory());
 		
 		player.setClientConnection(null);
 

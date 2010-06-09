@@ -16,6 +16,8 @@
  */
 package com.aionemu.gameserver.dao;
 
+import java.util.List;
+
 import com.aionemu.gameserver.model.gameobjects.Item;
 import com.aionemu.gameserver.model.gameobjects.player.Equipment;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
@@ -41,6 +43,12 @@ public abstract class InventoryDAO implements IDFactoryAwareDAO
 	public abstract Equipment loadEquipment(Player player);
 
 	/**
+	 * @param playerId
+	 * @return
+	 */
+	public abstract List<Item> loadEquipment(int playerId);
+
+	/**
 	 * @param inventory
 	 */
 	public abstract boolean store(Player player);
@@ -60,5 +68,4 @@ public abstract class InventoryDAO implements IDFactoryAwareDAO
 	{
 		return InventoryDAO.class.getName();
 	}
-
 }
