@@ -16,9 +16,10 @@
  */
 package com.aionemu.gameserver.ai;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Future;
+
+import javolution.util.FastMap;
 
 import com.aionemu.gameserver.ai.desires.Desire;
 import com.aionemu.gameserver.ai.desires.DesireQueue;
@@ -40,8 +41,8 @@ public abstract class AI<T extends Creature> implements Runnable
 	 */
 	private static final DummyAi dummyAi = new DummyAi();
 	
-	protected Map<Event, EventHandler> eventHandlers = new HashMap<Event, EventHandler>();
-	protected Map<AIState, StateHandler> stateHandlers = new HashMap<AIState, StateHandler>();
+	protected Map<Event, EventHandler> eventHandlers = new FastMap<Event, EventHandler>();
+	protected Map<AIState, StateHandler> stateHandlers = new FastMap<AIState, StateHandler>();
 	
 	protected DesireQueue desireQueue = new DesireQueue();
 
