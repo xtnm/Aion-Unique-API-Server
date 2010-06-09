@@ -89,8 +89,12 @@ public class CM_TARGET_SELECT extends AionClientPacket
 			{
 				player.setTarget(((VisibleObject) obj));
 			}
-			sendPacket(new SM_TARGET_SELECTED(player));
-			PacketSendUtility.broadcastPacket(player, new SM_TARGET_UPDATE(player));
 		}
+		else
+		{
+			player.setTarget(null);
+		}
+		sendPacket(new SM_TARGET_SELECTED(player));
+		PacketSendUtility.broadcastPacket(player, new SM_TARGET_UPDATE(player));
 	}
 }
