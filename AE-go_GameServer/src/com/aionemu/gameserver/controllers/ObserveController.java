@@ -265,7 +265,7 @@ public class ObserveController
 	/**
 	 * @param attackList
 	 */
-	public void checShieldStatus(List<AttackResult> attackList)
+	public void checkShieldStatus(List<AttackResult> attackList)
 	{
 		synchronized(attackCalcObservers)
 		{

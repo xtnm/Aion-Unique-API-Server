@@ -86,14 +86,14 @@ public class AttackUtil
 			List<AttackResult> attackList = new ArrayList<AttackResult>();
 			attackList.addAll(splitPhysicalDamage(attacker, attacked, mainHandHits, damage, status));
 			attackList.addAll(splitPhysicalDamage(attacker, attacked, offHandHits, offHandDamage, offHandStatus));
-			attacked.getObserveController().checShieldStatus(attackList);
+			attacked.getObserveController().checkShieldStatus(attackList);
 			
 			return attackList;
 		}
 
 		int hitCount = Rnd.get(1,gameStats.getCurrentStat(StatEnum.MAIN_HAND_HITS));
 		List<AttackResult> attackList = splitPhysicalDamage(attacker, attacked, hitCount, damage, status);
-		attacked.getObserveController().checShieldStatus(attackList);
+		attacked.getObserveController().checkShieldStatus(attackList);
 		return attackList;
 	}
 
@@ -256,7 +256,7 @@ public class AttackUtil
 	private static void calculateEffectResult(Effect effect, Creature effected, int damage, AttackStatus status)
 	{
 		AttackResult attackResult = new AttackResult(damage, status);
-		effected.getObserveController().checShieldStatus(Collections.singletonList(attackResult));
+		effected.getObserveController().checkShieldStatus(Collections.singletonList(attackResult));
 		effect.setReserved1(attackResult.getDamage());
 		effect.setAttackStatus(attackResult.getAttackStatus());
 		effect.setShieldDefense(attackResult.getShieldType());

@@ -45,7 +45,7 @@ import com.aionemu.gameserver.world.World;
 import com.google.inject.Inject;
 
 /**
- * @author ATracer
+ * @author ATracer, Rama
  * 
  */
 public class TradeService
@@ -80,7 +80,7 @@ public class TradeService
 		Item kinahItem = inventory.getKinahItem();
 
 		// 1. check kinah
-		if(!tradeList.calculateBuyListPrice(player, 2))
+		if(!tradeList.calculateBuyListPrice(player))
 			return false;
 
 		// 2. check free slots, need to check retail behaviour
@@ -231,7 +231,7 @@ public class TradeService
 		}
 
 		Item kinahItem = inventory.getKinahItem();
-		inventory.increaseKinah(kinahReward / 2);
+		inventory.increaseKinah(kinahReward / 5);
 		PacketSendUtility.sendPacket(player, new SM_UPDATE_ITEM(kinahItem));
 
 		return true;

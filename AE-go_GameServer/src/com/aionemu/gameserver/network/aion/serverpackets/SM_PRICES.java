@@ -22,7 +22,7 @@ import com.aionemu.gameserver.network.aion.AionConnection;
 import com.aionemu.gameserver.network.aion.AionServerPacket;
 
 /**
- * @author xavier
+ * @author xavier, Rama
  * Price/tax in Influence ration dialog
  */
 public class SM_PRICES extends AionServerPacket
@@ -34,8 +34,8 @@ public class SM_PRICES extends AionServerPacket
 	@Override
 	protected void writeImpl(AionConnection con, ByteBuffer buf)
 	{
-		writeC(buf, 100); //Price %
-        writeC(buf, 100); //unk
+		writeC(buf, 50); //Buying Price %
+        writeC(buf, 10); //Selling Price %
         writeC(buf, 100); //Tax = -100 + C %
 	}
 }
