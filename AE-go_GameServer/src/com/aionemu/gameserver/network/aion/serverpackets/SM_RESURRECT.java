@@ -25,28 +25,32 @@ import com.aionemu.gameserver.network.aion.AionServerPacket;
 /**
  * 
  * @author ATracer
- * 
+ * @author Jego
  */
 public class SM_RESURRECT extends AionServerPacket
 {
-	private String name;
-	private int skillId;
-	
+	private String	name;
+	private int		skillId;
+
 	public SM_RESURRECT(Creature creature)
 	{
+		this(creature, 0);
+	}
+
+	public SM_RESURRECT(Creature creature, int skillId)
+	{
 		this.name = creature.getName();
-		this.skillId = creature.getCastingSkillId();
+		this.skillId = skillId;
 	}
 
 	/**
-	 * {@inheritDoc} dc
+	 * {@inheritDoc}
 	 */
-	
 	@Override
 	protected void writeImpl(AionConnection con, ByteBuffer buf)
-	{	
+	{
 		writeS(buf, name);
-		writeH(buf, skillId); //unk
-		writeD(buf, 0); 
-	}	
+		writeH(buf, skillId); // unk
+		writeD(buf, 0);
+	}
 }

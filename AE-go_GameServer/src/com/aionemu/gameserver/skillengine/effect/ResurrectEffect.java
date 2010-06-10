@@ -27,7 +27,7 @@ import com.aionemu.gameserver.utils.PacketSendUtility;
 
 /**
  * @author ATracer
- *
+ * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ResurrectEffect")
@@ -36,7 +36,7 @@ public class ResurrectEffect extends EffectTemplate
 	@Override
 	public void applyEffect(Effect effect)
 	{
-		PacketSendUtility.sendPacket((Player) effect.getEffected(), new SM_RESURRECT(effect.getEffector()));
+		PacketSendUtility.sendPacket((Player) effect.getEffected(), new SM_RESURRECT(effect.getEffector(), effect.getSkillId()));
 	}
 
 	@Override
