@@ -3228,7 +3228,7 @@
 		<object x="2899.22200" y="2617.22700" z="59.03172" h="84"/>
 		<object x="2822.69600" y="2613.09900" z="54.07599" h="109"/>
 	</spawn>
-	<!-- Kerubiel Sentinel (Monster Normal lvl:33)-->
+	<!-- Kerubiel Sentinel (Monster Normal lvl:47)-->
 	<spawn map="210060000" npcid="214236" pool="6" interval="295">
 		<object x="2844.7854" y="2687.2632" z="50.217102" h="115"/>
 		<object x="2862.0613" y="2650.861" z="54.950012" h="102"/>
@@ -3237,7 +3237,7 @@
 		<object x="2854.4531" y="2595.7742" z="57.33487" h="34"/>
 		<object x="2872.6748" y="2665.9136" z="56.20935" h="35"/>
 	</spawn>
-	<!-- Kerubiel Sentinel (Monster Normal lvl:32)-->
+	<!-- Kerubiel Sentinel (Monster Normal lvl:46)-->
 	<spawn map="210060000" npcid="214235" pool="8" interval="295">
 		<object x="2772.1348" y="2746.6003" z="57.125" h="103"/>
 		<object x="2864.5684" y="2742.803" z="58.29683" h="92"/>
