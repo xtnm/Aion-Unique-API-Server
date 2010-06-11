@@ -234,14 +234,14 @@ public class _1014OdiumintheDukakiSettlement extends QuestHandler
 			@Override
 			public void run()
 			{
+				PacketSendUtility.sendPacket(player, new SM_PLAY_MOVIE(0, 172));
 				PacketSendUtility.broadcastPacket(player, new SM_ITEM_USAGE_ANIMATION(player.getObjectId(), itemObjId, id, 0, 1, 0), true);
 			    player.getInventory().removeFromBagByItemId(182200012, 1);
 				player.getInventory().removeFromBagByItemId(182200011, 1);
 				qs.setQuestVarById(0, 14);
 				updateQuestStatus(player, qs);
 			}
-		}, 3000);
-		PacketSendUtility.sendPacket(player, new SM_PLAY_MOVIE(0, 172));		
+		}, 3000);	
 		return true;
 	}
 }
