@@ -689,6 +689,11 @@ public class SM_SYSTEM_MESSAGE extends AionServerPacket
 	public static SM_SYSTEM_MESSAGE	STR_ITEM_ERROR						= new SM_SYSTEM_MESSAGE(1300514);
 
 	/**
+	 * You cannot use the item as its cooldown time has not expired yet.
+	 */
+	public static SM_SYSTEM_MESSAGE	STR_ITEM_CANT_USE_UNTIL_DELAY_TIME	= new SM_SYSTEM_MESSAGE(1300494);
+
+	/**
 	 * You cannot fly in this area.
 	 */
 	public static SM_SYSTEM_MESSAGE	STR_FLYING_FORBIDDEN_HERE			= new SM_SYSTEM_MESSAGE(1300960);

@@ -16,6 +16,8 @@
  */
 package com.aionemu.gameserver.network.aion.clientpackets;
 
+import java.util.ArrayList;
+
 import org.apache.log4j.Logger;
 
 import com.aionemu.gameserver.itemengine.actions.AbstractItemAction;
@@ -24,6 +26,7 @@ import com.aionemu.gameserver.model.Race;
 import com.aionemu.gameserver.model.gameobjects.Item;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
+import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.questEngine.QuestEngine;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.utils.PacketSendUtility;
@@ -106,35 +109,35 @@ public class CM_USE_ITEM extends AionClientPacket {
 			targetItem = player.getEquipment().getEquippedItemByObjId(targetItemId);
 
 		ItemActions itemActions = item.getItemTemplate().getActions();
+		ArrayList<AbstractItemAction> actions = new ArrayList<AbstractItemAction>();
 
-		if (itemActions != null)
+		if (itemActions == null)
+			return;
+		
+		for (AbstractItemAction itemAction : itemActions.getItemActions())
 		{
-			for (AbstractItemAction itemAction : itemActions.getItemActions())
-			{ // check if the item can be used before placing it on the cooldown list.
-				if (!itemAction.canAct(player, item, targetItem))
-					return;
-			}
+			// check if the item can be used before placing it on the cooldown list.
+			if (itemAction.canAct(player, item, targetItem))
+				actions.add(itemAction);
 		}
+		
+		if(actions.size() == 0)
+			return;
 		
 		// Store Item CD in server Player variable.
 		// Prevents potion spamming, and relogging to use kisks/aether jelly/long CD items.
 		if (player.isItemUseDisabled(item.getItemTemplate().getDelayId()))
 		{
-			PacketSendUtility.sendMessage(player, "That item is still in cooldown.");
+			PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_ITEM_CANT_USE_UNTIL_DELAY_TIME);
 			return;
 		}
-		else
-		{
-			int useDelay = item.getItemTemplate().getDelayTime();
-			player.addItemCoolDown(item.getItemTemplate().getDelayId(), System.currentTimeMillis() + useDelay, useDelay / 1000);
-		}
+		
+		int useDelay = item.getItemTemplate().getDelayTime();
+		player.addItemCoolDown(item.getItemTemplate().getDelayId(), System.currentTimeMillis() + useDelay, useDelay / 1000);
 
-		if (itemActions != null)
+		for (AbstractItemAction itemAction : actions)
 		{
-			for (AbstractItemAction itemAction : itemActions.getItemActions())
-			{
-				itemAction.act(player, item, targetItem);
-			}
+			itemAction.act(player, item, targetItem);
 		}
 	}
 }
