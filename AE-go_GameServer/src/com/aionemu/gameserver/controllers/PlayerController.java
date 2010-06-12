@@ -37,6 +37,7 @@ import com.aionemu.gameserver.model.gameobjects.state.CreatureState;
 import com.aionemu.gameserver.model.gameobjects.state.CreatureVisualState;
 import com.aionemu.gameserver.model.gameobjects.stats.PlayerGameStats;
 import com.aionemu.gameserver.model.templates.quest.QuestItems;
+import com.aionemu.gameserver.model.gameobjects.stats.StatEnum;
 import com.aionemu.gameserver.model.templates.stats.PlayerStatsTemplate;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_ATTACK;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_ATTACK_STATUS;
@@ -76,7 +77,7 @@ import com.google.inject.internal.Nullable;
  * This class is for controlling players.
  * 
  * @author -Nemesiss-, ATracer (2009-09-29), xavier, Sarynth
- * 
+ * @author RotO (Attack-speed hack protection)
  */
 public class PlayerController extends CreatureController<Player>
 {
@@ -86,6 +87,8 @@ public class PlayerController extends CreatureController<Player>
 	 * Zone update mask
 	 */
 	private volatile byte	zoneUpdateMask;
+
+	private long lastAttackMilis = 0;
 
 	/**
 	 * {@inheritDoc}
@@ -325,7 +328,18 @@ public class PlayerController extends CreatureController<Player>
 
 		if(!RestrictionsManager.canAttack(player, target))
 			return;
-		
+
+		int attackSpeed = gameStats.getCurrentStat(StatEnum.ATTACK_SPEED);
+		long milis = System.currentTimeMillis();
+		if (milis - lastAttackMilis < attackSpeed)
+		{
+			/**
+			 * Hack!
+			 */
+			return;
+		}
+		lastAttackMilis = milis;
+
 		/**
 		 * notify attack observers
 		 */

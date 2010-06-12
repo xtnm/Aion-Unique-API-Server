@@ -26,6 +26,7 @@ import com.aionemu.gameserver.model.gameobjects.Summon;
 import com.aionemu.gameserver.model.gameobjects.VisibleObject;
 import com.aionemu.gameserver.model.gameobjects.Summon.SummonMode;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
+import com.aionemu.gameserver.model.gameobjects.stats.StatEnum;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_ATTACK;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_ATTACK_STATUS;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_EMOTION;
@@ -43,10 +44,12 @@ import com.aionemu.gameserver.utils.ThreadPoolManager;
 
 /**
  * @author ATracer
- * 
+ * @author RotO (Attack-speed hack protection)
  */
 public class SummonController extends CreatureController<Summon>
 {
+	private long lastAttackMilis = 0;
+
 	@Override
 	public void notSee(VisibleObject object, boolean isOutOfRange)
 	{
@@ -180,6 +183,18 @@ public class SummonController extends CreatureController<Summon>
 
 		if(!summon.isEnemy(target))
 			return;
+
+		int attackSpeed = summon.getGameStats().getCurrentStat(StatEnum.ATTACK_SPEED);
+		long milis = System.currentTimeMillis();
+		if (milis - lastAttackMilis < attackSpeed)
+		{
+			/**
+			 * Hack!
+			 */
+			return;
+		}
+		lastAttackMilis = milis;
+
 		/**
 		 * notify attack observers
 		 */

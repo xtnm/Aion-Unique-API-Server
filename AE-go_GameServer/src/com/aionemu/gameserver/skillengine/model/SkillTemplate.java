@@ -70,7 +70,7 @@ public class SkillTemplate
     protected ActivationAttribute activationAttribute;
     @XmlAttribute(required = true)
     protected int duration;
-    @XmlAttribute
+    @XmlAttribute(name = "cooldown")
     protected int cooldown;
     @XmlAttribute(name = "penalty_skill_id")
     protected int penaltySkillId;
