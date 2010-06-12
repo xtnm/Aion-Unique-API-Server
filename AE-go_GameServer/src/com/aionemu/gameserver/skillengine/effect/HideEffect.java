@@ -137,6 +137,19 @@ public class HideEffect extends BufEffect
 			PacketSendUtility.broadcastPacket((Player)effected, new SM_PLAYER_STATE((Player)effected), true);
 		}
 		
+		// Remove Hide when attacked
+		effected.getObserveController().attach(
+			new ActionObserver(ObserverType.ATTACKED)
+			{
+				@Override
+				public void attacked(Creature creature)
+				{
+					effected.getEffectController().removeEffect(effect.getSkillId());
+				}
+			}
+		);
+		
+		// Remove Hide when attacking
 		effected.getObserveController().attach(
 			new ActionObserver(ObserverType.ATTACK)
 			{
