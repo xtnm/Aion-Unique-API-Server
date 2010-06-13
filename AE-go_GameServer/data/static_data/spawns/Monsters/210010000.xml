@@ -688,7 +688,7 @@
 	</spawn>
 	<!-- Paruru Slowlegs (Named Mob Normal lvl:4)-->
 	<spawn map="210010000" npcid="210673" pool="1" interval="1800">
-		<object x="647.9125" y="891.6571" z="103.625" h="83"/>
+		<object x="647.9125" y="891.6571" z="103.625" h="83" w="17"/>
 	</spawn>
 	<!-- Pincerhead Sparkle (Monster Normal lvl:8)-->
 	<spawn map="210010000" npcid="210114" pool="17" interval="295">

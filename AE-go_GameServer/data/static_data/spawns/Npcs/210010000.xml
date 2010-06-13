@@ -165,7 +165,7 @@
 	</spawn>
 	<!-- Lonian (NPC Normal lvl:10)-->
 	<spawn map="210010000" npcid="203080" pool="1" interval="295">
-		<object x="423.15802" y="1748.3923" z="120.01" h="32"/>
+		<object x="423.15802" y="1748.3923" z="120.01" h="2"/>
 	</spawn>
 	<!-- Mailbox (Object Normal lvl:1)-->
 	<spawn map="210010000" npcid="700000" pool="1" interval="295">
@@ -362,5 +362,5 @@
 		<object x="657.68" y="890.9" z="103.661255" h="78"/>
 		<object x="641.84" y="884.38" z="103.625" h="9"/>
 		<object x="632.62" y="889.38" z="104.455185" h="109"/>
-	</spawn>
+	</spawn>	
 </spawns>

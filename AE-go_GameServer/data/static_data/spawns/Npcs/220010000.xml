@@ -260,7 +260,7 @@
 	</spawn>
 	<!-- Linevir (NPC Elite lvl:45)-->
 	<spawn map="220010000" npcid="203512" pool="1" interval="295">
-		<object x="585.4244" y="2467.0603" z="279.3" h="0"/>
+		<object x="586.414" y="2465.1787" z="278.59955" h="115"/>
 	</spawn>
 	<!-- Mailbox (Object Normal lvl:1)-->
 	<spawn map="220010000" npcid="700079" pool="1" interval="295">
@@ -330,7 +330,7 @@
 	</spawn>
 	<!-- Obelisk (Object Normal lvl:3)-->
 	<spawn map="220010000" npcid="700062" pool="1" interval="295">
-		<object x="587.59735" y="2467.2158" z="279.13333" h="0"/>
+		<object x="587.59735" y="2467.2158" z="279.13333" h="105"/>
 	</spawn>
 	<!-- Obelisk (Object Normal lvl:3)-->
 	<spawn map="220010000" npcid="700063" pool="1" interval="295">

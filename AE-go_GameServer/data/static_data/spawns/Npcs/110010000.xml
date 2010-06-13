@@ -118,7 +118,7 @@
 	</spawn>
 	<!-- Ballos (NPC Normal lvl:47)-->
 	<spawn map="110010000" npcid="203826" pool="1" interval="295">
-		<object x="1836.18000" y="1605.56000" z="586.00000" h="43"/>
+		<object x="1836.18000" y="1605.56000" z="586.00000" h="60"/>
 	</spawn>
 	<!-- Basmos (NPC Normal lvl:10)-->
 	<spawn map="110010000" npcid="203840" pool="1" interval="295">
@@ -474,7 +474,7 @@
 	</spawn>
 	<!-- Kareinus (NPC Normal lvl:47)-->
 	<spawn map="110010000" npcid="203827" pool="1" interval="295">
-		<object x="1836.46000" y="1623.61000" z="586.00000" h="48"/>
+		<object x="1836.46000" y="1623.61000" z="586.00000" h="60"/>
 	</spawn>
 	<!-- Karon (NPC Normal lvl:40)-->
 	<spawn map="110010000" npcid="203891" pool="1" interval="295">
@@ -982,7 +982,7 @@
 	</spawn>
 	<!-- Vulcanus (NPC Normal lvl:40)-->
 	<spawn map="110010000" npcid="203790" pool="1" interval="295">
-		<object x="1883.03990" y="1568.32790" z="590.12213" h="30"/>
+		<object x="1883.03990" y="1568.32790" z="590.12213" h="0"/>
 	</spawn>
 	<!-- Wind Breeze (Object Normal lvl:1)-->
 	<spawn map="110010000" npcid="730094" pool="1" interval="295">
