@@ -164,7 +164,7 @@
 	<report_to id="1951" start_npc_id="203788" end_npc_id="278510" item_id="182206024" />
 
 	<!-- Nuts to Denegos -->
-	<report_to id="1954" start_npc_id="203784" end_npc_id="278510" item_id="182206027" />
+	<report_to id="1954" start_npc_id="203784" end_npc_id="278507" item_id="182206027" />
 
 	<!-- Spellbook Express -->
 	<report_to id="1955" start_npc_id="203786" end_npc_id="278510" item_id="182206028" />
