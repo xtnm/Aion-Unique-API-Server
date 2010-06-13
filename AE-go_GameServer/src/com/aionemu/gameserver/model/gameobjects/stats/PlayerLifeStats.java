@@ -19,6 +19,7 @@ package com.aionemu.gameserver.model.gameobjects.stats;
 import java.util.concurrent.Future;
 import java.util.concurrent.locks.ReentrantLock;
 
+import com.aionemu.gameserver.configs.administration.AdminConfig;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.gameobjects.state.CreatureState;
 import com.aionemu.gameserver.model.group.GroupEvent;
@@ -305,7 +306,8 @@ public class PlayerLifeStats extends CreatureLifeStats<Player>
 	{
 		cancelFpRestore();
 		
-		if(flyReduceTask == null && !alreadyDead)
+		if(flyReduceTask == null && !alreadyDead &&
+			getOwner().getAccessLevel() < AdminConfig.GM_FLIGHT_UNLIMITED)
 		{
 			this.flyReduceTask = LifeStatsRestoreService.getInstance().scheduleFpReduceTask(this);
 		}
