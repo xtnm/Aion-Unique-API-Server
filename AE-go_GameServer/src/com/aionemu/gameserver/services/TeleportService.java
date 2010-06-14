@@ -197,10 +197,13 @@ public class TeleportService
 	private boolean checkKinahForTransportation(TeleportLocation location, Player player)
 	{
 		Storage inventory = player.getInventory();
-
-		if(!inventory.decreaseKinah(location.getPrice()))
+		
+		// TODO: make this a global factor and link with SM_PRICES
+		int transportationPrice = location.getPrice() / 2;
+		
+		if(!inventory.decreaseKinah(transportationPrice))
 		{
-			PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.NOT_ENOUGH_KINAH(location.getPrice()));
+			PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.NOT_ENOUGH_KINAH(transportationPrice));
 			return false;
 		}
 		return true;
