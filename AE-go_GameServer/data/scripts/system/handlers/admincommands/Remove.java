@@ -47,7 +47,7 @@ public class Remove extends AdminCommand
 	{
 		if(admin.getAccessLevel() < AdminConfig.COMMAND_REMOVE)
 		{
-			PacketSendUtility.sendMessage(admin, "You dont have enough rights to execute this command");
+			PacketSendUtility.sendMessage(admin, "You dont have enough rights to execute this command.");
 			return;
 		}
 
@@ -62,7 +62,7 @@ public class Remove extends AdminCommand
 		Player target = world.findPlayer(Util.convertName(params[0]));
 		if(target == null)
 		{
-			PacketSendUtility.sendMessage(admin, "Player isn't online");
+			PacketSendUtility.sendMessage(admin, "Player isn't online.");
 			return;
 		}
 		
@@ -82,15 +82,14 @@ public class Remove extends AdminCommand
 		
 		Storage bag = target.getInventory();
 		
-		Item item = bag.getFirstItemByItemId(itemId);
-		
-		if(item == null)
+		int itemsInBag = bag.getItemCountByItemId(itemId);
+		if(itemsInBag == 0)
 		{
-			PacketSendUtility.sendMessage(admin, "Items don't find in player bag");
+			PacketSendUtility.sendMessage(admin, "Items with that id are not found in the player's bag.");
 			return;
 		}
-			
-		int itemsInBag = item.getItemCount();
+
+		Item item = bag.getFirstItemByItemId(itemId);
 		if(itemsInBag <= itemCount)
 		{
 			bag.removeFromBag(item, true);
@@ -101,6 +100,7 @@ public class Remove extends AdminCommand
 			bag.removeFromBagByObjectId(item.getObjectId(), itemCount);
 			PacketSendUtility.sendPacket(target,new SM_UPDATE_ITEM(item));
 		}
+		
 		PacketSendUtility.sendMessage(admin, "Item(s) removed succesfully");
 		PacketSendUtility.sendMessage(target, "Admin removed an item from your bag");
 	}
