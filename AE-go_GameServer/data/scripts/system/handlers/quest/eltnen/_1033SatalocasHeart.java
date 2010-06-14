@@ -154,7 +154,6 @@ public class _1033SatalocasHeart extends QuestHandler
 					{
 						qs.setStatus(QuestStatus.REWARD);
 						updateQuestStatus(player, qs);
-						PacketSendUtility.sendMessage(player, "Parlez � Diomedes pour votre r�compense !");
 						return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 2205);
 					}
 				else
