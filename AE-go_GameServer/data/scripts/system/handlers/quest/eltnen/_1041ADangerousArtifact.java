@@ -20,11 +20,8 @@ import java.util.Collections;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.aionemu.gameserver.model.gameobjects.Item;
-import com.aionemu.gameserver.model.gameobjects.VisibleObject;
 import com.aionemu.gameserver.model.templates.quest.QuestItems;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_PLAY_MOVIE;
-import com.aionemu.gameserver.network.aion.serverpackets.SM_ITEM_USAGE_ANIMATION;
 import com.aionemu.gameserver.model.gameobjects.Npc;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_EMOTION;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_USE_OBJECT;
@@ -157,7 +154,7 @@ public class _1041ADangerousArtifact extends QuestHandler
 					List<Npc> mobs = new ArrayList<Npc>();
 					mobs.add((Npc) questService.addNewSpawn(210020000, player.getInstanceId(), 700267, (float) 2265.621, (float) 2357.8164, (float) 277.8047, (byte) 0, true));
 					mobs.add((Npc) questService.addNewSpawn(210020000, player.getInstanceId(), 700267, (float) 1827.1799, (float) 2537.9143, (float) 267.5, (byte) 0, true));
-					for(Npc mob : mobs)
+					for(@SuppressWarnings("unused") Npc mob : mobs)
 					PacketSendUtility
 						.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
 					return true;

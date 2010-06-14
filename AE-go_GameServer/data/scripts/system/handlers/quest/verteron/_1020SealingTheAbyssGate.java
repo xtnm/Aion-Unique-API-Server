@@ -16,24 +16,9 @@
  */
 package quest.verteron;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import com.aionemu.gameserver.configs.main.CustomConfig;
-import com.aionemu.gameserver.model.PlayerClass;
-import com.aionemu.gameserver.model.gameobjects.Item;
 import com.aionemu.gameserver.model.gameobjects.Npc;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
-import com.aionemu.gameserver.model.gameobjects.stats.StatEnum;
-import com.aionemu.gameserver.model.templates.quest.QuestItems;
-import com.aionemu.gameserver.network.aion.SystemMessageId;
-import com.aionemu.gameserver.network.aion.serverpackets.SM_ASCENSION_MORPH;
-import com.aionemu.gameserver.network.aion.serverpackets.SM_DIALOG_WINDOW;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_EMOTION;
-import com.aionemu.gameserver.network.aion.serverpackets.SM_ITEM_USAGE_ANIMATION;
-import com.aionemu.gameserver.network.aion.serverpackets.SM_PLAY_MOVIE;
-import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.questEngine.handlers.QuestHandler;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
@@ -46,7 +31,6 @@ import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.World;
 import com.aionemu.gameserver.world.WorldMapInstance;
-import com.aionemu.gameserver.world.zone.ZoneName;
 import com.aionemu.gameserver.world.WorldMapType;
 import com.google.inject.Inject;
 
@@ -195,7 +179,7 @@ public class _1020SealingTheAbyssGate extends QuestHandler
 					public void run()
 					{
 						PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, 38, 0, targetObjectId), true);
-						Npc mob = (Npc) questService.addNewSpawn(310030000, instanceId, 210753, (float) 258.89917, (float) 237.20166, (float) 217.06035, (byte) 0, true);
+						questService.addNewSpawn(310030000, instanceId, 210753, (float) 258.89917, (float) 237.20166, (float) 217.06035, (byte) 0, true);
 					}
 				}, 3000);
 				return true;

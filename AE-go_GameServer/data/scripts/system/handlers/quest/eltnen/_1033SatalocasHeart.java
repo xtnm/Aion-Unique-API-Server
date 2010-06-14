@@ -16,21 +16,15 @@
  */
 package quest.eltnen;
 
-import java.util.Collections;
-
 import com.aionemu.gameserver.model.gameobjects.Npc;
-import com.aionemu.gameserver.network.aion.serverpackets.SM_EMOTION;
-import com.aionemu.gameserver.network.aion.serverpackets.SM_USE_OBJECT;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_PLAY_MOVIE;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_DIALOG_WINDOW;
 import com.aionemu.gameserver.questEngine.handlers.QuestHandler;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
-import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author Xitanium
@@ -160,7 +154,7 @@ public class _1033SatalocasHeart extends QuestHandler
 					{
 						qs.setStatus(QuestStatus.REWARD);
 						updateQuestStatus(player, qs);
-						PacketSendUtility.sendMessage(player, "Parlez à Diomedes pour votre récompense !");
+						PacketSendUtility.sendMessage(player, "Parlez ï¿½ Diomedes pour votre rï¿½compense !");
 						return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 2205);
 					}
 				else
