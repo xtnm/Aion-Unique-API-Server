@@ -29,8 +29,7 @@
 	<!-- Kuomonerk's Side Job -->
 	<item_collecting id="3003" start_npc_id="798137" />
 
-	<!-- Relics Left Behind -->
-	<item_collecting id="3004" start_npc_id="798136" />
+	<!-- Relics Left Behind Scripted -->
 
 	<!-- TODO: Wicked Thief Kelaino -->
 

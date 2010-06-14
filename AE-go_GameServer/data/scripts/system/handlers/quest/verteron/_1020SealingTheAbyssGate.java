@@ -1,0 +1,236 @@
+/*
+ * This file is part of aion-unique <aion-unique.org>.
+ *
+ * aion-unique is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * aion-unique is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with aion-unique.  If not, see <http://www.gnu.org/licenses/>.
+ */
+package quest.verteron;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import com.aionemu.gameserver.configs.main.CustomConfig;
+import com.aionemu.gameserver.model.PlayerClass;
+import com.aionemu.gameserver.model.gameobjects.Item;
+import com.aionemu.gameserver.model.gameobjects.Npc;
+import com.aionemu.gameserver.model.gameobjects.player.Player;
+import com.aionemu.gameserver.model.gameobjects.stats.StatEnum;
+import com.aionemu.gameserver.model.templates.quest.QuestItems;
+import com.aionemu.gameserver.network.aion.SystemMessageId;
+import com.aionemu.gameserver.network.aion.serverpackets.SM_ASCENSION_MORPH;
+import com.aionemu.gameserver.network.aion.serverpackets.SM_DIALOG_WINDOW;
+import com.aionemu.gameserver.network.aion.serverpackets.SM_EMOTION;
+import com.aionemu.gameserver.network.aion.serverpackets.SM_ITEM_USAGE_ANIMATION;
+import com.aionemu.gameserver.network.aion.serverpackets.SM_PLAY_MOVIE;
+import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
+import com.aionemu.gameserver.questEngine.handlers.QuestHandler;
+import com.aionemu.gameserver.questEngine.model.QuestEnv;
+import com.aionemu.gameserver.questEngine.model.QuestState;
+import com.aionemu.gameserver.questEngine.model.QuestStatus;
+import com.aionemu.gameserver.services.InstanceService;
+import com.aionemu.gameserver.services.ItemService;
+import com.aionemu.gameserver.services.TeleportService;
+import com.aionemu.gameserver.services.ZoneService;
+import com.aionemu.gameserver.utils.PacketSendUtility;
+import com.aionemu.gameserver.utils.ThreadPoolManager;
+import com.aionemu.gameserver.world.World;
+import com.aionemu.gameserver.world.WorldMapInstance;
+import com.aionemu.gameserver.world.zone.ZoneName;
+import com.aionemu.gameserver.world.WorldMapType;
+import com.google.inject.Inject;
+
+/**
+ * @author Atomics
+ * 
+ */
+public class _1020SealingTheAbyssGate extends QuestHandler
+{
+	@Inject
+	ItemService itemService;
+	@Inject
+	ZoneService zoneService;
+	@Inject
+	TeleportService teleportService;
+	@Inject
+	InstanceService instanceService;
+	@Inject
+	World world;
+	
+	private final static int	questId	= 1020;
+	private final static int[]	npcIds	= { 203098, 700141, 700142 };
+	private final static int[]	mobIds	= { 210753 };
+	
+	public _1020SealingTheAbyssGate()
+	{
+		super( questId );
+	}
+
+	@Override
+	public void register()
+	{
+		for(int npcId : npcIds)
+			qe.setNpcQuestData( npcId ).addOnTalkEvent( questId );
+		
+		for(int mobId : mobIds)
+			qe.setNpcQuestData( mobId ).addOnKillEvent( questId );
+	}
+
+	@Override
+	public boolean onLvlUpEvent(QuestEnv env)
+	{
+		final Player player = env.getPlayer();
+		final QuestState qs = player.getQuestStateList().getQuestState( questId );
+		if( qs == null || qs.getStatus() != QuestStatus.LOCKED || player.getCommonData().getLevel() < 15 )
+			return false;
+
+		QuestState qs2 = player.getQuestStateList().getQuestState( 1130 );
+		if( qs2 == null || qs2.getStatus() != QuestStatus.COMPLETE )
+			return false;
+
+		qs.setStatus( QuestStatus.START );
+		updateQuestStatus( player, qs );
+		return true;
+	}
+	
+	@Override
+	public boolean onDialogEvent(QuestEnv env)
+	{
+		final Player player = env.getPlayer();
+		final QuestState qs = player.getQuestStateList().getQuestState(questId);
+		if(qs == null)
+			return false;
+		final int instanceId = player.getInstanceId();
+		final int var = qs.getQuestVarById( 0 );
+		int targetId = 0;
+		if(env.getVisibleObject() instanceof Npc)
+			targetId = ((Npc) env.getVisibleObject()).getNpcId();
+
+		if( qs.getStatus() == QuestStatus.REWARD )
+		{
+			if( targetId == 203098 )
+					return defaultQuestEndDialog( env );
+		}
+		else if( qs.getStatus() != QuestStatus.START )
+			return false;
+		
+		switch( targetId )
+		{
+			case 203098:
+				switch( env.getDialogId() )
+				{
+					case 25:
+						if(var == 0)
+							return sendQuestDialog( player, env.getVisibleObject().getObjectId(), 1011 );
+
+					case 10000:
+						if(var == 0)
+						{
+							qs.setQuestVarById( 0, var + 1 );
+							updateQuestStatus( player, qs );
+							return sendQuestDialog( player, env.getVisibleObject().getObjectId(), 0 );
+						}
+
+					default:
+						return false;
+				}
+
+			case 700141:
+				if( var == 1 )
+				{					
+					final int targetObjectId = env.getVisibleObject().getObjectId();
+					PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, 37, 0, targetObjectId), true);
+					ThreadPoolManager.getInstance().schedule(new Runnable()
+					{
+						@Override
+						public void run()
+						{
+							WorldMapInstance newInstance = instanceService.getNextAvailableInstance(310030000);
+							instanceService.registerPlayerWithInstance(newInstance, player);
+							teleportService.teleportTo(player, 310030000, newInstance.getInstanceId(),(float) 270.5,(float) 174.3,(float) 204.3, 0);
+							qs.setQuestVarById( 0, var + 1 );
+							updateQuestStatus( player, qs );
+						}
+					}, 3000);
+					return true;
+					
+				}
+				else if( var == 3 )
+				{
+					final int targetObjectId = env.getVisibleObject().getObjectId();
+					PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, 37, 0, targetObjectId), true);
+					ThreadPoolManager.getInstance().schedule(new Runnable()
+					{
+						@Override
+						public void run()
+						{
+							teleportService.teleportTo(player, WorldMapType.VERTERON.getId(), 1701, 1494, 122, 0);
+							qs.setStatus(QuestStatus.REWARD);
+							updateQuestStatus(player, qs);
+						}
+					}, 3000);
+
+					return true;
+					
+				}
+			case 700142:
+				if( var == 2 )
+				{				
+				
+				final int targetObjectId = env.getVisibleObject().getObjectId();
+				PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, 37, 0, targetObjectId), true);
+				ThreadPoolManager.getInstance().schedule(new Runnable()
+				{
+					@Override
+					public void run()
+					{
+						PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, 38, 0, targetObjectId), true);
+						Npc mob = (Npc) questService.addNewSpawn(310030000, instanceId, 210753, (float) 258.89917, (float) 237.20166, (float) 217.06035, (byte) 0, true);
+					}
+				}, 3000);
+				return true;
+					
+				}
+			default:
+				return false;
+		}
+	}
+
+	@Override
+	public boolean onKillEvent(QuestEnv env)
+	{
+		Player player = env.getPlayer();
+		QuestState qs = player.getQuestStateList().getQuestState( questId );
+		if( qs == null || qs.getStatus() != QuestStatus.START )
+			return false;
+
+		int var = qs.getQuestVarById( 0 );
+		int targetId = 0;
+		if(env.getVisibleObject() instanceof Npc)
+			targetId = ((Npc) env.getVisibleObject()).getNpcId();
+
+		switch(targetId)
+		{
+			case 210753:
+				if( var == 2 )
+				{
+					qs.setQuestVarById(0, 3);
+					updateQuestStatus(player, qs);
+					player.getInventory().removeFromBagByItemId(182200024, 1);
+					return true;
+				}
+			break;
+		}
+		return false;
+	}
+}

@@ -123,7 +123,7 @@
 		<object x="1650" y="1400" z="124" h="0"/>
 	</spawn>
 	<spawn map="220020000" npcid="700137" pool="1" handler="RIFT" anchor="MORHEIM_EM">
-		<object x="1630.784" y="1099.551" z="226" h="0"/>
+		<object x="1624.5941" y="1119.2908" z="187.12988" h="0"/>
 	</spawn>
 	<spawn map="220020000" npcid="700137" pool="1" handler="RIFT" anchor="MORHEIM_FM">
 		<object x="2400" y="2300" z="108" h="0"/>

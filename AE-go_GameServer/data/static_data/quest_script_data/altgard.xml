@@ -136,16 +136,6 @@
   		<monster_infos var_id="0" npc_id="210435" max_kill="5"/>
   	</monster_hunt>
   	
-  	<!-- 2288 Put Your Money Where Your Mouth Is TODO: Need timer -->
-        <monster_hunt start_npc_id="203621" id="2288">
-  		<monster_infos var_id="0" npc_id="210564" max_kill="3"></monster_infos>
-    		<monster_infos var_id="0" npc_id="210584" max_kill="3"></monster_infos>
-  		<monster_infos var_id="0" npc_id="210581" max_kill="3"></monster_infos>
-	  	<monster_infos var_id="0" npc_id="210436" max_kill="3"></monster_infos>
-  		<monster_infos var_id="0" npc_id="210437" max_kill="3"></monster_infos>
-	  	<monster_infos var_id="0" npc_id="210440" max_kill="3"></monster_infos>
-  	</monster_hunt>
-  	
   	<!-- 2237 A Fertile Field handled by script -->
   	
   	<!-- A Friendly Wager TODO: Need timer -->

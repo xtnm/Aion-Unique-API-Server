@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with aion-unique.  If not, see <http://www.gnu.org/licenses/>.
  */
-package quest.eltnen;
+package quest.heiron;
 
 import com.aionemu.gameserver.model.gameobjects.Npc;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
@@ -27,14 +27,13 @@ import com.aionemu.gameserver.utils.PacketSendUtility;
 
 /**
  * @author Atomics
- * 
  */
-public class _1376AMountaineOfTrouble extends QuestHandler
+public class _1548KlawControl extends QuestHandler
 {
 
-	private final static int	questId	= 1376;
+	private final static int	questId	= 1548;
 
-	public _1376AMountaineOfTrouble()
+	public _1548KlawControl()
 	{
 		super(questId);
 	}
@@ -42,11 +41,9 @@ public class _1376AMountaineOfTrouble extends QuestHandler
 	@Override
 	public void register()
 	{
-		qe.setNpcQuestData(203947).addOnQuestStart(questId); //Beramones
-		qe.setNpcQuestData(203947).addOnTalkEvent(questId); //Beramones
-		qe.setNpcQuestData(203964).addOnTalkEvent(questId); //Agrips
-		qe.setNpcQuestData(210976).addOnKillEvent(questId); // Kerubien Hunter
-		qe.setNpcQuestData(210986).addOnKillEvent(questId); // Kerubien Hunter
+		qe.setNpcQuestData(204583).addOnQuestStart(questId); //Senea
+		qe.setNpcQuestData(204583).addOnTalkEvent(questId); //Senea
+		qe.setNpcQuestData(700169).addOnKillEvent(questId); //Klaw Spawner
 	}
 
 	@Override
@@ -58,7 +55,7 @@ public class _1376AMountaineOfTrouble extends QuestHandler
 		if(env.getVisibleObject() instanceof Npc)
 			targetId = ((Npc) env.getVisibleObject()).getNpcId();
 		QuestState qs = player.getQuestStateList().getQuestState(questId);
-		if(targetId == 203947) //Beramones
+		if(targetId == 204583)
 		{
 			if(qs == null || qs.getStatus() == QuestStatus.NONE)
 			{
@@ -67,10 +64,7 @@ public class _1376AMountaineOfTrouble extends QuestHandler
 				else
 					return defaultQuestStartDialog(env);
 			}
-		}
-		else if(targetId == 203964) //Agrips
-		{
-			if(qs.getStatus() == QuestStatus.REWARD)
+			else if(qs.getStatus() == QuestStatus.REWARD)
 			{
 				return defaultQuestEndDialog(env);
 			}
@@ -91,28 +85,17 @@ public class _1376AMountaineOfTrouble extends QuestHandler
 			targetId = ((Npc) env.getVisibleObject()).getNpcId();
 		switch(targetId)
 		{
-			case 210976:
-				if(var >= 0 && var < 6)
+			case 700169:
+				if(var >= 0 && var < 4)
 				{
 					qs.setQuestVarById(0, var + 1);
 					updateQuestStatus(player, qs);
 					return true;
 				}
-				else if(var == 6)
-				{
-					qs.setStatus(QuestStatus.REWARD);
-					updateQuestStatus(player, qs);
-					return true;
-				}
-			case 210986:
-				if(var >= 0 && var < 6)
+				else if(var == 4)
 				{
 					qs.setQuestVarById(0, var + 1);
 					updateQuestStatus(player, qs);
-					return true;
-				}
-				else if(var == 6)
-				{
 					qs.setStatus(QuestStatus.REWARD);
 					updateQuestStatus(player, qs);
 					return true;

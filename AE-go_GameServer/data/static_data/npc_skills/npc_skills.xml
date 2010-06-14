@@ -1148,4 +1148,490 @@
 	<npcskills npcid="203175" skill_count="1">
       <npcskill abouthp="false" probability="10" skilllevel="10" skillid="16434" id="1" /> 
    </npcskills>
+   		  <!-- Poeta by atomics -->
+  <npcskills npcid="210133" skill_count="1">
+      <npcskill id="1" skillid="16419" skilllevel="1" probability="12" abouthp="false"/><!--Kerubim Raye-->
+  </npcskills>
+  <npcskills npcid="210135" skill_count="1">
+      <npcskill id="1" skillid="16419" skilllevel="1" probability="12" abouthp="false"/><!-- Kerubim Errant-->
+  </npcskills>
+  <npcskills npcid="210670" skill_count="1">
+      <npcskill id="1" skillid="16419" skilllevel="1" probability="12" abouthp="false"/><!-- Kerubim Courte Corne-->
+  </npcskills>
+  <npcskills npcid="210671" skill_count="1">
+      <npcskill id="1" skillid="16419" skilllevel="1" probability="12" abouthp="false"/><!-- Kerubim Acerbe-->
+  </npcskills>
+  <npcskills npcid="210205" skill_count="1">
+      <npcskill id="1" skillid="16417" skilllevel="1" probability="12" abouthp="false"/><!-- Airon Bec Rose-->
+  </npcskills>
+  <npcskills npcid="210261" skill_count="1">
+      <npcskill id="1" skillid="17737" skilllevel="1" probability="25" abouthp="false"/><!-- Sylphene des marais -->
+  </npcskills>
+  <npcskills npcid="210677" skill_count="1">
+      <npcskill id="1" skillid="16472" skilllevel="1" probability="15" abouthp="false"/><!-- Coupeur de bois dukaki -->
+  </npcskills>
+  <npcskills npcid="210679" skill_count="1">
+      <npcskill id="1" skillid="16472" skilllevel="1" probability="10" abouthp="false"/><!-- Bucheron dukaki -->
+  </npcskills>
+  <npcskills npcid="210092" skill_count="1">
+      <npcskill id="1" skillid="16472" skilllevel="1" probability="25" abouthp="false"/><!-- Frappeur dukaki -->
+  </npcskills>
+  <npcskills npcid="210096" skill_count="1">
+      <npcskill id="1" skillid="16472" skilllevel="1" probability="10" abouthp="false"/><!-- Cogneur dukaki -->
+  </npcskills>
+  <npcskills npcid="210181" skill_count="1">
+      <npcskill id="1" skillid="16518" skilllevel="1" probability="15" abouthp="false"/><!-- Gredin Tursin -->
+  </npcskills>
+  <npcskills npcid="214098" skill_count="1">
+      <npcskill id="1" skillid="16653" skilllevel="1" probability="30" abouthp="false"/><!-- Oeil de faucon dukaki -->
+  </npcskills>
+  <npcskills npcid="210160" skill_count="2">
+      <npcskill id="1" skillid="16472" skilllevel="1" probability="8" abouthp="false"/><!-- Contremaitre Tursin - Frappe -->
+      <npcskill id="2" skillid="16424" skilllevel="1" probability="20" abouthp="false"/><!-- Contremaitre Tursin - Cri - pb 1/4vie -->
+  </npcskills>
+  <npcskills npcid="210191" skill_count="1">
+      <npcskill id="1" skillid="17241" skilllevel="1" probability="10" abouthp="false"/><!-- Mycete umbraphile -->
+  </npcskills>
+  <npcskills npcid="210101" skill_count="1">
+      <npcskill id="1" skillid="16472" skilllevel="1" probability="15" abouthp="false"/><!-- Patrouilleur Dukaki -->
+  </npcskills>
+  <npcskills npcid="210157" skill_count="2">
+      <npcskill id="1" skillid="16472" skilllevel="1" probability="8" abouthp="false"/><!-- Brailleur Tursin - Frappe -->
+      <npcskill id="2" skillid="16424" skilllevel="1" probability="20" abouthp="false"/><!-- Brailleur Tursin - Cri - pb 1/4vie -->
+  </npcskills>
+  <npcskills npcid="210097" skill_count="1">
+      <npcskill id="1" skillid="16472" skilllevel="1" probability="15" abouthp="false"/><!-- Voleur Dukaki -->
+  </npcskills>
+    <!-- Ishalgen by Atomics -->  
+  <npcskills npcid="210645" skill_count="1">
+      <npcskill id="1" skillid="16416" skilllevel="1" probability="15" abouthp="false"/><!-- Scarabiole des hautes terres -->
+  </npcskills>
+  <npcskills npcid="210653" skill_count="1">
+      <npcskill id="1" skillid="16464" skilllevel="1" probability="15" abouthp="false"/><!-- Contremaitre Sprigg -->
+  </npcskills>
+  <npcskills npcid="210733" skill_count="1">
+      <npcskill id="1" skillid="16464" skilllevel="1" probability="15" abouthp="false"/><!-- Contremaitre Cueilleur Sprigg -->
+  </npcskills>
+  <npcskills npcid="210732" skill_count="1">
+      <npcskill id="1" skillid="16464" skilllevel="1" probability="15" abouthp="false"/><!-- Gardien Sprigg -->
+  </npcskills>
+  <npcskills npcid="210372" skill_count="1">
+      <npcskill id="1" skillid="16417" skilllevel="1" probability="25" abouthp="false"/><!-- Airon Bec-Noir -->
+  </npcskills>
+  <npcskills npcid="210647" skill_count="1">
+      <npcskill id="1" skillid="16416" skilllevel="1" probability="10" abouthp="false"/><!-- Scarabiole pinÃ§ante -->
+  </npcskills>
+  <npcskills npcid="210381" skill_count="1">
+      <npcskill id="1" skillid="17737" skilllevel="1" probability="15" abouthp="false"/><!-- Sylphene Visqueuses -->
+  </npcskills>
+  <npcskills npcid="210399" skill_count="1">
+      <npcskill id="1" skillid="17737" skilllevel="1" probability="15" abouthp="false"/><!-- Sylphene Oeil Bleu -->
+  </npcskills>
+  <npcskills npcid="210390" skill_count="1">
+      <npcskill id="1" skillid="16450" skilllevel="1" probability="10" abouthp="false"/><!-- Carak -->
+  </npcskills>
+  <npcskills npcid="210402" skill_count="1">
+      <npcskill id="1" skillid="16416" skilllevel="1" probability="20" abouthp="false"/><!-- Sacarabiole Necropagh -->
+  </npcskills>
+  <npcskills npcid="210592" skill_count="1">
+      <npcskill id="1" skillid="16452" skilllevel="1" probability="20" abouthp="false"/><!-- Revenant Vengeur -->
+  </npcskills>
+  <npcskills npcid="210404" skill_count="1">
+      <npcskill id="1" skillid="16901" skilllevel="1" probability="35" abouthp="false"/><!-- Ampha Epineux -->
+  </npcskills>
+  <npcskills npcid="210393" skill_count="1">
+      <npcskill id="1" skillid="16516" skilllevel="1" probability="15" abouthp="false"/><!-- Oeil de linx dundun -->
+  </npcskills>
+  <npcskills npcid="210391" skill_count="2">
+      <npcskill id="1" skillid="16546" skilllevel="1" probability="10" abouthp="false"/><!-- Fermier DunDun -->
+	  <npcskill id="2" skillid="16458" skilllevel="1" probability="15" abouthp="false"/><!-- Fermier DunDun 1 -->
+  </npcskills>
+  <npcskills npcid="210395" skill_count="1">
+      <npcskill id="1" skillid="16516" skilllevel="1" probability="15" abouthp="false"/><!-- Harceleur Toison -->
+  </npcskills>
+  <npcskills npcid="210397" skill_count="2">
+      <npcskill id="1" skillid="16516" skilllevel="1" probability="15" abouthp="false"/><!-- Ecorcheur Toison -->
+	  <npcskill id="2" skillid="16518" skilllevel="1" probability="10" abouthp="false"/><!-- Ecorcheur Toison -->
+  </npcskills>
+  <npcskills npcid="210401" skill_count="1">
+      <npcskill id="1" skillid="17737" skilllevel="1" probability="15" abouthp="false"/><!-- SylphÃ¨ne agitÃ© -->
+  </npcskills>
+  <npcskills npcid="210408" skill_count="1">
+      <npcskill id="1" skillid="16518" skilllevel="1" probability="10" abouthp="false"/><!-- Force Crin -->
+  </npcskills>
+  <npcskills npcid="210406" skill_count="1">
+      <npcskill id="1" skillid="16516" skilllevel="1" probability="10" abouthp="false"/><!-- Cerberer dundun -->
+  </npcskills>
+  <npcskills npcid="210407" skill_count="2">
+      <npcskill id="1" skillid="16484" skilllevel="1" probability="20" abouthp="false"/><!-- Patrouilleur toison -->
+	  <npcskill id="1" skillid="16393" skilllevel="1" probability="10" abouthp="false"/><!-- Patrouilleur toison 1-->
+  </npcskills>
+  <npcskills npcid="210409" skill_count="2">
+      <npcskill id="1" skillid="16671" skilllevel="1" probability="20" abouthp="false"/><!-- Patrouilleur toison -->
+	  <npcskill id="1" skillid="16393" skilllevel="1" probability="10" abouthp="false"/><!-- Patrouilleur toison 1-->
+  </npcskills>
+	<npcskills npcid="210413" skill_count="1"><!-- Zone: Altgard - By atomics and Sengira -->
+       <npcskill id="1" skillid="16416" skilllevel="1" probability="10" abouthp="false"/><!-- Lobnite tentaculaire - Estoc -->
+	</npcskills>
+    <npcskills npcid="210418" skill_count="1">
+       <npcskill id="1" skillid="16417" skilllevel="1" probability="10" abouthp="false"/><!-- Airon des glaces - Griffure -->
+	</npcskills>	   
+    <npcskills npcid="210416" skill_count="1">
+       <npcskill id="1" skillid="16523" skilllevel="1" probability="10" abouthp="false"/><!-- Furcifer des glaces - Sensation amollissante -->
+	</npcskills>
+    <npcskills npcid="210714" skill_count="1">
+       <npcskill id="1" skillid="16419" skilllevel="1" probability="10" abouthp="false"/><!-- Agent secret - Ostentation -->
+	</npcskills>
+    <npcskills npcid="210414" skill_count="2">
+       <npcskill id="1" skillid="16433" skilllevel="1" probability="10" abouthp="false"/><!-- Crasaur des glaces - Puissante projection -->
+       <npcskill id="2" skillid="17737" skilllevel="1" probability="10" abouthp="false"/><!-- Crasaur des glaces - Dechet -->	     
+	   </npcskills>
+    <npcskills npcid="210423" skill_count="1">
+       <npcskill id="1" skillid="16417" skilllevel="1" probability="10" abouthp="false"/><!-- Karnif noire-patte - Griffure -->
+	</npcskills>
+    <npcskills npcid="210425" skill_count="1">
+       <npcskill id="1" skillid="17720" skilllevel="1" probability="10" abouthp="false"/><!-- Tog sauvage - Frappe pressante -->
+	</npcskills>
+    <npcskills npcid="210432" skill_count="1">
+       <npcskill id="1" skillid="17720" skilllevel="1" probability="10" abouthp="false"/><!-- Tog sombre - Frappe pressante -->
+	</npcskills>	   
+    <npcskills npcid="210428" skill_count="2">
+       <npcskill id="1" skillid="16419" skilllevel="1" probability="10" abouthp="false"/><!-- Pilleur de tombes trafiquant - Ostentation -->
+	<npcskill id="2" skillid="16443" skilllevel="1" probability="10" abouthp="false"/><!-- Pilleur de tombes trafiquant - Endurance -->
+	   </npcskills>
+    <npcskills npcid="210470" skill_count="1">
+       <npcskill id="1" skillid="16472" skilllevel="1" probability="10" abouthp="false"/><!-- Patrouilleur mumu - Frappe -->
+	</npcskills>
+    <npcskills npcid="210472" skill_count="1">
+       <npcskill id="1" skillid="16516" skilllevel="1" probability="10" abouthp="false"/><!-- Patrouilleur mumu veteran - Frappe -->
+	</npcskills>	  
+    <npcskills npcid="210473" skill_count="3">
+       <npcskill id="1" skillid="16484" skilllevel="1" probability="10" abouthp="false"/><!-- Patrouilleur Griffe Noire - Projection -->
+       <npcskill id="2" skillid="16516" skilllevel="1" probability="10" abouthp="false"/><!-- Patrouilleur Griffe Noire - Frappe -->	   
+	   <npcskill id="3" skillid="16518" skilllevel="1" probability="10" abouthp="false"/><!-- Patrouilleur Griffe Noire - Blindage temporaire -->
+    </npcskills>
+    <npcskills npcid="210475" skill_count="3">
+       <npcskill id="1" skillid="16484" skilllevel="1" probability="10" abouthp="false"/><!-- Surveillant Griffe Noire - Projection -->
+       <npcskill id="2" skillid="16516" skilllevel="1" probability="10" abouthp="false"/><!-- Surveillant Griffe Noire - Frappe -->	 
+	   <npcskill id="3" skillid="16518" skilllevel="1" probability="10" abouthp="false"/><!-- Surveillant Griffe Noire - Blindage temporaire -->	   
+	</npcskills>
+    <npcskills npcid="210467" skill_count="1">
+       <npcskill id="1" skillid="16546" skilllevel="1" probability="10" abouthp="false"/><!-- Fermier mumu - Commande -->
+	</npcskills>
+    <npcskills npcid="210572" skill_count="1">
+       <npcskill id="1" skillid="16546" skilllevel="1" probability="10" abouthp="false"/><!-- Cueilleur mumu veteran - Commande -->
+    </npcskills>
+    <npcskills npcid="210660" skill_count="1">
+       <npcskill id="1" skillid="16590" skilllevel="1" probability="10" abouthp="false"/><!-- Esprit du lac - Frappe d'eau -->
+	</npcskills>
+    <npcskills npcid="211292" skill_count="1">
+        <npcskill id="1" skillid="16561" skilllevel="1" probability="10" abouthp="false"/><!-- Esprit du sol - Coup magique -->
+	</npcskills> 	   	   	   	   	   	   
+    <npcskills npcid="211293" skill_count="1">
+        <npcskill id="1" skillid="17720" skilllevel="1" probability="10" abouthp="false"/><!-- Ksellid des lacs - Frappe pressante -->
+	</npcskills>
+    <npcskills npcid="211293" skill_count="1">
+        <npcskill id="1" skillid="210718" skilllevel="1" probability="10" abouthp="false"/><!-- Ksellid barbu - Frappe pressante -->
+    </npcskills>	   
+    <npcskills npcid="210451" skill_count="1">
+        <npcskill id="1" skillid="16472" skilllevel="1" probability="10" abouthp="false"/><!-- Oeil-de-lynx mumu - Frappe -->
+	</npcskills>
+    <npcskills npcid="210510" skill_count="2">
+        <npcskill id="1" skillid="16782" skilllevel="1" probability="10" abouthp="false"/><!-- Camarade Sumarhon - Epee empoisonnee -->
+        <npcskill id="2" skillid="16419" skilllevel="1" probability="10" abouthp="false"/><!-- Camarade Sumarhon - Ostentation -->	   
+	</npcskills>
+    <npcskills npcid="210458" skill_count="3">
+        <npcskill id="1" skillid="16484" skilllevel="1" probability="10" abouthp="false"/><!-- Guerrier Griffe Noire - Projection -->
+        <npcskill id="2" skillid="16516" skilllevel="1" probability="10" abouthp="false"/><!-- Guerrier Griffe Noire - Frappe -->	 
+	    <npcskill id="3" skillid="16518" skilllevel="1" probability="10" abouthp="false"/><!-- Guerrier Griffe Noire - Blindage temporaire -->	   
+	</npcskills>
+    <npcskills npcid="210455" skill_count="3">
+        <npcskill id="1" skillid="16484" skilllevel="1" probability="10" abouthp="false"/><!-- Oeil-vif - Projection -->
+        <npcskill id="2" skillid="16516" skilllevel="1" probability="10" abouthp="false"/><!-- Oeil-vif - Frappe -->	 
+	    <npcskill id="3" skillid="16518" skilllevel="1" probability="10" abouthp="false"/><!-- Oeil-vif - Blindage temporaire -->	   
+	</npcskills>
+    <npcskills npcid="210457" skill_count="3">
+        <npcskill id="1" skillid="16484" skilllevel="1" probability="10" abouthp="false"/><!-- Oeil-vif implacable - Projection -->
+        <npcskill id="2" skillid="16516" skilllevel="1" probability="10" abouthp="false"/><!-- Oeil-vif implacable - Frappe -->	 
+	    <npcskill id="3" skillid="16518" skilllevel="1" probability="10" abouthp="false"/><!-- Oeil-vif implacable - Blindage temporaire -->	   
+	</npcskills>	   
+    <npcskills npcid="210453" skill_count="1">
+        <npcskill id="1" skillid="16653" skilllevel="1" probability="10" abouthp="false"/><!-- Sentinelle mumu - Lancer -->
+	</npcskills>
+    <npcskills npcid="210499" skill_count="1">
+        <npcskill id="1" skillid="16653" skilllevel="1" probability="10" abouthp="false"/><!-- Sentinelle mumu veteran - Lancer -->
+	</npcskills>	   
+    <npcskills npcid="210599" skill_count="1">
+        <npcskill id="1" skillid="16653" skilllevel="1" probability="10" abouthp="false"/><!-- Mumu Lu - Lancer -->
+	</npcskills>	
+    <npcskills npcid="210623" skill_count="1">
+        <npcskill id="1" skillid="16653" skilllevel="1" probability="10" abouthp="false"/><!-- Mumu Ang - Lancer -->
+	</npcskills>
+    <npcskills npcid="210624" skill_count="1">
+        <npcskill id="1" skillid="16653" skilllevel="1" probability="10" abouthp="false"/><!-- Mumu Di - Lancer -->
+	</npcskills>
+    <npcskills npcid="210620" skill_count="1">
+        <npcskill id="1" skillid="16653" skilllevel="1" probability="10" abouthp="false"/><!-- Mumu Ring - Lancer -->
+    </npcskills>
+    <npcskills npcid="210622" skill_count="1">
+        <npcskill id="1" skillid="16653" skilllevel="1" probability="10" abouthp="false"/><!-- Mumu Zen - Lancer -->
+	</npcskills>
+    <npcskills npcid="210621" skill_count="1">
+        <npcskill id="1" skillid="16653" skilllevel="1" probability="10" abouthp="false"/><!-- Mumu Zoo - Lancer -->
+	</npcskills>   	   
+    <npcskills npcid="210440" skill_count="1">
+        <npcskill id="1" skillid="16465" skilllevel="1" probability="10" abouthp="false"/><!-- Urside poil-brun - Ostentation forte -->
+	</npcskills>
+    <npcskills npcid="210581" skill_count="1">
+        <npcskill id="1" skillid="16465" skilllevel="1" probability="10" abouthp="false"/><!-- Urside impitoyable - Ostentation forte -->
+	</npcskills>	  
+    <npcskills npcid="210581" skill_count="1">
+        <npcskill id="1" skillid="16465" skilllevel="1" probability="10" abouthp="false"/><!-- Urside-Yeti - Ostentation forte -->
+	</npcskills>	
+	<npcskills npcid="210566" skill_count="1">
+        <npcskill id="1" skillid="16465" skilllevel="1" probability="10" abouthp="false"/><!-- Urside furieux - Ostentation forte -->
+	</npcskills>	 
+    <npcskills npcid="210435" skill_count="1">
+        <npcskill id="1" skillid="16550" skilllevel="1" probability="10" abouthp="false"/><!-- Vaseux Arc-en-ciel - Poison -->
+	</npcskills>
+    <npcskills npcid="210445" skill_count="1">
+        <npcskill id="1" skillid="17037" skilllevel="1" probability="10" abouthp="false"/><!-- Arachne agile - Poison -->
+	</npcskills>
+    <npcskills npcid="210447" skill_count="1">
+        <npcskill id="1" skillid="17037" skilllevel="1" probability="10" abouthp="false"/><!-- Arachne venimeuse - Poison -->
+	</npcskills>	  	   
+    <npcskills npcid="210443" skill_count="1">
+        <npcskill id="1" skillid="16901" skilllevel="1" probability="10" abouthp="false"/><!-- Kipulipe des bosquets - Attaque epineuse a longue portee -->
+	</npcskills>
+    <npcskills npcid="210500" skill_count="1">
+        <npcskill id="1" skillid="16901" skilllevel="1" probability="10" abouthp="false"/><!-- Kipulipe des marais - Attaque epineuse a longue portee -->
+	</npcskills>	   
+    <npcskills npcid="210484" skill_count="1">
+        <npcskill id="1" skillid="16516" skilllevel="1" probability="10" abouthp="false"/><!-- Gredin sprigg - Frappe -->
+	</npcskills>
+    <npcskills npcid="210486" skill_count="1">
+        <npcskill id="1" skillid="17708" skilllevel="1" probability="10" abouthp="false"/><!-- Angolem noirci - Poussiere de pierre -->
+	</npcskills>
+    <npcskills npcid="210573" skill_count="1">
+        <npcskill id="1" skillid="16552" skilllevel="1" probability="10" abouthp="false"/><!-- Garnoulle verte - Gaz empoisonne -->
+	</npcskills>
+    <npcskills npcid="212345" skill_count="1">
+        <npcskill id="1" skillid="16451" skilllevel="1" probability="10" abouthp="false"/><!-- Pikpik - Oeil d'affaiblissement -->
+	</npcskills>
+    <npcskills npcid="210526" skill_count="1">
+        <npcskill id="1" skillid="16451" skilllevel="1" probability="10" abouthp="false"/><!-- Pikpik long-cou - Oeil d'affaiblissement -->
+	</npcskills>	   
+    <npcskills npcid="210482" skill_count="1">
+        <npcskill id="1" skillid="16901" skilllevel="1" probability="10" abouthp="false"/><!-- Ampha venimeux - Attaque epineuse a longue portee -->
+	</npcskills>	   
+    <npcskills npcid="210492" skill_count="1">
+        <npcskill id="1" skillid="16901" skilllevel="1" probability="10" abouthp="false"/><!-- Ampha rouge-queue - Attaque epineuse a longue portee -->
+	</npcskills>
+    <npcskills npcid="210516" skill_count="1">
+        <npcskill id="1" skillid="16885" skilllevel="1" probability="10" abouthp="false"/><!-- Hydroamphis transparent - Flechette empoisonnee -->
+	</npcskills>
+    <npcskills npcid="210588" skill_count="1">
+        <npcskill id="1" skillid="16438" skilllevel="1" probability="10" abouthp="false"/><!-- Esprit de heros - Frappe mortelle -->
+	</npcskills>
+    <npcskills npcid="210522" skill_count="1">
+        <npcskill id="1" skillid="16590" skilllevel="1" probability="10" abouthp="false"/><!-- Esprit jaillissant - Frappe d'eau -->
+	</npcskills>
+    <npcskills npcid="210575" skill_count="1">
+        <npcskill id="1" skillid="16590" skilllevel="1" probability="10" abouthp="false"/><!-- Esprit de brume - Frappe d'eau -->
+	</npcskills>
+    <npcskills npcid="210523" skill_count="1">
+        <npcskill id="1" skillid="16725" skilllevel="1" probability="10" abouthp="false"/><!-- Esprit cyclonique - Vent frappeur -->
+	</npcskills>
+    <npcskills npcid="210576" skill_count="1">
+        <npcskill id="1" skillid="16725" skilllevel="1" probability="10" abouthp="false"/><!-- Esprit Taille-tempete - Vent frappeur -->
+	</npcskills>
+    <npcskills npcid="210502" skill_count="1">
+        <npcskill id="1" skillid="16817" skilllevel="1" probability="10" abouthp="false"/><!-- Brillepatte Griffe Noire - Reduction rapide de foulee -->
+	</npcskills>
+    <npcskills npcid="210459" skill_count="1">
+        <npcskill id="1" skillid="16516" skilllevel="1" probability="10" abouthp="false"/><!-- Guerrier sauvage Griffe Noire - Frappe -->
+	</npcskills>
+    <npcskills npcid="210463" skill_count="2">
+        <npcskill id="1" skillid="16536" skilllevel="1" probability="10" abouthp="false"/><!-- Chasseur sauvage Griffe Noire - Lancer -->
+        <npcskill id="1" skillid="16746" skilllevel="1" probability="10" abouthp="false"/><!-- Chasseur sauvage Griffe Noire - Frappe profonde -->
+	</npcskills>
+    <npcskills npcid="210562" skill_count="2">
+        <npcskill id="1" skillid="16431" skilllevel="1" probability="10" abouthp="false"/><!-- Harceleur brutal Griffe Noire - Resistance physique augmentee I -->
+        <npcskill id="1" skillid="16484" skilllevel="1" probability="10" abouthp="false"/><!-- Harceleur brutal Griffe Noire - Projection -->	
+	</npcskills>
+    <npcskills npcid="210558" skill_count="2">
+        <npcskill id="1" skillid="16817" skilllevel="1" probability="10" abouthp="false"/><!-- Chercheur brutal Griffe Noire - Reduction rapide de foulee -->
+        <npcskill id="1" skillid="16536" skilllevel="1" probability="10" abouthp="false"/><!-- Chercheur brutal Griffe Noire - Lancer -->
+	</npcskills>
+    <npcskills npcid="210560" skill_count="2">
+        <npcskill id="1" skillid="16817" skilllevel="1" probability="10" abouthp="false"/><!-- Talonneur brutal Griffe Noire - Reduction rapide de foulee -->
+        <npcskill id="1" skillid="16536" skilllevel="1" probability="10" abouthp="false"/><!-- Talonneur brutal Griffe Noire - Lancer -->
+	</npcskills>
+    <npcskills npcid="210549" skill_count="3">
+        <npcskill id="1" skillid="16519" skilllevel="1" probability="10" abouthp="false"/><!-- Guerrier brutal Griffe Noire - Attaque a pleine puissance -->
+        <npcskill id="1" skillid="16526" skilllevel="1" probability="10" abouthp="false"/><!-- Guerrier brutal Griffe Noire - Renversement puissant -->
+        <npcskill id="1" skillid="16518" skilllevel="1" probability="10" abouthp="false"/><!-- Guerrier brutal Griffe Noire - Frappe percante -->
+	</npcskills>
+    <npcskills npcid="210533" skill_count="3">
+        <npcskill id="1" skillid="16519" skilllevel="1" probability="10" abouthp="false"/><!-- Molosse Griffe Noire - Attaque a pleine puissance -->
+        <npcskill id="1" skillid="16526" skilllevel="1" probability="10" abouthp="false"/><!-- Molosse Griffe Noire - Renversement puissant -->
+        <npcskill id="1" skillid="16518" skilllevel="1" probability="10" abouthp="false"/><!-- Molosse Griffe Noire - Frappe percante -->
+	</npcskills>
+    <npcskills npcid="210751" skill_count="2">
+        <npcskill id="1" skillid="16574" skilllevel="1" probability="10" abouthp="false"/><!-- Grande Change-sort Abija - Flamme -->
+        <npcskill id="1" skillid="16392" skilllevel="1" probability="10" abouthp="false"/><!-- Grande Change-sort Abija - Reflexion -->
+	</npcskills>
+    <npcskills npcid="210548" skill_count="4">
+        <npcskill id="1" skillid="17220" skilllevel="1" probability="10" abouthp="false"/><!-- Chef Kumbaron - Ostentation Puissante -->
+        <npcskill id="1" skillid="17222" skilllevel="1" probability="10" abouthp="false"/><!-- Chef Kumbaron - Deflagration -->
+        <npcskill id="1" skillid="17232" skilllevel="1" probability="10" abouthp="false"/><!-- Chef Kumbaron - Attaque devouee rapide -->
+        <npcskill id="1" skillid="17233" skilllevel="1" probability="10" abouthp="false"/><!-- Chef Kumbaron - Attaque envahissante rapide -->
+	</npcskills>
+    <npcskills npcid="210547" skill_count="1">
+        <npcskill id="1" skillid="16431" skilllevel="1" probability="10" abouthp="false"/><!-- Tayga sauvage - Morsure -->
+	</npcskills>
+	<npcskills npcid="210264" skill_count="1"><!-- Zone: Verteron - Sengira and atomics -->
+        <npcskill id="1" skillid="16416" skilllevel="1" probability="10" abouthp="false"/><!-- Lobnite a spirale - Estoc -->
+	</npcskills>
+	<npcskills npcid="210269" skill_count="1">
+        <npcskill id="1" skillid="16834" skilllevel="1" probability="10" abouthp="false"/><!-- Crabe etoile pointe-corne - Pique d'epine -->
+	</npcskills>
+	<npcskills npcid="210076" skill_count="1">
+        <npcskill id="1" skillid="16419" skilllevel="1" probability="10" abouthp="false"/><!-- Espion - Ostentation -->
+	</npcskills>
+	<npcskills npcid="210063" skill_count="1">
+        <npcskill id="1" skillid="16523" skilllevel="1" probability="10" abouthp="false"/><!-- Furcifer du marais - Sensation amollissante -->
+	</npcskills>
+	<npcskills npcid="210268" skill_count="1">
+        <npcskill id="1" skillid="16418" skilllevel="1" probability="10" abouthp="false"/><!-- Crabe de vase - Charge de pinces -->
+	</npcskills>
+	<npcskills npcid="210266" skill_count="1">
+         <npcskill id="1" skillid="16423" skilllevel="1" probability="10" abouthp="false"/><!-- Tortue etoilee du marais - Accroupissement -->
+	</npcskills>
+	<npcskills npcid="210203" skill_count="1">
+        <npcskill id="1" skillid="16417" skilllevel="1" probability="10" abouthp="false"/><!-- Airon bec-marron - Griffure -->
+	</npcskills>
+	<npcskills npcid="210688" skill_count="1">
+        <npcskill id="1" skillid="16419" skilllevel="1" probability="10" abouthp="false"/><!-- Voleur - Ostentation -->
+	</npcskills>
+	<npcskills npcid="210698" skill_count="2">
+        <npcskill id="1" skillid="16419" skilllevel="1" probability="10" abouthp="false"/><!-- Tacheron - Ostentation -->
+        <npcskill id="1" skillid="16443" skilllevel="1" probability="10" abouthp="false"/><!-- Tacheron - Endurance -->
+	</npcskills>
+    <npcskills npcid="210188" skill_count="1">
+        <npcskill id="1" skillid="17720" skilllevel="1" probability="10" abouthp="false"/><!-- Tog sauvage raye - Frappe pressante -->
+	</npcskills>
+    <npcskills npcid="210747" skill_count="1">
+        <npcskill id="1" skillid="17720" skilllevel="1" probability="10" abouthp="false"/><!-- Tog chute-queue - Frappe pressante -->
+	</npcskills>
+	<npcskills npcid="210329" skill_count="1">
+        <npcskill id="1" skillid="16901" skilllevel="1" probability="10" abouthp="false"/><!-- Kipulipe contaminee - Attaque epineuse a longue portee -->
+	</npcskills>
+	<npcskills npcid="210741" skill_count="1">
+        <npcskill id="1" skillid="17737" skilllevel="1" probability="10" abouthp="false"/><!-- Sylphene contaminee - Dechet -->
+	</npcskills>
+	<npcskills npcid="210200" skill_count="2">
+        <npcskill id="1" skillid="17738" skilllevel="1" probability="10" abouthp="false"/><!-- Collerette Griffe-ratisse geant - Instinct -->
+        <npcskill id="1" skillid="16431" skilllevel="1" probability="10" abouthp="false"/><!-- Collerette Griffe-ratisse geant - Morsure -->
+	</npcskills>
+	<npcskills npcid="210126" skill_count="2">
+        <npcskill id="1" skillid="17738" skilllevel="1" probability="10" abouthp="false"/><!-- Collerette Griffe-ratisse - Instinct -->
+        <npcskill id="1" skillid="16431" skilllevel="1" probability="10" abouthp="false"/><!-- Collerette Griffe-ratisse - Morsure -->
+	</npcskills>
+	<npcskills npcid="210447" skill_count="1">
+        <npcskill id="1" skillid="17037" skilllevel="1" probability="10" abouthp="false"/><!-- Arachne venimeuse - Poison mortel -->
+	</npcskills>
+	<npcskills npcid="210121" skill_count="1">
+        <npcskill id="1" skillid="16550" skilllevel="1" probability="10" abouthp="false"/><!-- Vaseux corrompu des marais - Poison -->
+	</npcskills>
+	<npcskills npcid="210098" skill_count="1">
+        <npcskill id="1" skillid="16472" skilllevel="1" probability="10" abouthp="false"/><!-- Briseur dukaki - Frappe -->
+	</npcskills>
+	<npcskills npcid="210067" skill_count="1">
+        <npcskill id="1" skillid="16439" skilllevel="1" probability="10" abouthp="false"/><!-- Fonceur dukaki - Petit cri -->
+	</npcskills>
+	<npcskills npcid="210164" skill_count="1">
+        <npcskill id="1" skillid="16484" skilllevel="1" probability="10" abouthp="false"/><!-- Brailleur tursin - Projection -->
+	</npcskills>
+	<npcskills npcid="210271" skill_count="1">
+        <npcskill id="1" skillid="17162" skilllevel="1" probability="10" abouthp="false"/><!-- Condor royal - Picotement -->
+	</npcskills>
+	<npcskills npcid="210273" skill_count="1">
+        <npcskill id="1" skillid="17720" skilllevel="1" probability="10" abouthp="false"/><!-- Garnoulle de vase - Frappe pressante -->
+	</npcskills>
+	<npcskills npcid="210104" skill_count="1">
+        <npcskill id="1" skillid="17708" skilllevel="1" probability="10" abouthp="false"/><!-- Kalgolem craquele - Poussiere de pierre -->
+	</npcskills>
+	<npcskills npcid="210264" skill_count="1">
+        <npcskill id="1" skillid="17708" skilllevel="1" probability="10" abouthp="false"/><!-- Kalgolem de pierres brisees - Poussiere de pierre -->
+	</npcskills>
+	<npcskills npcid="210709" skill_count="1">
+        <npcskill id="1" skillid="16561" skilllevel="1" probability="10" abouthp="false"/><!-- Esprit de Terre - Coup magique -->
+	</npcskills>
+	<npcskills npcid="210080" skill_count="1">
+        <npcskill id="1" skillid="16590" skilllevel="1" probability="10" abouthp="false"/><!-- Esprit aqueux - Frappe d'eau -->
+	</npcskills>
+	<npcskills npcid="210711" skill_count="2">
+        <npcskill id="1" skillid="16725" skilllevel="1" probability="10" abouthp="false"/><!-- Esprit des glaces - Vent frappeur -->
+        <npcskill id="1" skillid="17039" skilllevel="1" probability="10" abouthp="false"/><!-- Esprit des glaces - Vent contraire -->
+	</npcskills>
+	<npcskills npcid="210086" skill_count="2">
+        <npcskill id="1" skillid="16725" skilllevel="1" probability="10" abouthp="false"/><!-- Esprit ouragan - Vent frappeur -->
+        <npcskill id="1" skillid="17039" skilllevel="1" probability="10" abouthp="false"/><!-- Esprit ouragan - Vent contraire -->
+	</npcskills>
+	<npcskills npcid="210074" skill_count="1">
+        <npcskill id="1" skillid="16419" skilllevel="1" probability="10" abouthp="false"/><!-- Membre d'equipage - Ostentation -->
+	</npcskills>
+	<npcskills npcid="213006" skill_count="1">
+        <npcskill id="1" skillid="17163" skilllevel="1" probability="10" abouthp="false"/><!-- Paksigue - Virago -->
+	</npcskills>
+	<npcskills npcid="210183" skill_count="1">
+        <npcskill id="1" skillid="16549" skilllevel="1" probability="10" abouthp="false"/><!-- Eclaireur tursin veteran - Blessure -->
+	</npcskills>
+	<npcskills npcid="210185" skill_count="3">
+        <npcskill id="1" skillid="16549" skilllevel="1" probability="10" abouthp="false"/><!-- Pisteur tursin aguerri - Blessure -->
+        <npcskill id="1" skillid="16554" skilllevel="1" probability="10" abouthp="false"/><!-- Pisteur tursin aguerri - Attaque redirigee -->
+        <npcskill id="1" skillid="16556" skilllevel="1" probability="10" abouthp="false"/><!-- Pisteur tursin aguerri - Attaque d'angle mort -->
+	</npcskills>
+	<npcskills npcid="210178" skill_count="2">
+        <npcskill id="1" skillid="16519" skilllevel="1" probability="10" abouthp="false"/><!-- Bloque-horion tursin veteran - Attaque a pleine puissance -->
+        <npcskill id="1" skillid="16524" skilllevel="1" probability="10" abouthp="false"/><!-- Bloque-horion tursin veteran - Vague handicapante -->
+	</npcskills>
+	<npcskills npcid="210179" skill_count="2">
+        <npcskill id="1" skillid="16519" skilllevel="1" probability="10" abouthp="false"/><!-- Bloque-horion tursin aguerri - Attaque a pleine puissance -->
+        <npcskill id="1" skillid="16524" skilllevel="1" probability="10" abouthp="false"/><!-- Bloque-horion tursin aguerri - Vague handicapante -->
+	</npcskills>
+	<npcskills npcid="210168" skill_count="1">
+        <npcskill id="1" skillid="16817" skilllevel="1" probability="10" abouthp="false"/><!-- Tursin grande-gueule aguerri  - Reduction rapide de foulee -->
+	</npcskills>
+	<npcskills npcid="210169" skill_count="1">
+        <npcskill id="1" skillid="16653" skilllevel="1" probability="10" abouthp="false"/><!-- Boss Tursin grande-gueule - Lancer -->
+	</npcskills>
+	<npcskills npcid="210068" skill_count="1">
+        <npcskill id="1" skillid="16439" skilllevel="1" probability="10" abouthp="false"/><!-- Porte-etendard dukaki - Petit cri -->
+	</npcskills>
+	<npcskills npcid="210187" skill_count="2">
+        <npcskill id="1" skillid="16576" skilllevel="1" probability="10" abouthp="false"/><!-- Chef Kraka - Explosion de feu -->
+        <npcskill id="1" skillid="16701" skilllevel="1" probability="10" abouthp="false"/><!-- Chef Kraka - Berceuse -->
+	</npcskills>
+	<npcskills npcid="210177" skill_count="1">
+        <npcskill id="1" skillid="16488" skilllevel="1" probability="10" abouthp="false"/><!-- Commandant tursin veteran - Desorientation -->
+	</npcskills>
+	<npcskills npcid="210356" skill_count="2">
+        <npcskill id="1" skillid="16564" skilllevel="1" probability="10" abouthp="false"/><!-- Guerisseur occulte tursin - Aveuglement -->
+        <npcskill id="1" skillid="16410" skilllevel="1" probability="10" abouthp="false"/><!-- Guerisseur occulte tursin - Recuperation -->
+	</npcskills>
+	<npcskills npcid="210159" skill_count="2">
+        <npcskill id="1" skillid="16410" skilllevel="1" probability="10" abouthp="false"/><!-- Chef brailleur tursin - Recuperation -->
+        <npcskill id="1" skillid="16518" skilllevel="1" probability="10" abouthp="false"/><!-- Chef brailleur tursin - Blindage temporaire -->
+	</npcskills>
+	<npcskills npcid="210357" skill_count="1">
+        <npcskill id="1" skillid="16580" skilllevel="1" probability="10" abouthp="false"/><!-- Chamane occulte tursin - Gel -->
+	</npcskills>
+	<npcskills npcid="210353" skill_count="1">
+        <npcskill id="1" skillid="16570" skilllevel="1" probability="10" abouthp="false"/><!-- Chamane cerbere veteran - Missile magique -->
+	</npcskills>
+	<npcskills npcid="203175" skill_count="1">
+		<npcskill abouthp="false" probability="10" skilllevel="10" skillid="16434" id="1" /> 
+	</npcskills>
 </npc_skill_templates>

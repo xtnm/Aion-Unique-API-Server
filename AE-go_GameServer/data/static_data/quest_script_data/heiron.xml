@@ -277,10 +277,7 @@
 		<monster_infos var_id="1" npc_id="211899" max_kill="10"/>
     </monster_hunt>
 
-	<!-- Klaw Control -->
-	<monster_hunt id="1548" start_npc_id="204583">
-        <monster_infos npc_id="700169" var_id="0" max_kill="5" />
-    </monster_hunt>
+	<!-- Klaw Control scripted -->
 
 	<!-- Picking off the Undead -->
 	<item_collecting id="1580" start_npc_id="204612" />

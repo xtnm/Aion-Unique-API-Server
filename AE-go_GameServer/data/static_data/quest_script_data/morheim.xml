@@ -115,8 +115,7 @@
         <!-- Sora's Energy Booster -->
 	<item_collecting id="2455" start_npc_id="204382" />
 
-        <!-- Sprigg Nightlights -->
-     	<item_collecting id="2495" start_npc_id="798125" />
+        <!-- Sprigg Nightlights Scripted -->
      
 	<!-- Strange Mushrooms -->
 	<monster_hunt id="2309" start_npc_id="730037">
@@ -670,7 +669,7 @@
         <!-- [Group] The Nunu Fertilizer -->
 	<item_collecting id="2446" start_npc_id="204402"/>
 
-        <!-- TODO: [Spy] Our Man in Elysea /hibás-->
+        <!-- TODO: [Spy] Our Man in Elysea hibas-->
 	
         <!-- TODO: [Spy] Researching the Pretor -->
 

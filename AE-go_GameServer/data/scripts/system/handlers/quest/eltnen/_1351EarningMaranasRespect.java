@@ -26,27 +26,23 @@ import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 
 /**
- * @author Atomics
- * 
- */
-public class _1376AMountaineOfTrouble extends QuestHandler
+* @author Atomics
+*/
+public class _1351EarningMaranasRespect extends QuestHandler
 {
+	private final static int	questId	= 1351;
 
-	private final static int	questId	= 1376;
-
-	public _1376AMountaineOfTrouble()
+	public _1351EarningMaranasRespect()
 	{
 		super(questId);
 	}
-
-	@Override
+	
+    @Override
 	public void register()
 	{
-		qe.setNpcQuestData(203947).addOnQuestStart(questId); //Beramones
-		qe.setNpcQuestData(203947).addOnTalkEvent(questId); //Beramones
-		qe.setNpcQuestData(203964).addOnTalkEvent(questId); //Agrips
-		qe.setNpcQuestData(210976).addOnKillEvent(questId); // Kerubien Hunter
-		qe.setNpcQuestData(210986).addOnKillEvent(questId); // Kerubien Hunter
+		qe.setNpcQuestData(203965).addOnQuestStart(questId); //Castor
+		qe.setNpcQuestData(203965).addOnTalkEvent(questId); //Castor
+		qe.setNpcQuestData(203983).addOnTalkEvent(questId); // Marana
 	}
 
 	@Override
@@ -54,11 +50,11 @@ public class _1376AMountaineOfTrouble extends QuestHandler
 	{
 		final Player player = env.getPlayer();
 		int targetId = 0;
-		
 		if(env.getVisibleObject() instanceof Npc)
 			targetId = ((Npc) env.getVisibleObject()).getNpcId();
 		QuestState qs = player.getQuestStateList().getQuestState(questId);
-		if(targetId == 203947) //Beramones
+		int itemCount;
+		if(targetId == 203965)
 		{
 			if(qs == null || qs.getStatus() == QuestStatus.NONE)
 			{
@@ -68,55 +64,32 @@ public class _1376AMountaineOfTrouble extends QuestHandler
 					return defaultQuestStartDialog(env);
 			}
 		}
-		else if(targetId == 203964) //Agrips
+		else if(targetId == 203983)
 		{
-			if(qs.getStatus() == QuestStatus.REWARD)
+			if(qs != null && qs.getStatus() == QuestStatus.START)
+			{
+				if(env.getDialogId() == 25)
+					return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 2375);
+				else if(env.getDialogId() == 33)
+				{
+					itemCount = player.getInventory().getItemCountByItemId(182201321);
+					if(itemCount > 9)
+					{
+						player.getInventory().removeFromBagByItemId(182201321, 10);
+						qs.setStatus(QuestStatus.REWARD);
+						updateQuestStatus(player, qs);
+						return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 5);
+					}
+					else
+					return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 2716);
+				}
+				else
+					return defaultQuestStartDialog(env);
+			}
+			else if( qs != null && qs.getStatus() == QuestStatus.REWARD)
 			{
 				return defaultQuestEndDialog(env);
 			}
-		}
-		return false;
-	}
-	@Override
-	public boolean onKillEvent(QuestEnv env)
-	{
-		Player player = env.getPlayer();
-		QuestState qs = player.getQuestStateList().getQuestState(questId);
-		if(qs == null || qs.getStatus() != QuestStatus.START)
-			return false;
-
-		int var = qs.getQuestVarById(0);
-		int targetId = 0;
-		if(env.getVisibleObject() instanceof Npc)
-			targetId = ((Npc) env.getVisibleObject()).getNpcId();
-		switch(targetId)
-		{
-			case 210976:
-				if(var >= 0 && var < 6)
-				{
-					qs.setQuestVarById(0, var + 1);
-					updateQuestStatus(player, qs);
-					return true;
-				}
-				else if(var == 6)
-				{
-					qs.setStatus(QuestStatus.REWARD);
-					updateQuestStatus(player, qs);
-					return true;
-				}
-			case 210986:
-				if(var >= 0 && var < 6)
-				{
-					qs.setQuestVarById(0, var + 1);
-					updateQuestStatus(player, qs);
-					return true;
-				}
-				else if(var == 6)
-				{
-					qs.setStatus(QuestStatus.REWARD);
-					updateQuestStatus(player, qs);
-					return true;
-				}
 		}
 		return false;
 	}

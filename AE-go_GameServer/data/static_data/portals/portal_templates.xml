@@ -59,7 +59,7 @@
 	</portal>
 	
 	<!-- Fire Temple-->
-	<portal npcid="730047" instance="true" minlevel="25" group="true" maxlevel="50">
+	<portal npcid="730047" instance="true" minlevel="30" group="true" maxlevel="38">
 		<entrypoint mapid="220020000" x="1592.178" y="977.2572" z="140.75" race="ASMODIANS"/>
 		<entrypoint mapid="210020000" x="1343.28" y="350.96" z="348.67" race="ELYOS"/>
 		<exitpoint mapid="320100000" x="148.256" y="460.857" z="141.713"/>
@@ -72,7 +72,7 @@
 	</portal>
 	
 	<!-- Artifact of Circulation / DarkPoeta -->
-	<portal npcid="730185" instance="true" minlevel="40" maxlevel="50" group="true" race="ASMODIANS">
+	<portal npcid="730185" instance="true" minlevel="50" maxlevel="50" group="true" race="ASMODIANS">
 		<entrypoint mapid="220040000" x="2420.12" y="2061.31" z="579.7" race="ASMODIANS"/>
 		<exitpoint mapid="300040000" x="1214" y="412" z="140"/>
 		<portalitem id="1" itemid="186000048" quantity="20"/>
@@ -80,7 +80,7 @@
 	</portal>
 	
 	<!-- Artifact of Transcendence / DarkPoeta -->
-	<portal npcid="730186" instance="true" minlevel="40" maxlevel="50" group="true" race="ELYOS">
+	<portal npcid="730186" instance="true" minlevel="50" maxlevel="50" group="true" race="ELYOS">
 		<entrypoint mapid="210040000" x="2019.51" y="1467.34" z="127.19" race="ELYOS"/>
 		<exitpoint mapid="300040000" x="1214" y="412" z="140"/>
 		<portalitem id="1" itemid="186000048" quantity="20"/>
@@ -88,7 +88,7 @@
 	</portal>
 	
 	<!-- Artifact of Time / DarkPoeta -->
-	<portal npcid="730215" instance="true" minlevel="40" maxlevel="50" group="true">
+	<portal npcid="730215" instance="true" minlevel="50" maxlevel="50" group="true">
 		<entrypoint mapid="400010000" x="2158" y="1581" z="2272.5"/>
 		<exitpoint mapid="300040000" x="1214" y="412" z="140"/>
 		<portalitem id="1" itemid="186000048" quantity="5"/>

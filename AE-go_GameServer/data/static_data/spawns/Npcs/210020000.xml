@@ -226,7 +226,7 @@
 		<object x="260.12158" y="2729.04100" z="270.71103" h="33"/>
 	</spawn>
 	<!-- Dionera (NPC Normal lvl:41)-->
-	<spawn map="210020000" npcid="285972" pool="1" interval="295">
+	<spawn map="210020000" npcid="203991" pool="1" interval="295">
 		<object x="1778.11880" y="880.54370" z="422.99512" h="28"/>
 	</spawn>
 	<!-- Dragon Leg Bone (Object Normal lvl:1)-->

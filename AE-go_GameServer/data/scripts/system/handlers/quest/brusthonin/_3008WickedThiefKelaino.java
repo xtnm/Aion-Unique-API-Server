@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with aion-unique.  If not, see <http://www.gnu.org/licenses/>.
  */
-package quest.eltnen;
+package quest.theobomos;
 
 import com.aionemu.gameserver.model.gameobjects.Npc;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
@@ -27,26 +27,23 @@ import com.aionemu.gameserver.utils.PacketSendUtility;
 
 /**
  * @author Atomics
- * 
  */
-public class _1376AMountaineOfTrouble extends QuestHandler
+public class _3008WickedThiefKelaino extends QuestHandler
 {
+	private final static int	questId	= 3008;
 
-	private final static int	questId	= 1376;
-
-	public _1376AMountaineOfTrouble()
+	public _3008WickedThiefKelaino()
 	{
 		super(questId);
 	}
-
-	@Override
+	
+    @Override
 	public void register()
 	{
-		qe.setNpcQuestData(203947).addOnQuestStart(questId); //Beramones
-		qe.setNpcQuestData(203947).addOnTalkEvent(questId); //Beramones
-		qe.setNpcQuestData(203964).addOnTalkEvent(questId); //Agrips
-		qe.setNpcQuestData(210976).addOnKillEvent(questId); // Kerubien Hunter
-		qe.setNpcQuestData(210986).addOnKillEvent(questId); // Kerubien Hunter
+		qe.setNpcQuestData(798150).addOnQuestStart(questId);
+		qe.setNpcQuestData(798150).addOnTalkEvent(questId);
+		qe.setNpcQuestData(798138).addOnTalkEvent(questId);
+		qe.setNpcQuestData(798146).addOnTalkEvent(questId);
 	}
 
 	@Override
@@ -54,11 +51,10 @@ public class _1376AMountaineOfTrouble extends QuestHandler
 	{
 		final Player player = env.getPlayer();
 		int targetId = 0;
-		
 		if(env.getVisibleObject() instanceof Npc)
 			targetId = ((Npc) env.getVisibleObject()).getNpcId();
 		QuestState qs = player.getQuestStateList().getQuestState(questId);
-		if(targetId == 203947) //Beramones
+		if(targetId == 798150)
 		{
 			if(qs == null || qs.getStatus() == QuestStatus.NONE)
 			{
@@ -67,56 +63,66 @@ public class _1376AMountaineOfTrouble extends QuestHandler
 				else
 					return defaultQuestStartDialog(env);
 			}
-		}
-		else if(targetId == 203964) //Agrips
-		{
-			if(qs.getStatus() == QuestStatus.REWARD)
+			else if(qs != null && qs.getStatus() == QuestStatus.START)
+			{
+				if(env.getDialogId() == 25)
+					return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 2375);
+				else if(env.getDialogId() == 1009)
+				{
+					qs.setQuestVar(3);
+					updateQuestStatus(player, qs);
+					qs.setStatus(QuestStatus.REWARD);
+					updateQuestStatus(player, qs);
+					return defaultQuestEndDialog(env);
+				}
+				else
+					return defaultQuestEndDialog(env);
+			}
+			else if(qs != null && qs.getStatus() == QuestStatus.REWARD)
 			{
 				return defaultQuestEndDialog(env);
 			}
 		}
-		return false;
-	}
-	@Override
-	public boolean onKillEvent(QuestEnv env)
-	{
-		Player player = env.getPlayer();
-		QuestState qs = player.getQuestStateList().getQuestState(questId);
-		if(qs == null || qs.getStatus() != QuestStatus.START)
-			return false;
-
-		int var = qs.getQuestVarById(0);
-		int targetId = 0;
-		if(env.getVisibleObject() instanceof Npc)
-			targetId = ((Npc) env.getVisibleObject()).getNpcId();
-		switch(targetId)
+		else if(targetId == 798138)
 		{
-			case 210976:
-				if(var >= 0 && var < 6)
+			if(qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0)
+			{
+				if(env.getDialogId() == 25)
+					return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 1352);
+				else if(env.getDialogId() == 10000)
 				{
-					qs.setQuestVarById(0, var + 1);
+					qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
 					updateQuestStatus(player, qs);
+					PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
 					return true;
 				}
-				else if(var == 6)
+				else
+					return defaultQuestStartDialog(env);
+			}
+		}
+		else if(targetId == 798146)
+		{
+			if(qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 1)
+			{
+				if(env.getDialogId() == 25)
+					return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 1693);
+				else if(env.getDialogId() == 10001)
 				{
-					qs.setStatus(QuestStatus.REWARD);
+					qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
 					updateQuestStatus(player, qs);
+					PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
 					return true;
 				}
-			case 210986:
-				if(var >= 0 && var < 6)
-				{
-					qs.setQuestVarById(0, var + 1);
-					updateQuestStatus(player, qs);
-					return true;
-				}
-				else if(var == 6)
-				{
-					qs.setStatus(QuestStatus.REWARD);
-					updateQuestStatus(player, qs);
-					return true;
-				}
+				else
+					return defaultQuestStartDialog(env);
+			}
+		}
+		else if(qs.getStatus() == QuestStatus.REWARD)
+		{
+			if(targetId == 798150)
+			{
+				return defaultQuestEndDialog(env);
+			}
 		}
 		return false;
 	}

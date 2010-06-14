@@ -130,10 +130,7 @@
 	<!-- A Feast for Phomona -->
     <item_collecting id="1478" start_npc_id="730019" />
 
-	<!-- 1487 Balaur Bones -->
-	<item_collecting id="1487" start_npc_id="798126" action_item_id="700313" />
-	<item_collecting id="1487" start_npc_id="798126" action_item_id="700314" />
-	<item_collecting id="1487" start_npc_id="798126" action_item_id="700315" />
+	<!-- 1487 Balaur Bones Scripted -->
 
 	<!-- Killing Crestliches -->
 	<monster_hunt id="1326" start_npc_id="203940">
@@ -317,11 +314,9 @@
 
 	<!-- TODO: 1489 Marfonda of Darkness -->
 
-	<!-- Harumonerk'sRequest -->
-	<report_to id="1483" start_npc_id="798126" end_npc_id="203940"/>
+	<!-- Harumonerk'sRequest Scripted -->
 
-	<!-- 1484 Chiyorinrinerk's Request -->
-	<report_to id="1484" start_npc_id="798127" end_npc_id="204045"/>
+	<!-- 1484 Chiyorinrinerk's Request Scripted -->
 
 	<!-- TODO: 1463 [Spy] Message to a Spy -->
 
@@ -402,8 +397,7 @@
 	<!-- Gimme Shelter -->
 	<report_to id="1382" start_npc_id="203993" end_npc_id="203943"/>
 
-	<!-- 1363 Thanking Mabangtah -->
-	<report_to id="1363" start_npc_id="203943" end_npc_id="203943" item_id="182201330"/>
+	<!-- 1363 Thanking Mabangtah Scripted -->
 
 	<!-- TODO: 1364 Journey to Agairon -->
 
@@ -420,13 +414,7 @@
 	<!-- A Pain in the Nyerk -->
 	<report_to id="1359" start_npc_id="798055" end_npc_id="798051" item_id="182201324" />
 
-	<!-- 1346 Killing for Castor -->
-	<monster_hunt id="1346" start_npc_id="203966" end_npc_id="203965">
-		<monster_infos var_id="0" npc_id="210844" max_kill="15"/>
-		<monster_infos var_id="0" npc_id="210872" max_kill="15"/>		
-		<monster_infos var_id="1" npc_id="210878" max_kill="20"/>
-		<monster_infos var_id="1" npc_id="210898" max_kill="20"/>
-	</monster_hunt>
+	<!-- 1346 Killing for Castor Scripted -->
 
 	<!-- 1467 [Group]The Four Leaders -->
 	<monster_hunt id="1467" start_npc_id="204045">
@@ -482,8 +470,7 @@
 	</monster_hunt>
 
 
-	<!-- [Group] Earning Marana's Respect -->
-	<item_collecting start_npc_id="203965" id="1351" end_npc_id="203983"/>
+	<!-- [Group] Earning Marana's Respect Scripted -->
 
 	<!-- [Group] Siren Song -->
 		<monster_hunt start_npc_id="203965" id="1352">
@@ -502,8 +489,7 @@
 	<!-- 1366 Mabangtah's Second Test -->
 	<item_collecting id="1366" start_npc_id="204020" />
 
-	<!-- 1367 Mabangtah's Feast -->
-	<item_collecting id="1367" start_npc_id="204023" />
+	<!-- 1367 Mabangtah's Feast Scripted -->
 
 	<!-- 1369 Mabangtah's Message -->
 	<report_to id="1369" start_npc_id="204020" end_npc_id="203949" />
@@ -531,8 +517,7 @@
 	<!-- 1447 A Tender Concern -->
 	<item_collecting id="1447" start_npc_id="203947" />
 
-	<!-- 1468 Hannet'sLostLove-->
-	<report_to id="1468" start_npc_id="790004" end_npc_id="203184" />
+	<!-- 1468 Hannet's Lost Love Scripted -->
 
 	<!-- 1448 Mace Making Materials -->
 	<item_collecting id="1448" start_npc_id="790004" end_npc_id="203934" />
@@ -609,11 +594,7 @@
 	<!-- 1375 Arming the Watch -->
 	<item_collecting id="1375" start_npc_id="203947" />
 
-	<!-- 1376 A Mountain of Trouble -->
-	<monster_hunt id="1376" start_npc_id="203947" end_npc_id="203964">
-		<monster_infos npc_id="210986"  var_id="0" max_kill="7"/>
-		<monster_infos npc_id="210976"  var_id="0" max_kill="7"/>
-	</monster_hunt>
+	<!-- 1376 A Mountain of Trouble Scripted -->
 
 	<!-- 1377 [Coin] Kerubsin Kuriullu -->
 	<monster_hunt id="1377" start_npc_id="203964">
@@ -695,10 +676,7 @@
 
 	<!-- TODO: 1412 A Dangerous Potion -->
 
-	<!-- 1470 [Spy/Group] Hannet's Vengeance -->
-	<monster_hunt id="1470" start_npc_id="790004">
-		<monster_infos npc_id="212846"  var_id="0" max_kill="1"/>
-	</monster_hunt>
+	<!-- 1470 [Spy/Group] Hannet's Vengeance Scripted -->
 
 	<!-- TODO: 1471 Fake Stigma -->
 
