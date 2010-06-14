@@ -27,6 +27,7 @@ import com.aionemu.gameserver.ai.AI;
 import com.aionemu.gameserver.controllers.CreatureController;
 import com.aionemu.gameserver.controllers.MoveController;
 import com.aionemu.gameserver.controllers.ObserveController;
+import com.aionemu.gameserver.controllers.attack.AggroList;
 import com.aionemu.gameserver.controllers.effect.EffectController;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.gameobjects.state.CreatureSeeState;
@@ -72,6 +73,8 @@ public abstract class Creature extends VisibleObject
 	private int transformedModelId;
 	private ObserveController 	observeController;
 
+	private AggroList aggroList;
+
 	/**
 	 * 
 	 * @param objId
@@ -87,6 +90,8 @@ public abstract class Creature extends VisibleObject
 		initializeAi();
 		this.moveController = new MoveController(this);
 		this.observeController = new ObserveController();
+		
+		this.aggroList = new AggroList(this);
 	}
 
 	/**
@@ -351,6 +356,14 @@ public abstract class Creature extends VisibleObject
 	public MoveController getMoveController()
 	{
 		return moveController;
+	}
+	
+	/**
+	 * @return the aggroList
+	 */
+	public AggroList getAggroList()
+	{
+		return aggroList;
 	}
 	
 	/**

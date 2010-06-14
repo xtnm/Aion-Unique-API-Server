@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.concurrent.Future;
 
 import com.aionemu.gameserver.controllers.SummonController.UnsummonType;
+import com.aionemu.gameserver.controllers.attack.AggroInfo;
 import com.aionemu.gameserver.controllers.attack.AttackResult;
 import com.aionemu.gameserver.controllers.attack.AttackUtil;
 import com.aionemu.gameserver.model.TaskId;
@@ -36,6 +37,7 @@ import com.aionemu.gameserver.model.gameobjects.player.SkillListEntry;
 import com.aionemu.gameserver.model.gameobjects.state.CreatureState;
 import com.aionemu.gameserver.model.gameobjects.state.CreatureVisualState;
 import com.aionemu.gameserver.model.gameobjects.stats.PlayerGameStats;
+import com.aionemu.gameserver.model.group.PlayerGroup;
 import com.aionemu.gameserver.model.templates.quest.QuestItems;
 import com.aionemu.gameserver.model.gameobjects.stats.StatEnum;
 import com.aionemu.gameserver.model.templates.stats.PlayerStatsTemplate;
@@ -241,12 +243,10 @@ public class PlayerController extends CreatureController<Player>
 				sp.getDuelService().onDie(player);
 				return;
 			}
-			else if(player.isEnemy(master))
-			{
-				doReward(master);
-			}
 		}
-
+		
+		this.doReward();
+		
 		super.onDie(lastAttacker);
 		
 		if(master instanceof Npc || master == player)
@@ -269,45 +269,81 @@ public class PlayerController extends CreatureController<Player>
 		PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.DIE);
 		sp.getQuestEngine().onDie(new QuestEnv(null, player, 0, 0));
 	}
-
+	
 	@Override
-	public void doReward(Creature creature)
+	public void doReward()
 	{
-		super.doReward(creature);
-
-		if (!(creature instanceof Player))
-			return;
-
-		Player winner = (Player)creature;
+		final Player victim = getOwner();
 		
-		// Apply lost AP to defeated player
-		int apLost = StatFunctions.calculatePvPApLost(getOwner(), winner);
-		getOwner().getCommonData().addAp(-apLost);
+		// winner is the player that receives the kill count
+		final Player winner = victim.getAggroList().getMostPlayerDamage();
+		
+		int totalDamage = victim.getAggroList().getTotalDamage();
+		
+		if (totalDamage == 0 || winner == null)
+		{
+			return;
+		}
 		
 		// Add Player Kill to record.
 		winner.getAbyssRank().setAllKill();
 		
-		int apReward = StatFunctions.calculatePvpApGained(getOwner(), winner);
+		// Keep track of how much damage was dealt by players
+		// so we can remove AP based on player damage...
+		int playerDamage = 0;
 		
-		if(winner.getPlayerGroup() == null) // solo
+		// Distribute AP to groups and players that had damage.
+		for(AggroInfo aggro : victim.getAggroList().getFinalDamageList(true))
 		{
-			// DP reward 
-			// TODO: Figure out what DP reward should be for PvP
-			//int currentDp = winner.getCommonData().getDp();
-			//int dpReward = StatFunctions.calculateSoloDPReward(winner, getOwner());
-			//winner.getCommonData().setDp(dpReward + currentDp);
+			playerDamage += aggro.getDamage();
+			
+			if (aggro.getAttacker() instanceof Player)
+			{
+				// Reward Player
+				Player p = ((Player)aggro.getAttacker());
 
-			// AP reward
-			winner.getCommonData().addAp(Math.round(apReward * winner.getRates().getApPlayerRate()));
+				// This needs to be unique for each player and group
+				int baseApReward = StatFunctions.calculatePvpApGained(victim,
+					winner.getAbyssRank().getRank().getId(), winner.getLevel());
+				
+				int apPlayerReward = (int)(aggro.getDamage() * baseApReward / totalDamage);
+				p.getCommonData().addAp(Math.round(apPlayerReward * winner.getRates().getApPlayerRate()));
+			}
+			else if (aggro.getAttacker() instanceof PlayerGroup)
+			{
+				// Reward Group
+				PlayerGroup pg = ((PlayerGroup)aggro.getAttacker());
+				
+				float groupApPercentage = (float)aggro.getDamage() / totalDamage;
+				sp.getGroupService().doReward(victim, pg, groupApPercentage);
+			}
+			else
+			{
+				// Throw an error...
+			}
 		}
-		else // in group
-		{
-			// Group AP Distribution
-			sp.getGroupService().doReward(winner, apReward);
-		}
+		
+		// Apply lost AP to defeated player
+		final int apLost = StatFunctions.calculatePvPApLost(victim, winner);
+		final int apActuallyLost = (int)(apLost * playerDamage / totalDamage);
+		
+		if (apActuallyLost > 0)
+			victim.getCommonData().addAp(-apActuallyLost);
+		
+		// DP reward 
+		// TODO: Figure out what DP reward should be for PvP
+		//int currentDp = winner.getCommonData().getDp();
+		//int dpReward = StatFunctions.calculateSoloDPReward(winner, getOwner());
+		//winner.getCommonData().setDp(dpReward + currentDp);
+		
 	}
-
 	
+	@Override
+	public void onRespawn()
+	{
+		super.onRespawn();
+		startProtectionActiveTask();
+	}
 
 	@Override
 	public void attackTarget(Creature target)
@@ -371,7 +407,13 @@ public class PlayerController extends CreatureController<Player>
 	{
 		if(getOwner().getLifeStats().isAlreadyDead())
 			return;
-
+		
+		// Reduce the damage to exactly what is required to ensure death.
+		// - Important that we don't include 7k worth of damage when the
+		//   creature only has 100 hp remaining. (For AggroList dmg count.)
+		if (damage > getOwner().getLifeStats().getCurrentHp())
+			damage = getOwner().getLifeStats().getCurrentHp() + 1;
+		
 		super.onAttack(creature, skillId, type, damage);
 
 		if(getOwner().isInvul())

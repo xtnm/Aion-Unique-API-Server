@@ -17,7 +17,9 @@
 package com.aionemu.gameserver.ai.npcai;
 
 import com.aionemu.gameserver.ai.AI;
+import com.aionemu.gameserver.ai.events.Event;
 import com.aionemu.gameserver.ai.events.EventHandlers;
+import com.aionemu.gameserver.ai.events.handler.EventHandler;
 import com.aionemu.gameserver.ai.state.StateHandlers;
 import com.aionemu.gameserver.model.gameobjects.Npc;
 
@@ -44,5 +46,20 @@ public class NpcAi extends AI<Npc>
 		 */
 		this.addStateHandler(StateHandlers.ACTIVE_NPC_SH.getHandler());
 		this.addStateHandler(StateHandlers.TALKING_SH.getHandler());
+	}
+
+	@Override
+	public void handleEvent(Event event)
+	{
+		super.handleEvent(event);
+		
+		//allow only handling event Event.DIED in dead stats
+		//probably i need to define rules for which events could be handled in which state
+		if(event != Event.DIED && owner.getLifeStats().isAlreadyDead())
+			return;
+		
+		EventHandler eventHandler = eventHandlers.get(event);
+		if(eventHandler != null)
+			eventHandler.handleEvent(event, this);
 	}
 }

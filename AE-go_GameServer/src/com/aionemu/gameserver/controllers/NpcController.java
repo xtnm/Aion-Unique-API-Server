@@ -56,7 +56,7 @@ import com.google.inject.internal.Nullable;
 /**
  * This class is for controlling Npc's
  * 
- * @author -Nemesiss-, ATracer (2009-09-29)
+ * @author -Nemesiss-, ATracer (2009-09-29), Sarynth
  */
 public class NpcController extends CreatureController<Npc>
 {
@@ -95,9 +95,10 @@ public class NpcController extends CreatureController<Npc>
 	@Override
 	public void onRespawn()
 	{
+		super.onRespawn();
+		
 		cancelTask(TaskId.DECAY);
 		Npc owner = getOwner();
-		owner.unsetState(CreatureState.DEAD);
 		
 		//set state from npc templates
 		if(owner.getObjectTemplate().getState() != 0)
@@ -106,7 +107,6 @@ public class NpcController extends CreatureController<Npc>
 			owner.setState(CreatureState.NPC_IDLE);
 		
 		owner.getLifeStats().setCurrentHpPercent(100);
-		owner.getAggroList().clear();
 		owner.getAi().handleEvent(Event.RESPAWNED);
 		if(owner.getSpawn().getNpcFlyState() != 0)
 		{
@@ -138,21 +138,10 @@ public class NpcController extends CreatureController<Npc>
 
 		PacketSendUtility.broadcastPacket(owner,
 			new SM_EMOTION(owner, 13, 0, lastAttacker == null ? 0 : lastAttacker.getObjectId()));
-
-		if(lastAttacker == null)
-			lastAttacker = owner.getAggroList().getMostHated();// TODO based on damage;
-
-		if(lastAttacker != null)
-		{
-			this.doReward(lastAttacker);
-			
-			Creature master = lastAttacker.getMaster();
-			if(master instanceof Player)
-			{
-				this.doDrop((Player) master);
-			}
-		}
 		
+		// Monster Controller overrides this method.
+		this.doReward();
+
 		owner.getAi().handleEvent(Event.DIED);
 
 		// deselect target at the end
@@ -391,7 +380,6 @@ public class NpcController extends CreatureController<Npc>
 			return;
 		}
 
-		npc.getAggroList().addDamage(actingCreature, damage);
 		npc.getLifeStats().reduceHp(damage, actingCreature);
 
 		PacketSendUtility.broadcastPacket(npc, new SM_ATTACK_STATUS(npc, type, skillId, damage));

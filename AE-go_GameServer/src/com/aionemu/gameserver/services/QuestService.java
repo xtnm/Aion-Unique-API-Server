@@ -331,7 +331,7 @@ public class QuestService
 		{
 			for (Player member : player.getPlayerGroup().getMembers())
 			{
-				if(MathUtil.isInRange(member, player, GroupConfig.GROUP_MAX_DISTANCE))
+				if(MathUtil.isInRange(member, npc, GroupConfig.GROUP_MAX_DISTANCE))
 				{
 					players.add(member);
 				}

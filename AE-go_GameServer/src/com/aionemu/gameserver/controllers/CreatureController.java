@@ -23,7 +23,6 @@ import javolution.util.FastMap;
 import com.aionemu.gameserver.controllers.movement.MovementType;
 import com.aionemu.gameserver.model.TaskId;
 import com.aionemu.gameserver.model.gameobjects.Creature;
-import com.aionemu.gameserver.model.gameobjects.Npc;
 import com.aionemu.gameserver.model.gameobjects.VisibleObject;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.gameobjects.state.CreatureState;
@@ -38,7 +37,7 @@ import com.aionemu.gameserver.utils.PacketSendUtility;
 /**
  * This class is for controlling Creatures [npc's, players etc]
  * 
- * @author -Nemesiss-, ATracer(2009-09-29)
+ * @author -Nemesiss-, ATracer(2009-09-29), Sarynth
  * 
  */
 public abstract class CreatureController<T extends Creature> extends VisibleObjectController<Creature>
@@ -99,7 +98,8 @@ public abstract class CreatureController<T extends Creature> extends VisibleObje
 	@Override
 	public void onRespawn()
 	{
-
+		getOwner().unsetState(CreatureState.DEAD);
+		getOwner().getAggroList().clear();
 	}
 
 	/**
@@ -108,6 +108,7 @@ public abstract class CreatureController<T extends Creature> extends VisibleObje
 	public void onAttack(Creature creature, int skillId, TYPE type, int damage)
 	{
 		getOwner().getObserveController().notifyAttackedObservers(creature);
+		getOwner().getAggroList().addDamage(creature, damage);
 	}
 
 	/**
@@ -140,18 +141,10 @@ public abstract class CreatureController<T extends Creature> extends VisibleObje
 	}
 
 	/**
-	 * Perform drop operation
-	 */
-	public void doDrop(Player player)
-	{
-
-	}
-
-	/**
 	 * Perform reward operation
 	 * 
 	 */
-	public void doReward(Creature creature)
+	public void doReward()
 	{
 
 	}
@@ -292,6 +285,7 @@ public abstract class CreatureController<T extends Creature> extends VisibleObje
 			skill.useSkill();
 		}
 	}
+	
 	/**
 	 *  Notify hate value to all visible creatures
 	 *  
@@ -301,9 +295,9 @@ public abstract class CreatureController<T extends Creature> extends VisibleObje
 	{
 		for(VisibleObject visibleObject : getOwner().getKnownList())
 		{
-			if(visibleObject instanceof Npc)
+			if(visibleObject instanceof Creature)
 			{
-				((Npc) visibleObject).getAggroList().notifyHate(getOwner(), value);
+				((Creature)visibleObject).getAggroList().notifyHate(getOwner(), value);
 			}
 		}
 	}

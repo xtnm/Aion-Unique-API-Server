@@ -21,7 +21,6 @@ import com.aionemu.gameserver.ai.npcai.NpcAi;
 import com.aionemu.gameserver.configs.main.CustomConfig;
 import com.aionemu.gameserver.configs.main.NpcMovementConfig;
 import com.aionemu.gameserver.controllers.NpcController;
-import com.aionemu.gameserver.controllers.attack.AggroList;
 import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.gameobjects.state.CreatureState;
@@ -44,8 +43,6 @@ import com.aionemu.gameserver.world.WorldPosition;
  */
 public class Npc extends Creature
 {
-
-	private AggroList aggroList;
 	
 	private NpcSkillList npcSkillList;
 	
@@ -64,8 +61,6 @@ public class Npc extends Creature
 		
 		super.setGameStats(new NpcGameStats(this));
 		super.setLifeStats(new NpcLifeStats(this));
-		
-		this.aggroList = new AggroList(this);
 	}
 
 	@Override
@@ -195,14 +190,6 @@ public class Npc extends Creature
 		return MathUtil.getDistance(getSpawn().getX(), getSpawn().getY(), getSpawn().getZ(),
 			getX(), getY(), getZ()) < 3 ;
 	}
-	
-	/**
-	 * @return the aggroList
-	 */
-	public AggroList getAggroList()
-	{
-		return aggroList;
-	}
 
 	/**
 	 * @return the npcSkillList
@@ -228,6 +215,12 @@ public class Npc extends Creature
 
 	@Override
 	protected boolean isEnemyPlayer(Player visibleObject)
+	{
+		return true;//TODO
+	}
+	
+	@Override
+	protected boolean isEnemySummon(Summon visibleObject)
 	{
 		return true;//TODO
 	}

@@ -24,6 +24,7 @@ import javolution.util.FastMap;
 
 import com.aionemu.commons.objects.filter.ObjectFilter;
 import com.aionemu.commons.utils.Rnd;
+import com.aionemu.gameserver.model.gameobjects.AionObject;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_GROUP_INFO;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_GROUP_MEMBER_INFO;
@@ -33,12 +34,9 @@ import com.aionemu.gameserver.utils.PacketSendUtility;
 
 /**
  * @author ATracer, Lyahim, Simple
- * 
  */
-public class PlayerGroup
+public class PlayerGroup extends AionObject
 {
-	private int							groupId;
-
 	private LootGroupRules				lootGroupRules		= new LootGroupRules();
 
 	private Player						groupLeader;
@@ -54,7 +52,7 @@ public class PlayerGroup
 	 */
 	public PlayerGroup(int groupId, Player groupleader)
 	{
-		this.groupId = groupId;
+		super(groupId);
 		this.groupMembers.put(groupleader.getObjectId(), groupleader);
 		this.setGroupLeader(groupleader);
 		groupleader.setPlayerGroup(this);
@@ -66,7 +64,7 @@ public class PlayerGroup
 	 */
 	public int getGroupId()
 	{
-		return groupId;
+		return this.getObjectId();
 	}
 
 	/**
@@ -298,5 +296,11 @@ public class PlayerGroup
 		}
 		if(groupEvent == GroupEvent.LEAVE)
 			PacketSendUtility.sendPacket(subjective, SM_SYSTEM_MESSAGE.YOU_LEFT_GROUP());
+	}
+
+	@Override
+	public String getName()
+	{
+		return "Player Group";
 	}
 }

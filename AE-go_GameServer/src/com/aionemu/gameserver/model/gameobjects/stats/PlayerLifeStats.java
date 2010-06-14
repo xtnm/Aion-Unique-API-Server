@@ -77,6 +77,11 @@ public class PlayerLifeStats extends CreatureLifeStats<Player>
 	@Override
 	protected void onIncreaseHp(TYPE type, int value)
 	{
+		if (this.isFullyRestoredHp())
+		{
+			// Temp Fix: Reset aggro list when hp is full.
+			this.owner.getAggroList().clear();
+		}
 		sendHpPacketUpdate();
 		sendAttackStatusPacketUpdate(type, value);
 		sendGroupPacketUpdate();

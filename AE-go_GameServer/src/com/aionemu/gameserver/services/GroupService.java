@@ -47,6 +47,7 @@ import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.utils.idfactory.IDFactory;
 import com.aionemu.gameserver.utils.idfactory.IDFactoryAionObject;
+import com.aionemu.gameserver.utils.stats.AbyssRankEnum;
 import com.aionemu.gameserver.utils.stats.StatFunctions;
 import com.aionemu.gameserver.world.WorldType;
 import com.google.inject.Inject;
@@ -128,11 +129,11 @@ public class GroupService
 	{
 		if(RestrictionsManager.canInviteToGroup(inviter, invited))
 		{
-			final PlayerGroup group = inviter.getPlayerGroup();
 			RequestResponseHandler responseHandler = new RequestResponseHandler(inviter){
 				@Override
 				public void acceptRequest(Creature requester, Player responder)
 				{
+					final PlayerGroup group = inviter.getPlayerGroup();
 					if(group != null && group.isFull())
 						return;
 
@@ -256,15 +257,15 @@ public class GroupService
 	 * 
 	 * @param player
 	 */
-	public void doReward(Player player, Monster owner)
+	public void doReward(PlayerGroup group, Monster owner)
 	{
 		// Find Group Members and Determine Highest Level
 		List<Player> players = new ArrayList<Player>();
 		int partyLvlSum = 0;
 		int highestLevel = 0;
-		for(Player member : player.getPlayerGroup().getMembers())
+		for(Player member : group.getMembers())
 		{
-			if(MathUtil.isInRange(member, player, GroupConfig.GROUP_MAX_DISTANCE))
+			if(MathUtil.isInRange(member, owner, GroupConfig.GROUP_MAX_DISTANCE))
 			{
 				if (member.getLifeStats().isAlreadyDead())
 					continue;
@@ -326,17 +327,32 @@ public class GroupService
 		}
 	}
 	
-	public void doReward(Player player, int apReward)
+	/**
+	 * @param player
+	 * @param apReward
+	 */
+	public void doReward(Player victim, PlayerGroup group, float apRewardPercentage)
 	{
 		// Find group members in range
 		List<Player> players = new ArrayList<Player>();
-		for(Player member : player.getPlayerGroup().getMembers())
+		
+		// Find highest rank and level in local group
+		int maxRank = AbyssRankEnum.GRADE9_SOLDIER.getId();
+		int maxLevel = 0;
+		
+		for(Player member : group.getMembers())
 		{
-			if(MathUtil.isInRange(member, player, GroupConfig.GROUP_MAX_DISTANCE))
+			if(MathUtil.isIn3dRange(member, victim, GroupConfig.GROUP_MAX_DISTANCE))
 			{
 				// Don't distribute AP to a dead player!
 				if (!member.getLifeStats().isAlreadyDead())
+				{
 					players.add(member);
+					if (member.getLevel() > maxLevel)
+						maxLevel = member.getLevel();
+					if (member.getAbyssRank().getRank().getId() > maxRank)
+						maxRank = member.getAbyssRank().getRank().getId();
+				}
 			}
 		}
 		
@@ -344,13 +360,19 @@ public class GroupService
 		if (players.size() == 0)
 			return;
 		
-		int apRewardPerMember = Math.round(apReward / players.size());
+		// This needs to be unique for each player and group
+		int baseApReward = StatFunctions.calculatePvpApGained(victim, maxRank, maxLevel);
 		
-		for(Player member : players)
+		int apRewardPerMember = Math.round(baseApReward * apRewardPercentage / players.size());
+		
+		if (apRewardPerMember > 0)
 		{
-			// AP reward
-			if (apRewardPerMember > 0)
-				member.getCommonData().addAp(Math.round(apRewardPerMember * member.getRates().getApPlayerRate()));
+			for(Player member : players)
+			{
+				member.getCommonData().addAp(Math.round(
+					apRewardPerMember * member.getRates().getApPlayerRate()
+				));
+			}
 		}
 	}
 	

@@ -30,7 +30,8 @@ import com.aionemu.gameserver.utils.ThreadPoolManager;
  */
 public class ActionitemController extends NpcController
 {
-
+	private Player lastActor = null;
+	
 	/**
 	 * 0 - clear object
 	 * 1 - use object
@@ -52,17 +53,23 @@ public class ActionitemController extends NpcController
 				PacketSendUtility.sendPacket(player, new SM_USE_OBJECT(player.getObjectId(), 
 					getOwner().getObjectId(), defaultUseTime, 0));
 				getOwner().setTarget(player);
+				lastActor = player;
 				onDie(player);
 			}
 		}, defaultUseTime);
 	}
 
 	@Override
-	public void doDrop(Player player)
+	public void doReward()
 	{
-		sp.getDropService().registerDrop(getOwner() , player);
+		if (lastActor == null)
+			return;
+		
+		sp.getDropService().registerDrop(getOwner() , lastActor);
 		PacketSendUtility.broadcastPacket(getOwner(), new SM_LOOT_STATUS(this.getOwner().getObjectId(), 0));
-		sp.getDropService().requestDropList(player , getOwner().getObjectId());
+		sp.getDropService().requestDropList(lastActor, getOwner().getObjectId());
+		
+		lastActor = null;
 	}
 
 	@Override

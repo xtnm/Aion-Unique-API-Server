@@ -16,9 +16,10 @@
  */
 package com.aionemu.gameserver.controllers;
 
-import com.aionemu.gameserver.model.gameobjects.Creature;
+import com.aionemu.gameserver.model.gameobjects.AionObject;
 import com.aionemu.gameserver.model.gameobjects.Monster;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
+import com.aionemu.gameserver.model.group.PlayerGroup;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_LOOT_STATUS;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.utils.PacketSendUtility;
@@ -26,54 +27,66 @@ import com.aionemu.gameserver.utils.stats.StatFunctions;
 import com.aionemu.gameserver.world.WorldType;
 
 /**
- * @author ATracer
- *
+ * @author ATracer, Sarynth
  */
 public class MonsterController extends NpcController
 {
 	@Override
-	public void doDrop(Player player)
+	public void doReward()
 	{
-		super.doDrop(player);
-		sp.getDropService().registerDrop(getOwner() , player);			
-		PacketSendUtility.broadcastPacket(this.getOwner(), new SM_LOOT_STATUS(this.getOwner().getObjectId(), 0));
-	}
-	
-	@Override
-	public void doReward(Creature creature)
-	{
-		super.doReward(creature);
-
-		Creature master = creature.getMaster();
-		if(master instanceof Player)
+		AionObject winner = getOwner().getAggroList().getMostDamage(); 
+		
+		if(winner == null)
+			return;
+		
+		// TODO: Split the EXP based on overall damage.
+		
+		if (winner instanceof PlayerGroup)
 		{
-			Player player = (Player) master;
+			sp.getGroupService().doReward((PlayerGroup)winner, getOwner());
 			
-			if(player.getPlayerGroup() == null) //solo
-			{
-				// Exp reward
-				long expReward = StatFunctions.calculateSoloExperienceReward(player, getOwner());
-				player.getCommonData().addExp(expReward);
+			Player leader = ((PlayerGroup)winner).getGroupLeader();
+			
+			// Give Drop
+			sp.getDropService().registerDrop(getOwner(), leader);
+			PacketSendUtility.broadcastPacket(this.getOwner(), new SM_LOOT_STATUS(this.getOwner().getObjectId(), 0));
+		}
+		else if (((Player)winner).isInGroup())
+		{
+			sp.getGroupService().doReward(((Player)winner).getPlayerGroup(), getOwner());
+			
+			// Give Drop
+			sp.getDropService().registerDrop(getOwner(), (Player)winner);
+			PacketSendUtility.broadcastPacket(this.getOwner(), new SM_LOOT_STATUS(this.getOwner().getObjectId(), 0));
+		}
+		else
+		{
+			super.doReward();
+			
+			Player player = (Player)winner;
+			
+			// Exp reward
+			long expReward = StatFunctions.calculateSoloExperienceReward(player, getOwner());
+			player.getCommonData().addExp(expReward);
 
-				// DP reward
-				int currentDp = player.getCommonData().getDp();
-				int dpReward = StatFunctions.calculateSoloDPReward(player, getOwner());
-				player.getCommonData().setDp(dpReward + currentDp);
-				
-				// AP reward
-				WorldType worldType = sp.getWorld().getWorldMap(player.getWorldId()).getWorldType();
-				if(worldType == WorldType.ABYSS)
-				{
-					int apReward = StatFunctions.calculateSoloAPReward(player, getOwner());
-					player.getCommonData().addAp(apReward);
-				}
-				
-				sp.getQuestEngine().onKill(new QuestEnv(getOwner(), player, 0 , 0));
-			}
-			else
+			// DP reward
+			int currentDp = player.getCommonData().getDp();
+			int dpReward = StatFunctions.calculateSoloDPReward(player, getOwner());
+			player.getCommonData().setDp(dpReward + currentDp);
+			
+			// AP reward
+			WorldType worldType = sp.getWorld().getWorldMap(player.getWorldId()).getWorldType();
+			if(worldType == WorldType.ABYSS)
 			{
-				sp.getGroupService().doReward(player, getOwner());
+				int apReward = StatFunctions.calculateSoloAPReward(player, getOwner());
+				player.getCommonData().addAp(apReward);
 			}
+			
+			sp.getQuestEngine().onKill(new QuestEnv(getOwner(), player, 0 , 0));
+			
+			// Give Drop
+			sp.getDropService().registerDrop(getOwner() , player);			
+			PacketSendUtility.broadcastPacket(this.getOwner(), new SM_LOOT_STATUS(this.getOwner().getObjectId(), 0));
 		}
 	}
 	
