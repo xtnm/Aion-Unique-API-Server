@@ -473,7 +473,7 @@
 		<object x="372.40088" y="2403.6172" z="452.97058" h="64"/>
 	</spawn>
 	<!-- Ice Claw Flag (Monster Normal lvl:1)-->
-	<spawn map="220020000" npcid="700250" pool="16" interval="295">
+	<spawn map="220020000" npcid="700250" pool="15" interval="295">
 		<object x="883.45" y="356.1" z="510" h="1"/>
 		<object x="816.36" y="464.8" z="521" h="100"/>
 		<object x="970.6" y="354.44" z="514.47" h="33"/>
