@@ -70,7 +70,7 @@ public class SM_LEGION_EDIT extends AionServerPacket
 				break;
 			/** Change Legion Rank **/
 			case 0x01:
-				writeC(buf, legion.getLegionRank());
+				writeD(buf, legion.getLegionRank());
 				break;
 			/** Change Legion Permissions **/
 			case 0x02:
