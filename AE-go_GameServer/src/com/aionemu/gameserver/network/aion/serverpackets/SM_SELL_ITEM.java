@@ -18,27 +18,25 @@ package com.aionemu.gameserver.network.aion.serverpackets;
 
 import java.nio.ByteBuffer;
 
-import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionConnection;
 import com.aionemu.gameserver.network.aion.AionServerPacket;
 
 
 /**
  * 
- * @author orz
+ * @author orz, Sarynth
  * 
  */
 public class SM_SELL_ITEM extends AionServerPacket
 {
 
 	private int	targetObjectId;
-	@SuppressWarnings("unused")
-	private Player	player;
-		
-	public SM_SELL_ITEM(Player player, int targetObjectId)
+	private int sellPercentage;
+	
+	public SM_SELL_ITEM(int targetObjectId, int sellPercentage)
 	{
 		
-		this.player = player ;// empty
+		this.sellPercentage = sellPercentage;
 		this.targetObjectId = targetObjectId;
 	
 	}
@@ -52,7 +50,7 @@ public class SM_SELL_ITEM extends AionServerPacket
 	{		
 
 		writeD(buf, targetObjectId);
-		writeD(buf, 0x32); //unknown for 1.5.x
+		writeD(buf, sellPercentage); // Buy Price * (sellPercentage / 100) = Display price.
 	
 	}	
 }

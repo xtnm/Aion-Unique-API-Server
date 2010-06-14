@@ -208,7 +208,8 @@ public class NpcController extends CreatureController<Npc>
 					.getTradeListTemplate(npc.getNpcId())));
 				break;
 			case 3:
-				PacketSendUtility.sendPacket(player, new SM_SELL_ITEM(player, targetObjectId));
+				// Currently fixed at 20% of buy price
+				PacketSendUtility.sendPacket(player, new SM_SELL_ITEM(targetObjectId, 20));
 				break;
 			case 4:
 				// stigma
