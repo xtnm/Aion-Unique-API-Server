@@ -115,7 +115,8 @@ public class Effects
 		@XmlElement(name = "boostheal", type = BoostHealEffect.class),
 		@XmlElement(name = "dispelbuff", type = DispelBuffEffect.class),
 		@XmlElement(name = "skilllauncher", type = SkillLauncherEffect.class),
-		@XmlElement(name = "forcedmove", type = ForcedMoveEffect.class)
+		@XmlElement(name = "forcedmove", type = ForcedMoveEffect.class),
+		@XmlElement(name = "fear", type = FearEffect.class)
 	})
 	protected List<EffectTemplate> effects;
 	

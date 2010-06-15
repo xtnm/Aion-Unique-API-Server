@@ -178,6 +178,14 @@ public class Effect
 	{
 		return duration;
 	}
+	
+	/**
+	 * @param newDuration
+	 */
+	public void setDuration(int newDuration)
+	{
+		this.duration = newDuration;
+	}
 
 	/**
 	 * @return the effected
@@ -725,4 +733,5 @@ public class Effect
 			actionObserver = new ActionObserver[4];
 		actionObserver[i-1] = observer;
 	}
+
 }
