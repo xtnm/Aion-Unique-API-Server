@@ -665,8 +665,10 @@ public class ItemService
 	 */
 	public void socketGodstone(Player player, int weaponId, int stoneId)
 	{
+		// TODO: Modify the price based on global price variable
+		int socketPrice = 50000;
 		Item kinahItem = player.getInventory().getKinahItem();
-		if(kinahItem.getItemCount() < 100000)
+		if(kinahItem.getItemCount() < socketPrice)
 			return;
 		
 		Item weaponItem = player.getInventory().getItemByObjId(weaponId);
@@ -693,7 +695,7 @@ public class ItemService
 		PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_GIVE_ITEM_PROC_ENCHANTED_TARGET_ITEM(new DescriptionId(Integer.parseInt(weaponItem.getName()))));
 		player.getInventory().removeFromBagByObjectId(stoneId, 1);
 		
-		player.getInventory().decreaseKinah(100000);
+		player.getInventory().decreaseKinah(socketPrice);
 		PacketSendUtility.sendPacket(player, new SM_UPDATE_ITEM(weaponItem));
 		PacketSendUtility.sendPacket(player, new SM_UPDATE_ITEM(kinahItem));
 	}
