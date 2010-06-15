@@ -41,7 +41,6 @@ import com.aionemu.gameserver.utils.ThreadPoolManager;
 
 /**
  * @author ATracer
- *
  */
 public class Skill
 {
@@ -163,7 +162,9 @@ public class Skill
 	{
 		if (!canUseSkill())
 			return;
-
+		
+		effector.getObserveController().notifySkilluseObservers(this);
+		
 		//start casting
 		effector.setCasting(this);
 		
@@ -182,7 +183,7 @@ public class Skill
 		{
 			startCast();
 		}
-
+		
 		effector.getObserveController().attach(conditionChangeListener);
 		
 		if(this.duration > 0)

@@ -28,11 +28,12 @@ import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.gameobjects.state.CreatureVisualState;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_PLAYER_STATE;
 import com.aionemu.gameserver.skillengine.model.Effect;
+import com.aionemu.gameserver.skillengine.model.Skill;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 
 /**
  * @author Sweetkr
- *
+ * @author Cura
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "HideEffect")
@@ -136,6 +137,18 @@ public class HideEffect extends BufEffect
 		{
 			PacketSendUtility.broadcastPacket((Player)effected, new SM_PLAYER_STATE((Player)effected), true);
 		}
+		
+		//Remove Hide when use skill
+		effected.getObserveController().attach(
+			new ActionObserver(ObserverType.SKILLUSE)
+			{
+				@Override
+				public void skilluse(Skill skill)
+				{
+					effected.getEffectController().removeEffect(effect.getSkillId());
+				}
+			}
+		);
 		
 		// Remove Hide when attacked
 		effected.getObserveController().attach(

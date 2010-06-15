@@ -29,10 +29,11 @@ import com.aionemu.gameserver.controllers.movement.AttackCalcObserver;
 import com.aionemu.gameserver.model.gameobjects.Creature;
 import com.aionemu.gameserver.model.gameobjects.Item;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
+import com.aionemu.gameserver.skillengine.model.Skill;
 
 /**
  * @author ATracer
- *
+ * @author Cura
  */
 public class ObserveController
 {
@@ -40,6 +41,7 @@ public class ObserveController
 	protected Queue<ActionObserver>	moveObservers		= new ConcurrentLinkedQueue<ActionObserver>();
 	protected Queue<ActionObserver>	attackObservers		= new ConcurrentLinkedQueue<ActionObserver>();
 	protected Queue<ActionObserver>	attackedObservers	= new ConcurrentLinkedQueue<ActionObserver>();
+	protected Queue<ActionObserver>	skilluseObservers	= new ConcurrentLinkedQueue<ActionObserver>();
 	
 	protected ActionObserver[] observers = new ActionObserver[0];
 	protected ActionObserver[] equipObservers = new ActionObserver[0];
@@ -61,6 +63,9 @@ public class ObserveController
 				break;
 			case MOVE:
 				moveObservers.add(observer);
+				break;
+			case SKILLUSE:
+				skilluseObservers.add(observer);
 				break;
 		}
 	}
@@ -118,6 +123,25 @@ public class ObserveController
 			for(ActionObserver observer : observers)
 			{
 				observer.attacked(creature);
+			}
+		}
+	}
+
+	/**
+	 * notify that creature used a skill
+	 */
+	public void notifySkilluseObservers(Skill skill)
+	{
+		while(!skilluseObservers.isEmpty())
+		{
+			ActionObserver observer = skilluseObservers.poll();
+			observer.skilluse(skill);
+		}
+		synchronized(observers)
+		{
+			for(ActionObserver observer : observers)
+			{
+				observer.skilluse(skill);
 			}
 		}
 	}
