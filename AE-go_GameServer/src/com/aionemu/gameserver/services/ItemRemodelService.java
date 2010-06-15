@@ -43,7 +43,9 @@ public class ItemRemodelService
 		Storage inventory = player.getInventory();
 		Item keepItem = inventory.getItemByObjId(keepItemObjId);
 		Item extractItem = inventory.getItemByObjId(extractItemObjId);
-
+		
+		int remodelCost = 500;
+		
 		if(keepItem == null || extractItem == null)
 		{ // NPE check.
 			return;
@@ -58,7 +60,7 @@ public class ItemRemodelService
 		}
 		
 		// Check Kinah
-		if (player.getInventory().getKinahItem().getItemCount() < 1000)
+		if (player.getInventory().getKinahItem().getItemCount() < remodelCost)
 		{
 			PacketSendUtility.sendPacket(player,
 				SM_SYSTEM_MESSAGE.STR_CHANGE_ITEM_SKIN_NOT_ENOUGH_GOLD(new DescriptionId(keepItem.getItemTemplate().getNameId())));
@@ -74,7 +76,7 @@ public class ItemRemodelService
 				return;
 			}
 			// Remove Money
-			player.getInventory().decreaseKinah(1000);
+			player.getInventory().decreaseKinah(remodelCost);
 			
 			// Remove Pattern Reshaper
 			player.getInventory().decreaseItemCount(extractItem, 1);
@@ -128,7 +130,7 @@ public class ItemRemodelService
 		// -- SUCCESS --
 		
 		// Remove Money
-		player.getInventory().decreaseKinah(1000);
+		player.getInventory().decreaseKinah(remodelCost);
 		
 		// Remove Item
 		player.getInventory().decreaseItemCount(extractItem, 1);
