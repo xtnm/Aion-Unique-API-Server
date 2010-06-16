@@ -465,7 +465,7 @@ public class PlayerController extends CreatureController<Player>
 	/**
 	 * Cancel current skill and remove cooldown
 	 */
-	private void cancelCurrentSkill()
+	public void cancelCurrentSkill()
 	{
 		Player player = getOwner();
 		Skill castingSkill = player.getCastingSkill();
