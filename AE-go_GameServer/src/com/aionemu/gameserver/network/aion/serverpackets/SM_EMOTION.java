@@ -80,7 +80,18 @@ public class SM_EMOTION extends AionServerPacket
 	{
 		this(creature, emotionType, 0, 0);
 	}
-
+	
+	/**
+	 * Used to open a door.
+	 * 
+	 * @param doorId
+	 */
+	public SM_EMOTION(int doorId)
+	{
+		this.senderObjectId = doorId;
+		this.emotionType = 26;
+	}
+	
 	/**
 	 * Constructs new server packet with specified opcode
 	 * 
@@ -254,6 +265,11 @@ public class SM_EMOTION extends AionServerPacket
 				// toggle run
 				writeH(buf, state);
 				writeF(buf, speed);
+				break;
+			case 26:
+				//toggle doors
+				writeH(buf, 9); // unk
+				writeD(buf, 0); // unk
 				break;
 			case 28:
 				// private shop open

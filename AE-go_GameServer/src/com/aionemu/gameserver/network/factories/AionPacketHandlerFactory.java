@@ -113,6 +113,7 @@ public class AionPacketHandlerFactory
 		addPacket(new CM_SKILL_DEACTIVATE(0x88), State.IN_GAME);
 		addPacket(new CM_REMOVE_ALTERED_STATE(0x89), State.IN_GAME);
 		addPacket(new CM_USE_ITEM(0x8B), State.IN_GAME);
+		addPacket(new CM_OPEN_STATICDOOR(0x8D), State.IN_GAME);
 		addPacket(new CM_EMOTION(0x91), State.IN_GAME);
 		addPacket(new CM_PING(0x92), State.AUTHED, State.IN_GAME);
 		addPacket(new CM_LEGION(0x93), State.IN_GAME);
