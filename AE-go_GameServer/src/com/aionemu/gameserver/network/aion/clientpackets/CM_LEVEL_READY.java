@@ -83,8 +83,8 @@ public class CM_LEVEL_READY extends AionClientPacket
 		 */
 		world.spawn(activePlayer);
 		
-		activePlayer.getController().addZoneUpdateMask(ZoneUpdateMode.ZONE_REFRESH);
-
+		activePlayer.getController().refreshZoneImpl();
+		
 		/**
 		 * Loading weather for the player's region
 		 */
