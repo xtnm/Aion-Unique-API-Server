@@ -170,9 +170,11 @@ public class DuelService
 			return;
 
 		/**
-		 * all debuffs are removed from looser
+		 * all debuffs are removed from loser
+		 * Stop casting or skill use
 		 */
 		player.getEffectController().removeAbnormalEffectsByTargetSlot(SkillTargetSlot.DEBUFF);
+		player.getController().cancelCurrentSkill();
 		
 		int opponnentId = duels.get(player.getObjectId());
 		Player opponent = world.findPlayer(opponnentId);
@@ -181,8 +183,11 @@ public class DuelService
 		{
 			/**
 			 * all debuffs are removed from winner, but buffs will remain
+			 * Stop casting or skill use
 			 */
 			opponent.getEffectController().removeAbnormalEffectsByTargetSlot(SkillTargetSlot.DEBUFF);
+			opponent.getController().cancelCurrentSkill();
+			
 			PacketSendUtility.sendPacket(opponent, SM_DUEL.SM_DUEL_RESULT(DuelResult.DUEL_WON, player.getName()));
 			PacketSendUtility.sendPacket(player, SM_DUEL.SM_DUEL_RESULT(DuelResult.DUEL_LOST, opponent.getName()));
 		}
