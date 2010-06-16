@@ -484,6 +484,19 @@
 			<xs:enumeration value="SOLITARY_ISLAND_400010000"/>
 			<xs:enumeration value="ASTERIA_PLAIN_400010000"/>
 			<xs:enumeration value="SIELS_EASTERN_FORTRESS_400010000"/>
+			<!-- Dark Poeta -->
+			<xs:enumeration value="LABORATORY_OF_HEWAHEWA"/>
+			<xs:enumeration value="FOREST_OF_VENGEFUL_SPIRIT"/>
+			<xs:enumeration value="SCARS_HIDEOUT"/>
+			<xs:enumeration value="THE_WILDERNESS"/>
+			<xs:enumeration value="RUKHA_PLANTATION"/>
+			<xs:enumeration value="DARKSPORE_ROAD"/>
+			<xs:enumeration value="DESOLATE_AKARIOS_VILLAGE"/>
+			<xs:enumeration value="DRANA_HARVESTING_AREA"/>
+			<xs:enumeration value="TELEPATHY_CONTROL_ROOM"/>
+			<xs:enumeration value="MARABATAS_LAKE"/>
+			<xs:enumeration value="ROOM_OF_DIMENSION"/>
+			<xs:enumeration value="ANUHART_LEGION_BASE"/>
 		</xs:restriction>
 	</xs:simpleType>
 </xs:schema>
