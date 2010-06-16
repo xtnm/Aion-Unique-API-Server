@@ -33,7 +33,7 @@ public class _1015FrillneckHunt extends QuestHandler
 {
 
 	private final static int	questId	= 1015;
-	private final static int[]	mob_ids	= { 210126, 210200 };
+	private final static int[]	mob_ids	= { 210126, 210200, 210201 };
 
 	public _1015FrillneckHunt()
 	{
@@ -133,7 +133,9 @@ public class _1015FrillneckHunt extends QuestHandler
 					updateQuestStatus(player, qs);
 					return true;
 				}
+			break;
 			case 210200:
+			case 210201:
 				if(var >= 9 && var <= 19)
 				{
 					qs.setQuestVarById(0, var + 1);
@@ -146,6 +148,7 @@ public class _1015FrillneckHunt extends QuestHandler
 					updateQuestStatus(player, qs);
 					return true;
 				}
+			break;
 		}
 		return false;
 	}

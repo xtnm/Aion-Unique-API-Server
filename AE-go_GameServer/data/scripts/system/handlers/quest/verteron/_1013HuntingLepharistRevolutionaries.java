@@ -136,6 +136,7 @@ public class _1013HuntingLepharistRevolutionaries extends QuestHandler
 					updateQuestStatus(player, qs);
 					return true;
 				}
+			break;
 			case 210316:
 				if(var == 12)
 				{
@@ -143,6 +144,7 @@ public class _1013HuntingLepharistRevolutionaries extends QuestHandler
 					updateQuestStatus(player, qs);
 					return true;
 				}
+			break;
 		}
 		return false;
 	}
