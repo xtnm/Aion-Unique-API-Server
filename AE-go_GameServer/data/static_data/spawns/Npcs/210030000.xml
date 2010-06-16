@@ -309,7 +309,7 @@
 		<object x="1738.0" y="2554.0" z="152.30351" h="78"/>
 	</spawn>
 	<!-- Indratu Fortress Abyss Gate (Object Normal lvl:3)-->
-	<spawn map="210030000" npcid="700565" pool="1" interval="295">
+	<spawn map="210030000" npcid="700141" pool="1" interval="1">
 		<object staticid="802" x="2691.4753" y="1068.0687" z="200.63638" h="4"/>
 	</spawn>
 	<!-- Irian (NPC Normal lvl:10)-->
@@ -783,9 +783,8 @@
 		<object x="2071.3406" y="2415.5107" z="274.0412" h="72"/>
 	</spawn>
 	<!-- Verteron Abyss Gate (Object Normal lvl:20)-->
-	<spawn map="210030000" npcid="700088" pool="2" interval="295">
-		<object x="2690.37" y="1067.99" z="200.125" h="50"/>
-		<object x="1687.3749" y="1489.907" z="239.70415" h="114"/>
+	<spawn map="210030000" npcid="700088" pool="1" interval="295">
+		<object x="1688.3002" y="1489.0044" z="239.78752" h="84"/>
 	</spawn>
 	<!-- Vine Pumpkin (Object Normal lvl:1)-->
 	<spawn map="210030000" npcid="700109" pool="27" interval="295">

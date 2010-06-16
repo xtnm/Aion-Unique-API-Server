@@ -52,7 +52,7 @@ public class _1020SealingTheAbyssGate extends QuestHandler
 	World world;
 	
 	private final static int	questId	= 1020;
-	private final static int[]	npcIds	= { 203098, 700141, 700142 };
+	private final static int[]	npcIds	= { 203098, 700141, 700142, 700551 };
 	private final static int[]	mobIds	= { 210753 };
 	
 	public _1020SealingTheAbyssGate()
@@ -63,6 +63,8 @@ public class _1020SealingTheAbyssGate extends QuestHandler
 	@Override
 	public void register()
 	{
+		qe.addOnEnterWorld(questId);
+		qe.addOnDie(questId);
 		for(int npcId : npcIds)
 			qe.setNpcQuestData( npcId ).addOnTalkEvent( questId );
 		
@@ -97,6 +99,7 @@ public class _1020SealingTheAbyssGate extends QuestHandler
 		final int instanceId = player.getInstanceId();
 		final int var = qs.getQuestVarById( 0 );
 		int targetId = 0;
+		int itemCount;
 		if(env.getVisibleObject() instanceof Npc)
 			targetId = ((Npc) env.getVisibleObject()).getNpcId();
 
@@ -130,7 +133,7 @@ public class _1020SealingTheAbyssGate extends QuestHandler
 				}
 
 			case 700141:
-				if( var == 1 )
+				if( var == 1 && player.getPlayerGroup() != null)
 				{					
 					final int targetObjectId = env.getVisibleObject().getObjectId();
 					PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, 37, 0, targetObjectId), true);
@@ -149,26 +152,29 @@ public class _1020SealingTheAbyssGate extends QuestHandler
 					return true;
 					
 				}
-				else if( var == 3 )
+			case 700551:
+				if( var == 3 )
 				{
-					final int targetObjectId = env.getVisibleObject().getObjectId();
-					PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, 37, 0, targetObjectId), true);
-					ThreadPoolManager.getInstance().schedule(new Runnable()
+					itemCount = player.getInventory().getItemCountByItemId(182200024);
+					if (itemCount >= 1)
 					{
-						@Override
-						public void run()
+						final int targetObjectId = env.getVisibleObject().getObjectId();
+						PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, 37, 0, targetObjectId), true);
+						ThreadPoolManager.getInstance().schedule(new Runnable()
 						{
-							teleportService.teleportTo(player, WorldMapType.VERTERON.getId(), 1701, 1494, 122, 0);
-							qs.setStatus(QuestStatus.REWARD);
-							updateQuestStatus(player, qs);
-						}
-					}, 3000);
-
-					return true;
-					
+							@Override
+							public void run()
+							{
+								teleportService.teleportTo(player, WorldMapType.VERTERON.getId(), 2684.308f, 1068.7382f, 199.375f, 0);
+								qs.setStatus(QuestStatus.REWARD);
+								updateQuestStatus(player, qs);
+							}
+						}, 3000);
+						return true;
+					}
 				}
 			case 700142:
-				if( var == 2 )
+				if( var == 2)
 				{				
 				
 				final int targetObjectId = env.getVisibleObject().getObjectId();
@@ -189,6 +195,25 @@ public class _1020SealingTheAbyssGate extends QuestHandler
 				return false;
 		}
 	}
+
+	@Override
+	public boolean onDieEvent(QuestEnv env)
+	{
+		Player player = env.getPlayer();
+		QuestState qs = player.getQuestStateList().getQuestState(questId);
+		if(qs == null || qs.getStatus() != QuestStatus.START)
+			return false;
+		int var = qs.getQuestVars().getQuestVars();
+		if(var == 2 || var == 3)
+		{
+			qs.setQuestVar(1);
+			player.getInventory().removeFromBagByItemId(182200024, 1);
+			updateQuestStatus(player, qs);
+		}
+
+		return false;
+	}
+	
 
 	@Override
 	public boolean onKillEvent(QuestEnv env)
@@ -214,6 +239,27 @@ public class _1020SealingTheAbyssGate extends QuestHandler
 					return true;
 				}
 			break;
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean onEnterWorldEvent(QuestEnv env)
+	{
+		Player player = env.getPlayer();
+		QuestState qs = player.getQuestStateList().getQuestState(questId);
+		if(qs != null && qs.getStatus() == QuestStatus.START)
+		{
+			int var = qs.getQuestVars().getQuestVars();
+			if(var == 2 || var == 3)
+			{
+				if(player.getWorldId() != 310030000)
+				{
+					qs.setQuestVar(1);
+					player.getInventory().removeFromBagByItemId(182200024, 1);
+					updateQuestStatus(player, qs);
+				}
+			}
 		}
 		return false;
 	}

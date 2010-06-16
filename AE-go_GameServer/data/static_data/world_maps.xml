@@ -29,8 +29,8 @@
 	<map id="300140000" name="KrotanChamber" instance="true" death_level="0" water_level="16" world_type="ABYSS"/>
 	<map id="310010000" name="IDAbProL1" instance="true" death_level="0" water_level="16"/>
 	<map id="310020000" name="IDAbProL2" instance="true" death_level="0" water_level="16"/>
-	<map id="310030000" name="IDAbGateL1" death_level="0" water_level="16"/>
-	<map id="310040000" name="IDAbGateL2" death_level="0" water_level="16"/>
+	<map id="310030000" name="IDAbGateL1" instance="true" death_level="0" water_level="16"/>
+	<map id="310040000" name="IDAbGateL2" instance="true" death_level="0" water_level="16"/>
 	<map id="310050000" name="IDLF3Lp" instance="true" death_level="0" water_level="16"/>
 	<map id="310060000" name="IDLF1B" instance="true" death_level="0" water_level="16"/>
 	<map id="310070000" name="IDLF1B_Stigma" instance="true" death_level="0" water_level="16"/>
