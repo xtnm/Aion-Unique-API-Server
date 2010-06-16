@@ -567,4 +567,13 @@ public class ItemTemplate extends VisibleObjectTemplate
 	{
 		return (getMask() & ItemMask.SOUL_BOUND) == ItemMask.SOUL_BOUND;
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean isTradeable()
+	{
+		return (getMask() & ItemMask.TRADEABLE) == ItemMask.TRADEABLE;
+	}
 }

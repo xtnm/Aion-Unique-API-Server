@@ -154,6 +154,10 @@ public class ExchangeService
 		if(item == null)
 			return;
 		
+		// Check Trade Hack
+		if (!item.getItemTemplate().isTradeable())
+			return;
+			
 		if(itemCount < 1)
 			return;
 		

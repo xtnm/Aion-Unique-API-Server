@@ -392,6 +392,10 @@ public class BrokerService
 
 		if(itemToRegister == null)
 			return;
+		
+		// Check Trade Hack
+		if (!itemToRegister.getItemTemplate().isTradeable())
+			return;
 
 		BrokerRace brRace;
 

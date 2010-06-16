@@ -72,7 +72,7 @@ public class PrivateStoreService
 		for(int i = 0; i < tradePSItems.length; i++)
 		{
 			Item item = getItemByObjId(activePlayer, tradePSItems[i].getItemObjId());
-			if(item != null)
+			if(item != null && item.getItemTemplate().isTradeable())
 			{
 				if(!validateItem(item, tradePSItems[i].getItemId(), tradePSItems[i].getCount()))
 					return;
