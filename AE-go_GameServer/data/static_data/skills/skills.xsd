@@ -217,6 +217,8 @@
 		<xs:sequence minOccurs="0" maxOccurs="unbounded">
 			<xs:element name="mp" type="MpCondition" minOccurs="0"
 				maxOccurs="1" />
+			<xs:element name="hp" type="HpCondition" minOccurs="0"
+				maxOccurs="1" />
 			<xs:element name="dp" type="DpCondition" minOccurs="0"
 				maxOccurs="1" />
 			<xs:element name="target" type="TargetCondition"
@@ -1058,6 +1060,15 @@
 	<!-- CONDITIONS -->
 
 	<xs:complexType name="MpCondition">
+		<xs:complexContent>
+			<xs:extension base="Condition">
+				<xs:attribute name="value" type="xs:int" use="required" />
+				<xs:attribute name="delta" type="xs:int" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="HpCondition">
 		<xs:complexContent>
 			<xs:extension base="Condition">
 				<xs:attribute name="value" type="xs:int" use="required" />
