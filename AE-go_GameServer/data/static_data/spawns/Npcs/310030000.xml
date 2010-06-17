@@ -27,8 +27,8 @@
 	<spawn map="310030000" npcid="700551" pool="1" interval="295">
 		<object staticid="8" x="250.70007" y="273.28397" z="228.61275" h="66"/>
 	</spawn>
-	<!-- Indratu Fortress Abyss Gate (Object Normal lvl:3) (from client spawn)-->
-	<spawn map="310030000" npcid="700565" pool="1" interval="295">
+	<!-- Abyss Gate(Object Normal lvl:1) (from client spawn)-->
+	<spawn map="310030000" npcid="700141" pool="1" interval="295">
 		<object staticid="17" x="276.32733" y="161.6717" z="203.65775" h="1"/>
 	</spawn>
 </spawns>

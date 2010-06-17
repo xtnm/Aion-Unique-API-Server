@@ -19,6 +19,7 @@ package quest.verteron;
 import com.aionemu.gameserver.model.gameobjects.Npc;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_EMOTION;
+import com.aionemu.gameserver.network.aion.serverpackets.SM_PLAY_MOVIE;
 import com.aionemu.gameserver.questEngine.handlers.QuestHandler;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
@@ -53,7 +54,7 @@ public class _1020SealingTheAbyssGate extends QuestHandler
 	
 	private final static int	questId	= 1020;
 	private final static int[]	npcIds	= { 203098, 700141, 700142, 700551 };
-	private final static int[]	mobIds	= { 210753 };
+
 	
 	public _1020SealingTheAbyssGate()
 	{
@@ -64,12 +65,10 @@ public class _1020SealingTheAbyssGate extends QuestHandler
 	public void register()
 	{
 		qe.addOnEnterWorld(questId);
+		qe.addQuestLvlUp(questId);
 		qe.addOnDie(questId);
 		for(int npcId : npcIds)
 			qe.setNpcQuestData( npcId ).addOnTalkEvent( questId );
-		
-		for(int mobId : mobIds)
-			qe.setNpcQuestData( mobId ).addOnKillEvent( questId );
 	}
 
 	@Override
@@ -79,10 +78,13 @@ public class _1020SealingTheAbyssGate extends QuestHandler
 		final QuestState qs = player.getQuestStateList().getQuestState( questId );
 		if( qs == null || qs.getStatus() != QuestStatus.LOCKED || player.getCommonData().getLevel() < 15 )
 			return false;
-
-		QuestState qs2 = player.getQuestStateList().getQuestState( 1130 );
-		if( qs2 == null || qs2.getStatus() != QuestStatus.COMPLETE )
-			return false;
+        int[] quests = { 1130, 1023, 1022, 1021, 1019, 1018, 1017, 1016, 1015, 1014, 1013, 1012, 1011};
+        for (int id : quests)
+        {
+            QuestState qs2 = player.getQuestStateList().getQuestState(id);
+            if (qs2 == null || qs2.getStatus() != QuestStatus.COMPLETE)
+                return false;
+        }
 
 		qs.setStatus( QuestStatus.START );
 		updateQuestStatus( player, qs );
@@ -110,7 +112,6 @@ public class _1020SealingTheAbyssGate extends QuestHandler
 		}
 		else if( qs.getStatus() != QuestStatus.START )
 			return false;
-		
 		switch( targetId )
 		{
 			case 203098:
@@ -119,7 +120,6 @@ public class _1020SealingTheAbyssGate extends QuestHandler
 					case 25:
 						if(var == 0)
 							return sendQuestDialog( player, env.getVisibleObject().getObjectId(), 1011 );
-
 					case 10000:
 						if(var == 0)
 						{
@@ -127,13 +127,11 @@ public class _1020SealingTheAbyssGate extends QuestHandler
 							updateQuestStatus( player, qs );
 							return sendQuestDialog( player, env.getVisibleObject().getObjectId(), 0 );
 						}
-
 					default:
 						return false;
 				}
-
 			case 700141:
-				if( var == 1 && player.getPlayerGroup() != null)
+				 if( var == 1 && player.getPlayerGroup() != null)
 				{					
 					final int targetObjectId = env.getVisibleObject().getObjectId();
 					PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, 37, 0, targetObjectId), true);
@@ -150,11 +148,9 @@ public class _1020SealingTheAbyssGate extends QuestHandler
 						}
 					}, 3000);
 					return true;
-					
 				}
-			case 700551:
-				if( var == 3 )
-				{
+				else if( var == 3)
+				{					
 					itemCount = player.getInventory().getItemCountByItemId(182200024);
 					if (itemCount >= 1)
 					{
@@ -166,7 +162,30 @@ public class _1020SealingTheAbyssGate extends QuestHandler
 							public void run()
 							{
 								teleportService.teleportTo(player, WorldMapType.VERTERON.getId(), 2684.308f, 1068.7382f, 199.375f, 0);
+								qs.setQuestVarById( 0, var + 1 );
 								qs.setStatus(QuestStatus.REWARD);
+								updateQuestStatus( player, qs );
+							}
+						}, 3000);
+						return true;
+					}
+				}
+				return false;
+			case 700551:
+				if( var == 2 )
+				{
+					itemCount = player.getInventory().getItemCountByItemId(182200024);
+					if (itemCount >= 1)
+					{
+						final int targetObjectId = env.getVisibleObject().getObjectId();
+						PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, 37, 0, targetObjectId), true);
+						ThreadPoolManager.getInstance().schedule(new Runnable()
+						{
+							@Override
+							public void run()
+							{
+								PacketSendUtility.sendPacket(player, new SM_PLAY_MOVIE(0, 153));
+								qs.setQuestVarById( 0, var + 1 );
 								updateQuestStatus(player, qs);
 							}
 						}, 3000);
@@ -213,36 +232,7 @@ public class _1020SealingTheAbyssGate extends QuestHandler
 
 		return false;
 	}
-	
-
-	@Override
-	public boolean onKillEvent(QuestEnv env)
-	{
-		Player player = env.getPlayer();
-		QuestState qs = player.getQuestStateList().getQuestState( questId );
-		if( qs == null || qs.getStatus() != QuestStatus.START )
-			return false;
-
-		int var = qs.getQuestVarById( 0 );
-		int targetId = 0;
-		if(env.getVisibleObject() instanceof Npc)
-			targetId = ((Npc) env.getVisibleObject()).getNpcId();
-
-		switch(targetId)
-		{
-			case 210753:
-				if( var == 2 )
-				{
-					qs.setQuestVarById(0, 3);
-					updateQuestStatus(player, qs);
-					player.getInventory().removeFromBagByItemId(182200024, 1);
-					return true;
-				}
-			break;
-		}
-		return false;
-	}
-	
+		
 	@Override
 	public boolean onEnterWorldEvent(QuestEnv env)
 	{
@@ -260,6 +250,19 @@ public class _1020SealingTheAbyssGate extends QuestHandler
 					updateQuestStatus(player, qs);
 				}
 			}
+		}
+		else if(qs.getStatus() == QuestStatus.LOCKED && player.getCommonData().getLevel() > 15 )
+		{
+			int[] quests = { 1130, 1023, 1022, 1021, 1019, 1018, 1017, 1016, 1015, 1014, 1013, 1012, 1011};
+			for (int id : quests)
+			{
+				QuestState qs2 = player.getQuestStateList().getQuestState(id);
+				if (qs2 == null || qs2.getStatus() != QuestStatus.COMPLETE)
+					return false;
+			}
+			qs.setStatus( QuestStatus.START );
+			updateQuestStatus( player, qs );
+			return true;
 		}
 		return false;
 	}
