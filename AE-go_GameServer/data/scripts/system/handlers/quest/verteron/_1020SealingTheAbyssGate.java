@@ -238,7 +238,10 @@ public class _1020SealingTheAbyssGate extends QuestHandler
 	{
 		Player player = env.getPlayer();
 		QuestState qs = player.getQuestStateList().getQuestState(questId);
-		if(qs != null && qs.getStatus() == QuestStatus.START)
+		if (qs == null)
+			return false;
+		
+		if(qs.getStatus() == QuestStatus.START)
 		{
 			int var = qs.getQuestVars().getQuestVars();
 			if(var == 2 || var == 3)
