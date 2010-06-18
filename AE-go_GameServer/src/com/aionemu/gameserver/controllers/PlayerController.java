@@ -301,13 +301,15 @@ public class PlayerController extends CreatureController<Player>
 		// Distribute AP to groups and players that had damage.
 		for(AggroInfo aggro : victim.getAggroList().getFinalDamageList(true))
 		{
-			playerDamage += aggro.getDamage();
-			
 			if (aggro.getAttacker() instanceof Player)
 			{
 				// Reward Player
 				Player p = ((Player)aggro.getAttacker());
-
+				
+				// Don't Reward Player of Same Faction.
+				if (p.getCommonData().getRace() == victim.getCommonData().getRace())
+					continue;
+				
 				// This needs to be unique for each player and group
 				int baseApReward = StatFunctions.calculatePvpApGained(victim,
 					winner.getAbyssRank().getRank().getId(), winner.getLevel());
@@ -320,13 +322,16 @@ public class PlayerController extends CreatureController<Player>
 				// Reward Group
 				PlayerGroup pg = ((PlayerGroup)aggro.getAttacker());
 				
+				// Don't Reward Player of Same Faction.
+				if (pg.getGroupLeader().getCommonData().getRace() == victim.getCommonData().getRace())
+					continue;
+				
 				float groupApPercentage = (float)aggro.getDamage() / totalDamage;
 				GroupService.getInstance().doReward(victim, pg, groupApPercentage);
 			}
-			else
-			{
-				// Throw an error...
-			}
+			
+			// Add damage last, so we don't include damage from same race. (Duels, Arena)
+			playerDamage += aggro.getDamage();
 		}
 		
 		// Apply lost AP to defeated player
