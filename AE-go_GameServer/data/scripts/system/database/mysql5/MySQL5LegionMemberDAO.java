@@ -124,7 +124,7 @@ public class MySQL5LegionMemberDAO extends LegionMemberDAO
 	 * {@inheritDoc}
 	 */
 	@Override
-	public LegionMember loadLegionMember(final int playerObjId, final LegionService legionService)
+	public LegionMember loadLegionMember(final int playerObjId)
 	{
 		if(playerObjId == 0)
 			return null;
@@ -149,7 +149,7 @@ public class MySQL5LegionMemberDAO extends LegionMemberDAO
 					legionMember.setNickname(resultSet.getString("nickname"));
 					legionMember.setSelfIntro(resultSet.getString("selfintro"));
 
-					legionMember.setLegion(legionService.getLegion(legionId));
+					legionMember.setLegion(LegionService.getInstance().getLegion(legionId));
 				}
 				catch(SQLException sqlE)
 				{
@@ -170,7 +170,7 @@ public class MySQL5LegionMemberDAO extends LegionMemberDAO
 	 * {@inheritDoc}
 	 */
 	@Override
-	public LegionMemberEx loadLegionMemberEx(final int playerObjId, final LegionService legionService)
+	public LegionMemberEx loadLegionMemberEx(final int playerObjId)
 	{
 		final LegionMemberEx legionMemberEx = new LegionMemberEx(playerObjId);
 
@@ -198,7 +198,7 @@ public class MySQL5LegionMemberDAO extends LegionMemberDAO
 					legionMemberEx.setNickname(resultSet.getString("legion_members.nickname"));
 					legionMemberEx.setSelfIntro(resultSet.getString("legion_members.selfintro"));
 
-					legionMemberEx.setLegion(legionService.getLegion(legionId));
+					legionMemberEx.setLegion(LegionService.getInstance().getLegion(legionId));
 				}
 				catch(SQLException sqlE)
 				{
@@ -219,7 +219,7 @@ public class MySQL5LegionMemberDAO extends LegionMemberDAO
 	 * {@inheritDoc}
 	 */
 	@Override
-	public LegionMemberEx loadLegionMemberEx(final String playerName, final LegionService legionService)
+	public LegionMemberEx loadLegionMemberEx(final String playerName)
 	{
 		final LegionMemberEx legionMember = new LegionMemberEx(playerName);
 
@@ -247,7 +247,7 @@ public class MySQL5LegionMemberDAO extends LegionMemberDAO
 					legionMember.setNickname(resultSet.getString("nickname"));
 					legionMember.setSelfIntro(resultSet.getString("selfintro"));
 
-					legionMember.setLegion(legionService.getLegion(legionId));
+					legionMember.setLegion(LegionService.getInstance().getLegion(legionId));
 				}
 				catch(SQLException sqlE)
 				{

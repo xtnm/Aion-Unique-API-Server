@@ -95,8 +95,7 @@ public class AionConnection extends AConnection
 	 */
 	private Player							activePlayer;
 	private String							lastPlayerName = "";
-	
-	private LoginServer						loginServer;
+
 	private AionPacketHandler				aionPacketHandler;
 	private PlayerService					playerService;
 	private long                     		lastPingTimeMS;
@@ -109,12 +108,11 @@ public class AionConnection extends AConnection
 	 * @throws IOException
 	 */
 	@Inject
-	public AionConnection(@Assisted SocketChannel sc, @Assisted Dispatcher d, LoginServer loginServer,
+	public AionConnection(@Assisted SocketChannel sc, @Assisted Dispatcher d,
 		AionPacketHandler aionPacketHandler, PlayerService playerService) throws IOException
 	{
 		super(sc, d);
 
-		this.loginServer = loginServer;
 		this.aionPacketHandler = aionPacketHandler;
 		this.playerService = playerService;
 
@@ -220,7 +218,7 @@ public class AionConnection extends AConnection
 		 * Client starts authentication procedure
 		 */
 		if(getAccount() != null)
-			loginServer.aionClientDisconnected(getAccount().getId());
+			LoginServer.getInstance().aionClientDisconnected(getAccount().getId());
 		if(getActivePlayer() != null)
 		{
 			Player player = getActivePlayer();

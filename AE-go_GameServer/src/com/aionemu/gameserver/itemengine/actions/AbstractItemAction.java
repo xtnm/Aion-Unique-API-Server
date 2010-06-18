@@ -20,7 +20,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
-import com.aionemu.gameserver.dataholders.loadingutils.XmlServiceProxy;
 import com.aionemu.gameserver.model.gameobjects.Item;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 
@@ -32,11 +31,6 @@ import com.aionemu.gameserver.model.gameobjects.player.Player;
 @XmlType(name = "AbstractItemAction")
 public abstract class AbstractItemAction
 {
-	/**
-	 * This instance should be set in unmarshal method
-	 */
-	protected XmlServiceProxy xsp;
-
 	/**
 	 * Check if an item can be used.
 	 * @param player

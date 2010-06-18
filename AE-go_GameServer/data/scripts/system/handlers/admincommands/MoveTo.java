@@ -23,7 +23,6 @@ import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.chathandlers.AdminCommand;
 import com.aionemu.gameserver.world.WorldMapType;
-import com.google.inject.Inject;
 
 /**
  * Admin moveto command
@@ -33,17 +32,14 @@ import com.google.inject.Inject;
 
 public class MoveTo extends AdminCommand
 {
-	private TeleportService teleportService;
 
 	/**
 	 * Constructor.
 	 */
 
-	@Inject
-	public MoveTo(TeleportService teleportService)
+	public MoveTo()
 	{
 		super("moveto");
-		this.teleportService = teleportService;
 	}
 
 	/**
@@ -87,7 +83,7 @@ public class MoveTo extends AdminCommand
 		}
 		else
 		{
-			teleportService.teleportTo(admin, worldId, x, y, z, 0);
+			TeleportService.teleportTo(admin, worldId, x, y, z, 0);
 			PacketSendUtility.sendMessage(admin, "Teleported to " + x + " " + y + " " + z + " [" + worldId + "]");
 		}
 	}

@@ -26,7 +26,6 @@ import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author Mr. Poke
@@ -34,8 +33,6 @@ import com.google.inject.Inject;
  */
 public class _1915DispatchtoVerteron extends QuestHandler
 {
-	@Inject
-	TeleportService	teleportService;
 
 	private final static int	questId	= 1915;
 	public _1915DispatchtoVerteron()
@@ -80,7 +77,7 @@ public class _1915DispatchtoVerteron extends QuestHandler
 							{
 								qs.setQuestVarById(0, var + 1);
 								updateQuestStatus(player, qs);
-								teleportService.teleportTo(player, 210030000, player.getInstanceId(), 1643f, 1500f, 120f, 1000);
+								TeleportService.teleportTo(player, 210030000, player.getInstanceId(), 1643f, 1500f, 120f, 1000);
 								PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 0));
 								return true;
 							}

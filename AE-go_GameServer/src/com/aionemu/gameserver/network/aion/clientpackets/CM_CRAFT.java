@@ -19,7 +19,6 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.services.CraftService;
-import com.google.inject.Inject;
 
 /**
  * @author Mr. Poke
@@ -32,9 +31,6 @@ public class CM_CRAFT extends AionClientPacket
 	private int targetTemplateId;
 	private int recipeId;
 	private int targetObjId;
-	
-	@Inject
-	private CraftService craftService;
 	
 	/**
 	 * @param opcode
@@ -68,6 +64,6 @@ public class CM_CRAFT extends AionClientPacket
 		if(player.getController().isInShutdownProgress())
 			return;
 			
-		craftService.startCrafting(player, targetTemplateId, recipeId, targetObjId);				
+		CraftService.startCrafting(player, targetTemplateId, recipeId, targetObjId);				
 	}
 }

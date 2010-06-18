@@ -39,7 +39,6 @@ import com.aionemu.gameserver.model.items.GodStone;
 import com.aionemu.gameserver.model.items.ManaStone;
 import com.aionemu.gameserver.model.legion.Legion;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer
@@ -48,17 +47,19 @@ import com.google.inject.Inject;
 public class PeriodicSaveService
 {
 	private static final Logger	log	= Logger.getLogger(PeriodicSaveService.class);
-	private LegionService		legionService;
 	
 	private Future<?>			legionWhUpdateTask;
 	
 	private static final int DELAY_GENERAL = PeriodicSaveConfig.PLAYER_GENERAL * 1000;
 	private static final int DELAY_ITEM = PeriodicSaveConfig.PLAYER_ITEMS * 1000;
 
-	@Inject
-	public PeriodicSaveService(LegionService legionService)
+	public static final PeriodicSaveService getInstance()
 	{
-		this.legionService = legionService;
+		return SingletonHolder.instance;
+	}
+
+	private PeriodicSaveService()
+	{
 		
 		int DELAY_LEGION_ITEM = PeriodicSaveConfig.LEGION_ITEMS * 1000;
 		
@@ -148,7 +149,7 @@ public class PeriodicSaveService
 		{
 			log.info("Legion WH update task started.");
 			long startTime = System.currentTimeMillis();
-			Iterator<Legion> legionsIterator = legionService.getCachedLegionIterator();
+			Iterator<Legion> legionsIterator = LegionService.getInstance().getCachedLegionIterator();
 			int legionWhUpdated = 0;
 			while(legionsIterator.hasNext())
 			{
@@ -204,5 +205,11 @@ public class PeriodicSaveService
 		legionWhUpdateTask.cancel(false);
 		new LegionWhUpdateTask().run();
 		log.info("Data successfully saved.");
+	}
+	
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final PeriodicSaveService instance = new PeriodicSaveService();
 	}
 }

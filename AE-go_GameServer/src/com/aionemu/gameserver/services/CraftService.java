@@ -27,10 +27,9 @@ import com.aionemu.gameserver.model.templates.item.ItemTemplate;
 import com.aionemu.gameserver.model.templates.recipe.Component;
 import com.aionemu.gameserver.model.templates.recipe.RecipeTemplate;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
-import com.aionemu.gameserver.skillengine.task.SkillTaskFactory;
+import com.aionemu.gameserver.skillengine.task.CraftingTask;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author MrPoke, sphinx
@@ -40,16 +39,13 @@ public class CraftService
 {
 	private static final Logger log = Logger.getLogger(CraftService.class);
 
-	@Inject
-	private SkillTaskFactory taskFactory;
-
 	/**
 	 * 
 	 * @param player
 	 * @param recipetemplate
 	 * @param critical
 	 */
-	public void finishCrafting(Player player, RecipeTemplate recipetemplate, boolean critical)
+	public static void finishCrafting(Player player, RecipeTemplate recipetemplate, boolean critical)
 	{
 		int productItemId = 0;
 		
@@ -78,7 +74,7 @@ public class CraftService
 	 * @param recipeId
 	 * @param targetObjId
 	 */
-	public void startCrafting(Player player, int targetTemplateId, int recipeId, int targetObjId)
+	public static void startCrafting(Player player, int targetTemplateId, int recipeId, int targetObjId)
 	{		
 		if (player.getCraftingTask() != null && player.getCraftingTask().isInProgress())
 			return;
@@ -142,7 +138,7 @@ public class CraftService
 			
 			// start crafting
 			int skillLvlDiff = player.getSkillList().getSkillLevel(skillId)-recipeTemplate.getSkillpoint();
-			player.setCraftingTask(taskFactory.craftingTask(player, (StaticObject)target, recipeTemplate, itemTemplate, critItemTemplate, skillLvlDiff));			
+			player.setCraftingTask(new CraftingTask(player, (StaticObject)target, recipeTemplate, itemTemplate, critItemTemplate, skillLvlDiff));			
 			player.getCraftingTask().start();
 		}
 	}	

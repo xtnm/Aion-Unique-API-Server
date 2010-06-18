@@ -16,12 +16,10 @@
  */
 package com.aionemu.gameserver.itemengine.actions;
 
-import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
-import com.aionemu.gameserver.dataholders.loadingutils.XmlServiceProxy;
 import com.aionemu.gameserver.model.gameobjects.Item;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_ITEM_USAGE_ANIMATION;
@@ -38,16 +36,6 @@ import com.aionemu.gameserver.utils.ThreadPoolManager;
 @XmlType(name = "ExtractAction")
 public class ExtractAction extends AbstractItemAction
 {
-	/**
-	 * 
-	 * @param u
-	 * @param parent
-	 */
-	void afterUnmarshal(Unmarshaller u, Object parent)
-	{
-		xsp = u.getAdapter(XmlServiceProxy.class);
-	}
-
 	@Override
 	public boolean canAct(Player player, Item parentItem, Item targetItem)
 	{

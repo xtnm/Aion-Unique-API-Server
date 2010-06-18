@@ -21,7 +21,6 @@ import java.util.ArrayList;
 
 import com.aionemu.gameserver.model.legion.LegionMember;
 import com.aionemu.gameserver.model.legion.LegionMemberEx;
-import com.aionemu.gameserver.services.LegionService;
 
 /**
  * Class that is responsible for storing/loading legion data
@@ -62,7 +61,7 @@ public abstract class LegionMemberDAO implements IDFactoryAwareDAO
 	 * @param legionService
 	 * @return LegionMember
 	 */
-	public abstract LegionMember loadLegionMember(int playerObjId, LegionService legionService);
+	public abstract LegionMember loadLegionMember(int playerObjId);
 
 	/**
 	 * Loads an off line legion member by id
@@ -71,7 +70,7 @@ public abstract class LegionMemberDAO implements IDFactoryAwareDAO
 	 * @param legionService
 	 * @return LegionMemberEx
 	 */
-	public abstract LegionMemberEx loadLegionMemberEx(int playerObjId, LegionService legionService);
+	public abstract LegionMemberEx loadLegionMemberEx(int playerObjId);
 
 	/**
 	 * Loads an off line legion member by name
@@ -80,7 +79,7 @@ public abstract class LegionMemberDAO implements IDFactoryAwareDAO
 	 * @param legionService
 	 * @return LegionMemberEx
 	 */
-	public abstract LegionMemberEx loadLegionMemberEx(String playerName, LegionService legionService);
+	public abstract LegionMemberEx loadLegionMemberEx(String playerName);
 
 	/**
 	 * Loads all legion members of a legion

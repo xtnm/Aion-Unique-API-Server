@@ -30,14 +30,12 @@ import com.aionemu.gameserver.utils.PacketSendUtility;
  */
 public class ReviveController
 {
-	TeleportService	teleportService;
 
 	private Player	player;
 
 	public ReviveController(Player player)
 	{
 		this.player = player;
-		this.teleportService = player.getController().sp.getTeleportService();
 	}
 
 	/**
@@ -64,7 +62,7 @@ public class ReviveController
 		PacketSendUtility.sendPacket(player, new SM_STATS_INFO(player));
 		PacketSendUtility.sendPacket(player, new SM_PLAYER_INFO(player, false));
 
-		teleportService.moveToBindLocation(player, true);
+		TeleportService.moveToBindLocation(player, true);
 	}
 
 	public void kiskRevive()
@@ -77,7 +75,7 @@ public class ReviveController
 		PacketSendUtility.sendPacket(player, new SM_STATS_INFO(player));
 		PacketSendUtility.sendPacket(player, new SM_PLAYER_INFO(player, false));
 		
-		teleportService.moveToKiskLocation(player);
+		TeleportService.moveToKiskLocation(player);
 		
 		kisk.resurrectionUsed(player);
 	}

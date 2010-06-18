@@ -24,7 +24,6 @@ import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.Util;
 import com.aionemu.gameserver.utils.rates.Rates;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * 
@@ -39,9 +38,6 @@ public class CM_LS_CONTROL_RESPONSE extends LsClientPacket
 	private byte		param;
 	private String		adminName;
 	private int		accountId;
-
-	@Inject
-	private LoginServer	loginServer;
 
 	public CM_LS_CONTROL_RESPONSE(int opcode)
 	{
@@ -71,7 +67,7 @@ public class CM_LS_CONTROL_RESPONSE extends LsClientPacket
 		World world = World.getInstance();
 		Player admin = world.findPlayer(Util.convertName(adminName));
 		Player player = world.findPlayer(Util.convertName(playerName));
-		loginServer.accountUpdate(accountId, param, type);
+		LoginServer.getInstance().accountUpdate(accountId, param, type);
 		switch (type)
 		{
 			case 1:

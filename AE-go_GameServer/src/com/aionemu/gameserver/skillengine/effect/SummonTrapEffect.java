@@ -18,13 +18,11 @@ package com.aionemu.gameserver.skillengine.effect;
 
 import java.util.concurrent.Future;
 
-import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
-import com.aionemu.gameserver.dataholders.loadingutils.XmlServiceProxy;
 import com.aionemu.gameserver.model.TaskId;
 import com.aionemu.gameserver.model.gameobjects.Creature;
 import com.aionemu.gameserver.model.gameobjects.Trap;
@@ -50,7 +48,7 @@ public class SummonTrapEffect extends SummonEffect
 	public void applyEffect(Effect effect)
 	{
 		Creature effector = effect.getEffector();
-		SpawnEngine spawnEngine = xsp.getSpawnEngine();
+		SpawnEngine spawnEngine = SpawnEngine.getInstance();
 		float x = effector.getX();
 		float y = effector.getY();
 		float z = effector.getZ();
@@ -76,15 +74,5 @@ public class SummonTrapEffect extends SummonEffect
 	public void calculate(Effect effect)
 	{
 		super.calculate(effect);
-	}
-
-	/**
-	 * 
-	 * @param u
-	 * @param parent
-	 */
-	void afterUnmarshal(Unmarshaller u, Object parent)
-	{
-		xsp = u.getAdapter(XmlServiceProxy.class);
 	}
 }

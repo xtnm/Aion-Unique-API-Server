@@ -26,23 +26,20 @@ import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.WorldMapType;
-import com.google.inject.Inject;
 
 /**
  * @author lord_rex
  */
 public class PunishmentService
 {
-	@Inject
-	TeleportService teleportService;
-	
+
 	/**
 	 * This method will handle moving or removing a player from prison
 	 * @param player
 	 * @param state
 	 * @param delayInMinutes
 	 */
-	public void setIsInPrison(Player player, boolean state, long delayInMinutes)
+	public static void setIsInPrison(Player player, boolean state, long delayInMinutes)
 	{
 		stopPrisonTask(player, false);
 		if(state)
@@ -54,7 +51,7 @@ public class PunishmentService
 				schedulePrisonTask(player, prisonTimer);
 				PacketSendUtility.sendMessage(player, "You are in prison for " + delayInMinutes + " minutes.");
 			}
-			teleportService.teleportTo(player, WorldMapType.PRISON.getId(), 256, 256, 49, 0);
+			TeleportService.teleportTo(player, WorldMapType.PRISON.getId(), 256, 256, 49, 0);
 			DAOManager.getDAO(PlayerPunishmentsDAO.class).punishPlayer(player, 1);
 		}
 		else
@@ -63,9 +60,9 @@ public class PunishmentService
 			player.setPrisonTimer(0);
 
 			if(player.getCommonData().getRace() == Race.ELYOS)
-				teleportService.teleportTo(player, WorldMapType.POETA.getId(), 806, 1242, 119, 0);
+				TeleportService.teleportTo(player, WorldMapType.POETA.getId(), 806, 1242, 119, 0);
 			else
-				teleportService.teleportTo(player, WorldMapType.ISHALGEN.getId(), 529, 2449, 281, 0);
+				TeleportService.teleportTo(player, WorldMapType.ISHALGEN.getId(), 529, 2449, 281, 0);
 
 			DAOManager.getDAO(PlayerPunishmentsDAO.class).unpunishPlayer(player);
 		}
@@ -75,7 +72,7 @@ public class PunishmentService
 	 * This method will stop the prison task
 	 * @param playerObjId
 	 */
-	public void stopPrisonTask(Player player, boolean save)
+	public static void stopPrisonTask(Player player, boolean save)
 	{
 		Future<?> prisonTask = player.getController().getTask(TaskId.PRISON);
 		if(prisonTask != null)
@@ -95,7 +92,7 @@ public class PunishmentService
 	 * This method will update the prison status
 	 * @param player
 	 */
-	public void updatePrisonStatus(Player player)
+	public static void updatePrisonStatus(Player player)
 	{
 		if(player.isInPrison())
 		{
@@ -107,7 +104,7 @@ public class PunishmentService
 					+ Math.round(prisonTimer / 60000) + " minutes.");
 			}
 			if(!(player.getWorldId() == WorldMapType.PRISON.getId()))
-				teleportService.teleportTo(player, WorldMapType.PRISON.getId(), 256, 256, 49, 0);
+				TeleportService.teleportTo(player, WorldMapType.PRISON.getId(), 256, 256, 49, 0);
 		}
 	}
 
@@ -116,7 +113,7 @@ public class PunishmentService
 	 * @param player
 	 * @param prisonTimer
 	 */
-	private void schedulePrisonTask(final Player player, long prisonTimer)
+	private static void schedulePrisonTask(final Player player, long prisonTimer)
 	{
 		player.setPrisonTimer(prisonTimer);
 		player.getController().addTask(TaskId.PRISON, ThreadPoolManager.getInstance().schedule(new Runnable(){

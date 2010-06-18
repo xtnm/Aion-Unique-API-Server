@@ -36,7 +36,7 @@ public class _2002WheresRae extends QuestHandler
 {
 	private final static int	questId	= 2002;
 
-	protected _2002WheresRae()
+	public _2002WheresRae()
 	{
 		super(questId);
 	}

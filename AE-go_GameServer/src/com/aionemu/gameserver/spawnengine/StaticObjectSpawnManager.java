@@ -16,8 +16,8 @@
  */
 package com.aionemu.gameserver.spawnengine;
 
-import com.aionemu.gameserver.controllers.factory.ObjectControllerFactory;
-import com.aionemu.gameserver.dataholders.ItemData;
+import com.aionemu.gameserver.controllers.StaticObjectController;
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.model.gameobjects.StaticObject;
 import com.aionemu.gameserver.model.gameobjects.VisibleObject;
 import com.aionemu.gameserver.model.templates.VisibleObjectTemplate;
@@ -26,7 +26,6 @@ import com.aionemu.gameserver.model.templates.spawn.SpawnTemplate;
 import com.aionemu.gameserver.utils.idfactory.IDFactory;
 import com.aionemu.gameserver.world.KnownList;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer
@@ -34,20 +33,15 @@ import com.google.inject.Inject;
  */
 public class StaticObjectSpawnManager
 {
-	@Inject
-	private ItemData itemData;
-	@Inject
-	private ObjectControllerFactory controllerFactory;
-	
 
 	/**
 	 * 
 	 * @param spawnGroup
 	 * @param instanceIndex
 	 */
-	public void spawnGroup(SpawnGroup spawnGroup, int instanceIndex)
+	public static void spawnGroup(SpawnGroup spawnGroup, int instanceIndex)
 	{
-		VisibleObjectTemplate objectTemplate = itemData.getItemTemplate(spawnGroup.getNpcid());
+		VisibleObjectTemplate objectTemplate = DataManager.ITEM_DATA.getItemTemplate(spawnGroup.getNpcid());
 		if(objectTemplate == null)
 			return;
 		
@@ -56,7 +50,7 @@ public class StaticObjectSpawnManager
 		{
 			SpawnTemplate spawn = spawnGroup.getNextAvailableTemplate(instanceIndex);
 			int objectId = IDFactory.getInstance().nextId();
-			StaticObject staticObject = new StaticObject(objectId, controllerFactory.staticObjectController(), spawn, objectTemplate);
+			StaticObject staticObject = new StaticObject(objectId, new StaticObjectController(), spawn, objectTemplate);
 			staticObject.setKnownlist(new KnownList(staticObject));
 			bringIntoWorld(staticObject, spawn, instanceIndex);
 		}
@@ -68,7 +62,7 @@ public class StaticObjectSpawnManager
 	 * @param spawn
 	 * @param instanceIndex
 	 */
-	private void bringIntoWorld(VisibleObject visibleObject, SpawnTemplate spawn, int instanceIndex)
+	private static void bringIntoWorld(VisibleObject visibleObject, SpawnTemplate spawn, int instanceIndex)
 	{
 		World world = World.getInstance();
 		world.storeObject(visibleObject);

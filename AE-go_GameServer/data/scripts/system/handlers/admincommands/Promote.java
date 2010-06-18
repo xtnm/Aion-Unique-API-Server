@@ -24,7 +24,6 @@ import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.Util;
 import com.aionemu.gameserver.utils.chathandlers.AdminCommand;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 /**
  * Admin promote command.
  *
@@ -34,8 +33,6 @@ import com.google.inject.Inject;
 
 public class Promote extends AdminCommand
 {
-	@Inject
-	private LoginServer loginServer;
 
 	/**
 	 * Constructor.
@@ -103,7 +100,7 @@ public class Promote extends AdminCommand
 			PacketSendUtility.sendMessage(admin, "The specified player is not online.");
 			return;
 		}
-		loginServer.sendLsControlPacket(admin.getAcountName(), player.getName(), admin.getName(), mask, type);
+		LoginServer.getInstance().sendLsControlPacket(admin.getAcountName(), player.getName(), admin.getName(), mask, type);
 
 	}
 }

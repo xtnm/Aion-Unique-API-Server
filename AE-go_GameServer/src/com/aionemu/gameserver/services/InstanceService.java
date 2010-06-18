@@ -23,7 +23,6 @@ import org.apache.log4j.Logger;
 
 import com.aionemu.commons.utils.Rnd;
 import com.aionemu.gameserver.dataholders.DataManager;
-import com.aionemu.gameserver.dataholders.PortalData;
 import com.aionemu.gameserver.model.gameobjects.VisibleObject;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.group.PlayerGroup;
@@ -35,7 +34,6 @@ import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.World;
 import com.aionemu.gameserver.world.WorldMap;
 import com.aionemu.gameserver.world.WorldMapInstance;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer
@@ -44,19 +42,13 @@ import com.google.inject.Inject;
 public class InstanceService
 {
 	private static Logger	log	= Logger.getLogger(InstanceService.class);
-	@Inject
-	private SpawnEngine		spawnEngine;
-	@Inject
-	private PortalData		portalData;
-	@Inject
-	private TeleportService teleportService;
 
 	/**
 	 * @param worldId
 	 * @param destroyTime
 	 * @return
 	 */
-	public synchronized WorldMapInstance getNextAvailableInstance(int worldId)
+	public synchronized static WorldMapInstance getNextAvailableInstance(int worldId)
 	{
 		WorldMap map = World.getInstance().getWorldMap(worldId);
 
@@ -70,7 +62,7 @@ public class InstanceService
 		WorldMapInstance worldMapInstance = new WorldMapInstance(map, nextInstanceId);
 		startInstanceChecker(worldMapInstance);
 		map.addInstance(nextInstanceId, worldMapInstance);
-		spawnEngine.spawnInstance(worldId, worldMapInstance.getInstanceId());
+		SpawnEngine.getInstance().spawnInstance(worldId, worldMapInstance.getInstanceId());
 		
 		return worldMapInstance;
 	}
@@ -78,7 +70,7 @@ public class InstanceService
 	/**
 	 * Instance will be destroyed All players moved to bind location All objects - deleted
 	 */
-	public void destroyInstance(WorldMapInstance instance)
+	private static void destroyInstance(WorldMapInstance instance)
 	{
 		instance.getEmptyInstanceTask().cancel(false);
 		
@@ -97,7 +89,7 @@ public class InstanceService
 			if(obj instanceof Player)
 			{			
 				Player player = (Player) obj;
-				PortalTemplate portal = portalData.getInstancePortalTemplate(worldId, player.getCommonData().getRace());
+				PortalTemplate portal = DataManager.PORTAL_DATA.getInstancePortalTemplate(worldId, player.getCommonData().getRace());
 				moveToEntryPoint((Player) obj, portal, true);
 			}
 			else
@@ -112,7 +104,7 @@ public class InstanceService
 	 * @param instance
 	 * @param player
 	 */
-	public void registerPlayerWithInstance(WorldMapInstance instance, Player player)
+	public static void registerPlayerWithInstance(WorldMapInstance instance, Player player)
 	{
 		instance.register(player.getObjectId());
 	}
@@ -122,7 +114,7 @@ public class InstanceService
 	 * @param instance
 	 * @param group
 	 */
-	public void registerGroupWithInstance(WorldMapInstance instance, PlayerGroup group)
+	public static void registerGroupWithInstance(WorldMapInstance instance, PlayerGroup group)
 	{
 		instance.registerGroup(group);
 	}
@@ -133,7 +125,7 @@ public class InstanceService
 	 * @param objectId
 	 * @return instance or null
 	 */
-	public WorldMapInstance getRegisteredInstance(int worldId, int objectId)
+	public static WorldMapInstance getRegisteredInstance(int worldId, int objectId)
 	{
 		Iterator<WorldMapInstance> iterator = World.getInstance().getWorldMap(worldId).iterator();
 		while(iterator.hasNext())
@@ -148,14 +140,14 @@ public class InstanceService
 	/**
 	 * @param player
 	 */
-	public void onPlayerLogin(Player player)
+	public static void onPlayerLogin(Player player)
 	{
 		int worldId = player.getWorldId();
 		
 		WorldMapTemplate worldTemplate = DataManager.WORLD_MAPS_DATA.getTemplate(worldId);
 		if(worldTemplate.isInstance())
 		{
-			PortalTemplate portalTemplate = portalData.getInstancePortalTemplate(worldId, player.getCommonData().getRace());
+			PortalTemplate portalTemplate = DataManager.PORTAL_DATA.getInstancePortalTemplate(worldId, player.getCommonData().getRace());
 
 			int lookupId = player.getObjectId();
 			if(portalTemplate.isGroup() && player.getPlayerGroup() != null)
@@ -163,7 +155,7 @@ public class InstanceService
 				lookupId = player.getPlayerGroup().getGroupId();
 			}
 			
-			WorldMapInstance registeredInstance = this.getRegisteredInstance(worldId, lookupId);
+			WorldMapInstance registeredInstance = getRegisteredInstance(worldId, lookupId);
 			if(registeredInstance != null)
 			{
 				World.getInstance().setPosition(player, worldId, registeredInstance.getInstanceId(), player.getX(), player.getY(),
@@ -187,7 +179,7 @@ public class InstanceService
 	 * @param player
 	 * @param portalTemplates
 	 */
-	private void moveToEntryPoint(Player player, PortalTemplate portalTemplate, boolean useTeleport)
+	private static void moveToEntryPoint(Player player, PortalTemplate portalTemplate, boolean useTeleport)
 	{		
 		EntryPoint entryPoint = null;
 		List<EntryPoint> entryPoints = portalTemplate.getEntryPoint();
@@ -209,7 +201,7 @@ public class InstanceService
 		
 		if(useTeleport)
 		{
-			teleportService.teleportTo(player, entryPoint.getMapId(), 1,  entryPoint.getX(), entryPoint.getY(),
+			TeleportService.teleportTo(player, entryPoint.getMapId(), 1,  entryPoint.getX(), entryPoint.getY(),
 				entryPoint.getZ(), 0);
 		}
 		else
@@ -225,7 +217,7 @@ public class InstanceService
 	 * @param instanceId
 	 * @return
 	 */
-	public boolean isInstanceExist(int worldId, int instanceId)
+	public static boolean isInstanceExist(int worldId, int instanceId)
 	{
 		return World.getInstance().getWorldMap(worldId).getWorldMapInstanceById(instanceId) != null;
 	}
@@ -234,14 +226,14 @@ public class InstanceService
 	 * 
 	 * @param worldMapInstance
 	 */
-	private void startInstanceChecker(WorldMapInstance worldMapInstance)
+	private static void startInstanceChecker(WorldMapInstance worldMapInstance)
 	{
 		int delay = 60000 + Rnd.get(-10, 10);
 		worldMapInstance.setEmptyInstanceTask(ThreadPoolManager.getInstance().scheduleAtFixedRate(
 			new EmptyInstanceCheckerTask(worldMapInstance), delay, delay));
 	}
 
-	private class EmptyInstanceCheckerTask implements Runnable
+	private static class EmptyInstanceCheckerTask implements Runnable
 	{
 		private WorldMapInstance worldMapInstance;
 

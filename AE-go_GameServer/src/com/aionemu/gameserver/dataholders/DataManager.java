@@ -45,21 +45,21 @@ public final class DataManager
 	 * 
 	 * @see NpcData
 	 */
-	public final NpcData				NPC_DATA;
+	public static NpcData				NPC_DATA;
 
 	/**
 	 * Gatherable data is keeping information about all gatherables.
 	 * 
 	 * @see GatherableData
 	 */
-	public final GatherableData			GATHERABLE_DATA;
+	public static GatherableData			GATHERABLE_DATA;
 
 	/**
 	 * Spawn data is keeping information about all spawn definitions.
 	 * 
 	 * @see SpawnsData
 	 */
-	public final SpawnsData				SPAWNS_DATA;
+	public static SpawnsData				SPAWNS_DATA;
 
 	/**
 	 * World maps data is keeping information about all world maps.
@@ -77,23 +77,23 @@ public final class DataManager
 
 	public static PlayerExperienceTable	PLAYER_EXPERIENCE_TABLE;
 
-	public TeleporterData				TELEPORTER_DATA;
+	public static TeleporterData		TELEPORTER_DATA;
 
-	public TeleLocationData				TELELOCATION_DATA;
+	public static TeleLocationData		TELELOCATION_DATA;
 
 	public static CubeExpandData		CUBEEXPANDER_DATA;
 
 	public static WarehouseExpandData	WAREHOUSEEXPANDER_DATA;
 
-	public BindPointData				BIND_POINT_DATA;
+	public static BindPointData			BIND_POINT_DATA;
 
 	public static QuestsData			QUEST_DATA;
 
 	public static QuestScriptsData		QUEST_SCRIPTS_DATA;
 	
-	public PlayerStatsData				PLAYER_STATS_DATA;
+	public static PlayerStatsData		PLAYER_STATS_DATA;
 	
-	public SummonStatsData				SUMMON_STATS_DATA;
+	public static SummonStatsData				SUMMON_STATS_DATA;
 
 	public static ItemData				ITEM_DATA;
 
@@ -103,7 +103,7 @@ public final class DataManager
 	 * Player initial data table.<br />
 	 * Contains initial player settings.
 	 */
-	public PlayerInitialData			PLAYER_INITIAL_DATA;
+	public static PlayerInitialData		PLAYER_INITIAL_DATA;
 
 	/**
 	 * 
@@ -125,11 +125,11 @@ public final class DataManager
 
 	public static RecipeData			RECIPE_DATA;
 	
-	public PortalData					PORTAL_DATA;
+	public static PortalData			PORTAL_DATA;
 	
 	public static ItemSetData			ITEM_SET_DATA;
 	
-	public NpcSkillData					NPC_SKILL_DATA;
+	public static NpcSkillData			NPC_SKILL_DATA;
 	
 	public static PetSkillData			PET_SKILL_DATA;
 	

@@ -80,17 +80,7 @@ public class CM_ENTER_WORLD extends AionClientPacket
 	@Inject
 	private PlayerService		playerService;
 	@Inject
-	private LegionService		legionService;
-	@Inject
-	private TeleportService		teleportService;
-	@Inject
-	private PunishmentService	punishmentService;
-	@Inject
-	private PeriodicSaveService periodicSaveService;
-	@Inject
 	private ChatService			chatService;
-	@Inject
-	private KiskService			kiskService;
 	
 	/**
 	 * Constructs new instance of <tt>CM_ENTER_WORLD </tt> packet
@@ -196,8 +186,8 @@ public class CM_ENTER_WORLD extends AionClientPacket
 			sendPacket(new SM_STATS_INFO(player));
 			sendPacket(new SM_CUBE_UPDATE(player, 6));
 			
-			kiskService.onLogin(player);
-			teleportService.sendSetBindPoint(player);
+			KiskService.onLogin(player);
+			TeleportService.sendSetBindPoint(player);
 
 			sendPacket(new SM_MACRO_LIST(player));
 			sendPacket(new SM_GAME_TIME());
@@ -217,10 +207,10 @@ public class CM_ENTER_WORLD extends AionClientPacket
 				ChatType.ANNOUNCEMENTS));
 
 			if(player.isInPrison())
-				punishmentService.updatePrisonStatus(player);
+				PunishmentService.updatePrisonStatus(player);
 
 			if(player.isLegionMember())
-				legionService.onLogin(player);
+				LegionService.getInstance().onLogin(player);
 
 			if(player.isInGroup())
 				GroupService.getInstance().onLogin(player);
@@ -236,7 +226,7 @@ public class CM_ENTER_WORLD extends AionClientPacket
 			/**
 			 * Schedule periodic saving of this player
 			 */
-			periodicSaveService.onPlayerLogin(player);
+			PeriodicSaveService.getInstance().onPlayerLogin(player);
 			/**
 			 * Notify player if have broker settled items
 			 */

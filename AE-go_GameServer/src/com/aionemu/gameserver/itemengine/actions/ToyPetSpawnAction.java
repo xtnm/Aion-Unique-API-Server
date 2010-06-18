@@ -18,13 +18,11 @@ package com.aionemu.gameserver.itemengine.actions;
 
 import java.util.concurrent.Future;
 
-import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
-import com.aionemu.gameserver.dataholders.loadingutils.XmlServiceProxy;
 import com.aionemu.gameserver.model.TaskId;
 import com.aionemu.gameserver.model.gameobjects.Item;
 import com.aionemu.gameserver.model.gameobjects.Kisk;
@@ -64,16 +62,6 @@ public class ToyPetSpawnAction extends AbstractItemAction
 	{
 		return time;
 	}
-	
-	/**
-	 * 
-	 * @param u
-	 * @param parent
-	 */
-	void afterUnmarshal (Unmarshaller u, Object parent)
-	{		
-		xsp = u.getAdapter(XmlServiceProxy.class);
-	}
 
 	@Override
 	public boolean canAct(Player player, Item parentItem, Item targetItem) {
@@ -94,7 +82,7 @@ public class ToyPetSpawnAction extends AbstractItemAction
 	@Override
 	public void act(Player player, Item parentItem, Item targetItem)
 	{
-		SpawnEngine spawnEngine = xsp.getSpawnEngine();
+		SpawnEngine spawnEngine = SpawnEngine.getInstance();
 		float x = player.getX();
 		float y = player.getY();
 		float z = player.getZ();

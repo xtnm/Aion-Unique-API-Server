@@ -16,7 +16,6 @@
  */
 package com.aionemu.gameserver.services;
 
-import com.aionemu.gameserver.spawnengine.SpawnEngine;
 import com.google.inject.Inject;
 
 /**
@@ -28,52 +27,7 @@ import com.google.inject.Inject;
 public class ServiceProxy
 {
 	@Inject
-	private LegionService			legionService;
-	@Inject
-	private RespawnService			respawnService;
-	@Inject
-	private TeleportService			teleportService;
-	@Inject
-	private CraftService			craftService;
-	@Inject
 	private PlayerService			playerService;
-	@Inject
-	private SpawnEngine				spawnEngine;
-	@Inject
-	private KiskService				kiskService;
-
-	/**
-	 * @return the legionService
-	 */
-	public LegionService getLegionService()
-	{
-		return legionService;
-	}
-
-	/**
-	 * @return the respawnService
-	 */
-	public RespawnService getRespawnService()
-	{
-		return respawnService;
-	}
-
-	/**
-	 * @return the teleportService
-	 */
-	public TeleportService getTeleportService()
-	{
-		return teleportService;
-	}
-
-	/**
-	 * 
-	 * @return craftService
-	 */
-	public CraftService getCraftService()
-	{
-		return craftService;
-	}
 
 	/**
 	 * @return the playerService
@@ -81,21 +35,5 @@ public class ServiceProxy
 	public PlayerService getPlayerService()
 	{
 		return playerService;
-	}
-
-	/**
-	 * @return the spawnEngine
-	 */
-	public SpawnEngine getSpawnEngine()
-	{
-		return spawnEngine;
-	}
-	
-	/**
-	 * @return the kiskService
-	 */
-	public KiskService getKiskService()
-	{
-		return kiskService;
 	}
 }

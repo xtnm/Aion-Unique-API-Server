@@ -18,7 +18,6 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.services.LegionService;
-import com.google.inject.Inject;
 
 /**
  * @author Simple
@@ -26,9 +25,6 @@ import com.google.inject.Inject;
  */
 public class CM_LEGION_UPLOAD_INFO extends AionClientPacket
 {
-	/** Legion based information **/
-	@Inject
-	private LegionService		legionService;
 
 	/** Emblem related information **/
 	private int					totalSize;
@@ -54,6 +50,6 @@ public class CM_LEGION_UPLOAD_INFO extends AionClientPacket
 	@Override
 	protected void runImpl()
 	{
-		legionService.uploadEmblemInfo(getConnection().getActivePlayer(), totalSize);
+		LegionService.getInstance().uploadEmblemInfo(getConnection().getActivePlayer(), totalSize);
 	}
 }

@@ -38,8 +38,6 @@ import com.google.inject.Inject;
  */
 public class _1007ACeremonyinSanctum extends QuestHandler
 {
-	@Inject
-	TeleportService teleportService;
 	private final static int	questId	= 1007;
 
 	@Inject
@@ -93,7 +91,7 @@ public class _1007ACeremonyinSanctum extends QuestHandler
 							PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(),0));
 							
 							PacketSendUtility.sendPacket(player, new SM_TELEPORT_LOC(110010000, 1313, 1512, 568));
-							teleportService.scheduleTeleportTask(player, 110010000, 1313, 1512, 568);
+							TeleportService.scheduleTeleportTask(player, 110010000, 1313, 1512, 568);
 							return true;
 						}
 				}

@@ -25,7 +25,6 @@ import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author HGabor85
@@ -35,10 +34,6 @@ public class _2022CrushingtheConspiracy extends QuestHandler
 {
 	private final static int	questId	= 2022;
 
-	@Inject
-	TeleportService teleportService;
-
-	
 	public _2022CrushingtheConspiracy()
 	{
 		super(questId);
@@ -100,7 +95,7 @@ public class _2022CrushingtheConspiracy extends QuestHandler
 					{
 						qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
 						updateQuestStatus(player, qs);
-						teleportService.teleportTo(player, 320030000, 275.68f, 164.03f, 205.19f, 34);
+						TeleportService.teleportTo(player, 320030000, 275.68f, 164.03f, 205.19f, 34);
 						PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
 						return true;
 					}
@@ -124,7 +119,7 @@ public class _2022CrushingtheConspiracy extends QuestHandler
 					{
 						qs.setStatus(QuestStatus.REWARD);
 						updateQuestStatus(player, qs);
-						teleportService.teleportTo(player, 220030000, 2453.0f, 2553.2f, 316.3f, 26);
+						TeleportService.teleportTo(player, 220030000, 2453.0f, 2553.2f, 316.3f, 26);
 						PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
 						return true;
 					}

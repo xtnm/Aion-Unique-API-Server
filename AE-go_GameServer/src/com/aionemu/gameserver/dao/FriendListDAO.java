@@ -17,7 +17,6 @@
 package com.aionemu.gameserver.dao;
 
 import com.aionemu.commons.database.dao.DAO;
-import com.aionemu.gameserver.dataholders.PlayerInitialData;
 import com.aionemu.gameserver.model.gameobjects.player.FriendList;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 
@@ -41,7 +40,7 @@ public abstract class FriendListDAO implements DAO
 	 * @param player Player to get friend list of
 	 * @return FriendList for player
 	 */
-	public abstract FriendList load(final Player player, final PlayerInitialData playerInitialData);
+	public abstract FriendList load(final Player player);
 	
 	/**
 	 * Makes the given players friends

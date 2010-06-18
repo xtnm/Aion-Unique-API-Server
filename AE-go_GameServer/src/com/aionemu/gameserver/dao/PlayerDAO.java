@@ -20,7 +20,6 @@ package com.aionemu.gameserver.dao;
 import java.sql.Timestamp;
 import java.util.List;
 
-import com.aionemu.gameserver.dataholders.PlayerInitialData;
 import com.aionemu.gameserver.model.account.PlayerAccountData;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.gameobjects.player.PlayerCommonData;
@@ -58,7 +57,7 @@ public abstract class PlayerDAO implements IDFactoryAwareDAO
 	 */
 	public abstract boolean saveNewPlayer(PlayerCommonData pcd, int accountId, String accountName);
 
-	public abstract PlayerCommonData loadPlayerCommonData(int playerObjId, PlayerInitialData playerInitialData);
+	public abstract PlayerCommonData loadPlayerCommonData(int playerObjId);
 
 	/**
 	 * Removes player and all related data (Done by CASCADE DELETION)

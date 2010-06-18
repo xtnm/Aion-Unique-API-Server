@@ -44,7 +44,6 @@ import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.WorldMapInstance;
-import com.google.inject.Inject;
 
 /**
  * @author MrPoke
@@ -53,11 +52,6 @@ import com.google.inject.Inject;
 public class _2008Ascension extends QuestHandler
 {
 	private final static int	questId	= 2008;
-
-	@Inject
-	TeleportService	teleportService;
-	@Inject
-	InstanceService instanceService;
 
 	public _2008Ascension()
 	{
@@ -191,9 +185,9 @@ public class _2008Ascension extends QuestHandler
 							updateQuestStatus(player, qs);
 							PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 0));
 							// Create instance
-							WorldMapInstance newInstance = instanceService.getNextAvailableInstance(320010000);
-							instanceService.registerPlayerWithInstance(newInstance, player);
-							teleportService.teleportTo(player, 320010000, newInstance.getInstanceId(), 457.65f, 426.8f, 230.4f, 0);
+							WorldMapInstance newInstance = InstanceService.getNextAvailableInstance(320010000);
+							InstanceService.registerPlayerWithInstance(newInstance, player);
+							TeleportService.teleportTo(player, 320010000, newInstance.getInstanceId(), 457.65f, 426.8f, 230.4f, 0);
 							return true;
 						}
 					case 10005:
@@ -440,7 +434,7 @@ public class _2008Ascension extends QuestHandler
 		QuestState qs = player.getQuestStateList().getQuestState(questId);
 		if(qs != null && qs.getStatus() == QuestStatus.REWARD)
 		{
-			teleportService.teleportTo(player, 220010000, 1, 385, 1895, 327, (byte) 20, 0);
+			TeleportService.teleportTo(player, 220010000, 1, 385, 1895, 327, (byte) 20, 0);
 			return true;
 		}
 		return false;

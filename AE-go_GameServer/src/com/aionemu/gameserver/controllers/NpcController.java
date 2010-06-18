@@ -52,6 +52,9 @@ import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.restrictions.RestrictionsManager;
 import com.aionemu.gameserver.services.CraftSkillUpdateService;
 import com.aionemu.gameserver.services.CubeExpandService;
+import com.aionemu.gameserver.services.LegionService;
+import com.aionemu.gameserver.services.RespawnService;
+import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.services.TradeService;
 import com.aionemu.gameserver.services.WarehouseService;
 import com.aionemu.gameserver.utils.MathUtil;
@@ -139,7 +142,7 @@ public class NpcController extends CreatureController<Npc>
 		super.onDie(lastAttacker);
 		Npc owner = getOwner();
 
-		addTask(TaskId.DECAY, sp.getRespawnService().scheduleDecayTask(this.getOwner()));
+		addTask(TaskId.DECAY, RespawnService.scheduleDecayTask(this.getOwner()));
 		scheduleRespawn();
 
 		PacketSendUtility.broadcastPacket(owner,
@@ -225,7 +228,7 @@ public class NpcController extends CreatureController<Npc>
 				// disband legion
 				if(MathUtil.isInRange(npc, player, 10)) // avoiding exploit with sending fake dialog_select packet
 				{
-					sp.getLegionService().requestDisbandLegion(npc, player);
+					LegionService.getInstance().requestDisbandLegion(npc, player);
 				}
 				else
 				{
@@ -237,7 +240,7 @@ public class NpcController extends CreatureController<Npc>
 				if(MathUtil.isInRange(npc, player, 10)) // voiding exploit with sending fake client dialog_select
 				// packet
 				{
-					sp.getLegionService().recreateLegion(npc, player);
+					LegionService.getInstance().recreateLegion(npc, player);
 				}
 				else
 				{
@@ -321,7 +324,7 @@ public class NpcController extends CreatureController<Npc>
 				break;
 			case 38:
 				// flight and teleport
-				sp.getTeleportService().showMap(player, targetObjectId, npc.getNpcId());
+				TeleportService.showMap(player, targetObjectId, npc.getNpcId());
 				break;
 			case 39:
 				// improve extraction
@@ -339,7 +342,7 @@ public class NpcController extends CreatureController<Npc>
 			case 47:
 				// legion warehouse
 				if(MathUtil.isInRange(npc, player, 10))
-					sp.getLegionService().openLegionWarehouse(player);
+					LegionService.getInstance().openLegionWarehouse(player);
 				break;
 			case 50:
 				// WTF??? Quest dialog packet
@@ -450,7 +453,7 @@ public class NpcController extends CreatureController<Npc>
 		int instanceId = getOwner().getInstanceId();
 		if(!getOwner().getSpawn().isNoRespawn(instanceId))
 		{
-			Future<?> respawnTask = sp.getRespawnService().scheduleRespawnTask(getOwner());
+			Future<?> respawnTask = RespawnService.scheduleRespawnTask(getOwner());
 			addTask(TaskId.RESPAWN, respawnTask);
 		}
 	}

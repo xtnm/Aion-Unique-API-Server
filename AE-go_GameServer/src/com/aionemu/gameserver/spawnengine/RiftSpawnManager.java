@@ -25,8 +25,7 @@ import org.apache.log4j.Logger;
 import com.aionemu.commons.utils.Rnd;
 import com.aionemu.gameserver.controllers.RiftController;
 import com.aionemu.gameserver.controllers.effect.EffectController;
-import com.aionemu.gameserver.controllers.factory.ObjectControllerFactory;
-import com.aionemu.gameserver.dataholders.NpcData;
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.model.Race;
 import com.aionemu.gameserver.model.gameobjects.Npc;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
@@ -39,7 +38,6 @@ import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.utils.idfactory.IDFactory;
 import com.aionemu.gameserver.world.KnownList;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer
@@ -47,22 +45,18 @@ import com.google.inject.Inject;
  */
 public class RiftSpawnManager
 {
+	
 	private static final Logger log = Logger.getLogger(RiftSpawnManager.class);
 	
-	@Inject
-	private NpcData npcData;
-	@Inject
-	private ObjectControllerFactory objectControllerFactory;
-	
-	private ConcurrentLinkedQueue<Npc> rifts = new ConcurrentLinkedQueue<Npc>();
+	private static final ConcurrentLinkedQueue<Npc> rifts = new ConcurrentLinkedQueue<Npc>();
 	
 	
 	private static final int RIFT_RESPAWN_DELAY = 100 * 60 * 1000;
 	private static final int RIFT_LIFETIME = 26 * 60 * 1000;
 	
-	private Map<String, SpawnGroup> spawnGroups = new HashMap<String, SpawnGroup>();
+	private static final Map<String, SpawnGroup> spawnGroups = new HashMap<String, SpawnGroup>();
 	
-	public void addRiftSpawnGroup(SpawnGroup spawnGroup)
+	public static void addRiftSpawnGroup(SpawnGroup spawnGroup)
 	{
 		spawnGroups.put(spawnGroup.getAnchor(), spawnGroup);
 	}
@@ -70,7 +64,7 @@ public class RiftSpawnManager
 	/**
 	 * 
 	 */
-	public void startRiftPool()
+	public static void startRiftPool()
 	{
 		ThreadPoolManager.getInstance().scheduleAtFixedRate(new Runnable(){
 			
@@ -93,7 +87,7 @@ public class RiftSpawnManager
 	/**
 	 * @param rift1
 	 */
-	private void spawnRift(RiftEnum rift)
+	private static void spawnRift(RiftEnum rift)
 	{
 		log.info("Spawning rift : " + rift.name());
 		SpawnGroup masterGroup = spawnGroups.get(rift.getMaster());
@@ -109,14 +103,14 @@ public class RiftSpawnManager
 		
 		for(int i = 1; i <= instanceCount; i++)
 		{
-			Npc slave = spawnInstance(i, masterGroup, slaveTemplate, objectControllerFactory.riftController(null, rift));
-			spawnInstance(i, masterGroup, masterTemplate, objectControllerFactory.riftController(slave, rift));
+			Npc slave = spawnInstance(i, masterGroup, slaveTemplate, new RiftController(null, rift));
+			spawnInstance(i, masterGroup, masterTemplate, new RiftController(slave, rift));
 		}		
 	}
 
-	private Npc spawnInstance(int instanceIndex, SpawnGroup spawnGroup, SpawnTemplate spawnTemplate, RiftController riftController)
+	private static Npc spawnInstance(int instanceIndex, SpawnGroup spawnGroup, SpawnTemplate spawnTemplate, RiftController riftController)
 	{
-		NpcTemplate masterObjectTemplate = npcData.getNpcTemplate(spawnGroup.getNpcid());
+		NpcTemplate masterObjectTemplate = DataManager.NPC_DATA.getNpcTemplate(spawnGroup.getNpcid());
 		Npc npc = new Npc(IDFactory.getInstance().nextId(),riftController,
 			spawnTemplate, masterObjectTemplate);
 		
@@ -140,7 +134,7 @@ public class RiftSpawnManager
 	/**
 	 * @param npc
 	 */
-	private void scheduleDespawn(final Npc npc)
+	private static void scheduleDespawn(final Npc npc)
 	{
 		ThreadPoolManager.getInstance().schedule(new Runnable()
 		{
@@ -251,7 +245,7 @@ public class RiftSpawnManager
 	/**
 	 * @param activePlayer
 	 */
-	public void sendRiftStatus(Player activePlayer)
+	public static void sendRiftStatus(Player activePlayer)
 	{
 		for(Npc rift : rifts)
 		{

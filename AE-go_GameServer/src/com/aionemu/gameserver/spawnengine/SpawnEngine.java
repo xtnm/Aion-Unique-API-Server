@@ -31,13 +31,8 @@ import com.aionemu.gameserver.controllers.PostboxController;
 import com.aionemu.gameserver.controllers.ServantController;
 import com.aionemu.gameserver.controllers.SummonController;
 import com.aionemu.gameserver.controllers.effect.EffectController;
-import com.aionemu.gameserver.dataholders.BindPointData;
 import com.aionemu.gameserver.dataholders.DataManager;
-import com.aionemu.gameserver.dataholders.GatherableData;
 import com.aionemu.gameserver.dataholders.NpcData;
-import com.aionemu.gameserver.dataholders.NpcSkillData;
-import com.aionemu.gameserver.dataholders.SpawnsData;
-import com.aionemu.gameserver.dataholders.SummonStatsData;
 import com.aionemu.gameserver.model.NpcType;
 import com.aionemu.gameserver.model.gameobjects.Creature;
 import com.aionemu.gameserver.model.gameobjects.Gatherable;
@@ -60,8 +55,6 @@ import com.aionemu.gameserver.utils.idfactory.IDFactory;
 import com.aionemu.gameserver.world.KnownList;
 import com.aionemu.gameserver.world.StaticObjectKnownList;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
-import com.google.inject.Injector;
 
 /**
  * 
@@ -77,40 +70,20 @@ public class SpawnEngine
 {
 	private static Logger				log					= Logger.getLogger(SpawnEngine.class);
 
-	private World						world;
-
-	@Inject
-	private SpawnsData					spawnsData;
-	@Inject
-	private GatherableData				gatherableData;
-	@Inject
-	private NpcData						npcData;
-	@Inject
-	private RiftSpawnManager			riftSpawnManager;
-	@Inject
-	private StaticObjectSpawnManager	staticObjectSpawnManager;
-	@Inject
-	private BindPointData				bindPointData;
-	@Inject
-	private NpcSkillData				npcSkillData;
-	@Inject
-	private SummonStatsData				summonStatsData;
-
-	private Injector					injector;
-
 	/** Counter counting number of npc spawns */
 	private int							npcCounter			= 0;
 	/** Counter counting number of gatherable spawns */
 	private int							gatherableCounter	= 0;
 
-	/**
-	 * @param injector
-	 *            the injector to set
-	 */
-	public void setInjector(Injector injector)
+	
+	public static final SpawnEngine getInstance()
 	{
-		this.injector = injector;
-		this.world = World.getInstance();
+		return SingletonHolder.instance;
+	}
+
+	private SpawnEngine()
+	{
+		this.spawnAll();
 	}
 
 	/**
@@ -121,12 +94,13 @@ public class SpawnEngine
 	 */
 	public VisibleObject spawnObject(SpawnTemplate spawn, int instanceIndex)
 	{
+		
 		VisibleObjectTemplate template = null;
 		int objectId = spawn.getSpawnGroup().getNpcid();
-
+		NpcData	npcData = DataManager.NPC_DATA;
 		if(objectId > 400000 && objectId < 499999)// gatherable
 		{
-			template = gatherableData.getGatherableTemplate(objectId);
+			template = DataManager.GATHERABLE_DATA.getGatherableTemplate(objectId);
 			if(template == null)
 				return null;
 			gatherableCounter++;
@@ -149,39 +123,39 @@ public class SpawnEngine
 			{
 				case AGGRESSIVE:
 				case ATTACKABLE:
-					npc = new Monster(iDFactory.nextId(), injector.getInstance(MonsterController.class),
+					npc = new Monster(iDFactory.nextId(), new MonsterController(),
 						spawn, template);
 					npc.setKnownlist(new KnownList(npc));
 					break;
 				case POSTBOX:
-					npc = new Npc(iDFactory.nextId(), injector.getInstance(PostboxController.class), spawn,
+					npc = new Npc(iDFactory.nextId(), new PostboxController(), spawn,
 						template);
 					npc.setKnownlist(new StaticObjectKnownList(npc));
 					break;
 				case RESURRECT:
-					BindpointController bindPointController = injector.getInstance(BindpointController.class);
-					bindPointController.setBindPointTemplate(bindPointData.getBindPointTemplate(objectId));
+					BindpointController bindPointController = new BindpointController();
+					bindPointController.setBindPointTemplate(DataManager.BIND_POINT_DATA.getBindPointTemplate(objectId));
 					npc = new Npc(iDFactory.nextId(), bindPointController, spawn, template);
 					npc.setKnownlist(new StaticObjectKnownList(npc));
 					break;
 				case USEITEM:
-					npc = new Npc(iDFactory.nextId(), injector.getInstance(ActionitemController.class),
+					npc = new Npc(iDFactory.nextId(), new ActionitemController(),
 						spawn, template);
 					npc.setKnownlist(new StaticObjectKnownList(npc));
 					break;
 				case PORTAL:
-					npc = new Npc(iDFactory.nextId(), injector.getInstance(PortalController.class), spawn,
+					npc = new Npc(iDFactory.nextId(), new PortalController(), spawn,
 						template);
 					npc.setKnownlist(new StaticObjectKnownList(npc));
 					break;
 				default: // NON_ATTACKABLE
-					npc = new Npc(iDFactory.nextId(), injector.getInstance(NpcController.class), spawn,
+					npc = new Npc(iDFactory.nextId(), new NpcController(), spawn,
 						template);
 					npc.setKnownlist(new KnownList(npc));
 
 			}
 
-			npc.setNpcSkillList(npcSkillData.getNpcSkillList(template.getTemplateId()));
+			npc.setNpcSkillList(DataManager.NPC_SKILL_DATA.getNpcSkillList(template.getTemplateId()));
 			npc.setEffectController(new EffectController(npc));
 			npc.getController().onRespawn();
 			bringIntoWorld(npc, spawn, instanceIndex);
@@ -189,8 +163,7 @@ public class SpawnEngine
 		}
 		else if(template instanceof GatherableTemplate)
 		{
-			Gatherable gatherable = new Gatherable(spawn, template, iDFactory.nextId(), injector
-				.getInstance(GatherableController.class));
+			Gatherable gatherable = new Gatherable(spawn, template, iDFactory.nextId(), new GatherableController());
 			gatherable.setKnownlist(new StaticObjectKnownList(gatherable));
 			bringIntoWorld(gatherable, spawn, instanceIndex);
 			return gatherable;
@@ -208,8 +181,8 @@ public class SpawnEngine
 	public Trap spawnTrap(SpawnTemplate spawn, int instanceIndex, Creature creator, int skillId)
 	{
 		int objectId = spawn.getSpawnGroup().getNpcid();
-		NpcTemplate npcTemplate = npcData.getNpcTemplate(objectId);
-		Trap trap = new Trap(IDFactory.getInstance().nextId(), injector.getInstance(NpcController.class), spawn,
+		NpcTemplate npcTemplate = DataManager.NPC_DATA.getNpcTemplate(objectId);
+		Trap trap = new Trap(IDFactory.getInstance().nextId(), new NpcController(), spawn,
 			npcTemplate);
 		trap.setKnownlist(new KnownList(trap));
 		trap.setEffectController(new EffectController(trap));
@@ -229,8 +202,8 @@ public class SpawnEngine
 	public Kisk spawnKisk(SpawnTemplate spawn, int instanceIndex, Player creator)
 	{
 		int npcId = spawn.getSpawnGroup().getNpcid();
-		NpcTemplate template = npcData.getNpcTemplate(npcId);
-		Kisk kisk = new Kisk(IDFactory.getInstance().nextId(), injector.getInstance(KiskController.class),
+		NpcTemplate template = DataManager.NPC_DATA.getNpcTemplate(npcId);
+		Kisk kisk = new Kisk(IDFactory.getInstance().nextId(), new KiskController(),
 			spawn, template, creator);
 		kisk.setKnownlist(new StaticObjectKnownList(kisk));
 		kisk.setEffectController(new EffectController(kisk));
@@ -250,8 +223,8 @@ public class SpawnEngine
 	public Servant spawnServant(SpawnTemplate spawn, int instanceIndex, Creature creator, int skillId, int hpRatio)
 	{
 		int objectId = spawn.getSpawnGroup().getNpcid();
-		NpcTemplate npcTemplate = npcData.getNpcTemplate(objectId);
-		Servant servant = new Servant(IDFactory.getInstance().nextId(), injector.getInstance(ServantController.class), spawn,
+		NpcTemplate npcTemplate = DataManager.NPC_DATA.getNpcTemplate(objectId);
+		Servant servant = new Servant(IDFactory.getInstance().nextId(), new ServantController(), spawn,
 			npcTemplate);
 		servant.setKnownlist(new KnownList(servant));
 		servant.setEffectController(new EffectController(servant));
@@ -280,11 +253,11 @@ public class SpawnEngine
 		int instanceId = creator.getInstanceId();
 		
 		SpawnTemplate spawn = createSpawnTemplate(worldId, npcId, x, y, z, heading, 0, 0);
-		NpcTemplate npcTemplate = npcData.getNpcTemplate(npcId);
+		NpcTemplate npcTemplate = DataManager.NPC_DATA.getNpcTemplate(npcId);
 		
 		byte level = (byte) (npcTemplate.getLevel() + skillLvl - 1);
-		SummonStatsTemplate statsTemplate = summonStatsData.getSummonTemplate(npcId, level);
-		Summon summon = new Summon(IDFactory.getInstance().nextId(), injector.getInstance(SummonController.class), spawn,
+		SummonStatsTemplate statsTemplate = DataManager.SUMMON_STATS_DATA.getSummonTemplate(npcId, level);
+		Summon summon = new Summon(IDFactory.getInstance().nextId(), new SummonController(), spawn,
 			npcTemplate, statsTemplate, level);
 		summon.setKnownlist(new KnownList(summon));
 		summon.setEffectController(new EffectController(summon));
@@ -368,7 +341,7 @@ public class SpawnEngine
 
 		if(!noRespawn)
 		{
-			spawnsData.addNewSpawnGroup(spawnTemplate.getSpawnGroup(), worldId, objectId, isNewSpawn);
+			DataManager.SPAWNS_DATA.addNewSpawnGroup(spawnTemplate.getSpawnGroup(), worldId, objectId, isNewSpawn);
 		}
 
 		spawnTemplate.setNoRespawn(noRespawn, instanceId);
@@ -378,6 +351,7 @@ public class SpawnEngine
 
 	private void bringIntoWorld(VisibleObject visibleObject, SpawnTemplate spawn, int instanceIndex)
 	{
+		World world = World.getInstance();
 		world.storeObject(visibleObject);
 		world.setPosition(visibleObject, spawn.getWorldId(), instanceIndex, spawn.getX(), spawn.getY(), spawn.getZ(),
 			spawn.getHeading());
@@ -409,7 +383,7 @@ public class SpawnEngine
 		log.info("Loaded " + npcCounter + " npc spawns");
 		log.info("Loaded " + gatherableCounter + " gatherable spawns");
 
-		riftSpawnManager.startRiftPool();
+		RiftSpawnManager.startRiftPool();
 	}
 
 	/**
@@ -420,7 +394,7 @@ public class SpawnEngine
 	public void spawnInstance(int worldId, int instanceIndex)
 	{
 
-		List<SpawnGroup> worldSpawns = spawnsData.getSpawnsForWorld(worldId);
+		List<SpawnGroup> worldSpawns = DataManager.SPAWNS_DATA.getSpawnsForWorld(worldId);
 
 		if(worldSpawns == null || worldSpawns.size() == 0)
 			return;
@@ -444,15 +418,21 @@ public class SpawnEngine
 				switch(spawnGroup.getHandler())
 				{
 					case RIFT:
-						riftSpawnManager.addRiftSpawnGroup(spawnGroup);
+						RiftSpawnManager.addRiftSpawnGroup(spawnGroup);
 						break;
 					case STATIC:
-						staticObjectSpawnManager.spawnGroup(spawnGroup, instanceIndex);
+						StaticObjectSpawnManager.spawnGroup(spawnGroup, instanceIndex);
 					default:
 						break;
 				}
 			}
 		}
 		log.info("Spawned " + worldId + " [" + instanceIndex + "] : " + instanceSpawnCounter);
+	}
+	
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final SpawnEngine instance = new SpawnEngine();
 	}
 }

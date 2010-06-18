@@ -102,6 +102,11 @@ public class LegionService
 	 */
 	private LegionRestrictions			legionRestrictions		= new LegionRestrictions();
 
+	public static final LegionService getInstance()
+	{
+		return SingletonHolder.instance;
+	}
+
 	public LegionService()
 	{
 		this.world = World.getInstance();
@@ -434,7 +439,7 @@ public class LegionService
 			legionMember = this.allCachedLegionMembers.getMember(playerObjId);
 		else
 		{
-			legionMember = DAOManager.getDAO(LegionMemberDAO.class).loadLegionMember(playerObjId, this);
+			legionMember = DAOManager.getDAO(LegionMemberDAO.class).loadLegionMember(playerObjId);
 			if(legionMember != null)
 				addCachedLegionMember(legionMember);
 		}
@@ -491,7 +496,7 @@ public class LegionService
 		else
 		{
 			LegionMemberEx legionMember = DAOManager.getDAO(LegionMemberDAO.class)
-				.loadLegionMemberEx(playerObjId, this);
+				.loadLegionMemberEx(playerObjId);
 			addCachedLegionMemberEx(legionMember);
 			return legionMember;
 		}
@@ -509,7 +514,7 @@ public class LegionService
 			return this.allCachedLegionMembers.getMemberEx(playerName);
 		else
 		{
-			LegionMemberEx legionMember = DAOManager.getDAO(LegionMemberDAO.class).loadLegionMemberEx(playerName, this);
+			LegionMemberEx legionMember = DAOManager.getDAO(LegionMemberDAO.class).loadLegionMemberEx(playerName);
 			addCachedLegionMemberEx(legionMember);
 			return legionMember;
 		}
@@ -2074,5 +2079,11 @@ public class LegionService
 		{
 			return LegionConfig.ANNOUNCEMENT_PATTERN.matcher(name).matches();
 		}
+	}
+	
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final LegionService instance = new LegionService();
 	}
 }

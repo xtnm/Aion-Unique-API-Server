@@ -31,6 +31,7 @@ import com.aionemu.commons.database.IUStH;
 import com.aionemu.commons.database.ParamReadStH;
 import com.aionemu.gameserver.configs.main.CacheConfig;
 import com.aionemu.gameserver.dao.PlayerDAO;
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.dataholders.PlayerInitialData;
 import com.aionemu.gameserver.dataholders.PlayerInitialData.LocationData;
 import com.aionemu.gameserver.model.Gender;
@@ -189,14 +190,14 @@ public class MySQL5PlayerDAO extends PlayerDAO
 		if(playerObjId.size() == 0)
 			return null;
 		else
-			return loadPlayerCommonData(playerObjId.get(0), null);
+			return loadPlayerCommonData(playerObjId.get(0));
 	}
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public PlayerCommonData loadPlayerCommonData(final int playerObjId, final PlayerInitialData playerInitialData)
+	public PlayerCommonData loadPlayerCommonData(final int playerObjId)
 	{
 
 		PlayerCommonData cached = playerCommonData.get(playerObjId);
@@ -242,7 +243,7 @@ public class MySQL5PlayerDAO extends PlayerDAO
 				float z = resultSet.getFloat("z");
 				byte heading = resultSet.getByte("heading");
 				int worldId = resultSet.getInt("world_id");
-
+				PlayerInitialData playerInitialData = DataManager.PLAYER_INITIAL_DATA;
 				if(z < -1000 && playerInitialData != null)
 				{
 					//unstuck unlucky characters :)

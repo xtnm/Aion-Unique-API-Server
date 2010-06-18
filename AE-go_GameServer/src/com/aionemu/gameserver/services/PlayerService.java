@@ -25,10 +25,10 @@ import com.aionemu.commons.database.dao.DAOManager;
 import com.aionemu.gameserver.configs.main.CacheConfig;
 import com.aionemu.gameserver.configs.main.GSConfig;
 import com.aionemu.gameserver.controllers.FlyController;
+import com.aionemu.gameserver.controllers.PlayerController;
 import com.aionemu.gameserver.controllers.ReviveController;
 import com.aionemu.gameserver.controllers.SummonController.UnsummonType;
 import com.aionemu.gameserver.controllers.effect.PlayerEffectController;
-import com.aionemu.gameserver.controllers.factory.ObjectControllerFactory;
 import com.aionemu.gameserver.dao.AbyssRankDAO;
 import com.aionemu.gameserver.dao.BlockListDAO;
 import com.aionemu.gameserver.dao.FriendListDAO;
@@ -46,6 +46,7 @@ import com.aionemu.gameserver.dao.PlayerRecipesDAO;
 import com.aionemu.gameserver.dao.PlayerSettingsDAO;
 import com.aionemu.gameserver.dao.PlayerSkillListDAO;
 import com.aionemu.gameserver.dao.PlayerTitleListDAO;
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.dataholders.PlayerInitialData;
 import com.aionemu.gameserver.dataholders.PlayerStatsData;
 import com.aionemu.gameserver.dataholders.PlayerInitialData.LocationData;
@@ -94,29 +95,15 @@ public class PlayerService
 	private static final Logger			log			= Logger.getLogger(PlayerService.class);
 	private CacheMap<Integer, Player>	playerCache	= CacheMapFactory.createSoftCacheMap("Player", "player");
 
-	private LegionService				legionService;
-	private TeleportService				teleportService;
-	private ObjectControllerFactory		controllerFactory;
-	private PunishmentService			punishmentService;
 	private PlayerStatsData				playerStatsData;
 	private PlayerInitialData			playerInitialData;
-	private InstanceService				instanceService;
 	private ChatService					chatService;
 
 	@Inject
-	public PlayerService(
-		LegionService legionService, TeleportService teleportService, ObjectControllerFactory controllerFactory,
-		PunishmentService punishmentService,
-		PlayerStatsData playerStatsData, PlayerInitialData playerInitialData,
-		InstanceService instanceService, ChatService chatService)
+	public PlayerService(ChatService chatService)
 	{
-		this.legionService = legionService;
-		this.teleportService = teleportService;
-		this.controllerFactory = controllerFactory;
-		this.punishmentService = punishmentService;
-		this.playerStatsData = playerStatsData;
-		this.playerInitialData = playerInitialData;
-		this.instanceService = instanceService;
+		this.playerStatsData = DataManager.PLAYER_STATS_DATA;
+		this.playerInitialData = DataManager.PLAYER_INITIAL_DATA;
 		this.chatService = chatService;
 	}
 
@@ -200,9 +187,9 @@ public class PlayerService
 		PlayerCommonData pcd = playerAccountData.getPlayerCommonData();
 		PlayerAppearance appearance = playerAccountData.getAppereance();
 
-		player = new Player(controllerFactory.playerController(), pcd, appearance);		
+		player = new Player(new PlayerController(), pcd, appearance);		
 		
-		LegionMember legionMember = legionService.getLegionMember(player.getObjectId());
+		LegionMember legionMember = LegionService.getInstance().getLegionMember(player.getObjectId());
 		if(legionMember != null)
 			player.setLegionMember(legionMember);
 
@@ -214,8 +201,8 @@ public class PlayerService
 
 		player.setSkillList(DAOManager.getDAO(PlayerSkillListDAO.class).loadSkillList(playerObjId));
 		player.setKnownlist(new KnownList(player));
-		player.setFriendList(DAOManager.getDAO(FriendListDAO.class).load(player, playerInitialData));
-		player.setBlockList(DAOManager.getDAO(BlockListDAO.class).load(player, playerInitialData));
+		player.setFriendList(DAOManager.getDAO(FriendListDAO.class).load(player));
+		player.setBlockList(DAOManager.getDAO(BlockListDAO.class).load(player));
 		player.setTitleList(DAOManager.getDAO(PlayerTitleListDAO.class).loadTitleList(playerObjId));
 
 		DAOManager.getDAO(PlayerSettingsDAO.class).loadSettings(player);
@@ -277,7 +264,7 @@ public class PlayerService
 		}
 		
 		//analyze current instance
-		instanceService.onPlayerLogin(player);
+		InstanceService.onPlayerLogin(player);
 		
 		if(CacheConfig.CACHE_PLAYERS)
 			playerCache.put(playerObjId, player);
@@ -299,7 +286,7 @@ public class PlayerService
 		WorldPosition position = World.getInstance().createPosition(ld.getMapId(), ld.getX(), ld.getY(), ld.getZ(), ld.getHeading());
 		playerCommonData.setPosition(position);
 
-		Player newPlayer = new Player(controllerFactory.playerController(), playerCommonData, playerAppearance);
+		Player newPlayer = new Player(new PlayerController(), playerCommonData, playerAppearance);
 
 		// Starting skills
 		SkillLearnService.addNewSkills(newPlayer, true);
@@ -392,7 +379,7 @@ public class PlayerService
 		player.getLifeStats().cancelAllTasks();
 		
 		if(player.getLifeStats().isAlreadyDead())
-			teleportService.moveToBindLocation(player, false);
+			TeleportService.moveToBindLocation(player, false);
 
 		if(DuelService.getInstance().isDueling(player.getObjectId()))
 			DuelService.getInstance().loseDuel(player);
@@ -401,7 +388,7 @@ public class PlayerService
 		if(player.getSummon() != null)
 			player.getSummon().getController().release(UnsummonType.LOGOUT);
 
-		punishmentService.stopPrisonTask(player, true);
+		PunishmentService.stopPrisonTask(player, true);
 
 		player.getCommonData().setOnline(false);
 		player.getCommonData().setLastOnline(new Timestamp(System.currentTimeMillis()));
@@ -409,7 +396,7 @@ public class PlayerService
 		player.setClientConnection(null);
 
 		if(player.isLegionMember())
-			legionService.onLogout(player);
+			LegionService.getInstance().onLogout(player);
 
 		if(player.isInGroup())
 			GroupService.getInstance().scheduleRemove(player);
@@ -482,7 +469,7 @@ public class PlayerService
 	 * @param playerId
 	 *            id of player to delete from db
 	 */
-	void deletePlayerFromDB(int playerId)
+	public static void deletePlayerFromDB(int playerId)
 	{
 		DAOManager.getDAO(PlayerDAO.class).deletePlayer(playerId);
 		DAOManager.getDAO(InventoryDAO.class).deletePlayerItems(playerId);

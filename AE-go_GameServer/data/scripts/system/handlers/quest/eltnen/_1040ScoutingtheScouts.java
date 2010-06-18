@@ -26,7 +26,6 @@ import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author Rhys2002
@@ -35,9 +34,6 @@ import com.google.inject.Inject;
 public class _1040ScoutingtheScouts extends QuestHandler
 {
 	private final static int	questId	= 1040;
-
-	@Inject
-	TeleportService teleportService;
 	
 	public _1040ScoutingtheScouts()
 	{
@@ -196,7 +192,7 @@ public class _1040ScoutingtheScouts extends QuestHandler
 				case 10003:
 					if(var == 6)
 					{
-						teleportService.teleportTo(player, 210020000, 2211, 811, 513, 0);
+						TeleportService.teleportTo(player, 210020000, 2211, 811, 513, 0);
 						qs.setQuestVarById(0, var + 1);
 						updateQuestStatus(player, qs);
 						return true;
@@ -235,7 +231,7 @@ public class _1040ScoutingtheScouts extends QuestHandler
 				case 10005:
 					if(var == 9)
 					{
-						teleportService.teleportTo(player, 210020000, 1606, 1529, 318, 0);
+						TeleportService.teleportTo(player, 210020000, 1606, 1529, 318, 0);
 						qs.setQuestVarById(0, var + 1);
 						updateQuestStatus(player, qs);
 						return true;

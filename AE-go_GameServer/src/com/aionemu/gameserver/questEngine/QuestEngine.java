@@ -44,7 +44,6 @@ import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.world.zone.ZoneName;
-import com.google.inject.Injector;
 
 /**
  * @author MrPoke
@@ -53,8 +52,6 @@ import com.google.inject.Injector;
 
 public class QuestEngine
 {
-	private Injector									injector;
-
 	private static final Logger							log						= Logger.getLogger(QuestEngine.class);
 
 	private static final FastMap<Integer, QuestHandler>	questHandlers			= new FastMap<Integer, QuestHandler>();
@@ -101,7 +98,7 @@ public class QuestEngine
 		}
 
 		scriptManager = new ScriptManager();
-		scriptManager.setGlobalClassListener(new QuestHandlerLoader(injector));
+		scriptManager.setGlobalClassListener(new QuestHandlerLoader());
 
 		try
 		{
@@ -415,7 +412,6 @@ public class QuestEngine
 	
 	public void addQuestHandler (QuestHandler questHandler)
 	{
-		injector.injectMembers(questHandler);
 		questHandler.register();
 		if (questHandlers.containsKey(questHandler.getQuestId()))
 			log.warn("Duplicate quest: "+questHandler.getQuestId());
@@ -425,14 +421,6 @@ public class QuestEngine
 	private QuestHandler getQuestHandlerByQuestId(int questId)
 	{
 		return questHandlers.get(questId);
-	}
-
-	/**
-	 * @param injector the injector to set
-	 */
-	public void setInjector(Injector injector)
-	{
-		this.injector = injector;
 	}
 	
 	@SuppressWarnings("synthetic-access")

@@ -26,7 +26,6 @@ import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author Mr. Poke
@@ -34,8 +33,6 @@ import com.google.inject.Inject;
  */
 public class _2903DispatchtoAltgard extends QuestHandler
 {
-	@Inject
-	TeleportService	teleportService;
 
 	private final static int	questId	= 2903;
 	public _2903DispatchtoAltgard()
@@ -80,7 +77,7 @@ public class _2903DispatchtoAltgard extends QuestHandler
 							{
 								qs.setQuestVarById(0, var + 1);
 								updateQuestStatus(player, qs);
-								teleportService.teleportTo(player, 220030000, player.getInstanceId(), 1748f, 1807f, 255f, 1000);
+								TeleportService.teleportTo(player, 220030000, player.getInstanceId(), 1748f, 1807f, 255f, 1000);
 								PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 0));
 								return true;
 							}

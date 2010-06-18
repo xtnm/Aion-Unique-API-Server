@@ -29,11 +29,6 @@ import com.aionemu.gameserver.network.chatserver.CsPacketHandler;
 import com.aionemu.gameserver.network.factories.AionPacketHandlerFactory;
 import com.aionemu.gameserver.network.factories.ChatServerConnectionFactory;
 import com.aionemu.gameserver.network.factories.CsPacketHandlerFactory;
-import com.aionemu.gameserver.network.factories.LoginServerConnectionFactory;
-import com.aionemu.gameserver.network.factories.LsPacketHandlerFactory;
-import com.aionemu.gameserver.network.loginserver.LoginServer;
-import com.aionemu.gameserver.network.loginserver.LoginServerConnection;
-import com.aionemu.gameserver.network.loginserver.LsPacketHandler;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
@@ -59,13 +54,10 @@ public class NetworkInjectionModule extends AbstractModule
 	@Override
 	protected void configure()
 	{
-		bind(LoginServer.class).in(Scopes.SINGLETON);
 		bind(ChatServer.class).in(Scopes.SINGLETON);
 
 		install(new FactoryModuleBuilder().implement(AConnection.class, AionConnection.class).build(
 			ConnectionFactory.class));
-		install(new FactoryModuleBuilder().implement(AConnection.class, LoginServerConnection.class).build(
-			LoginServerConnectionFactory.class));
 		install(new FactoryModuleBuilder().implement(AConnection.class, ChatServerConnection.class).build(
 			ChatServerConnectionFactory.class));
 	}
@@ -75,13 +67,6 @@ public class NetworkInjectionModule extends AbstractModule
 	AionPacketHandler provideAionPacketHandler()
 	{
 		return new AionPacketHandlerFactory(injector).getPacketHandler();
-	}
-
-	@Provides
-	@Singleton
-	LsPacketHandler provideLsPacketHandler()
-	{
-		return new LsPacketHandlerFactory(injector).getPacketHandler();
 	}
 	
 	@Provides

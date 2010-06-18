@@ -20,7 +20,6 @@ package com.aionemu.gameserver.network.loginserver.clientpackets;
 import com.aionemu.gameserver.model.account.AccountTime;
 import com.aionemu.gameserver.network.loginserver.LoginServer;
 import com.aionemu.gameserver.network.loginserver.LsClientPacket;
-import com.google.inject.Inject;
 
 /**
  * In this packet LoginServer is answering on GameServer request about valid authentication data and also sends account
@@ -54,8 +53,6 @@ public class CM_ACOUNT_AUTH_RESPONSE extends LsClientPacket
 	 * Membership - regular/premium
 	 */
 	private byte		membership;
-	@Inject
-	private LoginServer	loginServer;
 	
 	/**
 	 * Constructs new instance of <tt>CM_ACOUNT_AUTH_RESPONSE </tt> packet.
@@ -94,6 +91,6 @@ public class CM_ACOUNT_AUTH_RESPONSE extends LsClientPacket
 	@Override
 	protected void runImpl()
 	{
-		loginServer.accountAuthenticationResponse(accountId, accountName, result, accountTime, accessLevel, membership);
+		LoginServer.getInstance().accountAuthenticationResponse(accountId, accountName, result, accountTime, accessLevel, membership);
 	}
 }

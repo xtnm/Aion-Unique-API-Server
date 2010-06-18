@@ -25,7 +25,6 @@ import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.Util;
 import com.aionemu.gameserver.utils.chathandlers.AdminCommand;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author lord_rex
@@ -35,8 +34,6 @@ import com.google.inject.Inject;
  */
 public class SendToPrison extends AdminCommand
 {
-	@Inject
-	private PunishmentService punishmentService;
 
 	public SendToPrison()
 	{
@@ -65,7 +62,7 @@ public class SendToPrison extends AdminCommand
 
 			if(playerToPrison != null)
 			{
-				punishmentService.setIsInPrison(playerToPrison, true, delay);
+				PunishmentService.setIsInPrison(playerToPrison, true, delay);
 				PacketSendUtility.sendMessage(admin, "Player " + playerToPrison.getName() + " sent to prison for "
 					+ delay + ".");
 			}

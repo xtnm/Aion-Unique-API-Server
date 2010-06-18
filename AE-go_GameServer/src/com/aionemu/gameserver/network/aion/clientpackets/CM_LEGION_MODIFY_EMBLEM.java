@@ -19,7 +19,6 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.services.LegionService;
-import com.google.inject.Inject;
 
 /**
  * @author Simple
@@ -27,9 +26,6 @@ import com.google.inject.Inject;
  */
 public class CM_LEGION_MODIFY_EMBLEM extends AionClientPacket
 {
-	/** Legion based information **/
-	@Inject
-	private LegionService	legionService;
 
 	/** Emblem related information **/
 	private int				legionId;
@@ -63,6 +59,6 @@ public class CM_LEGION_MODIFY_EMBLEM extends AionClientPacket
 		Player activePlayer = getConnection().getActivePlayer();
 
 		if(activePlayer.isLegionMember())
-			legionService.storeLegionEmblem(activePlayer, legionId, emblemId, red, green, blue);
+			LegionService.getInstance().storeLegionEmblem(activePlayer, legionId, emblemId, red, green, blue);
 	}
 }

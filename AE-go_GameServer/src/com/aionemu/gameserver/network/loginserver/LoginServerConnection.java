@@ -28,8 +28,6 @@ import com.aionemu.commons.network.AConnection;
 import com.aionemu.commons.network.Dispatcher;
 import com.aionemu.gameserver.network.loginserver.serverpackets.SM_GS_AUTH;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
-import com.google.inject.Inject;
-import com.google.inject.assistedinject.Assisted;
 
 /**
  * Object representing connection between LoginServer and GameServer.
@@ -68,7 +66,6 @@ public class LoginServerConnection extends AConnection
 	 * Current state of this connection
 	 */
 	private State						state;
-	private LoginServer					loginServer;
 	private LsPacketHandler				lsPacketHandler;
 
 	/**
@@ -78,12 +75,11 @@ public class LoginServerConnection extends AConnection
 	 * @param d
 	 * @throws IOException
 	 */
-	@Inject
-	public LoginServerConnection(@Assisted SocketChannel sc,@Assisted Dispatcher d, LoginServer loginServer,
+
+	public LoginServerConnection(SocketChannel sc,Dispatcher d,
 		LsPacketHandler lsPacketHandler) throws IOException
 	{
 		super(sc, d);
-		this.loginServer = loginServer;
 		this.lsPacketHandler = lsPacketHandler;
 
 		state = State.CONNECTED;
@@ -153,7 +149,7 @@ public class LoginServerConnection extends AConnection
 	@Override
 	protected final void onDisconnect()
 	{
-		loginServer.loginServerDown();
+		LoginServer.getInstance().loginServerDown();
 	}
 
 	/**

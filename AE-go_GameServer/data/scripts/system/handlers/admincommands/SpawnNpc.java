@@ -17,14 +17,12 @@
 package admincommands;
 
 import com.aionemu.gameserver.configs.administration.AdminConfig;
-import com.aionemu.gameserver.dataholders.SpawnsData;
 import com.aionemu.gameserver.model.gameobjects.VisibleObject;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.templates.spawn.SpawnTemplate;
 import com.aionemu.gameserver.spawnengine.SpawnEngine;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.chathandlers.AdminCommand;
-import com.google.inject.Inject;
 
 /**
  * @author Luno
@@ -33,21 +31,9 @@ import com.google.inject.Inject;
 public class SpawnNpc extends AdminCommand 
 {
 
-    @SuppressWarnings("unused")
-	private final SpawnsData spawnsData;
-
-    private final SpawnEngine spawnEngine;
-
-    /**
-     * @param spawnsData the data of a spawn
-     * @param spawnEngine the spawn service that needs to take care of everything
-     */
-
-    @Inject
-    public SpawnNpc(SpawnsData spawnsData, SpawnEngine spawnEngine) {
+    public SpawnNpc()
+    {
         super("spawn");
-        this.spawnsData = spawnsData;
-        this.spawnEngine = spawnEngine;
     }
 
     @Override
@@ -76,7 +62,7 @@ public class SpawnNpc extends AdminCommand
         byte heading = admin.getHeading();
         int worldId = admin.getWorldId();
 
-        SpawnTemplate spawn = spawnEngine.addNewSpawn(worldId, 1, templateId, x, y, z, heading, 0, 0, noRespawn, true);
+        SpawnTemplate spawn = SpawnEngine.getInstance().addNewSpawn(worldId, 1, templateId, x, y, z, heading, 0, 0, noRespawn, true);
 
         if (spawn == null)
         {
@@ -84,7 +70,7 @@ public class SpawnNpc extends AdminCommand
             return;
         }
 
-        VisibleObject visibleObject = spawnEngine.spawnObject(spawn, 1);
+        VisibleObject visibleObject = SpawnEngine.getInstance().spawnObject(spawn, 1);
         String objectName = visibleObject.getObjectTemplate().getName();
 
         PacketSendUtility.sendMessage(admin, objectName + " spawned");

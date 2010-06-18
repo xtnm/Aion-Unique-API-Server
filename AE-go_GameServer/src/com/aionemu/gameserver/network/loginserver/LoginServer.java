@@ -31,7 +31,7 @@ import com.aionemu.gameserver.model.account.AccountTime;
 import com.aionemu.gameserver.network.aion.AionConnection;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_L2AUTH_LOGIN_CHECK;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_RECONNECT_KEY;
-import com.aionemu.gameserver.network.factories.LoginServerConnectionFactory;
+import com.aionemu.gameserver.network.factories.LsPacketHandlerFactory;
 import com.aionemu.gameserver.network.loginserver.LoginServerConnection.State;
 import com.aionemu.gameserver.network.loginserver.serverpackets.SM_ACCOUNT_AUTH;
 import com.aionemu.gameserver.network.loginserver.serverpackets.SM_ACCOUNT_DISCONNECTED;
@@ -39,7 +39,6 @@ import com.aionemu.gameserver.network.loginserver.serverpackets.SM_ACCOUNT_RECON
 import com.aionemu.gameserver.network.loginserver.serverpackets.SM_LS_CONTROL;
 import com.aionemu.gameserver.services.AccountService;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
-import com.google.inject.Inject;
 
 /**
  * Utill class for connecting GameServer to LoginServer.
@@ -71,22 +70,21 @@ public class LoginServer
 	private LoginServerConnection			loginServer;
 
 	private NioServer						nioServer;
-	private LoginServerConnectionFactory	lscFactory;
 	private boolean							serverShutdown = false;
-
-	@Inject
-	private AccountService accountService;
 	
-	@Inject
+	public static final LoginServer getInstance()
+	{
+		return SingletonHolder.instance;
+	}
+
+	private LoginServer()
+	{
+		
+	}
+
 	public void setNioServer(NioServer nioServer)
 	{
 		this.nioServer = nioServer;
-	}
-
-	@Inject
-	public void setLSConnectionFactory(LoginServerConnectionFactory lscFactory)
-	{
-		this.lscFactory = lscFactory;
 	}
 
 	/**
@@ -107,7 +105,8 @@ public class LoginServer
 				sc = SocketChannel.open(NetworkConfig.LOGIN_ADDRESS);
 				sc.configureBlocking(false);
 				Dispatcher d = nioServer.getReadWriteDispatcher();
-				loginServer = lscFactory.createConnection(sc, d);
+				LsPacketHandlerFactory lsPacketHandlerFactory = new LsPacketHandlerFactory();
+				loginServer = new LoginServerConnection(sc, d, lsPacketHandlerFactory.getPacketHandler());
 				return loginServer;
 			}
 			catch(Exception e)
@@ -245,7 +244,7 @@ public class LoginServer
 			client.setState(AionConnection.State.AUTHED);
 			loggedInAccounts.put(accountId, client);
 			log.info("Account authed: " + accountId + " = " + accountName);
-			client.setAccount(accountService.getAccount(accountId, accountName, accountTime, accessLevel, membership));
+			client.setAccount(AccountService.getAccount(accountId, accountName, accountTime, accessLevel, membership));
 			client.sendPacket(new SM_L2AUTH_LOGIN_CHECK(true));
 		}
 		else
@@ -402,5 +401,9 @@ public class LoginServer
 			}
 		}
 	}
-
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final LoginServer instance = new LoginServer();
+	}
 }

@@ -24,7 +24,6 @@ import com.aionemu.gameserver.network.loginserver.clientpackets.CM_ACOUNT_AUTH_R
 import com.aionemu.gameserver.network.loginserver.clientpackets.CM_GS_AUTH_RESPONSE;
 import com.aionemu.gameserver.network.loginserver.clientpackets.CM_LS_CONTROL_RESPONSE;
 import com.aionemu.gameserver.network.loginserver.clientpackets.CM_REQUEST_KICK_ACCOUNT;
-import com.google.inject.Injector;
 
 /**
  * @author Luno
@@ -32,15 +31,13 @@ import com.google.inject.Injector;
  */
 public class LsPacketHandlerFactory
 {
-	private Injector		injector;
 	private LsPacketHandler	handler	= new LsPacketHandler();
 
 	/**
 	 * @param loginServer
 	 */
-	public LsPacketHandlerFactory(Injector injector)
+	public LsPacketHandlerFactory()
 	{
-		this.injector = injector;
 
 		addPacket(new CM_ACCOUNT_RECONNECT_KEY(0x03), State.AUTHED);
 		addPacket(new CM_ACOUNT_AUTH_RESPONSE(0x01), State.AUTHED);
@@ -52,7 +49,6 @@ public class LsPacketHandlerFactory
 
 	private void addPacket(LsClientPacket prototype, State... states)
 	{
-		injector.injectMembers(prototype);
 		handler.addPacketPrototype(prototype, states);
 	}
 

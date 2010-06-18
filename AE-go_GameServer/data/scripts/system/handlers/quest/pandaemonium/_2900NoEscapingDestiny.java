@@ -40,7 +40,6 @@ import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.world.WorldMapInstance;
-import com.google.inject.Inject;
 
 /**
  * @author Mr. Poke
@@ -48,11 +47,6 @@ import com.google.inject.Inject;
  */
 public class _2900NoEscapingDestiny extends QuestHandler
 {
-
-	@Inject
-	TeleportService teleportService;
-	@Inject
-	InstanceService instanceService;
 
 	private final static int		questId	= 2900;
 
@@ -186,9 +180,9 @@ public class _2900NoEscapingDestiny extends QuestHandler
 								qs.setQuestVarById(0, 95);
 								updateQuestStatus(player, qs);
 								PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 0));
-								WorldMapInstance newInstance = instanceService.getNextAvailableInstance(320070000);
-								instanceService.registerPlayerWithInstance(newInstance, player);
-								teleportService.teleportTo(player, 320070000, newInstance.getInstanceId(), 257.5f, 245f, 129f, 0);
+								WorldMapInstance newInstance = InstanceService.getNextAvailableInstance(320070000);
+								InstanceService.registerPlayerWithInstance(newInstance, player);
+								TeleportService.teleportTo(player, 320070000, newInstance.getInstanceId(), 257.5f, 245f, 129f, 0);
 								return true;
 							}
 							break;
@@ -292,7 +286,7 @@ public class _2900NoEscapingDestiny extends QuestHandler
 		{
 			qs.setQuestVar(9);
 			updateQuestStatus(player, qs);
-			teleportService.teleportTo(player, 220010000, 1, 1111.6f, 1716.6f, 270.6f, 0);
+			TeleportService.teleportTo(player, 220010000, 1, 1111.6f, 1716.6f, 270.6f, 0);
 			return true;
 		}
 		return false;

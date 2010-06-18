@@ -24,7 +24,6 @@ import com.aionemu.commons.scripting.classlistener.ClassListener;
 import com.aionemu.commons.scripting.classlistener.DefaultClassListener;
 import com.aionemu.commons.utils.ClassUtils;
 import com.aionemu.gameserver.questEngine.QuestEngine;
-import com.google.inject.Injector;
 
 /**
  * @author MrPoke
@@ -34,13 +33,12 @@ public class QuestHandlerLoader extends DefaultClassListener implements ClassLis
 {
 	private static final Logger logger = Logger.getLogger(QuestHandlerLoader.class);
 
-	private Injector injector;
 
-	public QuestHandlerLoader(Injector injector)
+	public QuestHandlerLoader()
 	{
-		this.injector = injector;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void postLoad(Class<?>[] classes)
 	{
@@ -54,7 +52,22 @@ public class QuestHandlerLoader extends DefaultClassListener implements ClassLis
 
 			if (ClassUtils.isSubclass(c, QuestHandler.class))
 			{
-				QuestEngine.getInstance().addQuestHandler((QuestHandler)injector.getInstance(c));
+				try
+				{
+					Class<? extends QuestHandler> tmp = (Class<? extends QuestHandler>)c;
+					if (tmp != null)
+						QuestEngine.getInstance().addQuestHandler(tmp.newInstance());
+				}
+				catch(InstantiationException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				catch(IllegalAccessException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 

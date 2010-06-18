@@ -27,6 +27,7 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_EMOTION;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_QUESTION_WINDOW;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_ATTACK_STATUS.TYPE;
+import com.aionemu.gameserver.services.KiskService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.World;
@@ -74,7 +75,7 @@ public class KiskController extends NpcController
 	
 	private void removeKisk(final Kisk kisk)
 	{
-		sp.getKiskService().removeKisk(kisk);
+		KiskService.removeKisk(kisk);
 		
 		// Schedule World Removal
 		addTask(TaskId.DECAY, ThreadPoolManager.getInstance().schedule(new Runnable()
@@ -114,7 +115,7 @@ public class KiskController extends NpcController
 						PacketSendUtility.sendPacket(responder, SM_SYSTEM_MESSAGE.STR_CANNOT_REGISTER_BINDSTONE_HAVE_NO_AUTHORITY);
 						return;
 					}
-					sp.getKiskService().onBind(kisk, responder);
+					KiskService.onBind(kisk, responder);
 				}
 	
 				@Override

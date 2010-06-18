@@ -18,40 +18,17 @@ package com.aionemu.gameserver.utils.guice;
 
 import com.aionemu.commons.services.ScriptService;
 import com.aionemu.gameserver.ShutdownHook;
-import com.aionemu.gameserver.dataholders.BindPointData;
 import com.aionemu.gameserver.dataholders.DataManager;
-import com.aionemu.gameserver.dataholders.GatherableData;
 import com.aionemu.gameserver.dataholders.ItemData;
 import com.aionemu.gameserver.dataholders.ItemSetData;
-import com.aionemu.gameserver.dataholders.NpcData;
-import com.aionemu.gameserver.dataholders.NpcSkillData;
 import com.aionemu.gameserver.dataholders.PlayerExperienceTable;
-import com.aionemu.gameserver.dataholders.PlayerInitialData;
-import com.aionemu.gameserver.dataholders.PlayerStatsData;
-import com.aionemu.gameserver.dataholders.PortalData;
 import com.aionemu.gameserver.dataholders.SkillData;
-import com.aionemu.gameserver.dataholders.SpawnsData;
-import com.aionemu.gameserver.dataholders.SummonStatsData;
-import com.aionemu.gameserver.dataholders.TeleLocationData;
-import com.aionemu.gameserver.dataholders.TeleporterData;
 import com.aionemu.gameserver.dataholders.WalkerData;
-import com.aionemu.gameserver.dataholders.loadingutils.XmlServiceProxy;
-import com.aionemu.gameserver.services.AccountService;
 import com.aionemu.gameserver.services.ChatService;
-import com.aionemu.gameserver.services.CraftService;
-import com.aionemu.gameserver.services.CubeExpandService;
-import com.aionemu.gameserver.services.InstanceService;
-import com.aionemu.gameserver.services.KiskService;
-import com.aionemu.gameserver.services.LegionService;
-import com.aionemu.gameserver.services.PeriodicSaveService;
 import com.aionemu.gameserver.services.PlayerService;
-import com.aionemu.gameserver.services.PunishmentService;
-import com.aionemu.gameserver.services.RespawnService;
 import com.aionemu.gameserver.services.ServiceProxy;
 import com.aionemu.gameserver.services.SocialService;
 import com.aionemu.gameserver.services.TeleportService;
-import com.aionemu.gameserver.spawnengine.RiftSpawnManager;
-import com.aionemu.gameserver.spawnengine.SpawnEngine;
 import com.aionemu.gameserver.utils.chathandlers.ChatHandlers;
 import com.aionemu.gameserver.utils.chathandlers.ChatHandlersFactory;
 import com.google.inject.AbstractModule;
@@ -78,38 +55,14 @@ public class DataInjectionModule extends AbstractModule
 	@Override
 	protected void configure()
 	{
-		bind(XmlServiceProxy.class).in(Scopes.SINGLETON);
 		bind(ShutdownHook.class).in(Scopes.SINGLETON);	
 		bind(DataManager.class).asEagerSingleton();
-		bind(SpawnEngine.class).asEagerSingleton();
-		bind(PeriodicSaveService.class).in(Scopes.SINGLETON);
 		bind(PlayerService.class).in(Scopes.SINGLETON);
-		bind(AccountService.class).in(Scopes.SINGLETON);
 		bind(SocialService.class).in(Scopes.SINGLETON);
 		bind(ScriptService.class).in(Scopes.SINGLETON);
-		bind(CubeExpandService.class).in(Scopes.SINGLETON);
-		bind(RiftSpawnManager.class).in(Scopes.SINGLETON);
-		bind(LegionService.class).in(Scopes.SINGLETON);
-		bind(RespawnService.class).in(Scopes.SINGLETON);
 		bind(TeleportService.class).in(Scopes.SINGLETON);
-		bind(CraftService.class).in(Scopes.SINGLETON);
-		bind(PunishmentService.class).in(Scopes.SINGLETON);
 		bind(ServiceProxy.class).in(Scopes.SINGLETON);
-		bind(InstanceService.class).in(Scopes.SINGLETON);
 		bind(ChatService.class).asEagerSingleton();
-		bind(KiskService.class).in(Scopes.SINGLETON);
-	}
-	
-	@Provides
-	SpawnsData provideSpawnData(DataManager datamanager)
-	{
-		return datamanager.SPAWNS_DATA;
-	}
-
-	@Provides
-	NpcData provideNpcData(DataManager datamanager)
-	{
-		return datamanager.NPC_DATA;
 	}
 	
 	@SuppressWarnings("static-access")
@@ -118,36 +71,12 @@ public class DataInjectionModule extends AbstractModule
 	{
 		return datamanager.ITEM_DATA;
 	}
-
-	@Provides
-	GatherableData provideGatherableData(DataManager datamanager)
-	{
-		return datamanager.GATHERABLE_DATA;
-	}
-	
-	@Provides
-	BindPointData provideBindPointData(DataManager datamanager)
-	{
-		return datamanager.BIND_POINT_DATA;
-	}
 	
 	@Provides
 	@Singleton
 	ChatHandlers provideChatHandlers()
 	{
 		return new ChatHandlersFactory(injector).createChatHandlers();
-	}
-	
-	@Provides
-	TeleporterData provideTeleporterData(DataManager datamanager)
-	{
-		return datamanager.TELEPORTER_DATA;
-	}
-	
-	@Provides
-	TeleLocationData provideTeleLocationData(DataManager datamanager)
-	{
-		return datamanager.TELELOCATION_DATA;
 	}
 	
 	@SuppressWarnings("static-access")
@@ -170,41 +99,11 @@ public class DataInjectionModule extends AbstractModule
 	{
 		return datamanager.PLAYER_EXPERIENCE_TABLE;
 	}
-
-	@Provides
-	PlayerStatsData providePlayerStatsData(DataManager datamanager)
-	{
-		return datamanager.PLAYER_STATS_DATA;
-	}
-	
-	@Provides
-	SummonStatsData provideSummonStatsData(DataManager datamanager)
-	{
-		return datamanager.SUMMON_STATS_DATA;
-	}
-
-	@Provides
-	PlayerInitialData providePlayerInitialData(DataManager datamanager)
-	{
-		return datamanager.PLAYER_INITIAL_DATA;
-	}
-	
-	@Provides
-	PortalData providePortalData(DataManager datamanager)
-	{
-		return datamanager.PORTAL_DATA;
-	}
 	
 	@SuppressWarnings("static-access")
 	@Provides
 	ItemSetData provideItemSetData(DataManager datamanager)
 	{
 		return datamanager.ITEM_SET_DATA;
-	}
-	
-	@Provides
-	NpcSkillData provideNpcSkillData(DataManager datamanager)
-	{
-		return datamanager.NPC_SKILL_DATA;
 	}
 }

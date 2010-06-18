@@ -23,7 +23,6 @@ import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
-import com.google.inject.Inject;
 
 /**
  * @author Xitanium
@@ -31,9 +30,6 @@ import com.google.inject.Inject;
  */
 public class _1430ATeleportationExperiment extends QuestHandler 
 {
-
-	@Inject
-	TeleportService teleportService;
 
 	private final static int	questId	= 1430;
 
@@ -81,7 +77,7 @@ public class _1430ATeleportationExperiment extends QuestHandler
 					qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
 					updateQuestStatus(player, qs);
 					qs.setStatus(QuestStatus.REWARD);
-					teleportService.teleportTo(player, 220020000, 1, 638, 2337, 425, (byte) 20, 0);
+					TeleportService.teleportTo(player, 220020000, 1, 638, 2337, 425, (byte) 20, 0);
 				}
 				else
 					return defaultQuestStartDialog(env);
@@ -102,8 +98,6 @@ public class _1430ATeleportationExperiment extends QuestHandler
 			}
 
 		}
-		
-		
 		return false;
 	}
 }

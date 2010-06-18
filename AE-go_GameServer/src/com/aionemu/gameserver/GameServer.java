@@ -32,7 +32,6 @@ import com.aionemu.gameserver.configs.main.GSConfig;
 import com.aionemu.gameserver.configs.main.TaskManagerConfig;
 import com.aionemu.gameserver.configs.main.ThreadConfig;
 import com.aionemu.gameserver.dao.PlayerDAO;
-import com.aionemu.gameserver.dataholders.loadingutils.XmlServiceProxy;
 import com.aionemu.gameserver.network.chatserver.ChatServer;
 import com.aionemu.gameserver.network.loginserver.LoginServer;
 import com.aionemu.gameserver.questEngine.QuestEngine;
@@ -45,8 +44,7 @@ import com.aionemu.gameserver.services.ExchangeService;
 import com.aionemu.gameserver.services.GameTimeService;
 import com.aionemu.gameserver.services.GroupService;
 import com.aionemu.gameserver.services.MailService;
-import com.aionemu.gameserver.services.ServiceProxy;
-import com.aionemu.gameserver.services.TmpInjectorProxy;
+import com.aionemu.gameserver.services.PeriodicSaveService;
 import com.aionemu.gameserver.services.WeatherService;
 import com.aionemu.gameserver.services.ZoneService;
 import com.aionemu.gameserver.spawnengine.SpawnEngine;
@@ -59,7 +57,6 @@ import com.aionemu.gameserver.utils.Util;
 import com.aionemu.gameserver.utils.gametime.GameTimeManager;
 import com.aionemu.gameserver.utils.guice.DataInjectionModule;
 import com.aionemu.gameserver.utils.guice.NetworkInjectionModule;
-import com.aionemu.gameserver.utils.guice.ObjectFactoryInjectionModule;
 import com.aionemu.gameserver.utils.idfactory.IDFactory;
 import com.aionemu.gameserver.world.World;
 import com.google.inject.Guice;
@@ -89,19 +86,13 @@ public class GameServer
 		// in InjectionModule with asEagerSingleton() call
 		DataInjectionModule dataIM = new DataInjectionModule();
 		NetworkInjectionModule networkIM = new NetworkInjectionModule();
-		ObjectFactoryInjectionModule controllerIM = new ObjectFactoryInjectionModule();
 
-		injector = Guice.createInjector(dataIM, networkIM, controllerIM);
+		injector = Guice.createInjector(dataIM, networkIM);
 		dataIM.setInjector(injector);
 		networkIM.setInjector(injector);
 		
 		IDFactory.getInstance();
 		World.getInstance();
-
-		// after all data is loaded need to set service proxy to xml service adapter
-		injector.getInstance(XmlServiceProxy.class).setServiceProxy(injector.getInstance(ServiceProxy.class));
-		TmpInjectorProxy tmpInjectorProxy = TmpInjectorProxy.getInstance();
-		injector.injectMembers(tmpInjectorProxy);
 	}
 
 	/**
@@ -119,8 +110,13 @@ public class GameServer
 		GameServer gs = new GameServer();
 		// Set all players is offline
 		DAOManager.getDAO(PlayerDAO.class).setPlayersOffline(false);
-		gs.spawnMonsters();
-		gs.initQuests();
+
+		Util.printSection("Spawns");
+		SpawnEngine.getInstance();
+
+		Util.printSection("Quests");
+		QuestEngine.getInstance();
+		QuestEngine.getInstance().load();
 
 		Util.printSection("TaskManagers");
 		PacketBroadcaster.getInstance();
@@ -147,6 +143,8 @@ public class GameServer
 
 		ExchangeService.getInstance();
 
+		PeriodicSaveService.getInstance();
+
 		Util.printSection("System");
 		AEVersions.printFullVersionInfo();
 		AEInfos.printAllInfos();
@@ -170,34 +168,14 @@ public class GameServer
 	}
 
 	/**
-	 * This method is basically responsible for triggering NPCs spawning with {@link SpawnEngine}.
-	 */
-	private void spawnMonsters()
-	{
-		Util.printSection("Spawns");
-
-		SpawnEngine spawnEngine = injector.getInstance(SpawnEngine.class);
-		spawnEngine.setInjector(injector);
-		spawnEngine.spawnAll();	
-	}
-
-	private void initQuests()
-	{
-		Util.printSection("Quests");
-
-		QuestEngine questEngine = QuestEngine.getInstance();
-		questEngine.setInjector(injector);
-		questEngine.load();
-	}
-
-	/**
 	 * Starts servers for connection with aion client and login server.
 	 */
 	private void startServers()
 	{
 		NioServer nioServer = injector.getInstance(NioServer.class);
-		LoginServer loginServer = injector.getInstance(LoginServer.class);
+		LoginServer loginServer = LoginServer.getInstance();
 		ChatServer chatServer = injector.getInstance(ChatServer.class);
+		loginServer.setNioServer(nioServer);
 		// Nio must go first
 		nioServer.connect();
 		loginServer.connect();

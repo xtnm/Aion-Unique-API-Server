@@ -21,15 +21,12 @@ import com.aionemu.gameserver.model.legion.LegionEmblem;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_LEGION_SEND_EMBLEM;
 import com.aionemu.gameserver.services.LegionService;
-import com.google.inject.Inject;
 
 /**
  * @author Simple
  */
 public class CM_LEGION_SEND_EMBLEM extends AionClientPacket
 {
-	@Inject
-	LegionService legionService;
 	
 	private int	legionId;
 
@@ -53,7 +50,7 @@ public class CM_LEGION_SEND_EMBLEM extends AionClientPacket
 	@Override
 	protected void runImpl()
 	{
-		Legion legion = legionService.getLegion(legionId);
+		Legion legion = LegionService.getInstance().getLegion(legionId);
 		LegionEmblem legionEmblem = legion.getLegionEmblem();
 		sendPacket(new SM_LEGION_SEND_EMBLEM(legionId, legionEmblem.getEmblemId(), legionEmblem.getColor_r(), legionEmblem.getColor_g(), legionEmblem.getColor_b(), legion.getLegionName()));
 	}

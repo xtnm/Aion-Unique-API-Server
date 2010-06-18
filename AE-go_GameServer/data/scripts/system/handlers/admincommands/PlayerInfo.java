@@ -32,7 +32,6 @@ import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.Util;
 import com.aionemu.gameserver.utils.chathandlers.AdminCommand;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author lyahim
@@ -40,9 +39,6 @@ import com.google.inject.Inject;
  */
 public class PlayerInfo extends AdminCommand
 {
-	
-	@Inject
-	private LegionService legionService;
 	
 	private final static int showLineNumber = 20;
 
@@ -177,7 +173,7 @@ public class PlayerInfo extends AdminCommand
 				PacketSendUtility.sendMessage(admin, "-legion info: no legion");
 			else
 			{
-				ArrayList<LegionMemberEx> legionmemblist = legionService.loadLegionMemberExList(legion);
+				ArrayList<LegionMemberEx> legionmemblist = LegionService.getInstance().loadLegionMemberExList(legion);
 				Iterator it = legionmemblist.iterator();
 				
 				strbld.append("-legion info:\n  name: " + legion.getLegionName() + ", level: " + legion.getLegionLevel() + "\n  members(online):\n");

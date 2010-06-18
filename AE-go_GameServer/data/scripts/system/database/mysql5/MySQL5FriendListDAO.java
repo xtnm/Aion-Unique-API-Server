@@ -28,7 +28,6 @@ import com.aionemu.commons.database.ParamReadStH;
 import com.aionemu.commons.database.dao.DAOManager;
 import com.aionemu.gameserver.dao.FriendListDAO;
 import com.aionemu.gameserver.dao.PlayerDAO;
-import com.aionemu.gameserver.dataholders.PlayerInitialData;
 import com.aionemu.gameserver.model.gameobjects.player.Friend;
 import com.aionemu.gameserver.model.gameobjects.player.FriendList;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
@@ -50,7 +49,7 @@ public class MySQL5FriendListDAO extends FriendListDAO
 	 * @see com.aionemu.gameserver.dao.FriendListDAO#load(com.aionemu.gameserver.model.gameobjects.player.Player)
 	 */
 	@Override
-	public FriendList load(final Player player, final PlayerInitialData playerInitialData)
+	public FriendList load(final Player player)
 	{
 		final List<Friend> friends = new ArrayList<Friend>();
 		
@@ -65,7 +64,7 @@ public class MySQL5FriendListDAO extends FriendListDAO
 				{
 					int objId = rs.getInt("friend");
 					
-					PlayerCommonData pcd = dao.loadPlayerCommonData(objId, playerInitialData);
+					PlayerCommonData pcd = dao.loadPlayerCommonData(objId);
 					Friend friend = new Friend(pcd);
 					friends.add(friend);
 				}

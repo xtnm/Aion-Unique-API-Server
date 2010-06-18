@@ -39,7 +39,6 @@ import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.WorldMapInstance;
-import com.google.inject.Inject;
 
 /**
  * @author MrPoke
@@ -47,10 +46,6 @@ import com.google.inject.Inject;
  */
 public class _1002RequestoftheElim extends QuestHandler
 {
-	@Inject
-	InstanceService instanceService;
-	@Inject
-	TeleportService teleportService;
 
 	private final static int	questId	= 1002;
 
@@ -276,8 +271,8 @@ public class _1002RequestoftheElim extends QuestHandler
 						updateQuestStatus(player, qs);
 						PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(),
 							0));
-						WorldMapInstance newInstance = instanceService.getNextAvailableInstance(310010000);
-						teleportService.teleportTo(player, 310010000, newInstance.getInstanceId(), 52, 174, 229, 0);
+						WorldMapInstance newInstance = InstanceService.getNextAvailableInstance(310010000);
+						TeleportService.teleportTo(player, 310010000, newInstance.getInstanceId(), 52, 174, 229, 0);
 						return true;
 					}
 					return false;
@@ -309,7 +304,7 @@ public class _1002RequestoftheElim extends QuestHandler
 							{
 								qs.setQuestVarById(0, 14);
 								updateQuestStatus(player, qs);
-								teleportService.teleportTo(player, 210010000, 1, 603, 1537, 116, (byte) 20, 0);
+								TeleportService.teleportTo(player, 210010000, 1, 603, 1537, 116, (byte) 20, 0);
 							}
 						}, 43000);
 						return true;

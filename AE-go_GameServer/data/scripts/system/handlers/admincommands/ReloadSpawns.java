@@ -29,7 +29,6 @@ import com.aionemu.gameserver.spawnengine.SpawnEngine;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.chathandlers.AdminCommand;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author Luno
@@ -38,8 +37,6 @@ import com.google.inject.Inject;
 
 public class ReloadSpawns extends AdminCommand
 {
-	@Inject
-	private SpawnEngine	spawnEngine;
 
 	/**
 	 * The constructor of Reload Spawns Command
@@ -70,6 +67,6 @@ public class ReloadSpawns extends AdminCommand
 		}
 		
 		// spawn all;
-		spawnEngine.spawnAll(); 
+		SpawnEngine.getInstance().spawnAll(); 
 	}
 }

@@ -18,8 +18,6 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.network.loginserver.LoginServer;
-import com.aionemu.gameserver.services.AccountService;
-import com.google.inject.Inject;
 
 /**
  * In this packets aion client is authenticating himself by providing accountId and rest of sessionKey - we will check
@@ -31,12 +29,7 @@ import com.google.inject.Inject;
 // TODO: L2AUTH? Really? :O
 public class CM_L2AUTH_LOGIN_CHECK extends AionClientPacket
 {
-	@Inject
-	private LoginServer	loginServer;
-	@SuppressWarnings("unused")
-	@Inject
-	private AccountService accountService;
-	
+
 	/**
 	 * playOk2 is part of session key - its used for security purposes we will check if this is the key what login
 	 * server sends.
@@ -85,6 +78,6 @@ public class CM_L2AUTH_LOGIN_CHECK extends AionClientPacket
 	@Override
 	protected void runImpl()
 	{
-		loginServer.requestAuthenticationOfClient(accountId, getConnection(), loginOk, playOk1, playOk2);
+		LoginServer.getInstance().requestAuthenticationOfClient(accountId, getConnection(), loginOk, playOk1, playOk2);
 	}
 }

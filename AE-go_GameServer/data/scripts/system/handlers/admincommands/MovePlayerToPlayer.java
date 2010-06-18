@@ -24,7 +24,6 @@ import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.Util;
 import com.aionemu.gameserver.utils.chathandlers.AdminCommand;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * Admin moveplayertoplayer command.
@@ -34,8 +33,6 @@ import com.google.inject.Inject;
 
 public class MovePlayerToPlayer extends AdminCommand
 {
-	@Inject
-	private TeleportService teleportService;
 
 	/**
 	 * Constructor.
@@ -84,7 +81,7 @@ public class MovePlayerToPlayer extends AdminCommand
 			return;
 		}
 
-		teleportService.teleportTo(playerToMove, playerDestination.getWorldId(), playerDestination.getInstanceId(), playerDestination.getX(), playerDestination.getY(), playerDestination.getZ(), playerDestination.getHeading(), 0);
+		TeleportService.teleportTo(playerToMove, playerDestination.getWorldId(), playerDestination.getInstanceId(), playerDestination.getX(), playerDestination.getY(), playerDestination.getZ(), playerDestination.getHeading(), 0);
 		
 		PacketSendUtility.sendMessage(admin, "Teleported player " + playerToMove.getName() + " to the location of player " + playerDestination.getName() + ".");
 		PacketSendUtility.sendMessage(playerToMove, "You have been teleported by an administrator.");

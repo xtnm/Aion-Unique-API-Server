@@ -30,7 +30,6 @@ import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author MrPoke
@@ -38,8 +37,6 @@ import com.google.inject.Inject;
  */
 public class _2009ACeremonyinPandaemonium extends QuestHandler
 {
-	@Inject
-	TeleportService teleportService;
 	private final static int	questId	= 2009;
 
 	public _2009ACeremonyinPandaemonium()
@@ -92,7 +89,7 @@ public class _2009ACeremonyinPandaemonium extends QuestHandler
 							PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(),0));
 							
 							PacketSendUtility.sendPacket(player, new SM_TELEPORT_LOC(120010000, 1685, 1400, 195));
-							teleportService.scheduleTeleportTask(player, 120010000, 1685, 1400, 195);
+							TeleportService.scheduleTeleportTask(player, 120010000, 1685, 1400, 195);
 							return true;
 						}
 				}

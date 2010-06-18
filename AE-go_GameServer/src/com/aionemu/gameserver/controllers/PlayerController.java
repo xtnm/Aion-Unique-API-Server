@@ -67,6 +67,7 @@ import com.aionemu.gameserver.services.ClassChangeService;
 import com.aionemu.gameserver.services.DuelService;
 import com.aionemu.gameserver.services.GroupService;
 import com.aionemu.gameserver.services.ItemService;
+import com.aionemu.gameserver.services.LegionService;
 import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.services.SkillLearnService;
 import com.aionemu.gameserver.services.ZoneService;
@@ -74,6 +75,7 @@ import com.aionemu.gameserver.services.ZoneService.ZoneUpdateMode;
 import com.aionemu.gameserver.skillengine.SkillEngine;
 import com.aionemu.gameserver.skillengine.model.HealType;
 import com.aionemu.gameserver.skillengine.model.Skill;
+import com.aionemu.gameserver.spawnengine.SpawnEngine;
 import com.aionemu.gameserver.taskmanager.tasks.PacketBroadcaster.BroadcastMode;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
@@ -603,7 +605,7 @@ public class PlayerController extends CreatureController<Player>
 
 		/** update member list packet if player is legion member **/
 		if(player.isLegionMember())
-			sp.getLegionService().updateMemberInfo(player);
+			LegionService.getInstance().updateMemberInfo(player);
 	}
 
 	/**
@@ -731,7 +733,7 @@ public class PlayerController extends CreatureController<Player>
 	public void createSummon(int npcId, int skillLvl)
 	{
 		Player master = getOwner();
-		Summon summon = sp.getSpawnEngine().spawnSummon(master, npcId, skillLvl);
+		Summon summon = SpawnEngine.getInstance().spawnSummon(master, npcId, skillLvl);
 		master.setSummon(summon);
 		PacketSendUtility.sendPacket(master, new SM_SUMMON_PANEL(summon));
 		PacketSendUtility.broadcastPacket(master, new SM_EMOTION(summon, 30));

@@ -30,11 +30,10 @@ import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.templates.GatherableTemplate;
 import com.aionemu.gameserver.model.templates.gather.Material;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
+import com.aionemu.gameserver.services.RespawnService;
 import com.aionemu.gameserver.skillengine.task.GatheringTask;
-import com.aionemu.gameserver.skillengine.task.SkillTaskFactory;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer, sphinx (03/20/2010)
@@ -47,9 +46,6 @@ public class GatherableController extends VisibleObjectController<Gatherable>
 	private int currentGatherer;
 	
 	private GatheringTask task;
-	
-	@Inject
-	private SkillTaskFactory taskFactory;
 	
 	public enum GatherState
 	{
@@ -138,7 +134,7 @@ public class GatherableController extends VisibleObjectController<Gatherable>
 				}
 			});
 			int skillLvlDiff = player.getSkillList().getSkillLevel(template.getHarvestSkill())-template.getSkillLevel();
-			task = taskFactory.gatheringTask(player, getOwner(), finalMaterial, skillLvlDiff);
+			task = new GatheringTask(player, getOwner(), finalMaterial, skillLvlDiff);
 			task.start();
 		}
 	}
@@ -213,7 +209,7 @@ public class GatherableController extends VisibleObjectController<Gatherable>
 	private void onDie()
 	{
 		Gatherable owner = getOwner();
-		sp.getRespawnService().scheduleRespawnTask(owner);
+		RespawnService.scheduleRespawnTask(owner);
 		World.getInstance().despawn(owner);
 	}
 

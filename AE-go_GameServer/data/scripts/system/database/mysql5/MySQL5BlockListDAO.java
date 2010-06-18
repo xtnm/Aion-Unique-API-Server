@@ -30,7 +30,6 @@ import com.aionemu.commons.database.ParamReadStH;
 import com.aionemu.commons.database.dao.DAOManager;
 import com.aionemu.gameserver.dao.BlockListDAO;
 import com.aionemu.gameserver.dao.PlayerDAO;
-import com.aionemu.gameserver.dataholders.PlayerInitialData;
 import com.aionemu.gameserver.model.gameobjects.player.BlockList;
 import com.aionemu.gameserver.model.gameobjects.player.BlockedPlayer;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
@@ -91,7 +90,7 @@ public class MySQL5BlockListDAO extends BlockListDAO
 	 * {@inheritDoc}
 	 */
 	@Override
-	public BlockList load(final Player player, final PlayerInitialData playerInitialData)
+	public BlockList load(final Player player)
 	{
 		final Map<Integer, BlockedPlayer> list = new HashMap<Integer, BlockedPlayer>();
 		
@@ -104,7 +103,7 @@ public class MySQL5BlockListDAO extends BlockListDAO
 				while (rset.next())
 				{
 					int blockedOid = rset.getInt("blocked_player");
-					PlayerCommonData pcd = playerDao.loadPlayerCommonData(blockedOid, playerInitialData);
+					PlayerCommonData pcd = playerDao.loadPlayerCommonData(blockedOid);
 					if (pcd == null)
 					{
 						log.error("Attempt to load block list for " + player.getName() + " tried to load a player which does not exist: " + blockedOid);

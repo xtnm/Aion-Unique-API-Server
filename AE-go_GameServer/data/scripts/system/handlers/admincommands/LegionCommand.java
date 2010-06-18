@@ -22,7 +22,6 @@ import com.aionemu.gameserver.model.legion.Legion;
 import com.aionemu.gameserver.services.LegionService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.chathandlers.AdminCommand;
-import com.google.inject.Inject;
 
 /**
  * @author Simple
@@ -30,8 +29,6 @@ import com.google.inject.Inject;
 
 public class LegionCommand extends AdminCommand
 {
-	@Inject
-	private LegionService	legionService;
 
 	/**
 	 * The constructor of Legion Command
@@ -56,6 +53,7 @@ public class LegionCommand extends AdminCommand
 				"syntax //legion <disband|setlevel|setpoints|setname> <legion name> <value>");
 			return;
 		}
+		LegionService legionService = LegionService.getInstance();
 		Legion legion = legionService.getLegion(params[1].toLowerCase());
 		if(legion == null)
 		{

@@ -23,12 +23,11 @@ import org.apache.log4j.Logger;
 
 import com.aionemu.commons.database.dao.DAOManager;
 import com.aionemu.gameserver.configs.main.CacheConfig;
-import com.aionemu.gameserver.controllers.factory.ObjectControllerFactory;
+import com.aionemu.gameserver.controllers.PlayerController;
 import com.aionemu.gameserver.dao.InventoryDAO;
 import com.aionemu.gameserver.dao.LegionMemberDAO;
 import com.aionemu.gameserver.dao.PlayerAppearanceDAO;
 import com.aionemu.gameserver.dao.PlayerDAO;
-import com.aionemu.gameserver.dataholders.PlayerInitialData;
 import com.aionemu.gameserver.model.account.Account;
 import com.aionemu.gameserver.model.account.AccountTime;
 import com.aionemu.gameserver.model.account.PlayerAccountData;
@@ -41,7 +40,6 @@ import com.aionemu.gameserver.model.gameobjects.player.StorageType;
 import com.aionemu.gameserver.model.legion.LegionMember;
 import com.aionemu.gameserver.utils.collections.cachemap.CacheMap;
 import com.aionemu.gameserver.utils.collections.cachemap.CacheMapFactory;
-import com.google.inject.Inject;
 
 /**
  * This class is a front-end for daos and it's responsibility is to retrieve the Account objects
@@ -53,16 +51,7 @@ public class AccountService
 {
 	private static final Logger			log			= Logger.getLogger(AccountService.class);
 
-	private CacheMap<Integer, Account>	accountsMap	= CacheMapFactory.createSoftCacheMap("Account", "account");
-
-	@Inject
-	private PlayerService				playerService;
-	@Inject
-	private ObjectControllerFactory		controllerFactory;
-	@Inject
-	private LegionService				legionService;
-	@Inject
-	private PlayerInitialData			playerInitialData;
+	private static CacheMap<Integer, Account>	accountsMap	= CacheMapFactory.createSoftCacheMap("Account", "account");
 
 	/**
 	 * Returns {@link Account} object that has given id.
@@ -74,7 +63,7 @@ public class AccountService
 	 * @param membership
 	 * @return Account
 	 */
-	public Account getAccount(int accountId, String accountName, AccountTime accountTime, byte accessLevel,
+	public static Account getAccount(int accountId, String accountName, AccountTime accountTime, byte accessLevel,
 		byte membership)
 	{
 		log.debug("[AS] request for account: " + accountId);
@@ -103,7 +92,7 @@ public class AccountService
 	 * 
 	 * @param account
 	 */
-	private void removeDeletedCharacters(Account account)
+	private static void removeDeletedCharacters(Account account)
 	{
 		/* Removes chars that should be removed */
 		Iterator<PlayerAccountData> it = account.iterator();
@@ -114,7 +103,7 @@ public class AccountService
 			if(deletionTime != 0 && deletionTime <= System.currentTimeMillis())
 			{
 				it.remove();
-				playerService.deletePlayerFromDB(pad.getPlayerCommonData().getPlayerObjId());
+				PlayerService.deletePlayerFromDB(pad.getPlayerCommonData().getPlayerObjId());
 			}
 		}
 	}
@@ -126,7 +115,7 @@ public class AccountService
 	 * @param accountName
 	 * @return
 	 */
-	private Account loadAccount(int accountId)
+	private static Account loadAccount(int accountId)
 	{
 		Account account = new Account(accountId);
 
@@ -137,12 +126,12 @@ public class AccountService
 
 		for(int playerOid : playerOids)
 		{
-			PlayerCommonData playerCommonData = playerDAO.loadPlayerCommonData(playerOid, playerInitialData);
+			PlayerCommonData playerCommonData = playerDAO.loadPlayerCommonData(playerOid);
 			PlayerAppearance appereance = appereanceDAO.load(playerOid);
-			Player player = new Player(controllerFactory.playerController(), playerCommonData, appereance);
+			Player player = new Player(new PlayerController(), playerCommonData, appereance);
 
 			
-			LegionMember legionMember = DAOManager.getDAO(LegionMemberDAO.class).loadLegionMember(playerOid,legionService);
+			LegionMember legionMember = DAOManager.getDAO(LegionMemberDAO.class).loadLegionMember(playerOid);
 			
 			/**
 			 * Load only equipment and its stones to display on character selection screen

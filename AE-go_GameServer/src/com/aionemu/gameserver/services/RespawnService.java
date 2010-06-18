@@ -25,7 +25,6 @@ import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.utils.gametime.DayTime;
 import com.aionemu.gameserver.utils.gametime.GameTimeManager;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer
@@ -33,15 +32,13 @@ import com.google.inject.Inject;
  */
 public class RespawnService
 {
-	@Inject
-	private InstanceService instanceService;
 
 	/**
 	 * 
 	 * @param npc
 	 * @return Future<?>
 	 */
-	public Future<?> scheduleDecayTask(final Npc npc)
+	public static Future<?> scheduleDecayTask(final Npc npc)
 	{
 		int respawnInterval = npc.getSpawn().getSpawnGroup().getInterval();
 		int decayInterval = Math.round(respawnInterval * 0.8f);
@@ -61,7 +58,7 @@ public class RespawnService
 	 * 
 	 * @param visibleObject
 	 */
-	public Future<?> scheduleRespawnTask(final VisibleObject visibleObject)
+	public static Future<?> scheduleRespawnTask(final VisibleObject visibleObject)
 	{
 		final World world = World.getInstance();
 		final int interval = visibleObject.getSpawn().getSpawnGroup().getInterval();		
@@ -81,7 +78,7 @@ public class RespawnService
 				
 				int instanceId = visibleObject.getInstanceId();
 				int worldId = visibleObject.getSpawn().getWorldId();
-				boolean instanceExists = instanceService.isInstanceExist(worldId, instanceId);
+				boolean instanceExists = InstanceService.isInstanceExist(worldId, instanceId);
 				
 				if(visibleObject.getSpawn().isNoRespawn(instanceId) || !instanceExists)
 				{

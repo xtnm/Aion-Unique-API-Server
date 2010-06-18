@@ -24,7 +24,6 @@ import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.Util;
 import com.aionemu.gameserver.utils.chathandlers.AdminCommand;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * Admin revoke command.
@@ -35,8 +34,6 @@ import com.google.inject.Inject;
 
 public class Revoke extends AdminCommand
 {
-	@Inject
-	private LoginServer loginServer;
 
 	/**
 	 * Constructor.
@@ -87,6 +84,6 @@ public class Revoke extends AdminCommand
 			PacketSendUtility.sendMessage(admin, "The specified player is not online.");
 			return;
 		}
-		loginServer.sendLsControlPacket(admin.getAcountName(), player.getName(), admin.getName(), 0, type);
+		LoginServer.getInstance().sendLsControlPacket(admin.getAcountName(), player.getName(), admin.getName(), 0, type);
 	}
 }

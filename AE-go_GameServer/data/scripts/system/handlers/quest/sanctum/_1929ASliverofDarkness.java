@@ -43,7 +43,6 @@ import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.WorldMapInstance;
-import com.google.inject.Inject;
 
 /**
  * @author Mr. Poke
@@ -51,11 +50,6 @@ import com.google.inject.Inject;
  */
 public class _1929ASliverofDarkness extends QuestHandler
 {
-
-	@Inject
-	TeleportService teleportService;
-	@Inject
-	InstanceService instanceService;
 
 	private final static int		questId	= 1929;
 
@@ -147,9 +141,9 @@ public class _1929ASliverofDarkness extends QuestHandler
 								qs.setQuestVarById(0, 93);
 								updateQuestStatus(player, qs);
 								PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 0));
-								WorldMapInstance newInstance = instanceService.getNextAvailableInstance(310070000);
-								instanceService.registerPlayerWithInstance(newInstance, player);
-								teleportService.teleportTo(player, 310070000, newInstance.getInstanceId(), 338, 101, 1191, 0);
+								WorldMapInstance newInstance = InstanceService.getNextAvailableInstance(310070000);
+								InstanceService.registerPlayerWithInstance(newInstance, player);
+								TeleportService.teleportTo(player, 310070000, newInstance.getInstanceId(), 338, 101, 1191, 0);
 								return true;
 							}
 							break;
@@ -344,7 +338,7 @@ public class _1929ASliverofDarkness extends QuestHandler
 				@Override
 				public void run()
 				{
-					teleportService.teleportTo(player, 210030000, 1, 2315.9f, 1800f, 195.2f, 0);
+					TeleportService.teleportTo(player, 210030000, 1, 2315.9f, 1800f, 195.2f, 0);
 				}
 			}, 5000);
 			return true;

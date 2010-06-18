@@ -18,12 +18,7 @@ package com.aionemu.gameserver.services;
 
 import org.apache.log4j.Logger;
 
-import com.aionemu.gameserver.dataholders.BindPointData;
-import com.aionemu.gameserver.dataholders.PlayerInitialData;
-import com.aionemu.gameserver.dataholders.PortalData;
-import com.aionemu.gameserver.dataholders.SpawnsData;
-import com.aionemu.gameserver.dataholders.TeleLocationData;
-import com.aionemu.gameserver.dataholders.TeleporterData;
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.dataholders.PlayerInitialData.LocationData;
 import com.aionemu.gameserver.model.Race;
 import com.aionemu.gameserver.model.gameobjects.Kisk;
@@ -67,19 +62,7 @@ public class TeleportService
 	private static final World				world = World.getInstance();
 
 	@Inject
-	private PlayerService		playerService;
-	@Inject
-	private TeleLocationData	teleLocationData;
-	@Inject
-	private TeleporterData		teleporterData;
-	@Inject
-	private BindPointData		bindPointData;
-	@Inject
-	private PlayerInitialData	playerInitialData;
-	@Inject
-	private PortalData			portalData;
-	@Inject
-	private SpawnsData			spawnsData;
+	private static PlayerService		playerService;
 
 	/**
 	 * Schedules teleport animation
@@ -90,7 +73,7 @@ public class TeleportService
 	 * @param y
 	 * @param z
 	 */
-	public void scheduleTeleportTask(final Player activePlayer, final int mapid, final float x, final float y,
+	public static void scheduleTeleportTask(final Player activePlayer, final int mapid, final float x, final float y,
 		final float z)
 	{
 		teleportTo(activePlayer, mapid, x, y, z, TELEPORT_DEFAULT_DELAY);
@@ -103,7 +86,7 @@ public class TeleportService
 	 * @param locId
 	 * @param player
 	 */
-	public void flightTeleport(TeleporterTemplate template, int locId, Player player)
+	public static void flightTeleport(TeleporterTemplate template, int locId, Player player)
 	{
 		if(template.getTeleLocIdData() == null)
 		{
@@ -124,7 +107,7 @@ public class TeleportService
 			return;
 		}
 
-		TelelocationTemplate locationTemplate = teleLocationData.getTelelocationTemplate(locId);
+		TelelocationTemplate locationTemplate = DataManager.TELELOCATION_DATA.getTelelocationTemplate(locId);
 		if(locationTemplate == null)
 		{
 			log.info(String.format("Missing info at teleport_location.xml with locId: %d", locId));
@@ -147,7 +130,7 @@ public class TeleportService
 	 * @param locId
 	 * @param player
 	 */
-	public void regularTeleport(TeleporterTemplate template, int locId, Player player)
+	public static void regularTeleport(TeleporterTemplate template, int locId, Player player)
 	{
 		if(template.getTeleLocIdData() == null)
 		{
@@ -168,7 +151,7 @@ public class TeleportService
 			return;
 		}
 
-		TelelocationTemplate locationTemplate = teleLocationData.getTelelocationTemplate(locId);
+		TelelocationTemplate locationTemplate = DataManager.TELELOCATION_DATA.getTelelocationTemplate(locId);
 		if(locationTemplate == null)
 		{
 			log.info(String.format("Missing info at teleport_location.xml with locId: %d", locId));
@@ -192,7 +175,7 @@ public class TeleportService
 	 * @param player
 	 * @return
 	 */
-	private boolean checkKinahForTransportation(TeleportLocation location, Player player)
+	private static boolean checkKinahForTransportation(TeleportLocation location, Player player)
 	{
 		Storage inventory = player.getInventory();
 		
@@ -211,7 +194,7 @@ public class TeleportService
 	 * @param player
 	 * @param targetObjectId
 	 */
-	public void showMap(Player player, int targetObjectId, int npcId)
+	public static void showMap(Player player, int targetObjectId, int npcId)
 	{
 		if(player.isInState(CreatureState.FLYING))
 		{
@@ -240,7 +223,7 @@ public class TeleportService
 	 * @param delay
 	 * @return true or false
 	 */
-	public boolean teleportTo(Player player, int worldId, float x, float y, float z, int delay)
+	public static boolean teleportTo(Player player, int worldId, float x, float y, float z, int delay)
 	{
 		int instanceId = 1;
 		if(player.getWorldId() == worldId)
@@ -260,7 +243,7 @@ public class TeleportService
 	 * @param delay
 	 * @return true or false
 	 */
-	public boolean teleportTo(Player player, int worldId, int instanceId, float x, float y, float z, int delay)
+	public static boolean teleportTo(Player player, int worldId, int instanceId, float x, float y, float z, int delay)
 	{
 		return teleportTo(player, worldId, instanceId, x, y, z, player.getHeading(), delay);
 	}
@@ -277,7 +260,7 @@ public class TeleportService
 	 * @param delay
 	 * @return
 	 */
-	public boolean teleportTo(final Player player, final int worldId, final int instanceId, final float x,
+	public static boolean teleportTo(final Player player, final int worldId, final int instanceId, final float x,
 		final float y, final float z, final byte heading, final int delay)
 	{
 		if(player.getLifeStats().isAlreadyDead() || !player.isSpawned())
@@ -317,7 +300,7 @@ public class TeleportService
 	 * @param z
 	 * @param heading
 	 */
-	private void changePosition(Player player, int worldId, int instanceId, float x, float y, float z, byte heading)
+	private static void changePosition(Player player, int worldId, int instanceId, float x, float y, float z, byte heading)
 	{
 		player.getFlyController().endFly();
 				
@@ -353,17 +336,17 @@ public class TeleportService
 	/**
 	 * @return the teleporterData
 	 */
-	public TeleporterTemplate getTeleporterTemplate(int npcId)
+	public static TeleporterTemplate getTeleporterTemplate(int npcId)
 	{
-		return teleporterData.getTeleporterTemplate(npcId);
+		return DataManager.TELEPORTER_DATA.getTeleporterTemplate(npcId);
 	}
 
 	/**
 	 * @return the bindPointData
 	 */
-	public BindPointTemplate getBindPointTemplate2(int bindPointId)
+	public static BindPointTemplate getBindPointTemplate2(int bindPointId)
 	{
-		return bindPointData.getBindPointTemplate2(bindPointId);
+		return DataManager.BIND_POINT_DATA.getBindPointTemplate2(bindPointId);
 	}
 
 	/**
@@ -385,9 +368,9 @@ public class TeleportService
 	 * @param player
 	 * @param useTeleport
 	 */
-	public void moveToBindLocation(Player player, boolean useTeleport)
+	public static void moveToBindLocation(Player player, boolean useTeleport)
 	{
-		this.moveToBindLocation(player, useTeleport, 0);
+		moveToBindLocation(player, useTeleport, 0);
 	}
 
 	/**
@@ -397,7 +380,7 @@ public class TeleportService
 	 * @param useTeleport
 	 * @param delay
 	 */
-	public void moveToBindLocation(Player player, boolean useTeleport, int delay)
+	public static void moveToBindLocation(Player player, boolean useTeleport, int delay)
 	{
 		float x, y, z;
 		int worldId;
@@ -437,13 +420,13 @@ public class TeleportService
 	 * 
 	 * @param player
 	 */
-	public void sendSetBindPoint(Player player)
+	public static void sendSetBindPoint(Player player)
 	{
 		int worldId;
 		float x, y, z;
 		if(player.getCommonData().getBindPoint() != 0)
 		{
-			BindPointTemplate bplist = bindPointData.getBindPointTemplate2(player.getCommonData().getBindPoint());
+			BindPointTemplate bplist = DataManager.BIND_POINT_DATA.getBindPointTemplate2(player.getCommonData().getBindPoint());
 			worldId = bplist.getZoneId();
 			x = bplist.getX();
 			y = bplist.getY();
@@ -451,7 +434,7 @@ public class TeleportService
 		}
 		else
 		{
-			LocationData locationData = playerInitialData.getSpawnLocation(player.getCommonData().getRace());
+			LocationData locationData = DataManager.PLAYER_INITIAL_DATA.getSpawnLocation(player.getCommonData().getRace());
 			worldId = locationData.getMapId();
 			x = locationData.getX();
 			y = locationData.getY();
@@ -464,9 +447,9 @@ public class TeleportService
 	 * 
 	 * @param portalName
 	 */
-	public void teleportToPortalExit(Player player, String portalName, int worldId, int delay)
+	public static void teleportToPortalExit(Player player, String portalName, int worldId, int delay)
 	{
-		PortalTemplate template = portalData.getTemplateByNameAndWorld(worldId, portalName);
+		PortalTemplate template = DataManager.PORTAL_DATA.getTemplateByNameAndWorld(worldId, portalName);
 		if(template == null)
 		{
 			log.warn("No portal template found for : " + portalName + " " + worldId);
@@ -480,7 +463,7 @@ public class TeleportService
 	public void teleportToNpc(Player player, int npcId)
 	{
 		int delay = 0;
-		SpawnTemplate template = spawnsData.getFirstSpawnByNpcId(npcId);
+		SpawnTemplate template = DataManager.SPAWNS_DATA.getFirstSpawnByNpcId(npcId);
 		
 		if(template == null)
 		{
@@ -495,7 +478,7 @@ public class TeleportService
 	 * @param player
 	 * @param b
 	 */
-	public void moveToKiskLocation(Player player)
+	public static void moveToKiskLocation(Player player)
 	{
 		Kisk kisk = player.getKisk();
 		

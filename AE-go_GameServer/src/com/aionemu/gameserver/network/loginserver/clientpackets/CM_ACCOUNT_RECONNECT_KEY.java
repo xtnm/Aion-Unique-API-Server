@@ -18,7 +18,6 @@ package com.aionemu.gameserver.network.loginserver.clientpackets;
 
 import com.aionemu.gameserver.network.loginserver.LoginServer;
 import com.aionemu.gameserver.network.loginserver.LsClientPacket;
-import com.google.inject.Inject;
 
 /**
  * In this packet LoginServer is sending response for SM_ACCOUNT_RECONNECT_KEY with account name and reconnectionKey.
@@ -36,9 +35,6 @@ public class CM_ACCOUNT_RECONNECT_KEY extends LsClientPacket
 	 * ReconnectKey that will be used for authentication.
 	 */
 	private int			reconnectKey;
-
-	@Inject
-	private LoginServer	loginServer;
 
 	/**
 	 * Constructs new instance of <tt>CM_ACCOUNT_RECONNECT_KEY </tt> packet
@@ -65,6 +61,6 @@ public class CM_ACCOUNT_RECONNECT_KEY extends LsClientPacket
 	@Override
 	protected void runImpl()
 	{
-		loginServer.authReconnectionResponse(accountId, reconnectKey);
+		LoginServer.getInstance().authReconnectionResponse(accountId, reconnectKey);
 	}
 }

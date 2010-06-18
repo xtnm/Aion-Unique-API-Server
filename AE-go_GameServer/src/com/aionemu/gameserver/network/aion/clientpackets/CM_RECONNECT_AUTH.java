@@ -19,7 +19,6 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.network.aion.AionConnection;
 import com.aionemu.gameserver.network.loginserver.LoginServer;
-import com.google.inject.Inject;
 
 /**
  * In this packets aion client is asking for fast reconnection to LoginServer.
@@ -29,8 +28,6 @@ import com.google.inject.Inject;
  */
 public class CM_RECONNECT_AUTH extends AionClientPacket
 {
-	@Inject
-	private LoginServer	loginServer;
 
 	/**
 	 * Constructs new instance of <tt>CM_RECONNECT_AUTH </tt> packet
@@ -58,6 +55,6 @@ public class CM_RECONNECT_AUTH extends AionClientPacket
 	{
 		AionConnection client = getConnection();
 		// TODO! check if may reconnect
-		loginServer.requestAuthReconnection(client);
+		LoginServer.getInstance().requestAuthReconnection(client);
 	}
 }

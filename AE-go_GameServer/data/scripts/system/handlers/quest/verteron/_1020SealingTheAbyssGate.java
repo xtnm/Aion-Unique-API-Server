@@ -25,14 +25,12 @@ import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.InstanceService;
-import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.WorldMapInstance;
 import com.aionemu.gameserver.world.WorldMapType;
-import com.google.inject.Inject;
 
 /**
  * @author Atomics
@@ -40,12 +38,6 @@ import com.google.inject.Inject;
  */
 public class _1020SealingTheAbyssGate extends QuestHandler
 {
-	@Inject
-	ItemService itemService;
-	@Inject
-	TeleportService teleportService;
-	@Inject
-	InstanceService instanceService;
 	
 	private final static int	questId	= 1020;
 	private final static int[]	npcIds	= { 203098, 700141, 700142, 700551 };
@@ -135,9 +127,9 @@ public class _1020SealingTheAbyssGate extends QuestHandler
 						@Override
 						public void run()
 						{
-							WorldMapInstance newInstance = instanceService.getNextAvailableInstance(310030000);
-							instanceService.registerPlayerWithInstance(newInstance, player);
-							teleportService.teleportTo(player, 310030000, newInstance.getInstanceId(),(float) 270.5,(float) 174.3,(float) 204.3, 0);
+							WorldMapInstance newInstance = InstanceService.getNextAvailableInstance(310030000);
+							InstanceService.registerPlayerWithInstance(newInstance, player);
+							TeleportService.teleportTo(player, 310030000, newInstance.getInstanceId(),(float) 270.5,(float) 174.3,(float) 204.3, 0);
 							qs.setQuestVarById( 0, var + 1 );
 							updateQuestStatus( player, qs );
 						}
@@ -156,7 +148,7 @@ public class _1020SealingTheAbyssGate extends QuestHandler
 							@Override
 							public void run()
 							{
-								teleportService.teleportTo(player, WorldMapType.VERTERON.getId(), 2684.308f, 1068.7382f, 199.375f, 0);
+								TeleportService.teleportTo(player, WorldMapType.VERTERON.getId(), 2684.308f, 1068.7382f, 199.375f, 0);
 								qs.setQuestVarById( 0, var + 1 );
 								qs.setStatus(QuestStatus.REWARD);
 								updateQuestStatus( player, qs );

@@ -27,12 +27,11 @@ import com.aionemu.gameserver.model.templates.spawn.SpawnTemplate;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_QUESTION_WINDOW;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_RIFT_ANNOUNCE;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_RIFT_STATUS;
+import com.aionemu.gameserver.services.RespawnService;
+import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.spawnengine.RiftSpawnManager.RiftEnum;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.world.WorldMapInstance;
-import com.google.inject.Inject;
-import com.google.inject.assistedinject.Assisted;
-import com.google.inject.internal.Nullable;
 
 /**
  * @author ATracer
@@ -57,8 +56,8 @@ public class RiftController extends NpcController
 	 * 
 	 * @param slaveSpawnTemplate
 	 */
-	@Inject
-	public RiftController(@Assisted @Nullable Npc slave, @Assisted RiftEnum riftTemplate)
+
+	public RiftController(Npc slave, RiftEnum riftTemplate)
 	{
 		this.riftTemplate = riftTemplate;
 		if(slave != null)//master rift should be created
@@ -92,15 +91,15 @@ public class RiftController extends NpcController
 				float y = slaveSpawnTemplate.getY();
 				float z = slaveSpawnTemplate.getZ();
 				
-				sp.getTeleportService().teleportTo(responder, worldId, x, y, z, 0);
+				TeleportService.teleportTo(responder, worldId, x, y, z, 0);
 				usedEntries++;
 				
 				if(usedEntries >= maxEntries)
 				{
 					isAccepting = false;
 					
-					sp.getRespawnService().scheduleDecayTask(getOwner());
-					sp.getRespawnService().scheduleDecayTask(slave);
+					RespawnService.scheduleDecayTask(getOwner());
+					RespawnService.scheduleDecayTask(slave);
 				}
 				PacketSendUtility.broadcastPacket(getOwner(), 
 					new SM_RIFT_STATUS(getOwner().getObjectId(), usedEntries, maxEntries, maxLevel));

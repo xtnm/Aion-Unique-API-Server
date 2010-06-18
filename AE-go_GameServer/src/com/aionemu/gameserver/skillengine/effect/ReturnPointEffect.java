@@ -16,14 +16,13 @@
  */
 package com.aionemu.gameserver.skillengine.effect;
 
-import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
-import com.aionemu.gameserver.dataholders.loadingutils.XmlServiceProxy;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.templates.item.ItemTemplate;
+import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.skillengine.model.Effect;
 
 /**
@@ -34,23 +33,14 @@ import com.aionemu.gameserver.skillengine.model.Effect;
 @XmlType(name = "ReturnPointEffect")
 public class ReturnPointEffect extends EffectTemplate
 {
-	/**
-	 * 
-	 * @param u
-	 * @param parent
-	 */
-	void afterUnmarshal (Unmarshaller u, Object parent)
-	{
-		xsp = u.getAdapter(XmlServiceProxy.class);
-	}
-	
+
 	@Override
 	public void applyEffect(Effect effect)
 	{
 		ItemTemplate itemTemplate = effect.getItemTemplate();
 		int worldId = itemTemplate.getReturnWorldId();
 		String pointAlias = itemTemplate.getReturnAlias();
-		xsp.getTeleportService().teleportToPortalExit(((Player) effect.getEffector()), pointAlias, worldId,
+		TeleportService.teleportToPortalExit(((Player) effect.getEffector()), pointAlias, worldId,
 			500);
 	}
 

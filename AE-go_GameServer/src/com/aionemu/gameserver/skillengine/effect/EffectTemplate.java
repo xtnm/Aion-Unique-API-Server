@@ -25,7 +25,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import com.aionemu.gameserver.dataholders.DataManager;
-import com.aionemu.gameserver.dataholders.loadingutils.XmlServiceProxy;
 import com.aionemu.gameserver.model.SkillElement;
 import com.aionemu.gameserver.skillengine.change.Change;
 import com.aionemu.gameserver.skillengine.effect.modifier.ActionModifier;
@@ -43,8 +42,7 @@ import com.aionemu.gameserver.utils.stats.StatFunctions;
 @XmlType(name = "Effect")
 public abstract class EffectTemplate 
 {
-	protected XmlServiceProxy	xsp;
-	
+
 	protected ActionModifiers modifiers;
     protected List<Change> change;
     @XmlAttribute

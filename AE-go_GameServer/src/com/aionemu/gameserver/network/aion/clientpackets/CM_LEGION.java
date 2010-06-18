@@ -23,7 +23,6 @@ import com.aionemu.gameserver.model.legion.Legion;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_LEGION_INFO;
 import com.aionemu.gameserver.services.LegionService;
-import com.google.inject.Inject;
 
 /**
  * 
@@ -33,10 +32,6 @@ import com.google.inject.Inject;
 public class CM_LEGION extends AionClientPacket
 {
 	private static final Logger	log	= Logger.getLogger(CM_LEGION.class);
-
-	/** Legion based information **/
-	@Inject
-	private LegionService		legionService;
 
 	/**
 	 * exOpcode and the rest
@@ -155,7 +150,7 @@ public class CM_LEGION extends AionClientPacket
 
 			if(charName != null)
 			{
-				legionService.handleCharNameRequest(exOpcode, activePlayer, charName, newNickname, rank);
+				LegionService.getInstance().handleCharNameRequest(exOpcode, activePlayer, charName, newNickname, rank);
 			}
 			else
 			{
@@ -167,21 +162,21 @@ public class CM_LEGION extends AionClientPacket
 						break;
 					/** Edit announcements **/
 					case 0x09:
-						legionService.handleLegionRequest(exOpcode, activePlayer, announcement);
+						LegionService.getInstance().handleLegionRequest(exOpcode, activePlayer, announcement);
 						break;
 					/** Change self introduction **/
 					case 0x0A:
-						legionService.handleLegionRequest(exOpcode, activePlayer, newSelfIntro);
+						LegionService.getInstance().handleLegionRequest(exOpcode, activePlayer, newSelfIntro);
 						break;
 					/** Edit permissions **/
 					case 0x0D:
 						if(activePlayer.getLegionMember().isBrigadeGeneral())
-							legionService.changePermissions(legion, legionarPermission2, centurionPermission1,
+							LegionService.getInstance().changePermissions(legion, legionarPermission2, centurionPermission1,
 								centurionPermission2);
 						break;
 					/** Misc. **/
 					default:
-						legionService.handleLegionRequest(exOpcode, activePlayer);
+						LegionService.getInstance().handleLegionRequest(exOpcode, activePlayer);
 						break;
 				}
 			}
@@ -192,7 +187,7 @@ public class CM_LEGION extends AionClientPacket
 			{
 				/** Create a legion **/
 				case 0x00:
-					legionService.createLegion(activePlayer, legionName);
+					LegionService.getInstance().createLegion(activePlayer, legionName);
 					break;
 			}
 		}

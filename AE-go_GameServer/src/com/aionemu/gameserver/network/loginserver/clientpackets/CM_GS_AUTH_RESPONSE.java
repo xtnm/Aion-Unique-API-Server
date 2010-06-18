@@ -25,7 +25,6 @@ import com.aionemu.gameserver.network.loginserver.LoginServerConnection.State;
 import com.aionemu.gameserver.network.loginserver.serverpackets.SM_ACCOUNT_LIST;
 import com.aionemu.gameserver.network.loginserver.serverpackets.SM_GS_AUTH;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
-import com.google.inject.Inject;
 
 /**
  * This packet is response for SM_GS_AUTH its notify Gameserver if registration was ok or what was wrong.
@@ -44,8 +43,6 @@ public class CM_GS_AUTH_RESPONSE extends LsClientPacket
 	 * Response: 0=Authed,1=NotAuthed,2=AlreadyRegistered
 	 */
 	private int						response;
-	@Inject
-	private LoginServer				loginServer;
 
 	/**
 	 * Constructs new instance of <tt>CM_GS_AUTH_RESPONSE </tt> packet.
@@ -77,7 +74,7 @@ public class CM_GS_AUTH_RESPONSE extends LsClientPacket
 		if(response == 0)
 		{
 			getConnection().setState(State.AUTHED);
-			sendPacket(new SM_ACCOUNT_LIST(loginServer.getLoggedInAccounts()));
+			sendPacket(new SM_ACCOUNT_LIST(LoginServer.getInstance().getLoggedInAccounts()));
 		}
 
 		/**

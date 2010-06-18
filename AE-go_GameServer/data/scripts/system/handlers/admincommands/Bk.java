@@ -32,7 +32,6 @@ import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.chathandlers.AdminCommand;
-import com.google.inject.Inject;
 
 /**
  * 
@@ -108,21 +107,15 @@ class Bookmark
 
 public class Bk extends AdminCommand
 {
-
-	private TeleportService		teleportService;
 	ArrayList<Bookmark>			bookmarks		= new ArrayList<Bookmark>();
 	private static final Logger	log				= Logger.getLogger(ShutdownHook.class);
 	private String				bookmark_name	= "";
 
 	Player						admin;
 
-	@Inject
-	public Bk(TeleportService teleportService)
+	public Bk()
 	{
 		super("bk");
-
-		// get TeleportService instance
-		this.teleportService = teleportService;
 	}
 
 	@Override
@@ -241,7 +234,7 @@ public class Bk extends AdminCommand
 				{
 					if(tele_bk != null)
 					{
-						teleportService.teleportTo(admin, tele_bk.getWorld_id(), tele_bk.getX(), tele_bk.getY(),
+						TeleportService.teleportTo(admin, tele_bk.getWorld_id(), tele_bk.getX(), tele_bk.getY(),
 							tele_bk.getZ(), 0);
 						PacketSendUtility.sendMessage(admin, "Teleported to bookmark " + tele_bk.getName()
 							+ " location");

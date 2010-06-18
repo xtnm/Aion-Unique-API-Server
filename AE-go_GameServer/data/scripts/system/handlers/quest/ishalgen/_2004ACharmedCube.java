@@ -37,7 +37,7 @@ public class _2004ACharmedCube extends QuestHandler
 {
 	private final static int	questId	= 2004;
 
-	protected _2004ACharmedCube()
+	public _2004ACharmedCube()
 	{
 		super(questId);
 	}

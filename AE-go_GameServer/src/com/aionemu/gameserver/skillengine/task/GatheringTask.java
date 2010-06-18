@@ -25,8 +25,6 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_GATHER_UPDATE;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
-import com.google.inject.assistedinject.Assisted;
 
 /**
  * @author ATracer
@@ -36,10 +34,9 @@ public class GatheringTask extends AbstractCraftTask
 {
 	private GatherableTemplate template;
 	private Material material;
-	
-	@Inject
-	public GatheringTask(@Assisted Player requestor, @Assisted Gatherable gatherable, @Assisted Material material,
-		@Assisted int skillLvlDiff)
+
+	public GatheringTask(Player requestor, Gatherable gatherable, Material material,
+		int skillLvlDiff)
 	{
 		super(requestor, gatherable, gatherable.getObjectTemplate().getSuccessAdj(), gatherable.getObjectTemplate()
 			.getFailureAdj(), skillLvlDiff);

@@ -24,7 +24,6 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_LEVEL_UPDATE;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.world.container.KiskContainer;
-import com.google.inject.Inject;
 
 /**
  * @author Sarynth
@@ -32,15 +31,7 @@ import com.google.inject.Inject;
  */
 public class KiskService
 {
-	private final KiskContainer		kiskContainer = new KiskContainer();
-	
-	private TeleportService			teleportService;
-	
-	@Inject
-	public KiskService(TeleportService teleportService)
-	{
-		this.teleportService = teleportService;
-	}
+	private static final KiskContainer		kiskContainer = new KiskContainer();
 	
 	/**
 	 * 
@@ -56,13 +47,13 @@ public class KiskService
 	 * Remove kisk references and containers.
 	 * @param kisk
 	 */
-	public void removeKisk(Kisk kisk)
+	public static void removeKisk(Kisk kisk)
 	{
 		for (Player member : kisk.getCurrentMemberList())
 		{
 			kiskContainer.remove(member);
 			member.setKisk(null);
-			teleportService.sendSetBindPoint(member);
+			TeleportService.sendSetBindPoint(member);
 			if (member.getLifeStats().isAlreadyDead())
 				PacketSendUtility.sendPacket(member, new SM_DIE(ReviveType.BIND_REVIVE));
 		}
@@ -73,7 +64,7 @@ public class KiskService
 	 * @param kisk
 	 * @param player
 	 */
-	public void onBind(Kisk kisk, Player player)
+	public static void onBind(Kisk kisk, Player player)
 	{
 		if (player.getKisk() != null)
 		{
@@ -85,7 +76,7 @@ public class KiskService
 		kisk.addPlayer(player);
 		
 		// Send Bind Point Data
-		teleportService.sendSetBindPoint(player);
+		TeleportService.sendSetBindPoint(player);
 		
 		// Send System Message
 		PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_BINDSTONE_REGISTER);
@@ -98,7 +89,7 @@ public class KiskService
 	/**
 	 * @param player
 	 */
-	public void onLogin(Player player)
+	public static void onLogin(Player player)
 	{
 		Kisk kisk = kiskContainer.get(player);
 		if (kisk != null)

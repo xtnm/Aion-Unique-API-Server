@@ -19,7 +19,7 @@ package com.aionemu.gameserver.controllers;
 import org.apache.log4j.Logger;
 
 import com.aionemu.gameserver.configs.main.CustomConfig;
-import com.aionemu.gameserver.dataholders.PortalData;
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.model.gameobjects.Creature;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.group.PlayerGroup;
@@ -29,12 +29,12 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_EMOTION;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_USE_OBJECT;
 import com.aionemu.gameserver.services.InstanceService;
+import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.World;
 import com.aionemu.gameserver.world.WorldMap;
 import com.aionemu.gameserver.world.WorldMapInstance;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer
@@ -44,18 +44,13 @@ public class PortalController extends NpcController
 {
 	private static final Logger	log						= Logger.getLogger(PortalController.class);
 
-	@Inject
-	private PortalData		portalData;
-	@Inject
-	private InstanceService	instanceService;
-
-	private PortalTemplate	portalTemplate;
+	PortalTemplate portalTemplate;
 
 	@Override
 	public void setOwner(Creature owner)
 	{
 		super.setOwner(owner);
-		portalTemplate = portalData.getPortalTemplate(owner.getObjectTemplate().getTemplateId());
+		portalTemplate = DataManager.PORTAL_DATA.getPortalTemplate(owner.getObjectTemplate().getTemplateId());
 	}
 
 	@Override
@@ -113,7 +108,7 @@ public class PortalController extends NpcController
 
 				if(portalTemplate.isGroup() && group != null)
 				{
-					WorldMapInstance instance = instanceService.getRegisteredInstance(portalTemplate.getExitPoint()
+					WorldMapInstance instance = InstanceService.getRegisteredInstance(portalTemplate.getExitPoint()
 						.getMapId(), group.getGroupId());
 					// register if not yet created
 					if(instance == null)
@@ -125,7 +120,7 @@ public class PortalController extends NpcController
 				}
 				else if(!portalTemplate.isGroup())
 				{
-					WorldMapInstance instance = instanceService.getRegisteredInstance(portalTemplate.getExitPoint()
+					WorldMapInstance instance = InstanceService.getRegisteredInstance(portalTemplate.getExitPoint()
 						.getMapId(), player.getObjectId());
 					// if already registered - just teleport
 					if(instance != null)
@@ -149,8 +144,8 @@ public class PortalController extends NpcController
 		int worldId = portalTemplate.getExitPoint().getMapId();
 		if(portalTemplate.isInstance())
 		{
-			instance = instanceService.getNextAvailableInstance(worldId);
-			instanceService.registerPlayerWithInstance(instance, requester);
+			instance = InstanceService.getNextAvailableInstance(worldId);
+			InstanceService.registerPlayerWithInstance(instance, requester);
 			
 		}
 		else
@@ -172,8 +167,8 @@ public class PortalController extends NpcController
 	 */
 	private WorldMapInstance registerGroup(PlayerGroup group)
 	{
-		WorldMapInstance instance = instanceService.getNextAvailableInstance(portalTemplate.getExitPoint().getMapId());
-		instanceService.registerGroupWithInstance(instance, group);
+		WorldMapInstance instance = InstanceService.getNextAvailableInstance(portalTemplate.getExitPoint().getMapId());
+		InstanceService.registerGroupWithInstance(instance, group);
 		return instance;
 	}
 
@@ -183,7 +178,7 @@ public class PortalController extends NpcController
 	private void transfer(Player player, WorldMapInstance instance)
 	{
 		ExitPoint exitPoint = portalTemplate.getExitPoint();
-		sp.getTeleportService().teleportTo(player, exitPoint.getMapId(), instance.getInstanceId(),
+		TeleportService.teleportTo(player, exitPoint.getMapId(), instance.getInstanceId(),
 			exitPoint.getX(), exitPoint.getY(), exitPoint.getZ(), 0);
 	}
 

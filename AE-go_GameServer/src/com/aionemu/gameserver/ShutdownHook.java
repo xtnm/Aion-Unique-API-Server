@@ -44,10 +44,6 @@ public class ShutdownHook extends Thread
 
 	@Inject
 	private PlayerService		playerService;
-	@Inject
-	private LoginServer			loginServer;
-	@Inject
-	private PeriodicSaveService	playerUpdateService;
 
 	@Override
 	public void run()
@@ -155,7 +151,7 @@ public class ShutdownHook extends Thread
 		}
 
 		// Disconnect login server from game.
-		loginServer.gameServerDisconnected();
+		LoginServer.getInstance().gameServerDisconnected();
 
 		// Disconnect all players.
 		Iterator<Player> onlinePlayers;
@@ -175,7 +171,7 @@ public class ShutdownHook extends Thread
 		log.info("All players are disconnected...");
 		
 		RunnableStatsManager.dumpClassStats(SortBy.AVG);
-		playerUpdateService.onShutdown();
+		PeriodicSaveService.getInstance().onShutdown();
 
 		// Save game time.
 		GameTimeManager.saveTime();
