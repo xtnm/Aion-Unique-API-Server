@@ -32,10 +32,7 @@ import com.aionemu.gameserver.world.World;
  */
 public class CM_SUMMON_MOVE extends AionClientPacket
 {
-	/**
-	 * logger for this class
-	 */
-	private static final Logger	log	= Logger.getLogger(CM_MOVE.class);
+	private static final Logger	log	= Logger.getLogger(CM_SUMMON_MOVE.class);
 
 	private MovementType		type;
 
@@ -96,6 +93,11 @@ public class CM_SUMMON_MOVE extends AionClientPacket
 	protected void runImpl()
 	{
 		Player player = getConnection().getActivePlayer();
+		if(player == null)
+		{
+			log.error("CM_SUMMON_MOVE packet received but cannot get master player.");
+			return;
+		}
 		Summon summon = player.getSummon();
 		if(summon == null)
 			return;
