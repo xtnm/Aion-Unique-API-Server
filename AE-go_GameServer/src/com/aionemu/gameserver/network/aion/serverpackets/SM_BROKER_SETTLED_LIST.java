@@ -31,7 +31,7 @@ import com.aionemu.gameserver.network.aion.AionServerPacket;
 public class SM_BROKER_SETTLED_LIST extends AionServerPacket
 {
 	List<BrokerItem> settledItems;
-	private int totalKinah;
+	private long totalKinah;
 	private int haveItemsIcon;
 	private int unk;
 	
@@ -40,7 +40,7 @@ public class SM_BROKER_SETTLED_LIST extends AionServerPacket
 	 * @param settledItems
 	 * @param totalKinah
 	 */
-	public SM_BROKER_SETTLED_LIST(List<BrokerItem> settledItems, int totalKinah)
+	public SM_BROKER_SETTLED_LIST(List<BrokerItem> settledItems, long totalKinah)
 	{
 		this.settledItems = settledItems;
 		this.totalKinah = totalKinah;
@@ -62,26 +62,20 @@ public class SM_BROKER_SETTLED_LIST extends AionServerPacket
 	@Override
 	protected void writeImpl(AionConnection con, ByteBuffer buf)
 	{
-		writeD(buf, totalKinah);
-		writeD(buf, haveItemsIcon);
-		writeH(buf, 1);
-		writeD(buf, 0);//TODO: Pages
-		writeC(buf, unk);//
+		writeQ(buf, totalKinah);
+        writeD(buf, haveItemsIcon);
+        writeH(buf, 0);//TODO: Pages
+        writeC(buf, unk);//
 		writeH(buf, settledItems.size());
 		if(settledItems.size() > 0)
 		{
 			writeD(buf, settledItems.get(0).getItemId());
 			if(settledItems.get(0).isSold())
-				writeD(buf, settledItems.get(0).getPrice());
+				writeQ(buf, settledItems.get(0).getPrice());
 			else
-				writeD(buf, 0);
-			writeD(buf, 0);
-			writeH(buf, settledItems.get(0).getItemCount());
-			writeD(buf, 0);
-			writeH(buf, 0);
-			writeH(buf, settledItems.get(0).getItemCount());
-			writeD(buf, 0);
-			writeH(buf, 0);
+				writeQ(buf, 0);
+			writeQ(buf, settledItems.get(0).getItemCount());
+			writeQ(buf, settledItems.get(0).getItemCount());
 			writeD(buf, (int)(settledItems.get(0).getSettleTime().getTime() / 60000));
 			writeD(buf, 0);
 			writeD(buf, 0);
@@ -97,16 +91,11 @@ public class SM_BROKER_SETTLED_LIST extends AionServerPacket
 			{
 				writeD(buf, settledItems.get(i).getItemId());
 				if(settledItems.get(i).isSold())
-					writeD(buf, settledItems.get(i).getPrice());
+					writeQ(buf, settledItems.get(i).getPrice());
 				else
-					writeD(buf, 0);
-				writeD(buf, 0);
-				writeH(buf, settledItems.get(i).getItemCount());
-				writeD(buf, 0);
-				writeH(buf, 0);
-				writeH(buf, settledItems.get(i).getItemCount());
-				writeD(buf, 0);
-				writeH(buf, 0);
+					writeQ(buf, 0);
+				writeQ(buf, settledItems.get(i).getItemCount());
+				writeQ(buf, settledItems.get(i).getItemCount());
 				writeD(buf, (int)settledItems.get(i).getSettleTime().getTime() / 60000);
 				writeH(buf, 0);
 				writeD(buf, settledItems.get(i).getItemId());

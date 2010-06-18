@@ -51,14 +51,9 @@ public class SM_BROKER_REGISTRATION_SERVICE extends AionServerPacket
 		{
 			writeD(buf, itemForRegistration.getItemUniqueId());
 			writeD(buf, itemForRegistration.getItemId());
-			writeD(buf, itemForRegistration.getPrice());
-			writeD(buf, 0);
-			writeH(buf, itemForRegistration.getItem().getItemCount());
-			writeD(buf, 0);
-			writeH(buf, 0);
-			writeH(buf, itemForRegistration.getItem().getItemCount());
-			writeD(buf, 0);
-			writeH(buf, 0);
+			writeQ(buf, itemForRegistration.getPrice());
+			writeQ(buf, itemForRegistration.getItem().getItemCount());
+			writeQ(buf, itemForRegistration.getItem().getItemCount());
 			writeH(buf, 8); //days left
 			writeC(buf, 0);
 			writeD(buf, itemForRegistration.getItemId());

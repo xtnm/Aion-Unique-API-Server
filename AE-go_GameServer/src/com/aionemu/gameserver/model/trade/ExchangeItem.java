@@ -25,7 +25,7 @@ import com.aionemu.gameserver.model.gameobjects.Item;
 public class ExchangeItem
 {
 	private int itemObjId;
-	private int itemCount;
+	private long itemCount;
 	private int itemDesc;
 	private Item item;
 
@@ -36,7 +36,7 @@ public class ExchangeItem
 	 * @param itemCount
 	 * @param item
 	 */
-	public ExchangeItem(int itemObjId, int itemCount, Item item)
+	public ExchangeItem(int itemObjId, long itemCount, Item item)
 	{
 		this.itemObjId = itemObjId;
 		this.itemCount = itemCount;
@@ -55,7 +55,7 @@ public class ExchangeItem
 	/**
 	 * @param countToAdd
 	 */
-	public void addCount(int countToAdd)
+	public void addCount(long countToAdd)
 	{
 		this.itemCount += countToAdd;
 		this.item.setItemCount(itemCount);
@@ -80,7 +80,7 @@ public class ExchangeItem
 	/**
 	 * @return the itemCount
 	 */
-	public int getItemCount()
+	public long getItemCount()
 	{
 		return itemCount;
 	}

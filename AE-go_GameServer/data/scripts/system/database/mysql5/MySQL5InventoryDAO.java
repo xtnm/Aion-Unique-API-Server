@@ -82,7 +82,7 @@ public class MySQL5InventoryDAO extends InventoryDAO
 				{
 					int itemUniqueId = rset.getInt("itemUniqueId");
 					int itemId = rset.getInt("itemId");
-					int itemCount = rset.getInt("itemCount");
+					long itemCount = rset.getLong("itemCount");
 					int itemColor = rset.getInt("itemColor");
 					int isEquiped = rset.getInt("isEquiped");
 					int isSoulBound = rset.getInt("isSoulBound");
@@ -125,7 +125,7 @@ public class MySQL5InventoryDAO extends InventoryDAO
 				{
 					int itemUniqueId = rset.getInt("itemUniqueId");
 					int itemId = rset.getInt("itemId");
-					int itemCount = rset.getInt("itemCount");
+					long itemCount = rset.getLong("itemCount");
 					int itemColor = rset.getInt("itemColor");
 					int isSoulBound = rset.getInt("isSoulBound");
 					int slot = rset.getInt("slot");
@@ -165,7 +165,7 @@ public class MySQL5InventoryDAO extends InventoryDAO
 				{
 					int itemUniqueId = rset.getInt("itemUniqueId");
 					int itemId = rset.getInt("itemId");
-					int itemCount = rset.getInt("itemCount");
+					long itemCount = rset.getLong("itemCount");
 					int itemColor = rset.getInt("itemColor");
 					int isSoulBound = rset.getInt("isSoulBound");
 					int slot = rset.getInt("slot");
@@ -262,7 +262,7 @@ public class MySQL5InventoryDAO extends InventoryDAO
 			{
 				stmt.setInt(1, item.getObjectId());
 				stmt.setInt(2, item.getItemTemplate().getTemplateId());
-				stmt.setInt(3, item.getItemCount());
+				stmt.setLong(3, item.getItemCount());
 				stmt.setInt(4, item.getItemColor());
 				stmt.setInt(5, ownerId);
 				stmt.setBoolean(6, item.isEquipped());
@@ -286,7 +286,7 @@ public class MySQL5InventoryDAO extends InventoryDAO
 			@Override
 			public void handleInsertUpdate(PreparedStatement stmt) throws SQLException
 			{
-				stmt.setInt(1, item.getItemCount());
+				stmt.setLong(1, item.getItemCount());
 				stmt.setInt(2, item.getItemColor());
 				stmt.setInt(3, ownerId);
 				stmt.setBoolean(4, item.isEquipped());

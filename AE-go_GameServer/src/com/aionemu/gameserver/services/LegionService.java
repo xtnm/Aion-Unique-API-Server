@@ -822,7 +822,7 @@ public class LegionService
 	 * 
 	 * @param Legion
 	 */
-	private void requestChangeLevel(Player activePlayer, int kinahAmount)
+	private void requestChangeLevel(Player activePlayer, long kinahAmount)
 	{
 		if(legionRestrictions.canChangeLevel(activePlayer, kinahAmount))
 		{
@@ -1741,7 +1741,7 @@ public class LegionService
 		 * @param kinahAmount
 		 * @return true if allowed to change legion level
 		 */
-		private boolean canChangeLevel(Player activePlayer, int kinahAmount)
+		private boolean canChangeLevel(Player activePlayer, long kinahAmount)
 		{
 			Legion legion = activePlayer.getLegion();
 			int levelContributionPrice = legion.getContributionPrice();

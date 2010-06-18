@@ -148,7 +148,7 @@ public final class QuestService
 			
 			if(qwi != null)
 			{
-				int count = 0;
+				long count = 0;
 				for(QuestItems qi : qwi.getQuestWorkItem())
 				{
 					if(qi != null)
@@ -294,7 +294,7 @@ public final class QuestService
 			return true;
 		for(CollectItem collectItem : collectItems.getCollectItem())
 		{
-			int count = player.getInventory().getItemCountByItemId(collectItem.getItemId());
+			long count = player.getInventory().getItemCountByItemId(collectItem.getItemId());
 			if(collectItem.getCount() > count)
 				return false;
 		}
@@ -371,7 +371,7 @@ public final class QuestService
 			int dropItemId    = drop.getItemId();
 			if (collectItemId != dropItemId)
 				continue;
-			int count = player.getInventory().getItemCountByItemId(collectItemId);
+			long count = player.getInventory().getItemCountByItemId(collectItemId);
 			if(collectItem.getCount() > count)
 				return true;
 		}

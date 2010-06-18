@@ -189,7 +189,7 @@ public class ItemStorage
 		if(existingItem != null && existingItem.getItemCount() < existingItem.getItemTemplate().getMaxStackCount())
 		{
 			int maxValue = existingItem.getItemTemplate().getMaxStackCount();
-			int sum = item.getItemCount() + existingItem.getItemCount();
+			long sum = item.getItemCount() + existingItem.getItemCount();
 			existingItem.setItemCount(sum >  maxValue ? maxValue : sum);
 			
 			return existingItem;

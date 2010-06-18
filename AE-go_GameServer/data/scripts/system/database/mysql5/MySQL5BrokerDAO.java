@@ -40,10 +40,10 @@ public class MySQL5BrokerDAO extends BrokerDAO
 				{
 					int itemPointer = rset.getInt("itemPointer");
 					int itemId = rset.getInt("itemId");
-					int itemCount = rset.getInt("itemCount");
+					long itemCount = rset.getLong("itemCount");
 					String seller = rset.getString("seller");
 					int sellerId = rset.getInt("sellerId");
-					int price = rset.getInt("price");
+					long price = rset.getLong("price");
 					BrokerRace itemBrokerRace = BrokerRace.valueOf(rset.getString("brokerRace"));
 					Timestamp expireTime = rset.getTimestamp("expireTime");
 					Timestamp settleTime = rset.getTimestamp("settleTime");
@@ -86,7 +86,7 @@ public class MySQL5BrokerDAO extends BrokerDAO
 				{
 					int itemUniqueId = rset.getInt("itemUniqueId");
 					int itemId = rset.getInt("itemId");
-					int itemCount = rset.getInt("itemCount");
+					long itemCount = rset.getLong("itemCount");
 					int itemColor = rset.getInt("itemColor");
 					int slot = rset.getInt("slot");
 					int location = rset.getInt("itemLocation");
@@ -145,9 +145,9 @@ public class MySQL5BrokerDAO extends BrokerDAO
 					{
 						stmt.setInt(1, item.getItemUniqueId());
 						stmt.setInt(2, item.getItemId());
-						stmt.setInt(3, item.getItemCount());
+						stmt.setLong(3, item.getItemCount());
 						stmt.setString(4, item.getSeller());
-						stmt.setInt(5, item.getPrice());
+						stmt.setLong(5, item.getPrice());
 						stmt.setString(6, String.valueOf(item.getItemBrokerRace()));
 						stmt.setTimestamp(7, item.getExpireTime());
 						stmt.setInt(8, item.getSellerId());

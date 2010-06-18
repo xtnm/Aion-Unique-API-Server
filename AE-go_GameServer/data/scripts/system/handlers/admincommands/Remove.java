@@ -55,7 +55,7 @@ public class Remove extends AdminCommand
 		}
 
 		int itemId = 0;
-		int itemCount = 1;
+		long itemCount = 1;
 		Player target = World.getInstance().findPlayer(Util.convertName(params[0]));
 		if(target == null)
 		{
@@ -68,7 +68,7 @@ public class Remove extends AdminCommand
 			itemId = Integer.parseInt(params[1]);
 			if( params.length == 3 )
 			{
-				itemCount = Integer.parseInt(params[2]);
+				itemCount = Long.parseLong(params[2]);
 			}
 		}
 		catch (NumberFormatException e)
@@ -79,7 +79,7 @@ public class Remove extends AdminCommand
 		
 		Storage bag = target.getInventory();
 		
-		int itemsInBag = bag.getItemCountByItemId(itemId);
+		long itemsInBag = bag.getItemCountByItemId(itemId);
 		if(itemsInBag == 0)
 		{
 			PacketSendUtility.sendMessage(admin, "Items with that id are not found in the player's bag.");

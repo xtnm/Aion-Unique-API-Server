@@ -122,7 +122,7 @@ public class Storage
 	 *  
 	 * @param amount
 	 */
-	public void increaseKinah(int amount)
+	public void increaseKinah(long amount)
 	{
 		kinahItem.increaseItemCount(amount);
 
@@ -138,7 +138,7 @@ public class Storage
 	 *  
 	 * @param amount
 	 */
-	public boolean decreaseKinah(int amount)
+	public boolean decreaseKinah(long amount)
 	{
 		boolean operationResult = kinahItem.decreaseItemCount(amount);
 		if(operationResult)
@@ -228,7 +228,7 @@ public class Storage
 	 * @param count
 	 * @return true or false
 	 */
-	public boolean removeFromBagByItemId(int itemId, int count)
+	public boolean removeFromBagByItemId(int itemId, long count)
 	{
 		if(count < 1)
 			return false;
@@ -268,7 +268,7 @@ public class Storage
 	 * @param count
 	 * @return true or false
 	 */
-	public boolean removeFromBagByObjectId(int itemObjId, int count)
+	public boolean removeFromBagByObjectId(int itemObjId, long count)
 	{
 		if(count < 1)
 			return false;
@@ -294,9 +294,9 @@ public class Storage
 	 * @param item
 	 * @return
 	 */
-	public int decreaseItemCount(Item item, int count)
+	public long decreaseItemCount(Item item, long count)
 	{
-		int itemCount = item.getItemCount();
+		long itemCount = item.getItemCount();
 		if(itemCount >= count)
 		{
 			item.decreaseItemCount(count);
@@ -394,10 +394,10 @@ public class Storage
 	 * @param itemId
 	 * @return number of items using search by itemid
 	 */
-	public int getItemCountByItemId(int itemId)
+	public long getItemCountByItemId(int itemId)
 	{
 		List<Item> items = getItemsByItemId(itemId);
-		int count = 0;
+		long count = 0;
 		for(Item item : items)
 		{
 			count += item.getItemCount();
@@ -465,7 +465,7 @@ public class Storage
 	 * @param item
 	 * @param count
 	 */
-	public void increaseItemCount(Item item, int count)
+	public void increaseItemCount(Item item, long count)
 	{
 		item.increaseItemCount(count);
 		setPersistentState(PersistentState.UPDATE_REQUIRED);

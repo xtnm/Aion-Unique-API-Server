@@ -37,7 +37,7 @@ public class PcInventoryCondition extends QuestCondition
 	@XmlAttribute(name = "item_id", required = true)
 	protected int	itemId;
 	@XmlAttribute(required = true)
-	protected int	count;
+	protected long	count;
 
 	/**
 	 * Gets the value of the itemId property.
@@ -52,7 +52,7 @@ public class PcInventoryCondition extends QuestCondition
 	 * Gets the value of the count property.
 	 * 
 	 */
-	public int getCount()
+	public long getCount()
 	{
 		return count;
 	}
@@ -64,7 +64,7 @@ public class PcInventoryCondition extends QuestCondition
     public boolean doCheck(QuestEnv env)
     {
             Player player = env.getPlayer();
-            int itemCount = player.getInventory().getItemCountByItemId(itemId);
+            long itemCount = player.getInventory().getItemCountByItemId(itemId);
             switch (getOp())
             {
                     case EQUAL:

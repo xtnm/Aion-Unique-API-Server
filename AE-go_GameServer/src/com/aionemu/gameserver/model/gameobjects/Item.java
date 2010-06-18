@@ -32,7 +32,7 @@ import com.aionemu.gameserver.model.templates.item.ItemTemplate;
  */
 public class Item extends AionObject
 {	
-	private int itemCount = 1;
+	private long itemCount = 1;
 
 	private int itemColor = 0;
 
@@ -65,7 +65,7 @@ public class Item extends AionObject
 	 * This constructor should be called from ItemService
 	 * for newly created items and loadedFromDb
 	 */
-	public Item(int objId, ItemTemplate itemTemplate, int itemCount, boolean isEquipped, int equipmentSlot)
+	public Item(int objId, ItemTemplate itemTemplate, long itemCount, boolean isEquipped, int equipmentSlot)
 	{
 		super(objId);
 
@@ -85,7 +85,7 @@ public class Item extends AionObject
 	 * 
 	 * This constructor should be called only from DAO while loading from DB
 	 */
-	public Item(int objId, int itemId, int itemCount, int itemColor, boolean isEquipped, boolean isSoulBound,int equipmentSlot, int itemLocation,
+	public Item(int objId, int itemId, long itemCount, int itemColor, boolean isEquipped, boolean isSoulBound,int equipmentSlot, int itemLocation,
 		int enchant, int itemSkin)
 	{
 		super(objId);
@@ -166,7 +166,7 @@ public class Item extends AionObject
 	 * @return the itemCount
 	 *  Number of this item in stack. Should be not more than template maxstackcount ?
 	 */
-	public int getItemCount()
+	public long getItemCount()
 	{
 		return itemCount;
 	}
@@ -174,7 +174,7 @@ public class Item extends AionObject
 	/**
 	 * @param itemCount the itemCount to set
 	 */
-	public void setItemCount(int itemCount)
+	public void setItemCount(long itemCount)
 	{
 		this.itemCount = itemCount;
 		setPersistentState(PersistentState.UPDATE_REQUIRED);
@@ -187,7 +187,7 @@ public class Item extends AionObject
 	 *  
 	 * @param addCount 
 	 */
-	public void increaseItemCount(int addCount)
+	public void increaseItemCount(long addCount)
 	{
 		//TODO overflow check
 		this.itemCount += addCount;
@@ -201,7 +201,7 @@ public class Item extends AionObject
 	 *  
 	 * @param remCount
 	 */
-	public boolean decreaseItemCount(int remCount)
+	public boolean decreaseItemCount(long remCount)
 	{
 		if( this.itemCount - remCount >= 0 )
 		{

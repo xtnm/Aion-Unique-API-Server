@@ -47,14 +47,9 @@ public class SM_BROKER_REGISTERED_LIST extends AionServerPacket
 		{
 			writeD(buf, item.getItemUniqueId());
 			writeD(buf, item.getItemId());
-			writeD(buf, item.getPrice());
-			writeD(buf, 0);
-			writeH(buf, item.getItem().getItemCount());
-			writeD(buf, 0);
-			writeH(buf, 0);
-			writeH(buf, item.getItem().getItemCount());
-			writeD(buf, 0);
-			writeH(buf, 0);
+			writeQ(buf, item.getPrice());
+			writeQ(buf, item.getItem().getItemCount());
+			writeQ(buf, item.getItem().getItemCount());
 			Timestamp currentTime = new Timestamp(Calendar.getInstance().getTimeInMillis());
 			int daysLeft = Math.round((item.getExpireTime().getTime() - currentTime.getTime()) / 86400000);
 			writeH(buf, daysLeft);

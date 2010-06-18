@@ -136,7 +136,7 @@
                 <xs:complexContent>
                         <xs:extension base="QuestCondition">
                                 <xs:attribute name="item_id" type="xs:int" use="required" />
-                                <xs:attribute name="count" type="xs:int" use="required" />
+                                <xs:attribute name="count" type="xs:long" use="required" />
                         </xs:extension>
                 </xs:complexContent>
         </xs:complexType>

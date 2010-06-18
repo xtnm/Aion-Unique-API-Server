@@ -67,7 +67,7 @@ public class _2123TheImprisonedGourmet extends QuestHandler
 			}
 			else if(qs.getStatus() == QuestStatus.START)
 			{
-				int itemCount;
+				long itemCount;
 				if(env.getDialogId() == 25 && qs.getQuestVarById(0) == 0)
 				{
 					return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 1352);

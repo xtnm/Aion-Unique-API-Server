@@ -86,7 +86,7 @@ public class PrivateStoreService
 	 * 
 	 * @return
 	 */
-	private static boolean validateItem(Item item, int itemId, int itemAmount)
+	private static boolean validateItem(Item item, int itemId, long itemAmount)
 	{
         return !(item.getItemTemplate().getTemplateId() != itemId || itemAmount > item.getItemCount());
     }
@@ -149,7 +149,7 @@ public class PrivateStoreService
 		/**
 		 * Create total price and items
 		 */
-		int price = getTotalPrice(store, tradeList);
+		long price = getTotalPrice(store, tradeList);
 
 		/**
 		 * Check if player has enough kinah and remove it
@@ -272,7 +272,7 @@ public class PrivateStoreService
 	 * @param newOwner
 	 * @return
 	 */
-	private static int getKinahAmount(Player player)
+	private static long getKinahAmount(Player player)
 	{
 		return player.getInventory().getKinahItem().getItemCount();
 	}
@@ -283,7 +283,7 @@ public class PrivateStoreService
 	 * @param player
 	 * @param price
 	 */
-	private static void decreaseKinahAmount(Player player, int price)
+	private static void decreaseKinahAmount(Player player, long price)
 	{
 		player.getInventory().decreaseKinah(price);
 	}
@@ -294,7 +294,7 @@ public class PrivateStoreService
 	 * @param player
 	 * @param price
 	 */
-	private static void increaseKinahAmount(Player player, int price)
+	private static void increaseKinahAmount(Player player, long price)
 	{
 		player.getInventory().increaseKinah(price);
 	}
@@ -318,9 +318,9 @@ public class PrivateStoreService
 	 * @param tradeList
 	 * @return
 	 */
-	private static int getTotalPrice(PrivateStore store, TradeList tradeList)
+	private static long getTotalPrice(PrivateStore store, TradeList tradeList)
 	{
-		int totalprice = 0;
+		long totalprice = 0;
 		for(TradeItem tradeItem : tradeList.getTradeItems())
 		{
 			TradePSItem item = store.getTradeItemById(tradeItem.getItemId());

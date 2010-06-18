@@ -25,10 +25,10 @@ import com.aionemu.gameserver.model.templates.item.ItemTemplate;
 public class TradeItem
 {
 	private int				itemId;
-	private int				count;
+	private long			count;
 	private ItemTemplate	itemTemplate;
 
-	public TradeItem(int itemId, int count)
+	public TradeItem(int itemId, long count)
 	{
 		super();
 		this.itemId = itemId;
@@ -63,7 +63,7 @@ public class TradeItem
 	/**
 	 * @return the count
 	 */
-	public int getCount()
+	public long getCount()
 	{
 		return count;
 	}
@@ -71,7 +71,7 @@ public class TradeItem
 	/**
 	 * This method will decrease the current count
 	 */
-	public void decreaseCount(int decreaseCount)
+	public void decreaseCount(long decreaseCount)
 	{
 		if(decreaseCount < count)
 			this.count = count - decreaseCount;

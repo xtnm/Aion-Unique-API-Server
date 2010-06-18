@@ -31,8 +31,8 @@ public class BrokerItem implements Comparable<BrokerItem>
 	private Item item;
 	private int itemId;
 	private int itemUniqueId;
-	private int itemCount;
-	private int price;
+	private long itemCount;
+	private long price;
 	private String seller;
 	private int sellerId;
 	private BrokerRace itemBrokerRace;
@@ -52,7 +52,7 @@ public class BrokerItem implements Comparable<BrokerItem>
 	 * @param sold
 	 * @param itemBrokerRace
 	 */
-	public BrokerItem(Item item, int price, String seller, int sellerId, BrokerRace itemBrokerRace)
+	public BrokerItem(Item item, long price, String seller, int sellerId, BrokerRace itemBrokerRace)
 	{
 		this.item = item;
 		this.itemId = item.getItemTemplate().getTemplateId();
@@ -79,7 +79,7 @@ public class BrokerItem implements Comparable<BrokerItem>
 	 * @param sellerId
 	 * @param itemBrokerRace
 	 */
-	public BrokerItem(Item item, int itemId, int itemUniqueId, int itemCount,int price, String seller, int sellerId, BrokerRace itemBrokerRace, boolean isSold, boolean isSettled, Timestamp expireTime, Timestamp settleTime)
+	public BrokerItem(Item item, int itemId, int itemUniqueId, long itemCount, long price, String seller, int sellerId, BrokerRace itemBrokerRace, boolean isSold, boolean isSettled, Timestamp expireTime, Timestamp settleTime)
 	{
 		this.item = item;
 		this.itemId = itemId;
@@ -138,7 +138,7 @@ public class BrokerItem implements Comparable<BrokerItem>
 	 * 
 	 * @return
 	 */
-	public int getPrice()
+	public long getPrice()
 	{
 		return price;
 	}
@@ -220,7 +220,7 @@ public class BrokerItem implements Comparable<BrokerItem>
 		return settleTime;
 	}
 	
-	public int getItemCount()
+	public long getItemCount()
 	{
 		return itemCount;
 	}
@@ -236,7 +236,7 @@ public class BrokerItem implements Comparable<BrokerItem>
 	/**
 	 * @return price for one piece
 	 */
-	private int getPiecePrice()
+	private long getPiecePrice()
 	{
 		return getPrice() / getItemCount();
 	}

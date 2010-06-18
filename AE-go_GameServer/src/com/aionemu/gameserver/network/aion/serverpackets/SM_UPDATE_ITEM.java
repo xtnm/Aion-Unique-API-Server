@@ -90,7 +90,7 @@ public class SM_UPDATE_ITEM extends InventoryPacket
 		writeH(buf, 0x16); //length of details
 		writeC(buf, 0);
 		writeH(buf, item.getItemMask());
-		writeD(buf, item.getItemCount());
+		writeD(buf, (int) item.getItemCount());
 		writeD(buf, 0);
 		writeD(buf, 0);
 		writeD(buf, 0);
@@ -115,8 +115,7 @@ public class SM_UPDATE_ITEM extends InventoryPacket
 		writeH(buf, 0x16); //length of details
 		writeC(buf, 0);
 		writeH(buf, item.getItemMask());
-		writeD(buf, item.getItemCount());
-		writeD(buf, 0);
+		writeQ(buf, item.getItemCount());
 		writeD(buf, 0);
 		writeD(buf, 0);
 		writeH(buf, 0);

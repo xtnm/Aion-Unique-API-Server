@@ -71,9 +71,9 @@ public class _1487BalaurBones extends QuestHandler
       
          else if (qs.getStatus() == QuestStatus.START)
          {
-				int itemCount;
-				int itemCount1;
-				int itemCount2;
+        	 	long itemCount;
+        	 	long itemCount1;
+        	 	long itemCount2;
 				if(env.getDialogId() == 25 && qs.getQuestVarById(0) == 0)
 				{
 					return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 2375);
@@ -108,7 +108,7 @@ public class _1487BalaurBones extends QuestHandler
       }
       else if(targetId == 700313)
 		{
-			int itemCount;
+    	    long itemCount;
 			itemCount = player.getInventory().getItemCountByItemId(182201407);
 			if(qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0 && itemCount < 1)
 			{
@@ -131,7 +131,7 @@ public class _1487BalaurBones extends QuestHandler
 		}
 		else if(targetId == 700314)
 		{
-			int itemCount1;
+			long itemCount1;
 			itemCount1 = player.getInventory().getItemCountByItemId(182201408);
 			if(qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0 && itemCount1 < 3)
 			{
@@ -154,7 +154,7 @@ public class _1487BalaurBones extends QuestHandler
 		}
 		else if(targetId == 700315)
 		{
-			int itemCount2;
+			long itemCount2;
 			itemCount2 = player.getInventory().getItemCountByItemId(182201409);
 			if(qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0 && itemCount2 < 2)
 			{

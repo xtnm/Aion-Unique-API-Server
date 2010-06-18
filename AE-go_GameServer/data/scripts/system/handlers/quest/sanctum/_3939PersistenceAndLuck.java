@@ -47,7 +47,7 @@ public class _3939PersistenceAndLuck extends QuestHandler
 		qe.setNpcQuestData(203701).addOnQuestStart(questId);	//Lavirintos
 		qe.setNpcQuestData(203780).addOnTalkEvent(questId);		//Cornelius
 		qe.setNpcQuestData(203781).addOnTalkEvent(questId);		//Sabotes
-		qe.setNpcQuestData(203752).addOnTalkEvent(questId);		//Jucléas
+		qe.setNpcQuestData(203752).addOnTalkEvent(questId);		//Juclï¿½as
 		qe.setNpcQuestData(203701).addOnTalkEvent(questId);		//Lavirintos
 	}
 
@@ -145,8 +145,8 @@ public class _3939PersistenceAndLuck extends QuestHandler
 							case 10001:
 								Storage inventory = player.getInventory();
 								Item KinahsItemPlayer = inventory.getKinahItem();
-								Integer KinahsPlayer = KinahsItemPlayer.getItemCount();
-								PacketSendUtility.sendMessage(player, Integer.toString(KinahsPlayer));
+								long KinahsPlayer = KinahsItemPlayer.getItemCount();
+								PacketSendUtility.sendMessage(player, Long.toString(KinahsPlayer));
 								if(KinahsPlayer >= 3400000)
 								{
 									KinahsItemPlayer.decreaseItemCount(3400000);

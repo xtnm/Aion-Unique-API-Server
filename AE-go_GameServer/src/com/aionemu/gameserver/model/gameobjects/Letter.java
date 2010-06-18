@@ -26,7 +26,7 @@ public class Letter extends AionObject
 {
 	private int recipientId;
 	private Item attachedItem;
-	private int attachedKinahCount;
+	private long attachedKinahCount;
 	private String senderName;
 	private String title;
 	private String message;
@@ -46,7 +46,7 @@ public class Letter extends AionObject
 	 * @param timeStamp
 	 * 	new letter constructor
 	 */
-	public Letter(int objId, int recipientId, Item attachedItem, int attachedKinahCount, String title, String message,
+	public Letter(int objId, int recipientId, Item attachedItem, long attachedKinahCount, String title, String message,
 		String senderName, Timestamp timeStamp, boolean unread, boolean express)
 	{
 		super(objId);
@@ -80,7 +80,7 @@ public class Letter extends AionObject
 		return attachedItem;
 	}
 	
-	public int getAttachedKinah()
+	public long getAttachedKinah()
 	{
 		return attachedKinahCount;
 	}

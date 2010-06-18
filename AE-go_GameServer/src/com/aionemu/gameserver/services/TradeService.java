@@ -83,12 +83,12 @@ public class TradeService
 		if(freeSlots < tradeList.size())
 			return false; // TODO message
 
-		int tradeListPrice = tradeList.getRequiredKinah();
+		long tradeListPrice = tradeList.getRequiredKinah();
 
 		List<Item> addedItems = new ArrayList<Item>();
 		for(TradeItem tradeItem : tradeList.getTradeItems())
 		{
-			int count = ItemService.addItem(player, tradeItem.getItemTemplate().getTemplateId(), tradeItem.getCount());
+			long count = ItemService.addItem(player, tradeItem.getItemTemplate().getTemplateId(), tradeItem.getCount());
 			if(count != 0)
 			{
 				log.warn(String.format("CHECKPOINT: itemservice couldnt add all items on buy: %d %d %d %d", player
@@ -135,7 +135,7 @@ public class TradeService
 		List<Item> addedItems = new ArrayList<Item>();
 		for(TradeItem tradeItem : tradeList.getTradeItems())
 		{
-			int count = ItemService.addItem(player, tradeItem.getItemTemplate().getTemplateId(), tradeItem.getCount());
+			long count = ItemService.addItem(player, tradeItem.getItemTemplate().getTemplateId(), tradeItem.getCount());
 			if(count != 0)
 			{
 				log.warn(String.format("CHECKPOINT: itemservice couldnt add all items on buy: %d %d %d %d", player

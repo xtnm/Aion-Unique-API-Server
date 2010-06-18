@@ -105,8 +105,8 @@ public class _1901KrallicPotion extends QuestHandler
 								case 1438:
 									Storage inventory = player.getInventory();
 									Item KinahsItemPlayer = inventory.getKinahItem();
-									Integer KinahsPlayer = KinahsItemPlayer.getItemCount();
-									PacketSendUtility.sendMessage(player, Integer.toString(KinahsPlayer));
+									long KinahsPlayer = KinahsItemPlayer.getItemCount();
+									PacketSendUtility.sendMessage(player, Long.toString(KinahsPlayer));
 									if(KinahsPlayer >= 10000)
 									{
 										KinahsItemPlayer.decreaseItemCount(10000);

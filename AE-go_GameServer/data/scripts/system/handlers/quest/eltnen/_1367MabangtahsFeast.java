@@ -64,9 +64,9 @@ public class _1367MabangtahsFeast extends QuestHandler
 			}
 			else if(qs.getStatus() == QuestStatus.START)
 			{
-				int itemCount;
-				int itemCount1;
-				int itemCount2;
+				long itemCount;
+				long itemCount1;
+				long itemCount2;
 				if(env.getDialogId() == 25 && qs.getQuestVarById(0) == 0)
 				{
 					itemCount = player.getInventory().getItemCountByItemId(182201333); // 2

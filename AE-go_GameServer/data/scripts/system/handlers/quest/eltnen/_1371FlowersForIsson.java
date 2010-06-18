@@ -58,7 +58,7 @@ public class _1371FlowersForIsson extends QuestHandler
       if(env.getVisibleObject() instanceof Npc)
          targetId = ((Npc) env.getVisibleObject()).getNpcId();
       QuestState qs = player.getQuestStateList().getQuestState(questId);
-	  int itemCount = 0;
+      long itemCount = 0;
       if(targetId == 203949)
       {
          if(qs == null || qs.getStatus() == QuestStatus.NONE)

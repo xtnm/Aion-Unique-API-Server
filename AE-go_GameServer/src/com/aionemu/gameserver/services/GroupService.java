@@ -229,23 +229,23 @@ public class GroupService
 	 * @param player
 	 * @param amount
 	 */
-	public void groupDistribution(Player player, int amount)
+	public void groupDistribution(Player player, long amount)
 	{
 		PlayerGroup pg = player.getPlayerGroup();
 		if(pg == null)
 			return;
 
-		int availableKinah = player.getInventory().getKinahItem().getItemCount();
+		long availableKinah = player.getInventory().getKinahItem().getItemCount();
 		if(availableKinah < amount)
 		{
 			// TODO retail message ?
 			return;
 		}
 
-		int rewardcount = pg.size() - 1;
+		long rewardcount = pg.size() - 1;
 		if(rewardcount <= amount)
 		{
-			int reward = amount / rewardcount;
+			long reward = amount / rewardcount;
 
 			for(Player groupMember : pg.getMembers())
 			{

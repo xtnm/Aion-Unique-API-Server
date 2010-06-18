@@ -36,7 +36,7 @@ public class Exchange
 	private boolean						confirmed;
 	private boolean						locked;
 
-	private int							kinahCount;
+	private long						kinahCount;
 
 	private Map<Integer, ExchangeItem>	items			= new HashMap<Integer, ExchangeItem>();
 	private Set<Item>					itemsToUpdate	= new HashSet<Item>();
@@ -85,7 +85,7 @@ public class Exchange
 	/**
 	 * @param countToAdd
 	 */
-	public void addKinah(int countToAdd)
+	public void addKinah(long countToAdd)
 	{
 		this.kinahCount += countToAdd;
 	}
@@ -109,7 +109,7 @@ public class Exchange
 	/**
 	 * @return the kinahCount
 	 */
-	public int getKinahCount()
+	public long getKinahCount()
 	{
 		return kinahCount;
 	}

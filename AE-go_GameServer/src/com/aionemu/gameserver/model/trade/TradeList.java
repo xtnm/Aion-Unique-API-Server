@@ -35,7 +35,7 @@ public class TradeList
 	
 	private List<TradeItem> tradeItems = new ArrayList<TradeItem>();
 	
-	private int requiredKinah;
+	private long requiredKinah;
 	
 	private int requiredAp;
 	
@@ -45,7 +45,7 @@ public class TradeList
 	 * @param itemId
 	 * @param count
 	 */
-	public void addBuyItem(int itemId, int count)
+	public void addBuyItem(int itemId, long count)
 	{
 		
 		ItemTemplate itemTemplate = DataManager.ITEM_DATA.getItemTemplate(itemId);
@@ -61,7 +61,7 @@ public class TradeList
 	 * @param itemId
 	 * @param count
 	 */
-	public void addPSItem(int itemId, int count)
+	public void addPSItem(int itemId, long count)
 	{
 		TradeItem tradeItem = new TradeItem(itemId, count);
 		tradeItems.add(tradeItem);
@@ -71,7 +71,7 @@ public class TradeList
 	 * @param itemObjId
 	 * @param count
 	 */
-	public void addSellItem(int itemObjId, int count)
+	public void addSellItem(int itemObjId, long count)
 	{
 		TradeItem tradeItem = new TradeItem(itemObjId, count);
 		tradeItems.add(tradeItem);
@@ -82,7 +82,7 @@ public class TradeList
 	 */
 	public boolean calculateBuyListPrice(Player player)
 	{
-		int availableKinah = player.getInventory().getKinahItem().getItemCount();
+		long availableKinah = player.getInventory().getKinahItem().getItemCount();
 		requiredKinah = 0;
 		for(TradeItem tradeItem : tradeItems)
 		{
@@ -119,7 +119,7 @@ public class TradeList
 		
 		for(Integer itemId : requiredItems.keySet())
 		{
-			int count = player.getInventory().getItemCountByItemId(itemId);
+			long count = player.getInventory().getItemCountByItemId(itemId);
 			if(count < requiredItems.get(itemId))
 				return false;
 		}
@@ -168,7 +168,7 @@ public class TradeList
 	/**
 	 * @return the requiredKinah
 	 */
-	public int getRequiredKinah()
+	public long getRequiredKinah()
 	{
 		return requiredKinah;
 	}

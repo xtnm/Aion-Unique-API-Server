@@ -80,7 +80,7 @@ public class _1122DeliveringPernossRobe extends QuestHandler
 		{
 			if(qs != null && qs.getStatus() == QuestStatus.START)
 			{
-				int itemCount;
+				long itemCount;
 				switch(env.getDialogId())
 				{
 					case 25:

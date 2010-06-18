@@ -69,7 +69,7 @@ public class SM_VIEW_PLAYER_DETAILS extends AionServerPacket
 			writeH(buf, 0);
 			writeC(buf, 0);
 			writeH(buf, 62);
-			writeH(buf, item.getItemCount()); // count
+			writeH(buf, (int) item.getItemCount()); // count
 			////////////////////////
 			//Here comes the lol part.
 			////////////////////////

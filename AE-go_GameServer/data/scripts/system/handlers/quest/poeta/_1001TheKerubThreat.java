@@ -121,7 +121,7 @@ public class _1001TheKerubThreat extends QuestHandler
 					case 33:
 						if(var == 7)
 						{
-							int itemCount = player.getInventory().getItemCountByItemId(182200001);
+							long itemCount = player.getInventory().getItemCountByItemId(182200001);
 							if(itemCount >= 5)
 							{
 								if(env.getDialogId() == 33)

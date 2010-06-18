@@ -73,9 +73,9 @@ public class _2495SpriggNightlights extends QuestHandler
 			}
 			else if(qs.getStatus() == QuestStatus.START)
 			{
-				int itemCount;
-				int itemCount1;
-				int itemCount2;
+				long itemCount;
+				long itemCount1;
+				long itemCount2;
 				if(env.getDialogId() == 25 && qs.getQuestVarById(0) == 0)
 				{
 					return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 2375);
@@ -128,7 +128,7 @@ public class _2495SpriggNightlights extends QuestHandler
 		}
 		else if(targetId == 700317)
 		{
-			int itemCount;
+			long itemCount;
 			itemCount = player.getInventory().getItemCountByItemId(182204227);
 			if(qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0 && itemCount < 5)
 			{
@@ -151,7 +151,7 @@ public class _2495SpriggNightlights extends QuestHandler
 		}
 		else if(targetId == 700318)
 		{
-			int itemCount1;
+			long itemCount1;
 			itemCount1 = player.getInventory().getItemCountByItemId(182204228);
 			if(qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0 && itemCount1 < 5)
 			{
@@ -174,7 +174,7 @@ public class _2495SpriggNightlights extends QuestHandler
 		}
 		else if(targetId == 700319)
 		{
-			int itemCount2;
+			long itemCount2;
 			itemCount2 = player.getInventory().getItemCountByItemId(182204229);
 			if(qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0 && itemCount2 < 5)
 			{

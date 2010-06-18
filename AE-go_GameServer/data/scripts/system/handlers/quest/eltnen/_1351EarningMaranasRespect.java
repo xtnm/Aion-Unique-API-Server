@@ -51,7 +51,7 @@ public class _1351EarningMaranasRespect extends QuestHandler
 		if(env.getVisibleObject() instanceof Npc)
 			targetId = ((Npc) env.getVisibleObject()).getNpcId();
 		QuestState qs = player.getQuestStateList().getQuestState(questId);
-		int itemCount;
+		long itemCount;
 		if(targetId == 203965)
 		{
 			if(qs == null || qs.getStatus() == QuestStatus.NONE)

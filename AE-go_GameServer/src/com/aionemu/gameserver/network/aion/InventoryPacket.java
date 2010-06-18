@@ -70,8 +70,7 @@ public abstract class InventoryPacket extends AionServerPacket
 		writeH(buf, 0x16); //length of details
 		writeC(buf, 0);
 		writeH(buf, item.getItemMask());
-		writeD(buf, item.getItemCount());
-		writeD(buf, 0);
+		writeQ(buf, item.getItemCount());
 		writeD(buf, 0);
 		writeD(buf, 0);
 		if(!privateStore)
@@ -199,8 +198,7 @@ public abstract class InventoryPacket extends AionServerPacket
 		writeH(buf, 0x16); //length of details
 		writeC(buf, 0);
 		writeH(buf, item.getItemMask());
-		writeD(buf, item.getItemCount());
-		writeD(buf, 0);
+		writeQ(buf, item.getItemCount());
 		writeD(buf, 0);
 		writeD(buf, 0);
 		writeH(buf, 0);
@@ -263,8 +261,7 @@ public abstract class InventoryPacket extends AionServerPacket
 			writeC(buf, 0);//unk 1.5.1.9
 
 			writeH(buf, item.getItemMask());
-			writeD(buf, item.getItemCount());
-			writeD(buf, 0);
+			writeQ(buf, item.getItemCount());
 			writeD(buf, 0);
 			writeD(buf, 0);
 			if(!privateStore)
@@ -358,8 +355,7 @@ public abstract class InventoryPacket extends AionServerPacket
 		writeC(buf, 0);//unk 1.5.1.9
 
 		writeH(buf, item.getItemMask());
-		writeD(buf, item.getItemCount());
-		writeD(buf, 0);
+		writeQ(buf, item.getItemCount());
 		writeD(buf, 0);
 		writeD(buf, 0);
 		if(!privateStore)

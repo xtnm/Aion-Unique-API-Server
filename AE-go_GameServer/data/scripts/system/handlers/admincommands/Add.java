@@ -53,7 +53,7 @@ public class Add extends AdminCommand
 		}
 
 		int itemId = 0;
-		int itemCount = 1;
+		long itemCount = 1;
 		Player receiver = null;
 
 		try
@@ -62,7 +62,7 @@ public class Add extends AdminCommand
 			
 			if( params.length == 2 )
 			{
-				itemCount = Integer.parseInt(params[1]);
+				itemCount = Long.parseLong(params[1]);
 			}
 			receiver = admin;
 		}
@@ -75,7 +75,7 @@ public class Add extends AdminCommand
 				
 				if( params.length == 3 )
 				{
-					itemCount = Integer.parseInt(params[2]);
+					itemCount = Long.parseLong(params[2]);
 				}
 			}
 			catch (NumberFormatException ex)
@@ -91,7 +91,7 @@ public class Add extends AdminCommand
 			}
 		}
 		
-		int count = ItemService.addItem(receiver, itemId, itemCount);
+		long count = ItemService.addItem(receiver, itemId, itemCount);
 
 		if(count == 0)
 		{

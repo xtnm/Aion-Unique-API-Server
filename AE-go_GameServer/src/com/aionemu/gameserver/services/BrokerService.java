@@ -317,7 +317,7 @@ public class BrokerService
 			return; // TODO: Message "this item has already been bought, refresh page please."
 
 		Item item = buyingItem.getItem();
-		int price = buyingItem.getPrice();
+		long price = buyingItem.getPrice();
 
 		if(player.getInventory().getKinahItem().getItemCount() < price)
 			return;

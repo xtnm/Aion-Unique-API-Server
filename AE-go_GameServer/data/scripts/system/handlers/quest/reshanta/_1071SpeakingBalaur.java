@@ -155,7 +155,7 @@ public class _1071SpeakingBalaur extends QuestHandler
 				case 10010:
 					Storage inventory = player.getInventory();
 					Item KinahsItemPlayer = inventory.getKinahItem();
-					Integer KinahsPlayer = KinahsItemPlayer.getItemCount();
+					long KinahsPlayer = KinahsItemPlayer.getItemCount();
 					if(var == 1 && KinahsPlayer >= 20000)
 					{
 						KinahsItemPlayer.decreaseItemCount(20000);

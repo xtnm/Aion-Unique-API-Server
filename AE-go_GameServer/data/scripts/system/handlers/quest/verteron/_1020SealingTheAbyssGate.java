@@ -88,7 +88,7 @@ public class _1020SealingTheAbyssGate extends QuestHandler
 		final int instanceId = player.getInstanceId();
 		final int var = qs.getQuestVarById( 0 );
 		int targetId = 0;
-		int itemCount;
+		long itemCount;
 		if(env.getVisibleObject() instanceof Npc)
 			targetId = ((Npc) env.getVisibleObject()).getNpcId();
 

@@ -67,10 +67,8 @@ public class SM_BROKER_ITEMS extends AionServerPacket
 	{
 		writeD(buf, item.getItem().getObjectId());
 		writeD(buf, item.getItem().getItemTemplate().getTemplateId());
-		writeD(buf, item.getPrice());
-		writeD(buf, 0);
-		writeD(buf, item.getItem().getItemCount());
-		writeD(buf, 0);
+		writeQ(buf, item.getPrice());
+		writeQ(buf, item.getItem().getItemCount());
 		writeC(buf, 0);
 		writeC(buf, item.getItem().getEchantLevel());
 		writeD(buf, item.getItem().getItemSkinTemplate().getTemplateId());
@@ -137,10 +135,8 @@ public class SM_BROKER_ITEMS extends AionServerPacket
 	{
 		writeD(buf, item.getItem().getObjectId());
 		writeD(buf, item.getItem().getItemTemplate().getTemplateId());
-		writeD(buf, item.getPrice());
-		writeD(buf, 0);
-		writeD(buf, item.getItem().getItemCount());
-		writeD(buf, 0);
+		writeQ(buf, item.getPrice());
+		writeQ(buf, item.getItem().getItemCount());
 		writeD(buf, 0);
 		writeD(buf, 0);
 		writeD(buf, 0);

@@ -120,7 +120,7 @@ public class ExchangeService
 	 * @param activePlayer
 	 * @param itemCount
 	 */
-	public void addKinah(Player activePlayer, int itemCount)
+	public void addKinah(Player activePlayer, long itemCount)
 	{
 		Exchange currentExchange = getCurrentExchange(activePlayer);
 		if(currentExchange.isLocked())
@@ -130,11 +130,12 @@ public class ExchangeService
 			return;
 
 		//count total amount in inventory
-		int availableCount = activePlayer.getInventory().getKinahItem().getItemCount();
+		long availableCount = activePlayer.getInventory().getKinahItem().getItemCount();
+		
 		//count amount that was already added to exchange
 		availableCount -= currentExchange.getKinahCount();
 
-		int countToAdd = availableCount > itemCount ? itemCount : availableCount;
+		long countToAdd = availableCount > itemCount ? itemCount : availableCount;
 
 		if(countToAdd > 0)
 		{
@@ -150,7 +151,7 @@ public class ExchangeService
 	 * @param itemObjId
 	 * @param itemCount
 	 */
-	public void addItem(Player activePlayer, int itemObjId, int itemCount)
+	public void addItem(Player activePlayer, int itemObjId, long itemCount)
 	{
 		Item item = activePlayer.getInventory().getItemByObjId(itemObjId);
 		if(item == null)
@@ -180,7 +181,7 @@ public class ExchangeService
 
 		ExchangeItem exchangeItem = currentExchange.getItems().get(item.getObjectId());
 
-		int actuallAddCount = 0;
+		long actuallAddCount = 0;
 		//item was not added previosly
 		if(exchangeItem == null)
 		{
@@ -205,7 +206,7 @@ public class ExchangeService
 			if(item.getItemCount() == exchangeItem.getItemCount())
 				return;
 
-			int possibleToAdd = item.getItemCount() - exchangeItem.getItemCount();
+			long possibleToAdd = item.getItemCount() - exchangeItem.getItemCount();
 			actuallAddCount = itemCount > possibleToAdd ? possibleToAdd : itemCount;	
 			exchangeItem.addCount(actuallAddCount);	
 		}	
@@ -317,7 +318,7 @@ public class ExchangeService
 		{
 			Item item = exchangeItem.getItem();
 			Item itemInInventory = inventory.getItemByObjId(exchangeItem.getItemObjId());
-			int itemCount = exchangeItem.getItemCount();
+			long itemCount = exchangeItem.getItemCount();
 
 			if(itemCount < itemInInventory.getItemCount())
 			{
@@ -374,7 +375,7 @@ public class ExchangeService
 			ItemService.updateItem(player, itemToPut, true);
 			exchange2.addItemToUpdate(itemToPut);
 		}	
-		int kinahToExchange = exchange1.getKinahCount();
+		long kinahToExchange = exchange1.getKinahCount();
 		if(kinahToExchange > 0)
 		{
 			player.getInventory().increaseKinah(exchange1.getKinahCount());

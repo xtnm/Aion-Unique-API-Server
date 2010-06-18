@@ -234,7 +234,7 @@ public class DropService
 
 		if(requestedItem != null)
 		{
-			int currentDropItemCount = requestedItem.getCount();
+			long currentDropItemCount = requestedItem.getCount();
 			int itemId = requestedItem.getDropTemplate().getItemId();
 			
 			currentDropItemCount = ItemService.addItem(player, itemId, currentDropItemCount);

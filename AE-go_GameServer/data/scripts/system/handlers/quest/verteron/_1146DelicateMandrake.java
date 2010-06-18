@@ -70,7 +70,7 @@ public class _1146DelicateMandrake extends QuestHandler
 		}
 		else if(targetId == 203139)
 		{
-				int itemCount = player.getInventory().getItemCountByItemId(182200519);
+			long itemCount = player.getInventory().getItemCountByItemId(182200519);
 				if(itemCount >= 1)
 			{
 				if ((qs.getQuestVarById(0) == 0 || qs.getQuestVarById(0) == 0) && env.getDialogId() == -1)

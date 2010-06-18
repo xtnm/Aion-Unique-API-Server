@@ -75,7 +75,7 @@ public class MySQL5MailDAO extends MailDAO
 					String mailMessage = rset.getString("mailMessage");
 					int unread = rset.getInt("unread");
 					int attachedItemId = rset.getInt("attachedItemId");
-					int attachedKinahCount = rset.getInt("attachedKinahCount");
+					long attachedKinahCount = rset.getLong("attachedKinahCount");
 					int express = rset.getInt("express");
 					Timestamp recievedTime = rset.getTimestamp("recievedTime");
 					Item attachedItem = null;
@@ -119,7 +119,7 @@ public class MySQL5MailDAO extends MailDAO
 				{
 					int itemUniqueId = rset.getInt("itemUniqueId");
 					int itemId = rset.getInt("itemId");
-					int itemCount = rset.getInt("itemCount");
+					long itemCount = rset.getLong("itemCount");
 					int itemColor = rset.getInt("itemColor");
 					int isEquiped = rset.getInt("isEquiped");
 					int isSoulBound = rset.getInt("isSoulBound");
@@ -189,7 +189,7 @@ public class MySQL5MailDAO extends MailDAO
 				stmt.setString(5, letter.getMessage());
 				stmt.setBoolean(6, letter.isUnread());
 				stmt.setInt(7, fAttachedItemId);
-				stmt.setInt(8, letter.getAttachedKinah());
+				stmt.setLong(8, letter.getAttachedKinah());
 				stmt.setBoolean(9, letter.isExpress());
 				stmt.setTimestamp(10, time);
 				stmt.execute();
@@ -211,7 +211,7 @@ public class MySQL5MailDAO extends MailDAO
 			{
 				stmt.setBoolean(1, letter.isUnread());
 				stmt.setInt(2, fAttachedItemId);
-				stmt.setInt(3, letter.getAttachedKinah());
+				stmt.setLong(3, letter.getAttachedKinah());
 				stmt.setTimestamp(4, time);
 				stmt.setInt(5, letter.getObjectId());
 				stmt.execute();

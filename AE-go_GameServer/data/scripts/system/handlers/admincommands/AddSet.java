@@ -100,7 +100,7 @@ public class AddSet extends AdminCommand
 		
 		for( ItemPart setPart : itemSet.getItempart())
 		{
-			int count = ItemService.addItem(receiver, setPart.getItemid(), 1);
+			long count = ItemService.addItem(receiver, setPart.getItemid(), 1);
 	
 			if(count != 0)
 			{

@@ -56,7 +56,7 @@ public abstract class MailServicePacket extends InventoryPacket
 				writeD(buf, 0);
 				writeD(buf, 0);
 			}
-			writeD(buf, letter.getAttachedKinah());
+			writeD(buf, (int) letter.getAttachedKinah());
 			writeD(buf, 0);
 			writeC(buf, 0);
 		}
@@ -121,7 +121,7 @@ public abstract class MailServicePacket extends InventoryPacket
 			writeD(buf, 0);
 		}
 
-		writeD(buf, letter.getAttachedKinah());
+		writeD(buf, (int) letter.getAttachedKinah());
 		writeD(buf, 0); // AP reward for castle assault/defense (in future)
 		writeC(buf, 0);
 		writeQ(buf, time / 1000);

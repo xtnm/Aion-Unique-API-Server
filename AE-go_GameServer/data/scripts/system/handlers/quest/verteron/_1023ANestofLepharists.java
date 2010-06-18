@@ -122,7 +122,7 @@ public class _1023ANestofLepharists extends QuestHandler
 						}
 						else if(var == 4)
 						{
-							int itemCount = player.getInventory().getItemCountByItemId(182200026);
+							long itemCount = player.getInventory().getItemCountByItemId(182200026);
 							if(itemCount >= 1)
 							{
 								if(env.getDialogId() == 33)

@@ -103,7 +103,7 @@ public class _1012MaskedLoiterers extends QuestHandler
 						}
 						else if(var == 3)
 						{
-							int itemCount = player.getInventory().getItemCountByItemId(182200010);
+							long itemCount = player.getInventory().getItemCountByItemId(182200010);
 							if(itemCount >= 5)
 							{
 								if(env.getDialogId() == 33)

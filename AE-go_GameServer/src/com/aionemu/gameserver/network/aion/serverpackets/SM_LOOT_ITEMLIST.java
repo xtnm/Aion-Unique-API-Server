@@ -64,7 +64,7 @@ public class SM_LOOT_ITEMLIST extends AionServerPacket
 		{
 			writeC(buf, dropItem.getIndex()); // index in droplist
 			writeD(buf, dropItem.getDropTemplate().getItemId());
-			writeH(buf, dropItem.getCount());
+			writeH(buf, (int) dropItem.getCount());
 			writeD(buf, 0);
 		}
 	}

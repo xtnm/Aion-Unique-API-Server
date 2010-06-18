@@ -267,7 +267,7 @@ public class QuestEngine
 		
 		if(qwi != null)
 		{
-			int count = 0;
+			long count = 0;
 			for(QuestItems qi : qwi.getQuestWorkItem())
 			{
 				if(qi != null)

@@ -26,10 +26,10 @@ import com.aionemu.gameserver.network.aion.AionServerPacket;
  */
 public class SM_EXCHANGE_ADD_KINAH extends AionServerPacket
 {
-	private int itemCount;
+	private long itemCount;
 	private int action;
 
-	public SM_EXCHANGE_ADD_KINAH(int itemCount, int action)
+	public SM_EXCHANGE_ADD_KINAH(long itemCount, int action)
 	{
 		this.itemCount = itemCount;	
 		this.action = action;
@@ -39,7 +39,7 @@ public class SM_EXCHANGE_ADD_KINAH extends AionServerPacket
 	protected void writeImpl(AionConnection con, ByteBuffer buf)
 	{
 		writeC(buf, action); // 0 -self 1-other
-		writeD(buf, itemCount); // itemId
+		writeD(buf, (int) itemCount); // itemId
 		writeD(buf, 0); // unk
 	}
 }

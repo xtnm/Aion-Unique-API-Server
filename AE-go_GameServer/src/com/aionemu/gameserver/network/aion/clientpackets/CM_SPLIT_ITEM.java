@@ -17,7 +17,7 @@ public class CM_SPLIT_ITEM extends AionClientPacket
 
 	int sourceItemObjId;
 	int sourceStorageType;
-	int itemAmount;
+	long itemAmount;
 	int destinationItemObjId;
 	int destinationStorageType;
 	int slotNum; // destination slot.

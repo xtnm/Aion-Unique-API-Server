@@ -67,7 +67,7 @@ public class ItemService
 	 * If count is greater than template maxStackCount, count value will be cut to maximum allowed
 	 * This method will return null if ItemTemplate for itemId was not found.
 	 */
-	public static Item newItem(int itemId, int count)
+	public static Item newItem(int itemId, long count)
 	{
 		ItemTemplate itemTemplate = DataManager.ITEM_DATA.getItemTemplate(itemId);
 		if(itemTemplate == null)
@@ -125,7 +125,7 @@ public class ItemService
 	 * @param sourceStorageType
 	 * @param desetinationStorageType
 	 */
-	public static void splitItem (Player player, int itemObjId, int splitAmount, int slotNum, int sourceStorageType, int destinationStorageType)
+	public static void splitItem (Player player, int itemObjId, long splitAmount, int slotNum, int sourceStorageType, int destinationStorageType)
 	{
 		Storage sourceStorage = player.getStorage(sourceStorageType);
 		Storage destinationStorage = player.getStorage(destinationStorageType);
@@ -148,7 +148,7 @@ public class ItemService
 			return;
 		}
 
-		int oldItemCount = itemToSplit.getItemCount() - splitAmount;
+		long oldItemCount = itemToSplit.getItemCount() - splitAmount;
 		
 		if(itemToSplit.getItemCount()<splitAmount || oldItemCount == 0)
 			return;
@@ -172,7 +172,7 @@ public class ItemService
 	}
 
 
-	private static void moveKinah(Player player, Storage source, int splitAmount)
+	private static void moveKinah(Player player, Storage source, long splitAmount)
 	{
 		if(source.getKinahItem().getItemCount() < splitAmount)
 			return;
@@ -182,7 +182,7 @@ public class ItemService
 			case 0:
 			{
 				Storage destination = player.getStorage(StorageType.ACCOUNT_WAREHOUSE.getId());
-				int chksum = (source.getKinahItem().getItemCount() - splitAmount) + (destination.getKinahItem().getItemCount() + splitAmount);
+				long chksum = (source.getKinahItem().getItemCount() - splitAmount) + (destination.getKinahItem().getItemCount() + splitAmount);
 
 				if(chksum != source.getKinahItem().getItemCount() + destination.getKinahItem().getItemCount())
 					return;
@@ -195,7 +195,7 @@ public class ItemService
 			case 2:
 			{
 				Storage destination = player.getStorage(StorageType.CUBE.getId());
-				int chksum = (source.getKinahItem().getItemCount() - splitAmount) + (destination.getKinahItem().getItemCount() + splitAmount);
+				long chksum = (source.getKinahItem().getItemCount() - splitAmount) + (destination.getKinahItem().getItemCount() + splitAmount);
 
 				if(chksum != source.getKinahItem().getItemCount() + destination.getKinahItem().getItemCount())
 					return;
@@ -217,7 +217,7 @@ public class ItemService
 	 * @param itemAmount
 	 * @param destinationObjId
 	 */
-	public static void mergeItems (Player player, int sourceItemObjId, int itemAmount, int destinationObjId, int sourceStorageType, int destinationStorageType)
+	public static void mergeItems (Player player, int sourceItemObjId, long itemAmount, int destinationObjId, int sourceStorageType, int destinationStorageType)
 	{
 		if(itemAmount == 0)
 			return;
@@ -300,7 +300,7 @@ public class ItemService
 	 * @param itemId
 	 * @param count - amount of item that were not added to player's inventory
 	 */
-	public static int addItem(Player player, int itemId, int count)
+	public static long addItem(Player player, int itemId, long count)
 	{
 		log.info(String.format("[ITEM] ID/Count - %d/%d to player %s.", itemId, count, player.getName()));
 		
@@ -316,7 +316,7 @@ public class ItemService
 	 * @param godStone
  	 * @param enchantLevel
 	 */
-	public static int addFullItem(Player player, int itemId, int count, Set<ManaStone> manastones, GodStone godStone, int enchantLevel)
+	public static long addFullItem(Player player, int itemId, long count, Set<ManaStone> manastones, GodStone godStone, int enchantLevel)
 	{
 		Storage inventory = player.getInventory();
 
@@ -342,7 +342,7 @@ public class ItemService
 				if(count == 0)
 					break;
 
-				int freeCount = maxStackCount - existingItem.getItemCount();
+				long freeCount = maxStackCount - existingItem.getItemCount();
 				if(count <= freeCount)
 				{
 					inventory.increaseItemCount(existingItem, count);
@@ -436,7 +436,7 @@ public class ItemService
 		Storage destinationStorage = player.getStorage(destinationStorageType);
 		List<Item> existingItems = destinationStorage.getItemsByItemId(item.getItemTemplate().getTemplateId());
 
-		int count = item.getItemCount();
+		long count = item.getItemCount();
 		int maxStackCount = item.getItemTemplate().getMaxStackCount();
 
 		for(Item existingItem : existingItems)
@@ -444,7 +444,7 @@ public class ItemService
 			if(count == 0)
 				break;
 
-			int freeCount = maxStackCount - existingItem.getItemCount();
+			long freeCount = maxStackCount - existingItem.getItemCount();
 			if(count <= freeCount)
 			{
 				destinationStorage.increaseItemCount(existingItem, count);
