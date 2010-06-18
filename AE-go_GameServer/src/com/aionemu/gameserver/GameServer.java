@@ -38,6 +38,7 @@ import com.aionemu.gameserver.network.loginserver.LoginServer;
 import com.aionemu.gameserver.questEngine.QuestEngine;
 import com.aionemu.gameserver.services.BrokerService;
 import com.aionemu.gameserver.services.ServiceProxy;
+import com.aionemu.gameserver.services.TmpInjectorProxy;
 import com.aionemu.gameserver.spawnengine.SpawnEngine;
 import com.aionemu.gameserver.taskmanager.tasks.PacketBroadcaster;
 import com.aionemu.gameserver.utils.AEVersions;
@@ -85,6 +86,8 @@ public class GameServer
 
 		// after all data is loaded need to set service proxy to xml service adapter
 		injector.getInstance(XmlServiceProxy.class).setServiceProxy(injector.getInstance(ServiceProxy.class));
+		TmpInjectorProxy tmpInjectorProxy = TmpInjectorProxy.getInstance();
+		injector.injectMembers(tmpInjectorProxy);
 	}
 
 	/**
@@ -147,7 +150,7 @@ public class GameServer
 	{
 		Util.printSection("Quests");
 
-		QuestEngine questEngine = injector.getInstance(QuestEngine.class);
+		QuestEngine questEngine = QuestEngine.getInstance();
 		questEngine.setInjector(injector);
 		questEngine.load();
 	}

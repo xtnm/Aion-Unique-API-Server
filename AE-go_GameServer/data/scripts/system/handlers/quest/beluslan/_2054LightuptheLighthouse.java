@@ -32,6 +32,7 @@ import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
+import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.services.ZoneService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
@@ -159,7 +160,7 @@ public class _2054LightuptheLighthouse extends QuestHandler
 				case 10003:
 					if(var == 3)
 					{
-						questService.addNewSpawn(220040000, 1, 213912, (float) npc.getX(),
+						QuestService.addNewSpawn(220040000, 1, 213912, (float) npc.getX(),
 										(float) npc.getY(), (float) npc.getZ(), (byte) 0, true);
 						npc.getController().onDespawn(true);
 						npc.getController().scheduleRespawn();	

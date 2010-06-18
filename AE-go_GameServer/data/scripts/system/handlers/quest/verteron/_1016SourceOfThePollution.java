@@ -28,6 +28,7 @@ import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
+import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.google.inject.Inject;
@@ -284,7 +285,7 @@ public class _1016SourceOfThePollution extends QuestHandler
 					@Override
 						public void run()
 						{
-							questService.addNewSpawn(210030000, instanceId, 203195, (float) npc.getX(),
+							QuestService.addNewSpawn(210030000, instanceId, 203195, (float) npc.getX(),
 										(float) npc.getY(), (float) npc.getZ(), (byte) 0, true);
 						}
 			}, 5000);					

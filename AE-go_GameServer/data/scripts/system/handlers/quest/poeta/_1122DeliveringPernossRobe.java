@@ -27,6 +27,7 @@ import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
+import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.google.inject.Inject;
 
@@ -139,7 +140,7 @@ public class _1122DeliveringPernossRobe extends QuestHandler
 				}
 				else if (env.getDialogId() == 17)
 				{
-					questService.questFinish(env, qs.getQuestVars().getQuestVars()-1);
+					QuestService.questFinish(env, qs.getQuestVars().getQuestVars()-1);
 					PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
 					return true;
 				}

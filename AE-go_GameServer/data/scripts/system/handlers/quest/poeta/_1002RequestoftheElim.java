@@ -34,6 +34,7 @@ import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.InstanceService;
 import com.aionemu.gameserver.services.ItemService;
+import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
@@ -159,7 +160,7 @@ public class _1002RequestoftheElim extends QuestHandler
 				case 33:
 					if(var == 6)
 					{
-						if(questService.collectItemCheck(env, true))
+						if(QuestService.collectItemCheck(env, true))
 						{
 							qs.setQuestVarById(0, 12);
 							updateQuestStatus(player, qs);

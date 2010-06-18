@@ -23,7 +23,6 @@ import javax.xml.bind.annotation.XmlType;
 
 import com.aionemu.gameserver.model.gameobjects.Npc;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
-import com.aionemu.gameserver.services.QuestService;
 
 /**
  * @author Mr. Poke
@@ -40,7 +39,7 @@ public class KillOperation extends QuestOperation
 	 * gameserver.services.QuestService, com.aionemu.gameserver.questEngine.model.QuestEnv)
 	 */
 	@Override
-	public void doOperate(QuestService questService, QuestEnv env)
+	public void doOperate(QuestEnv env)
 	{
 		if (env.getVisibleObject() instanceof Npc)
 			((Npc)env.getVisibleObject()).getController().onDie(env.getPlayer());

@@ -22,6 +22,7 @@ import com.aionemu.gameserver.questEngine.handlers.QuestHandler;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
+import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.world.zone.ZoneName;
 
 /**
@@ -77,7 +78,7 @@ public class _1130SummonstotheCitadel extends QuestHandler
 				int [] ids = {1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023};
 				for (int id : ids)
 				{
-					questService.startQuest(new QuestEnv(env.getVisibleObject(), env.getPlayer(), id, env.getDialogId()), QuestStatus.LOCKED);
+					QuestService.startQuest(new QuestEnv(env.getVisibleObject(), env.getPlayer(), id, env.getDialogId()), QuestStatus.LOCKED);
 				}
 			}
 			return defaultQuestEndDialog(env);
@@ -95,7 +96,7 @@ public class _1130SummonstotheCitadel extends QuestHandler
 		if(qs != null)
 			return false;
 		env.setQuestId(questId);
-		questService.startQuest(env, QuestStatus.START);
+		QuestService.startQuest(env, QuestStatus.START);
 		return true;
 	}
 }

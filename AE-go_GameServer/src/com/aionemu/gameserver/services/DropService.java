@@ -58,16 +58,14 @@ public class DropService
 
 	private ItemService					itemService;
 	private GroupService				groupService;
-	private QuestService				questService;
 	private World						world;
 
 	@Inject
-	public DropService(ItemService itemService, World world, GroupService groupService, QuestService questService)
+	public DropService(ItemService itemService, World world, GroupService groupService)
 	{
 		this.itemService = itemService;
 		this.world = world;
 		this.groupService = groupService;
-		this.questService = questService;
 		dropList = DAOManager.getDAO(DropListDAO.class).load();
 		log.info(dropList.getSize() + " npc drops loaded");
 	}
@@ -108,7 +106,7 @@ public class DropService
 			}
 		}
 		
-		questService.getQuestDrop(droppedItems, index, npc, player);
+		QuestService.getQuestDrop(droppedItems, index, npc, player);
 		currentDropMap.put(npcUniqueId, droppedItems);
 
 		// TODO player should not be null

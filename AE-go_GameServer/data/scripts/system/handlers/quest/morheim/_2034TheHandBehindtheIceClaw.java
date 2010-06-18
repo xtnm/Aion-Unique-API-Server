@@ -29,6 +29,7 @@ import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
+import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.google.inject.Inject;
@@ -180,7 +181,7 @@ public class _2034TheHandBehindtheIceClaw extends QuestHandler
 					{
 						PacketSendUtility.sendPacket(player, new SM_USE_OBJECT(player.getObjectId(), targetObjectId, 3000, 0));
 						PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, 38, 0, targetObjectId), true);
-						questService.addNewSpawn(220020000, 1, 204417, (float) 461.23,
+						QuestService.addNewSpawn(220020000, 1, 204417, (float) 461.23,
 														(float) 188.82, (float) 485.61, (byte) 25, true);
 						player.getInventory().removeFromBagByItemId(182204008, 1);								
 						player.getInventory().removeFromBagByItemId(182204019, 1);

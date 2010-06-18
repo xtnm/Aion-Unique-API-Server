@@ -23,7 +23,6 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
-import com.aionemu.gameserver.services.QuestService;
 
 /**
  * @author Mr. Poke
@@ -41,5 +40,5 @@ import com.aionemu.gameserver.services.QuestService;
 })
 public abstract class QuestOperation
 {
-	public abstract void doOperate(QuestService questService, QuestEnv env);
+	public abstract void doOperate(QuestEnv env);
 }

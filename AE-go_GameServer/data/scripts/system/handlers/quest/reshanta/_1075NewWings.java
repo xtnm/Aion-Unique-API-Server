@@ -25,6 +25,7 @@ import com.aionemu.gameserver.questEngine.handlers.QuestHandler;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
+import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 
 /**
@@ -146,8 +147,8 @@ public class _1075NewWings extends QuestHandler
 					{
 						qs.setQuestVarById(0, var + 1);
 						updateQuestStatus(player, qs);
-						questService.addNewSpawn(400010000, 1, 214102, 2344.32f, 1789.96f, 2258.88f,(byte) 86, true);
-						questService.addNewSpawn(400010000, 1, 214102, 2344.51f, 1786.01f, 2258.88f,(byte) 52, true);
+						QuestService.addNewSpawn(400010000, 1, 214102, 2344.32f, 1789.96f, 2258.88f,(byte) 86, true);
+						QuestService.addNewSpawn(400010000, 1, 214102, 2344.51f, 1786.01f, 2258.88f,(byte) 52, true);
 						PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 0));
 						return true;
 					}

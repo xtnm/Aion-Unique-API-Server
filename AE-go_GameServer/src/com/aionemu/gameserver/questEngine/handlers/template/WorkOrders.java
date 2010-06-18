@@ -26,6 +26,7 @@ import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
+import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.google.inject.Inject;
 
@@ -71,7 +72,7 @@ public class WorkOrders extends QuestHandler
 				case 25:
 					return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 4);
 				case 1002:
-					if (questService.startQuest(env, QuestStatus.START))
+					if (QuestService.startQuest(env, QuestStatus.START))
 					{
 						if (itemService.addItems(player, workOrdersData.getGiveComponent()))
 						{
@@ -88,7 +89,7 @@ public class WorkOrders extends QuestHandler
 				return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 5);
 			else if (env.getDialogId() == 17)
 			{
-				if (questService.collectItemCheck(env, true))
+				if (QuestService.collectItemCheck(env, true))
 				{
 					//TODO: Random rewards
 					qs.setStatus(QuestStatus.COMPLETE);

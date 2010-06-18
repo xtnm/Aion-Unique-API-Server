@@ -23,7 +23,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
-import com.aionemu.gameserver.services.QuestService;
 
 /**
  * @author Mr. Poke
@@ -43,7 +42,7 @@ public class TakeItemOperation extends QuestOperation
 	 * @see com.aionemu.gameserver.questEngine.handlers.models.xmlQuest.operations.QuestOperation#doOperate(com.aionemu.gameserver.questEngine.model.QuestEnv)
 	 */
 	@Override
-	public void doOperate(QuestService questService, QuestEnv env)
+	public void doOperate(QuestEnv env)
 	{
 		env.getPlayer().getInventory().removeFromBagByItemId(itemId, count);
 	}

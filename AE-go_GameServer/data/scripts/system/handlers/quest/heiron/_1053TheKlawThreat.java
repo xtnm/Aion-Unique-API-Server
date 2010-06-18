@@ -25,6 +25,7 @@ import com.aionemu.gameserver.questEngine.handlers.QuestHandler;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
+import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 
 /**
@@ -101,7 +102,7 @@ public class _1053TheKlawThreat extends QuestHandler
 					else if(var == 2)
 						return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 1693);						
 				case 33:
-					if(var == 1 && questService.collectItemCheck(env, true))
+					if(var == 1 && QuestService.collectItemCheck(env, true))
 						return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 10000);
 					else
 						return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 10001);
@@ -150,7 +151,7 @@ public class _1053TheKlawThreat extends QuestHandler
 			int spawn = queen.nextInt(5);
 			if(spawn == 1)
 			{
-				questService.addNewSpawn(210040000, 1, 212120, (float) npc.getX(),
+				QuestService.addNewSpawn(210040000, 1, 212120, (float) npc.getX(),
 							(float) npc.getY(), (float) npc.getZ(), (byte) 0, true);
 				return true;
 			}

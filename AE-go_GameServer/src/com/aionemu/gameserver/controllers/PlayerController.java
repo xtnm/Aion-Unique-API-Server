@@ -60,9 +60,11 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_STATS_INFO;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SUMMON_PANEL;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_ATTACK_STATUS.TYPE;
+import com.aionemu.gameserver.questEngine.QuestEngine;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.restrictions.RestrictionsManager;
 import com.aionemu.gameserver.services.ClassChangeService;
+import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.services.ZoneService.ZoneUpdateMode;
 import com.aionemu.gameserver.skillengine.SkillEngine;
 import com.aionemu.gameserver.skillengine.model.HealType;
@@ -118,9 +120,9 @@ public class PlayerController extends CreatureController<Player>
 
 			PacketSendUtility.sendPacket(getOwner(), new SM_NPC_INFO(npc, getOwner()));
 
-			for(int questId : sp.getQuestEngine().getNpcQuestData(npc.getNpcId()).getOnQuestStart())
+			for(int questId : QuestEngine.getInstance().getNpcQuestData(npc.getNpcId()).getOnQuestStart())
 			{
-				if(sp.getQuestService().checkStartCondition(new QuestEnv(object, getOwner(), questId, 0)))
+				if(QuestService.checkStartCondition(new QuestEnv(object, getOwner(), questId, 0)))
 				{
 					if(!getOwner().getNearbyQuests().contains(questId))
 					{
@@ -153,9 +155,9 @@ public class PlayerController extends CreatureController<Player>
 		if(object instanceof Npc)
 		{
 			boolean update = false;
-			for(int questId : sp.getQuestEngine().getNpcQuestData(((Npc) object).getNpcId()).getOnQuestStart())
+			for(int questId : QuestEngine.getInstance().getNpcQuestData(((Npc) object).getNpcId()).getOnQuestStart())
 			{
-				if(sp.getQuestService().checkStartCondition(new QuestEnv(object, getOwner(), questId, 0)))
+				if(QuestService.checkStartCondition(new QuestEnv(object, getOwner(), questId, 0)))
 				{
 					if(getOwner().getNearbyQuests().contains(questId))
 					{
@@ -178,9 +180,9 @@ public class PlayerController extends CreatureController<Player>
 		{
 			if(obj instanceof Npc)
 			{
-				for(int questId : sp.getQuestEngine().getNpcQuestData(((Npc) obj).getNpcId()).getOnQuestStart())
+				for(int questId : QuestEngine.getInstance().getNpcQuestData(((Npc) obj).getNpcId()).getOnQuestStart())
 				{
-					if(sp.getQuestService().checkStartCondition(new QuestEnv(obj, getOwner(), questId, 0)))
+					if(QuestService.checkStartCondition(new QuestEnv(obj, getOwner(), questId, 0)))
 					{
 						if(!getOwner().getNearbyQuests().contains(questId))
 						{
@@ -200,8 +202,7 @@ public class PlayerController extends CreatureController<Player>
 	 */
 	public void onEnterZone(ZoneInstance zoneInstance)
 	{
-		sp.getQuestEngine()
-			.onEnterZone(new QuestEnv(null, this.getOwner(), 0, 0), zoneInstance.getTemplate().getName());
+		QuestEngine.getInstance().onEnterZone(new QuestEnv(null, this.getOwner(), 0, 0), zoneInstance.getTemplate().getName());
 	}
 
 	/**
@@ -267,7 +268,7 @@ public class PlayerController extends CreatureController<Player>
 		ReviveType reviveType = (player.getKisk() == null ? ReviveType.BIND_REVIVE : ReviveType.KISK_REVIVE);
 		PacketSendUtility.sendPacket(player, new SM_DIE(reviveType));
 		PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.DIE);
-		sp.getQuestEngine().onDie(new QuestEnv(null, player, 0, 0));
+		QuestEngine.getInstance().onDie(new QuestEnv(null, player, 0, 0));
 	}
 	
 	@Override
@@ -575,7 +576,7 @@ public class PlayerController extends CreatureController<Player>
 		// Temporal
 		ClassChangeService.showClassChangeDialog(player);
 
-		sp.getQuestEngine().onLvlUp(new QuestEnv(null, player, 0, 0));
+		QuestEngine.getInstance().onLvlUp(new QuestEnv(null, player, 0, 0));
 		updateNearbyQuests();
 		
 		PacketSendUtility.sendPacket(player, new SM_STATS_INFO(player));

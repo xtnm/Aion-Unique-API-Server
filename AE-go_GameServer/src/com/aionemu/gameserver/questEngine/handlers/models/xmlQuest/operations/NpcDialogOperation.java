@@ -26,7 +26,6 @@ import com.aionemu.gameserver.model.gameobjects.VisibleObject;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_DIALOG_WINDOW;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
-import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 
 /**
@@ -47,7 +46,7 @@ public class NpcDialogOperation extends QuestOperation
 	 * @see com.aionemu.gameserver.questEngine.handlers.models.xmlQuest.operations.QuestOperation#doOperate(com.aionemu.gameserver.questEngine.model.QuestEnv)
 	 */
 	@Override
-	public void doOperate(QuestService questService, QuestEnv env)
+	public void doOperate(QuestEnv env)
 	{
         Player player = env.getPlayer();
         VisibleObject obj = env.getVisibleObject();

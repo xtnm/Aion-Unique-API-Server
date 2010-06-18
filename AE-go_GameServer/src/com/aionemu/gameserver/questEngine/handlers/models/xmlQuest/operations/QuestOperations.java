@@ -27,7 +27,6 @@ import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlType;
 
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
-import com.aionemu.gameserver.services.QuestService;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "QuestOperations", propOrder = { "operations" })
@@ -66,13 +65,13 @@ public class QuestOperations
 		}
 	}
 
-	public boolean operate(QuestService questService, QuestEnv env)
+	public boolean operate(QuestEnv env)
 	{
 		if(operations != null)
 		{
 			for(QuestOperation oper : operations)
 			{
-				oper.doOperate(questService, env);
+				oper.doOperate(env);
 			}
 		}
 		return isOverride();

@@ -63,8 +63,6 @@ public class Reload extends AdminCommand
 {
 	private static final Logger	log	= Logger.getLogger(Reload.class);
 	@Inject
-	QuestEngine questEngine;
-	@Inject
 	QuestsData questsData;
 	@Inject
 	QuestScriptsData questScriptsData;
@@ -100,7 +98,7 @@ public class Reload extends AdminCommand
 			File dir = new File("./data/static_data/quest_script_data");
 			try
 			{
-				questEngine.shutdown();
+				QuestEngine.getInstance().shutdown();
 				JAXBContext jc = JAXBContext.newInstance(StaticData.class);
 				Unmarshaller un = jc.createUnmarshaller();
 				un.setSchema(getSchema("./data/static_data/static_data.xsd"));
@@ -115,7 +113,7 @@ public class Reload extends AdminCommand
 						if (data.getData() != null)
 							questScriptsData.getData().addAll(data.getData());
 				}
-				questEngine.load();
+				QuestEngine.getInstance().load();
 			}
 			catch(Exception e)
 			{

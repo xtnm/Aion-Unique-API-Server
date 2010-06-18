@@ -25,6 +25,7 @@ import com.aionemu.gameserver.questEngine.handlers.QuestHandler;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
+import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 
@@ -105,7 +106,7 @@ public class _2018ReconstructingImpetusium extends QuestHandler
 						case 33:
 							if (var == 7)
 							{
-								if(questService.collectItemCheck(env, true))
+								if(QuestService.collectItemCheck(env, true))
 								{
 									qs.setStatus(QuestStatus.REWARD);
 									updateQuestStatus(player, qs);
@@ -125,7 +126,7 @@ public class _2018ReconstructingImpetusium extends QuestHandler
 					{
 						case -1:
 							env.setQuestId(questId);
-							if(var == 5 && questService.collectItemCheck(env, false))
+							if(var == 5 && QuestService.collectItemCheck(env, false))
 							{
 								final int targetObjectId = env.getVisibleObject().getObjectId();
 								PacketSendUtility.sendPacket(player, new SM_USE_OBJECT(player.getObjectId(), targetObjectId, 3000,
@@ -144,7 +145,7 @@ public class _2018ReconstructingImpetusium extends QuestHandler
 										PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, 38, 0,
 											targetObjectId), true);
 
-										questService.addNewSpawn(player.getWorldId(), player.getInstanceId(), 210752, npc.getX(), npc.getY(), npc.getZ(), npc.getHeading(), true);
+										QuestService.addNewSpawn(player.getWorldId(), player.getInstanceId(), 210752, npc.getX(), npc.getY(), npc.getZ(), npc.getHeading(), true);
 										npc.getController().onDie(null);
 										
 									}
@@ -191,7 +192,7 @@ public class _2018ReconstructingImpetusium extends QuestHandler
 				break;
 			case 210752:
 				var = qs.getQuestVarById(0);
-				if (var == 5 && questService.collectItemCheck(env, false))
+				if (var == 5 && QuestService.collectItemCheck(env, false))
 				{
 					qs.setQuestVarById(0, 7);
 					updateQuestStatus(player, qs);

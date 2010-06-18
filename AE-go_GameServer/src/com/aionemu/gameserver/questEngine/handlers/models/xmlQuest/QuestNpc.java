@@ -27,7 +27,6 @@ import javax.xml.bind.annotation.XmlType;
 import com.aionemu.gameserver.model.gameobjects.Npc;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
-import com.aionemu.gameserver.services.QuestService;
 
 /**
  * @author Mr. Poke
@@ -42,7 +41,7 @@ public class QuestNpc
 	@XmlAttribute(required = true)
 	protected int				id;
 
-	public boolean operate(QuestService questService, QuestEnv env, QuestState qs)
+	public boolean operate(QuestEnv env, QuestState qs)
 	{
 		int npcId = -1;
 		if(env.getVisibleObject() instanceof Npc)
@@ -51,7 +50,7 @@ public class QuestNpc
 			return false;
 		for (QuestDialog questDialog : dialog)
 		{
-			if (questDialog.operate(questService, env, qs))
+			if (questDialog.operate(env, qs))
 				return true;
 		}
 		return false;

@@ -23,6 +23,7 @@ import com.aionemu.gameserver.questEngine.handlers.QuestHandler;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
+import com.aionemu.gameserver.services.QuestService;
 
 /**
  * @author MrPoke
@@ -57,7 +58,7 @@ public class _1205ANewSkill extends QuestHandler
 		if(qs != null)
 			return false;
 		env.setQuestId(questId);
-		if (questService.startQuest(env, QuestStatus.START))
+		if (QuestService.startQuest(env, QuestStatus.START))
 		{
 			qs = player.getQuestStateList().getQuestState(questId);
 			qs.setStatus(QuestStatus.REWARD);

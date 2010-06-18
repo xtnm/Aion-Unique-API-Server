@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.aionemu.gameserver.configs.main.CustomConfig;
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.model.PlayerClass;
 import com.aionemu.gameserver.model.gameobjects.Item;
 import com.aionemu.gameserver.model.gameobjects.Npc;
@@ -40,6 +41,7 @@ import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.InstanceService;
 import com.aionemu.gameserver.services.ItemService;
+import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.services.ZoneService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
@@ -117,7 +119,7 @@ public class _1006Ascension extends QuestHandler
 			{
 				qs.setQuestVar(4);
 				updateQuestStatus(player, qs);
-				Npc mob = (Npc) questService.addNewSpawn(310010000, instanceId, 211043, (float) 226.7, (float) 251.5, (float) 205.5, (byte) 0, true);
+				Npc mob = (Npc) QuestService.addNewSpawn(310010000, instanceId, 211043, (float) 226.7, (float) 251.5, (float) 205.5, (byte) 0, true);
 				// TODO: Tempt decrease P attack.
 				mob.getGameStats().setStat(StatEnum.MAIN_HAND_POWER, mob.getGameStats().getCurrentStat(StatEnum.MAIN_HAND_POWER) / 3);
 				mob.getAggroList().addDamage(player, 1000);
@@ -263,10 +265,10 @@ public class _1006Ascension extends QuestHandler
 									qs.setQuestVar(51);
 									updateQuestStatus(player, qs);
 									List<Npc> mobs = new ArrayList<Npc>();
-									mobs.add((Npc) questService.addNewSpawn(310010000, instanceId, 211042, (float) 224.073, (float) 239.1, (float) 206.7, (byte) 0, true));
-									mobs.add((Npc) questService.addNewSpawn(310010000, instanceId, 211042, (float) 233.5, (float) 241.04, (float) 206.365, (byte) 0, true));
-									mobs.add((Npc) questService.addNewSpawn(310010000, instanceId, 211042, (float) 229.6, (float) 265.7, (float) 205.7, (byte) 0, true));
-									mobs.add((Npc) questService.addNewSpawn(310010000, instanceId, 211042, (float) 222.8, (float) 262.5, (float) 205.7, (byte) 0, true));
+									mobs.add((Npc) QuestService.addNewSpawn(310010000, instanceId, 211042, (float) 224.073, (float) 239.1, (float) 206.7, (byte) 0, true));
+									mobs.add((Npc) QuestService.addNewSpawn(310010000, instanceId, 211042, (float) 233.5, (float) 241.04, (float) 206.365, (byte) 0, true));
+									mobs.add((Npc) QuestService.addNewSpawn(310010000, instanceId, 211042, (float) 229.6, (float) 265.7, (float) 205.7, (byte) 0, true));
+									mobs.add((Npc) QuestService.addNewSpawn(310010000, instanceId, 211042, (float) 222.8, (float) 262.5, (float) 205.7, (byte) 0, true));
 									for(Npc mob : mobs)
 									{
 										// TODO: Tempt decrease P attack.
@@ -304,7 +306,7 @@ public class _1006Ascension extends QuestHandler
 		if(player.getCommonData().getLevel() < 9)
 			return false;
 		env.setQuestId(questId);
-		questService.startQuest(env, QuestStatus.START);
+		QuestService.startQuest(env, QuestStatus.START);
 		return true;
 	}
 
@@ -368,7 +370,7 @@ public class _1006Ascension extends QuestHandler
 		QuestState qs = player.getQuestStateList().getQuestState(questId);
 		if(qs == null || qs.getStatus() != QuestStatus.START || qs.getQuestVars().getQuestVars() != 4)
 			return false;
-		questService.addNewSpawn(310010000, instanceId, 790001, (float) 220.6, (float) 247.8, (float) 206.0, (byte) 0, true);
+		QuestService.addNewSpawn(310010000, instanceId, 790001, (float) 220.6, (float) 247.8, (float) 206.0, (byte) 0, true);
 		qs.setQuestVar(5);
 		updateQuestStatus(player, qs);
 		return true;
@@ -397,7 +399,7 @@ public class _1006Ascension extends QuestHandler
 		{
 			qs.setQuestVar(3);
 			updateQuestStatus(player, qs);
-			PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(SystemMessageId.QUEST_FAILED_$1, questsData.getQuestById(questId).getName()));
+			PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(SystemMessageId.QUEST_FAILED_$1, DataManager.QUEST_DATA.getQuestById(questId).getName()));
 		}
 
 		return false;
@@ -417,7 +419,7 @@ public class _1006Ascension extends QuestHandler
 				{
 					qs.setQuestVar(3);
 					updateQuestStatus(player, qs);
-					PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(SystemMessageId.QUEST_FAILED_$1, questsData.getQuestById(questId).getName()));
+					PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(SystemMessageId.QUEST_FAILED_$1, DataManager.QUEST_DATA.getQuestById(questId).getName()));
 				}
 				else
 				{

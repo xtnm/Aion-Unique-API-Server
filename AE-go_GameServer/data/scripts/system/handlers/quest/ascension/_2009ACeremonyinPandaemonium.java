@@ -27,6 +27,7 @@ import com.aionemu.gameserver.questEngine.handlers.QuestHandler;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
+import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.google.inject.Inject;
@@ -174,7 +175,7 @@ public class _2009ACeremonyinPandaemonium extends QuestHandler
 					case 15:
 					case 16:
 					case 17:
-						if (questService.questFinish(env, 0))
+						if (QuestService.questFinish(env, 0))
 						{
 							PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
 							return true;
@@ -199,7 +200,7 @@ public class _2009ACeremonyinPandaemonium extends QuestHandler
 					case 15:
 					case 16:
 					case 17:
-						if (questService.questFinish(env, 1))
+						if (QuestService.questFinish(env, 1))
 						{
 							PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
 							return true;
@@ -224,7 +225,7 @@ public class _2009ACeremonyinPandaemonium extends QuestHandler
 					case 15:
 					case 16:
 					case 17:
-						if (questService.questFinish(env, 2))
+						if (QuestService.questFinish(env, 2))
 						{
 							PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
 							return true;
@@ -249,7 +250,7 @@ public class _2009ACeremonyinPandaemonium extends QuestHandler
 					case 15:
 					case 16:
 					case 17:
-						if (questService.questFinish(env, 3))
+						if (QuestService.questFinish(env, 3))
 						{
 							PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
 							return true;
@@ -272,7 +273,7 @@ public class _2009ACeremonyinPandaemonium extends QuestHandler
 		if(qs2 == null || qs2.getStatus() != QuestStatus.COMPLETE)
 			return false;
 		env.setQuestId(questId);
-		questService.startQuest(env, QuestStatus.START);
+		QuestService.startQuest(env, QuestStatus.START);
 		return true;
 	}
 }

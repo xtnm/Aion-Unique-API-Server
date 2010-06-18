@@ -23,6 +23,7 @@ import com.aionemu.gameserver.questEngine.handlers.QuestHandler;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
+import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 
 /**
@@ -65,7 +66,7 @@ public class _2114TheInsectProblem extends QuestHandler
 					case 25:
 						return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 1011);
 					case 10000:
-						if (questService.startQuest(env, QuestStatus.START))
+						if (QuestService.startQuest(env, QuestStatus.START))
 						{
 							qs = player.getQuestStateList().getQuestState(questId);
 							qs.setQuestVar(1);
@@ -74,7 +75,7 @@ public class _2114TheInsectProblem extends QuestHandler
 							return true;
 						}
 					case 10001:
-						if (questService.startQuest(env, QuestStatus.START))
+						if (QuestService.startQuest(env, QuestStatus.START))
 						{
 							qs = player.getQuestStateList().getQuestState(questId);
 							qs.setQuestVar(11);
@@ -95,7 +96,7 @@ public class _2114TheInsectProblem extends QuestHandler
 						else if (var == 20)
 							return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 6);
 					case 17:
-						if (questService.questFinish(env, var/10-1))
+						if (QuestService.questFinish(env, var/10-1))
 						{
 							PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
 							return true;

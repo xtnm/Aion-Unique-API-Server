@@ -18,6 +18,7 @@ package com.aionemu.gameserver.questEngine.handlers.template;
 
 import javolution.util.FastMap;
 
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.model.gameobjects.Npc;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.templates.QuestTemplate;
@@ -72,7 +73,7 @@ public class MonsterHunt extends QuestHandler
 		if(env.getVisibleObject() instanceof Npc)
 			targetId = ((Npc) env.getVisibleObject()).getNpcId();
 		QuestState qs = player.getQuestStateList().getQuestState(questId);
-		QuestTemplate template = questsData.getQuestById(questId);
+		QuestTemplate template = DataManager.QUEST_DATA.getQuestById(questId);
 		if(qs == null || qs.getStatus() == QuestStatus.NONE || (qs.getStatus() == QuestStatus.COMPLETE && (qs.getCompliteCount() <= template.getMaxRepeatCount())))
 		{
 			if(targetId == startNpc)

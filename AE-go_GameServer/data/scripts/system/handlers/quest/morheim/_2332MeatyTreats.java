@@ -22,6 +22,7 @@ import com.aionemu.gameserver.questEngine.handlers.QuestHandler;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
+import com.aionemu.gameserver.services.QuestService;
 
 /**
 * @author stpavel
@@ -68,7 +69,7 @@ public class _2332MeatyTreats extends QuestHandler
 			{
 				if(env.getDialogId() == 25)
 				{
-					if(questService.collectItemCheck(env, true))
+					if(QuestService.collectItemCheck(env, true))
 						return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 1352);
 					else
 						return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 1693);
@@ -85,7 +86,7 @@ public class _2332MeatyTreats extends QuestHandler
 		}
 		else if(env.getDialogId() == 17 && qs.getStatus() == QuestStatus.REWARD && targetId == 798084)
 		{	
-				questService.questFinish(env, qs.getQuestVarById(0));
+				QuestService.questFinish(env, qs.getQuestVarById(0));
 				return sendQuestDialog(player, env.getVisibleObject().getObjectId(),1008);			
 		}
 		else if(qs.getStatus() == QuestStatus.COMPLETE && targetId == 798084)

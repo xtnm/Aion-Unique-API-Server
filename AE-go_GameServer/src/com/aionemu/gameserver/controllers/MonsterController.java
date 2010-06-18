@@ -21,6 +21,7 @@ import com.aionemu.gameserver.model.gameobjects.Monster;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.group.PlayerGroup;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_LOOT_STATUS;
+import com.aionemu.gameserver.questEngine.QuestEngine;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.stats.StatFunctions;
@@ -82,7 +83,7 @@ public class MonsterController extends NpcController
 				player.getCommonData().addAp(apReward);
 			}
 			
-			sp.getQuestEngine().onKill(new QuestEnv(getOwner(), player, 0 , 0));
+			QuestEngine.getInstance().onKill(new QuestEnv(getOwner(), player, 0 , 0));
 			
 			// Give Drop
 			sp.getDropService().registerDrop(getOwner() , player);			

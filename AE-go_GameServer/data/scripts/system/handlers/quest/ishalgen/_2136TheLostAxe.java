@@ -29,6 +29,7 @@ import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
+import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.zone.ZoneName;
@@ -87,7 +88,7 @@ public class _2136TheLostAxe extends QuestHandler
 		{
 			if(env.getDialogId() == 1002)
 			{
-				questService.startQuest(env, QuestStatus.START);
+				QuestService.startQuest(env, QuestStatus.START);
 				player.getInventory().removeFromBagByItemId(182203130, 1);
 				PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(0, 0));
 				return true;
@@ -162,7 +163,7 @@ public class _2136TheLostAxe extends QuestHandler
 								PacketSendUtility.sendPacket(player, new SM_USE_OBJECT(player.getObjectId(), targetObjectId, 3000, 0));
 								PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, 38, 0, targetObjectId), true);
 								PacketSendUtility.sendPacket(player, new SM_PLAY_MOVIE(0, 59));
-								questService.addNewSpawn(220010000, instanceId, 790009, 1079.1f, 2365.5f, 260.5f, (byte) 0, true);
+								QuestService.addNewSpawn(220010000, instanceId, 790009, 1079.1f, 2365.5f, 260.5f, (byte) 0, true);
 							}
 						}, 3000);
 					}	

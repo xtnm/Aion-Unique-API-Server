@@ -16,6 +16,7 @@
  */
 package com.aionemu.gameserver.questEngine.handlers.template;
 
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.model.gameobjects.Npc;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.templates.QuestTemplate;
@@ -23,6 +24,7 @@ import com.aionemu.gameserver.questEngine.handlers.QuestHandler;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
+import com.aionemu.gameserver.services.QuestService;
 
 /**
  * @author MrPoke
@@ -73,7 +75,7 @@ public class ItemCollecting extends QuestHandler
 		if(env.getVisibleObject() instanceof Npc)
 			targetId = ((Npc) env.getVisibleObject()).getNpcId();
 		QuestState qs = player.getQuestStateList().getQuestState(questId);
-		QuestTemplate template = questsData.getQuestById(questId);
+		QuestTemplate template = DataManager.QUEST_DATA.getQuestById(questId);
 		if(qs == null || qs.getStatus() == QuestStatus.NONE  || (qs.getStatus() == QuestStatus.COMPLETE && (qs.getCompliteCount() <= template.getMaxRepeatCount())))
 		{
 			if(targetId == startNpcId)
@@ -92,7 +94,7 @@ public class ItemCollecting extends QuestHandler
 					return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 2375);
 				else if(env.getDialogId() == 33)
 				{
-					if(questService.collectItemCheck(env, true))
+					if(QuestService.collectItemCheck(env, true))
 					{
 						qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
 						qs.setStatus(QuestStatus.REWARD);

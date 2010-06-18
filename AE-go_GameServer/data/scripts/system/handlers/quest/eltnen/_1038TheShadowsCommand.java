@@ -30,6 +30,7 @@ import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
+import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.google.inject.Inject;
@@ -131,7 +132,7 @@ public class _1038TheShadowsCommand extends QuestHandler
 					else if (var ==4)
 						return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 2034);
 				case 33:
-					if(questService.collectItemCheck(env, true))
+					if(QuestService.collectItemCheck(env, true))
 						return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 2035);
 					else
 						return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 2120);		
@@ -200,7 +201,7 @@ public class _1038TheShadowsCommand extends QuestHandler
 						qs.setQuestVarById(0, 7);
 						updateQuestStatus(player, qs);						
 						PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 0));
-						questService.addNewSpawn(210020000, 1, 204005, (float) 1768.16, (float) 924.47, (float) 422.02, (byte) 0, true);						
+						QuestService.addNewSpawn(210020000, 1, 204005, (float) 1768.16, (float) 924.47, (float) 422.02, (byte) 0, true);						
 						return true;
 					}
 				return false;

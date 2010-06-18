@@ -46,12 +46,12 @@ public class CollectItemQuestOperation extends QuestOperation
 	 * @see com.aionemu.gameserver.questEngine.handlers.models.xmlQuest.operations.QuestOperation#doOperate(com.aionemu.gameserver.questEngine.model.QuestEnv)
 	 */
 	@Override
-	public void doOperate(QuestService questService, QuestEnv env)
+	public void doOperate(QuestEnv env)
 	{
-		if(questService.collectItemCheck(env, removeItems == null ? true : false))
-			_true.operate(questService, env);
+		if(QuestService.collectItemCheck(env, removeItems == null ? true : false))
+			_true.operate(env);
 		else
-			_false.operate(questService, env);
+			_false.operate(env);
 	}
 	
 }

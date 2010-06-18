@@ -29,7 +29,6 @@ import javax.xml.bind.annotation.XmlType;
 import com.aionemu.gameserver.questEngine.handlers.models.xmlQuest.conditions.QuestConditions;
 import com.aionemu.gameserver.questEngine.handlers.models.xmlQuest.operations.QuestOperations;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
-import com.aionemu.gameserver.services.QuestService;
 
 /**
  * @author Mr. Poke
@@ -47,7 +46,7 @@ public abstract class QuestEvent
 	@XmlAttribute
 	protected List<Integer>		ids;
 
-	public boolean operate(QuestService questService, QuestEnv env)
+	public boolean operate(QuestEnv env)
 	{
 		return false;
 	}

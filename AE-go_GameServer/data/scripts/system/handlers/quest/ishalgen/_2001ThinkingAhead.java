@@ -24,6 +24,7 @@ import com.aionemu.gameserver.questEngine.handlers.QuestHandler;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
+import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 
 public class _2001ThinkingAhead extends QuestHandler
@@ -97,7 +98,7 @@ public class _2001ThinkingAhead extends QuestHandler
 					case 33:
 						if(var == 1)
 						{
-							if(questService.collectItemCheck(env, true))
+							if(QuestService.collectItemCheck(env, true))
 							{
 								qs.setQuestVarById(0, var + 1);
 								updateQuestStatus(player, qs);

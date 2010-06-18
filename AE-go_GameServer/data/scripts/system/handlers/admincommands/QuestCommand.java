@@ -26,7 +26,6 @@ import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.chathandlers.AdminCommand;
-import com.google.inject.Inject;
 
 /**
  * @author MrPoke
@@ -34,8 +33,6 @@ import com.google.inject.Inject;
  */
 public class QuestCommand extends AdminCommand
 {
-	@Inject
-	QuestService questService;
 	public QuestCommand()
 	{
 		super("quest");
@@ -88,7 +85,7 @@ public class QuestCommand extends AdminCommand
 
 			QuestEnv env = new QuestEnv(null, target, id, 0);
 
-				if (questService.startQuest(env, QuestStatus.START))
+				if (QuestService.startQuest(env, QuestStatus.START))
 				{
 					PacketSendUtility.sendMessage(admin, "Quest started.");
 				}

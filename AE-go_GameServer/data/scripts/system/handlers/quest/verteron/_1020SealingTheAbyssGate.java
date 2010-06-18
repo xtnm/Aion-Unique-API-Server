@@ -26,6 +26,7 @@ import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.InstanceService;
 import com.aionemu.gameserver.services.ItemService;
+import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.services.ZoneService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
@@ -204,7 +205,7 @@ public class _1020SealingTheAbyssGate extends QuestHandler
 					public void run()
 					{
 						PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, 38, 0, targetObjectId), true);
-						questService.addNewSpawn(310030000, instanceId, 210753, (float) 258.89917, (float) 237.20166, (float) 217.06035, (byte) 0, true);
+						QuestService.addNewSpawn(310030000, instanceId, 210753, (float) 258.89917, (float) 237.20166, (float) 217.06035, (byte) 0, true);
 					}
 				}, 3000);
 				return true;

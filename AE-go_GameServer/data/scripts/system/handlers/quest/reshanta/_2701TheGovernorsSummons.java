@@ -22,6 +22,7 @@ import com.aionemu.gameserver.questEngine.handlers.QuestHandler;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
+import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.world.zone.ZoneName;
 
 /**
@@ -90,7 +91,7 @@ public class _2701TheGovernorsSummons extends QuestHandler
 				int[] ids = {2071, 2072, 2073, 2074, 2075, 2076};
 				for (int id : ids)
 				{
-					questService.startQuest(new QuestEnv(env.getVisibleObject(), env.getPlayer(), id, env.getDialogId()), QuestStatus.LOCKED);
+					QuestService.startQuest(new QuestEnv(env.getVisibleObject(), env.getPlayer(), id, env.getDialogId()), QuestStatus.LOCKED);
 				}
 			}
 			return defaultQuestEndDialog(env);
@@ -108,7 +109,7 @@ public class _2701TheGovernorsSummons extends QuestHandler
 		if(qs != null)
 			return false;
 		env.setQuestId(questId);
-		questService.startQuest(env, QuestStatus.START);
+		QuestService.startQuest(env, QuestStatus.START);
 		return true;
 	}
 

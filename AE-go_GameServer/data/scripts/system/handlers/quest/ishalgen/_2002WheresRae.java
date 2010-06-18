@@ -23,6 +23,7 @@ import com.aionemu.gameserver.questEngine.handlers.QuestHandler;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
+import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.skillengine.SkillEngine;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
@@ -137,7 +138,7 @@ public class _2002WheresRae extends QuestHandler
 						case 33:
 							if(var == 11)
 							{
-								if(questService.collectItemCheck(env, true))
+								if(QuestService.collectItemCheck(env, true))
 								{
 									SkillEngine.getInstance().getSkill(player, 8343, 1, player).useSkill();
 									qs.setQuestVarById(0, 99);
@@ -169,7 +170,7 @@ public class _2002WheresRae extends QuestHandler
 						qs.setQuestVarById(0, var + 1);
 						updateQuestStatus(player, qs);
 						Npc npc = (Npc)env.getVisibleObject();
-						questService.addNewSpawn(player.getWorldId(), player.getInstanceId(), 203553, npc.getX(), npc.getY(), npc.getZ(), npc.getHeading(), true);
+						QuestService.addNewSpawn(player.getWorldId(), player.getInstanceId(), 203553, npc.getX(), npc.getY(), npc.getZ(), npc.getHeading(), true);
 						npc.getController().onDie(null); //TODO check null or player
 						return true;
 					}

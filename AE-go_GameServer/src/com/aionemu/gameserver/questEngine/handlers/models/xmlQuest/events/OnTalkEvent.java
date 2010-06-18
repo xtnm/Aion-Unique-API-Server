@@ -26,7 +26,6 @@ import javax.xml.bind.annotation.XmlType;
 import com.aionemu.gameserver.questEngine.handlers.models.xmlQuest.QuestVar;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
-import com.aionemu.gameserver.services.QuestService;
 
 /**
  * @author Mr. Poke
@@ -39,14 +38,14 @@ public class OnTalkEvent extends QuestEvent
 
 	protected List<QuestVar>	var;
 
-	public boolean operate(QuestService questService, QuestEnv env)
+	public boolean operate(QuestEnv env)
 	{
 		if(conditions == null || conditions.checkConditionOfSet(env))
 		{
 			QuestState qs = env.getPlayer().getQuestStateList().getQuestState(env.getQuestId());
 			for (QuestVar questVar : var)
 			{
-				if (questVar.operate(questService, env, qs))
+				if (questVar.operate(env, qs))
 					return true;
 			}
 		}

@@ -16,7 +16,6 @@
  */
 package com.aionemu.gameserver.services;
 
-import com.aionemu.gameserver.questEngine.QuestEngine;
 import com.aionemu.gameserver.spawnengine.SpawnEngine;
 import com.aionemu.gameserver.world.World;
 import com.google.inject.Inject;
@@ -65,10 +64,6 @@ public class ServiceProxy
 	private ZoneService				zoneService;
 	@Inject
 	private DuelService				duelService;
-	@Inject
-	private QuestService			questService;
-	@Inject
-	private QuestEngine				questEngine;
 	@Inject
 	private BrokerService			brokerService;
 	@Inject
@@ -221,22 +216,6 @@ public class ServiceProxy
 	public DuelService getDuelService()
 	{
 		return duelService;
-	}
-
-	/**
-	 * @return the questService
-	 */
-	public QuestService getQuestService()
-	{
-		return questService;
-	}
-
-	/**
-	 * @return the questEngine
-	 */
-	public QuestEngine getQuestEngine()
-	{
-		return questEngine;
 	}
 	
 	public BrokerService getBrokerService()

@@ -16,7 +16,6 @@
  */
 package com.aionemu.gameserver.questEngine.handlers;
 
-import com.aionemu.gameserver.dataholders.QuestsData;
 import com.aionemu.gameserver.model.gameobjects.Item;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_DIALOG_WINDOW;
@@ -28,7 +27,6 @@ import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.world.zone.ZoneName;
-import com.google.inject.Inject;
 
 /**
  * @author MrPoke
@@ -36,21 +34,16 @@ import com.google.inject.Inject;
  */
 public class QuestHandler
 {
-	
-	@Inject
-	protected QuestService questService;
-	@Inject
-	protected QuestEngine qe;
 	private final Integer questId;
-	@Inject
-	protected QuestsData questsData;
 
+	protected static QuestEngine		qe;
 	/**
 	 * @param questId
 	 */
 	protected QuestHandler(Integer questId)
 	{
 		this.questId = questId;
+		qe = QuestEngine.getInstance();
 	}
 	
 	public synchronized void updateQuestStatus(Player player, QuestState qs)
@@ -77,7 +70,7 @@ public class QuestHandler
 			case 1007:
 				return sendQuestDialog(player, targetObjId, 4);
 			case 1002:
-				if (questService.startQuest(env, QuestStatus.START))
+				if (QuestService.startQuest(env, QuestStatus.START))
 					return sendQuestDialog(player, targetObjId, 1003);
 				else 
 					return false;
@@ -103,7 +96,7 @@ public class QuestHandler
 			case 15:
 			case 16:
 			case 17:
-				if (questService.questFinish(env))
+				if (QuestService.questFinish(env))
 				{
 					PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(targetObjId, 10));
 					return true;

@@ -47,6 +47,7 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_SELL_ITEM;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_TRADELIST;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_ATTACK_STATUS.TYPE;
+import com.aionemu.gameserver.questEngine.QuestEngine;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.restrictions.RestrictionsManager;
 import com.aionemu.gameserver.utils.MathUtil;
@@ -160,7 +161,7 @@ public class NpcController extends CreatureController<Npc>
 	{
 		getOwner().getAi().handleEvent(Event.TALK);
 		
-		if(sp.getQuestEngine().onDialog(new QuestEnv(getOwner(), player, 0, -1)))
+		if(QuestEngine.getInstance().onDialog(new QuestEnv(getOwner(), player, 0, -1)))
 			return;
 		// TODO need check here
 		PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(getOwner().getObjectId(), 10));
@@ -188,7 +189,7 @@ public class NpcController extends CreatureController<Npc>
 		Npc npc = getOwner();
 		int targetObjectId = npc.getObjectId();
 
-		if(sp.getQuestEngine().onDialog(new QuestEnv(npc, player, questId, dialogId)))
+		if(QuestEngine.getInstance().onDialog(new QuestEnv(npc, player, questId, dialogId)))
 			return;
 		switch(dialogId)
 		{
@@ -370,7 +371,7 @@ public class NpcController extends CreatureController<Npc>
 		
 		Creature actingCreature = creature.getActingCreature();
 		if(actingCreature instanceof Player)
-			if(sp.getQuestEngine().onAttack(new QuestEnv(npc, (Player) actingCreature, 0, 0)))
+			if(QuestEngine.getInstance().onAttack(new QuestEnv(npc, (Player) actingCreature, 0, 0)))
 				return;
 
 		AI<?> ai = npc.getAi();

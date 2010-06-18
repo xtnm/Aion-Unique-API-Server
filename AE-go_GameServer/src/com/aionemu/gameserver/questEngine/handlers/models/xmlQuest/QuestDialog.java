@@ -26,7 +26,6 @@ import com.aionemu.gameserver.questEngine.handlers.models.xmlQuest.conditions.Qu
 import com.aionemu.gameserver.questEngine.handlers.models.xmlQuest.operations.QuestOperations;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
-import com.aionemu.gameserver.services.QuestService;
 
 /**
  * @author Mr. Poke
@@ -42,7 +41,7 @@ public class QuestDialog
 	@XmlAttribute(required = true)
 	protected int				id;
 
-	public boolean operate(QuestService questService, QuestEnv env, QuestState qs)
+	public boolean operate(QuestEnv env, QuestState qs)
 	{
 		if (env.getDialogId() != id)
 			return false;
@@ -50,7 +49,7 @@ public class QuestDialog
         {
                 if (operations != null)
                 {
-                        return operations.operate(questService, env);
+                        return operations.operate(env);
                 }
         }
 		return false;

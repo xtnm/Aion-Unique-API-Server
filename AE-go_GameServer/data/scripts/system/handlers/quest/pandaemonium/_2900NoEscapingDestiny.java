@@ -19,6 +19,7 @@ package quest.pandaemonium;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.model.PlayerClass;
 import com.aionemu.gameserver.model.gameobjects.Item;
 import com.aionemu.gameserver.model.gameobjects.Npc;
@@ -35,6 +36,7 @@ import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.InstanceService;
 import com.aionemu.gameserver.services.ItemService;
+import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.world.WorldMapInstance;
@@ -242,7 +244,7 @@ public class _2900NoEscapingDestiny extends QuestHandler
 								qs.setQuestVar(98);
 								updateQuestStatus(player, qs);
 								PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 0));
-								questService.addNewSpawn(320070000, instanceId, 204263, 257.5f, 245f, 129f, (byte) 0, true);
+								QuestService.addNewSpawn(320070000, instanceId, 204263, 257.5f, 245f, 129f, (byte) 0, true);
 								return true;
 							}
 							break;
@@ -308,7 +310,7 @@ public class _2900NoEscapingDestiny extends QuestHandler
 		if(player.getCommonData().getLevel() < 20)
 			return false;
 		env.setQuestId(questId);
-		questService.startQuest(env, QuestStatus.START);
+		QuestService.startQuest(env, QuestStatus.START);
 		return true;
 	}
 
@@ -340,7 +342,7 @@ public class _2900NoEscapingDestiny extends QuestHandler
 			removeStigma(player);
 			qs.setQuestVar(4);
 			updateQuestStatus(player, qs);
-			PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(SystemMessageId.QUEST_FAILED_$1, questsData.getQuestById(questId).getName()));
+			PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(SystemMessageId.QUEST_FAILED_$1, DataManager.QUEST_DATA.getQuestById(questId).getName()));
 		}
 		return false;
 	}
@@ -360,7 +362,7 @@ public class _2900NoEscapingDestiny extends QuestHandler
 					removeStigma(player);
 					qs.setQuestVar(4);
 					updateQuestStatus(player, qs);
-					PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(SystemMessageId.QUEST_FAILED_$1, questsData.getQuestById(questId).getName()));
+					PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(SystemMessageId.QUEST_FAILED_$1, DataManager.QUEST_DATA.getQuestById(questId).getName()));
 				}
 			}
 		}

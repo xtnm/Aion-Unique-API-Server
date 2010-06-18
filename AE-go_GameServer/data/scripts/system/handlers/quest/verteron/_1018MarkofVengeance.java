@@ -22,6 +22,7 @@ import com.aionemu.gameserver.questEngine.handlers.QuestHandler;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
+import com.aionemu.gameserver.services.QuestService;
 
 /**
  * @author Rhys2002 + MrPoke for Original code i massacred..
@@ -76,7 +77,7 @@ public class _1018MarkofVengeance extends QuestHandler
 					if(var == 0)
 						return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 1011);
 				case 33:
-					if(questService.collectItemCheck(env, true))
+					if(QuestService.collectItemCheck(env, true))
 						{
 						qs.setQuestVarById(0, var + 1);
 						qs.setStatus(QuestStatus.REWARD);

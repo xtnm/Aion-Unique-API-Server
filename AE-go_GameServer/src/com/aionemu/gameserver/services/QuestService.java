@@ -22,6 +22,7 @@ import java.util.Set;
 
 import com.aionemu.commons.utils.Rnd;
 import com.aionemu.gameserver.configs.main.GroupConfig;
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.dataholders.QuestsData;
 import com.aionemu.gameserver.model.PlayerClass;
 import com.aionemu.gameserver.model.drop.DropItem;
@@ -49,29 +50,24 @@ import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.spawnengine.SpawnEngine;
 import com.aionemu.gameserver.utils.MathUtil;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author Mr. Poke
  *
  */
-public class QuestService
+public final class QuestService
 {
-	@Inject
-	ItemService		itemService;
-	@Inject
-	SpawnEngine		spawnEngine;
-	@Inject
-	QuestEngine		questEngine;
-	@Inject
-	QuestsData		questsData;
 
-	public boolean questFinish(QuestEnv env)
+	static ItemService		itemService = TmpInjectorProxy.getInstance().getItemService();
+	static SpawnEngine		spawnEngine = TmpInjectorProxy.getInstance().getSpawnEngine();
+	static QuestsData		questsData = DataManager.QUEST_DATA;
+
+	public static boolean questFinish(QuestEnv env)
 	{
 		return questFinish(env, 0);
 	}
 
-	public boolean questFinish(QuestEnv env, int reward)
+	public static boolean questFinish(QuestEnv env, int reward)
 	{
 		Player player = env.getPlayer();
 		int id = env.getQuestId();
@@ -167,18 +163,18 @@ public class QuestService
 				}
 			}
 			
-			questEngine.onQuestFinish(env);
+			QuestEngine.getInstance().onQuestFinish(env);
 			qs.setStatus(QuestStatus.COMPLETE);
 			qs.setCompliteCount(qs.getCompliteCount() + 1);
 			PacketSendUtility.sendPacket(player, new SM_QUEST_STEP(id, qs.getStatus(), qs.getQuestVars().getQuestVars()));
 			player.getController().updateNearbyQuests();
-			questEngine.onLvlUp(env);
+			QuestEngine.getInstance().onLvlUp(env);
 			return true;
 		}
 		return true;
 	}
 	
-	public boolean checkStartCondition(QuestEnv env)
+	public static boolean checkStartCondition(QuestEnv env)
 	{
 		
 		Player player = env.getPlayer();
@@ -237,7 +233,7 @@ public class QuestService
 		return true;
 	}
 
-	public boolean startQuest(QuestEnv env, QuestStatus questStatus)
+	public static boolean startQuest(QuestEnv env, QuestStatus questStatus)
 	{
 		Player player = env.getPlayer();
 		int id = env.getQuestId();
@@ -288,7 +284,7 @@ public class QuestService
 		return true;
 	}
 
-	public boolean collectItemCheck(QuestEnv env, boolean removeItem)
+	public static boolean collectItemCheck(QuestEnv env, boolean removeItem)
 	{
 		Player player = env.getPlayer();
 		int id = env.getQuestId();
@@ -315,15 +311,15 @@ public class QuestService
 		return true;
 	}
 
-	public VisibleObject addNewSpawn(int worldId, int instanceId, int templateId, float x, float y, float z, byte heading, boolean noRespawn)
+	public static VisibleObject addNewSpawn(int worldId, int instanceId, int templateId, float x, float y, float z, byte heading, boolean noRespawn)
 	{
 		SpawnTemplate spawn = spawnEngine.addNewSpawn(worldId, instanceId, templateId, x, y, z, heading, 0, 0, noRespawn);
 		return spawnEngine.spawnObject(spawn, instanceId);
 	}
 	
-	public void getQuestDrop(Set<DropItem> dropItems, int index, Npc npc, Player player)
+	public static void getQuestDrop(Set<DropItem> dropItems, int index, Npc npc, Player player)
 	{
-		List<QuestDrop> drops = questEngine.getQuestDrop(npc.getNpcId());
+		List<QuestDrop> drops = QuestEngine.getInstance().getQuestDrop(npc.getNpcId());
 		if (drops.isEmpty())
 			return;
 		List<Player> players = new ArrayList<Player>();
@@ -359,7 +355,7 @@ public class QuestService
 		}
 	}
 
-	private boolean isDrop(Player player, QuestDrop drop)
+	private static boolean isDrop(Player player, QuestDrop drop)
 	{
 		if(Rnd.get() * 100 > drop.getChance())
 			return false;

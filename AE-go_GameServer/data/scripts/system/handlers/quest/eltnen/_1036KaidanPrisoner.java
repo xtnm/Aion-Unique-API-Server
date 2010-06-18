@@ -28,6 +28,7 @@ import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
+import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.google.inject.Inject;
 
@@ -138,7 +139,7 @@ public class _1036KaidanPrisoner extends QuestHandler
 				case 25:
 					if(var == 2)
 						return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 1693);
-					else if(var == 3 && questService.collectItemCheck(env, true))
+					else if(var == 3 && QuestService.collectItemCheck(env, true))
 						return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 2034);
 					else
 						return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 2120);					

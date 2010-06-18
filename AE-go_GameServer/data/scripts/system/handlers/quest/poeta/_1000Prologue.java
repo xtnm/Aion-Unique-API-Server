@@ -23,6 +23,7 @@ import com.aionemu.gameserver.questEngine.handlers.QuestHandler;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
+import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 
 /**
@@ -55,7 +56,7 @@ public class _1000Prologue extends QuestHandler
 		if(qs == null)
 		{
 			env.setQuestId(questId);
-			questService.startQuest(env, QuestStatus.START);
+			QuestService.startQuest(env, QuestStatus.START);
 		}
 		qs = player.getQuestStateList().getQuestState(questId);
 		if(qs.getStatus() == QuestStatus.START)
@@ -78,7 +79,7 @@ public class _1000Prologue extends QuestHandler
 		if(qs == null || qs.getStatus() != QuestStatus.START)
 			return false;
 		qs.setStatus(QuestStatus.REWARD);
-		questService.questFinish(env);
+		QuestService.questFinish(env);
 		return true;
 	}
 }

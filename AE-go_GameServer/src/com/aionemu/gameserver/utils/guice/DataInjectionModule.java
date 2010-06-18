@@ -31,8 +31,6 @@ import com.aionemu.gameserver.dataholders.PlayerExperienceTable;
 import com.aionemu.gameserver.dataholders.PlayerInitialData;
 import com.aionemu.gameserver.dataholders.PlayerStatsData;
 import com.aionemu.gameserver.dataholders.PortalData;
-import com.aionemu.gameserver.dataholders.QuestScriptsData;
-import com.aionemu.gameserver.dataholders.QuestsData;
 import com.aionemu.gameserver.dataholders.SkillData;
 import com.aionemu.gameserver.dataholders.SkillTreeData;
 import com.aionemu.gameserver.dataholders.SpawnsData;
@@ -45,7 +43,6 @@ import com.aionemu.gameserver.dataholders.WarehouseExpandData;
 import com.aionemu.gameserver.dataholders.WorldMapsData;
 import com.aionemu.gameserver.dataholders.ZoneData;
 import com.aionemu.gameserver.dataholders.loadingutils.XmlServiceProxy;
-import com.aionemu.gameserver.questEngine.QuestEngine;
 import com.aionemu.gameserver.services.AccountService;
 import com.aionemu.gameserver.services.AnnouncementService;
 import com.aionemu.gameserver.services.BrokerService;
@@ -70,7 +67,6 @@ import com.aionemu.gameserver.services.PeriodicSaveService;
 import com.aionemu.gameserver.services.PlayerService;
 import com.aionemu.gameserver.services.PrivateStoreService;
 import com.aionemu.gameserver.services.PunishmentService;
-import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.services.RespawnService;
 import com.aionemu.gameserver.services.ServiceProxy;
 import com.aionemu.gameserver.services.SkillLearnService;
@@ -115,7 +111,6 @@ public class DataInjectionModule extends AbstractModule
 		bind(DataManager.class).asEagerSingleton();
 		bind(World.class).asEagerSingleton();
 		bind(SpawnEngine.class).asEagerSingleton();
-		bind(QuestEngine.class).asEagerSingleton();
 		bind(PeriodicSaveService.class).in(Scopes.SINGLETON);
 		bind(PlayerService.class).in(Scopes.SINGLETON);
 		bind(AccountService.class).in(Scopes.SINGLETON);
@@ -141,7 +136,6 @@ public class DataInjectionModule extends AbstractModule
 		bind(ZoneService.class).in(Scopes.SINGLETON);		
 		bind(DuelService.class).in(Scopes.SINGLETON);
 		bind(ServiceProxy.class).in(Scopes.SINGLETON);
-		bind(QuestService.class).in(Scopes.SINGLETON);
 		bind(MailService.class).in(Scopes.SINGLETON);
 		bind(InstanceService.class).in(Scopes.SINGLETON);
 		bind(EnchantService.class).in(Scopes.SINGLETON);
@@ -297,18 +291,6 @@ public class DataInjectionModule extends AbstractModule
 	ItemSetData provideItemSetData(DataManager datamanager)
 	{
 		return datamanager.ITEM_SET_DATA;
-	}
-	
-	@Provides
-	QuestsData provideQuestsData(DataManager datamanager)
-	{
-		return datamanager.QUEST_DATA;
-	}
-	
-	@Provides
-	QuestScriptsData provideQuestScriptsData(DataManager datamanager)
-	{
-		return datamanager.QUEST_SCRIPTS_DATA;
 	}
 	
 	@Provides

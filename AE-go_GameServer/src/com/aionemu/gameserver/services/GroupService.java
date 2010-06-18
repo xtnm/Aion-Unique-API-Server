@@ -79,9 +79,6 @@ public class GroupService
 	@IDFactoryAionObject
 	private IDFactory								aionObjectsIDFactory;
 
-	@Inject
-	QuestEngine										questEngine;
-
 	/**
 	 * This method will add a member to the group member cache
 	 * 
@@ -323,7 +320,7 @@ public class GroupService
 			if (apRewardPerMember > 0)
 				member.getCommonData().addAp(Math.round(apRewardPerMember * member.getRates().getApNpcRate()));
 			
-			questEngine.onKill(new QuestEnv(owner, member, 0 , 0));
+			QuestEngine.getInstance().onKill(new QuestEnv(owner, member, 0 , 0));
 		}
 	}
 	

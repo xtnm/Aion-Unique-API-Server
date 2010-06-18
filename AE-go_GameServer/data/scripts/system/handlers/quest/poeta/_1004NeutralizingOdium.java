@@ -31,6 +31,7 @@ import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
+import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.google.inject.Inject;
@@ -169,7 +170,7 @@ public class _1004NeutralizingOdium extends QuestHandler
 						}
 					case 33:
 						{
-							if(questService.collectItemCheck(env, true))
+							if(QuestService.collectItemCheck(env, true))
 							{
 								qs.setQuestVarById(0, 11);
 								updateQuestStatus(player, qs);

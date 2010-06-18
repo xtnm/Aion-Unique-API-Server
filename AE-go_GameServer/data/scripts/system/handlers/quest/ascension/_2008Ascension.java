@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.aionemu.gameserver.configs.main.CustomConfig;
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.model.PlayerClass;
 import com.aionemu.gameserver.model.gameobjects.Npc;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
@@ -38,6 +39,7 @@ import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.InstanceService;
 import com.aionemu.gameserver.services.ItemService;
+import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
@@ -111,7 +113,7 @@ public class _2008Ascension extends QuestHandler
 			{
 				qs.setQuestVar(5);
 				updateQuestStatus(player, qs);
-				Npc mob = (Npc) questService.addNewSpawn(320010000, instanceId, 205041, 301f, 259f, 205.5f, (byte) 0, true);
+				Npc mob = (Npc) QuestService.addNewSpawn(320010000, instanceId, 205041, 301f, 259f, 205.5f, (byte) 0, true);
 				// TODO: Tempt decrease P attack.
 				mob.getGameStats().setStat(StatEnum.MAIN_HAND_POWER, mob.getGameStats().getCurrentStat(StatEnum.MAIN_HAND_POWER) / 3);
 				mob.getAggroList().addDamage(player, 1000);
@@ -316,10 +318,10 @@ public class _2008Ascension extends QuestHandler
 									qs.setQuestVar(51);
 									updateQuestStatus(player, qs);
 									List<Npc> mobs = new ArrayList<Npc>();
-									mobs.add((Npc) questService.addNewSpawn(320010000, instanceId, 205040, 294f, 277f, 207f, (byte) 0, true));
-									mobs.add((Npc) questService.addNewSpawn(320010000, instanceId, 205040, 305f, 279f, 206.5f, (byte) 0, true));
-									mobs.add((Npc) questService.addNewSpawn(320010000, instanceId, 205040, 298f, 253f, 205.7f, (byte) 0, true));
-									mobs.add((Npc) questService.addNewSpawn(320010000, instanceId, 205040, 306f, 251f, 206f, (byte) 0, true));
+									mobs.add((Npc) QuestService.addNewSpawn(320010000, instanceId, 205040, 294f, 277f, 207f, (byte) 0, true));
+									mobs.add((Npc) QuestService.addNewSpawn(320010000, instanceId, 205040, 305f, 279f, 206.5f, (byte) 0, true));
+									mobs.add((Npc) QuestService.addNewSpawn(320010000, instanceId, 205040, 298f, 253f, 205.7f, (byte) 0, true));
+									mobs.add((Npc) QuestService.addNewSpawn(320010000, instanceId, 205040, 306f, 251f, 206f, (byte) 0, true));
 									for(Npc mob : mobs)
 									{
 										// TODO: Tempt decrease P attack.
@@ -357,7 +359,7 @@ public class _2008Ascension extends QuestHandler
 			if(player.getCommonData().getLevel() < 9)
 				return false;
 			env.setQuestId(questId);
-			questService.startQuest(env, QuestStatus.START);
+			QuestService.startQuest(env, QuestStatus.START);
 			return true;
 		}
 		return false;
@@ -377,7 +379,7 @@ public class _2008Ascension extends QuestHandler
 				{
 					qs.setQuestVar(4);
 					updateQuestStatus(player, qs);
-					PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(SystemMessageId.QUEST_FAILED_$1, questsData.getQuestById(questId).getName()));
+					PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(SystemMessageId.QUEST_FAILED_$1, DataManager.QUEST_DATA.getQuestById(questId).getName()));
 				}
 				else
 				{
@@ -399,7 +401,7 @@ public class _2008Ascension extends QuestHandler
 		if(qs == null || qs.getStatus() != QuestStatus.START || qs.getQuestVars().getQuestVars() != 5)
 			return false;
 		int instanceId = player.getInstanceId();
-		questService.addNewSpawn(320010000, instanceId, 203550, 301.92999f, 274.26001f, 205.7f, (byte) 0, true);
+		QuestService.addNewSpawn(320010000, instanceId, 203550, 301.92999f, 274.26001f, 205.7f, (byte) 0, true);
 		qs.setQuestVar(6);
 		updateQuestStatus(player, qs);
 		return true;
@@ -430,7 +432,7 @@ public class _2008Ascension extends QuestHandler
 		{
 			qs.setQuestVar(4);
 			updateQuestStatus(player, qs);
-			PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(SystemMessageId.QUEST_FAILED_$1, questsData.getQuestById(env.getQuestId()).getName()));
+			PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(SystemMessageId.QUEST_FAILED_$1, DataManager.QUEST_DATA.getQuestById(env.getQuestId()).getName()));
 		}
 		return false;
 	}

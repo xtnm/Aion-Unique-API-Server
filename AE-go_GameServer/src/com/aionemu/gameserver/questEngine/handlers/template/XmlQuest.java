@@ -16,6 +16,7 @@
  */
 package com.aionemu.gameserver.questEngine.handlers.template;
 
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.model.gameobjects.Npc;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.templates.QuestTemplate;
@@ -69,7 +70,7 @@ public class XmlQuest extends QuestHandler
 		env.setQuestId(getQuestId());
 		for (OnTalkEvent talkEvent : xmlQuestData.getOnTalkEvent())
 		{
-			if (talkEvent.operate(questService, env))
+			if (talkEvent.operate(env))
 				return true;
 		}
 		
@@ -78,7 +79,7 @@ public class XmlQuest extends QuestHandler
 		if(env.getVisibleObject() instanceof Npc)
 			targetId = ((Npc) env.getVisibleObject()).getNpcId();
 		QuestState qs = player.getQuestStateList().getQuestState(getQuestId());
-		QuestTemplate template = questsData.getQuestById(getQuestId());		
+		QuestTemplate template = DataManager.QUEST_DATA.getQuestById(getQuestId());		
 		if(qs == null || qs.getStatus() == QuestStatus.NONE || (qs.getStatus() == QuestStatus.COMPLETE && (qs.getCompliteCount() <= template.getMaxRepeatCount())))
 		{
 			if(targetId == xmlQuestData.getStartNpcId())
@@ -102,7 +103,7 @@ public class XmlQuest extends QuestHandler
 		env.setQuestId(getQuestId());
 		for (OnKillEvent killEvent : xmlQuestData.getOnKillEvent())
 		{
-			if (killEvent.operate(questService, env))
+			if (killEvent.operate(env))
 				return true;
 		}
 		return false;

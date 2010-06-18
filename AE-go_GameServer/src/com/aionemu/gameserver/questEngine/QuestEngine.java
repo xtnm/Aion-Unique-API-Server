@@ -26,6 +26,7 @@ import org.apache.log4j.Logger;
 
 import com.aionemu.commons.scripting.scriptmanager.ScriptManager;
 import com.aionemu.gameserver.GameServerError;
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.dataholders.QuestScriptsData;
 import com.aionemu.gameserver.dataholders.QuestsData;
 import com.aionemu.gameserver.model.gameobjects.Item;
@@ -43,13 +44,13 @@ import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.world.zone.ZoneName;
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 
 /**
  * @author MrPoke
  * 
  */
+
 public class QuestEngine
 {
 	private Injector									injector;
@@ -62,11 +63,10 @@ public class QuestEngine
 
 	public static final File							QUEST_DESCRIPTOR_FILE	= new File(
 																					"./data/scripts/system/quest_handlers.xml");
+	
+	private QuestsData									questData = DataManager.QUEST_DATA;
 
-	@Inject
-	private QuestsData									questData;
-	@Inject
-	private QuestScriptsData							questScriptsData;
+	private QuestScriptsData							questScriptsData = DataManager.QUEST_SCRIPTS_DATA;
 
 	private FastMap<Integer, NpcQuestData>		_npcQuestData = new FastMap<Integer, NpcQuestData>();
 	private FastMap<Integer, List<Integer>>		_questItemIds= new FastMap<Integer, List<Integer>>();
@@ -77,6 +77,17 @@ public class QuestEngine
 	private List<Integer>						_questOnEnterWorld= new ArrayList<Integer>();
 	private FastMap<Integer, List<QuestDrop>>	_questDrop= new FastMap<Integer, List<QuestDrop>>();
 	private List<Integer>						_questOnQuestFinish= new ArrayList<Integer>();
+
+	public static final QuestEngine getInstance()
+	{
+		return SingletonHolder.instance;
+	}
+
+	// Constructor
+	private QuestEngine()
+	{
+		log.info("Initializing QuestEngine");
+	}
 
 	public void load()
 	{
@@ -411,14 +422,9 @@ public class QuestEngine
 		questHandlers.put(questHandler.getQuestId(), questHandler);
 	}
 	
-	public QuestHandler getQuestHandlerByQuestId(int questId)
+	private QuestHandler getQuestHandlerByQuestId(int questId)
 	{
 		return questHandlers.get(questId);
-	}
-	
-	public int getSize()
-	{
-		return questHandlers.size();
 	}
 
 	/**
@@ -427,5 +433,11 @@ public class QuestEngine
 	public void setInjector(Injector injector)
 	{
 		this.injector = injector;
+	}
+	
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final QuestEngine instance = new QuestEngine();
 	}
 }

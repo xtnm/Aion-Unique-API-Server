@@ -19,6 +19,7 @@ package quest.sanctum;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.model.PlayerClass;
 import com.aionemu.gameserver.model.gameobjects.Item;
 import com.aionemu.gameserver.model.gameobjects.Npc;
@@ -37,6 +38,7 @@ import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.InstanceService;
 import com.aionemu.gameserver.services.ItemService;
+import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
@@ -257,7 +259,7 @@ public class _1929ASliverofDarkness extends QuestHandler
 									@Override
 									public void run()
 									{
-										questService.addNewSpawn(310070000, instanceId, 212992, (float)191.9, (float)267.68, (float)1374, (byte) 0, true);
+										QuestService.addNewSpawn(310070000, instanceId, 212992, (float)191.9, (float)267.68, (float)1374, (byte) 0, true);
 										qs.setQuestVarById(0, 97);
 										updateQuestStatus(player, qs);
 									}
@@ -304,7 +306,7 @@ public class _1929ASliverofDarkness extends QuestHandler
 		QuestState qs = player.getQuestStateList().getQuestState(questId);
 		if(qs == null || qs.getStatus() != QuestStatus.START || qs.getQuestVars().getQuestVars() != 94)
 			return false;
-		questService.addNewSpawn(310070000, instanceId, 205111, (float) 197.6, (float) 265.9, (float) 1374.0, (byte) 0, true);
+		QuestService.addNewSpawn(310070000, instanceId, 205111, (float) 197.6, (float) 265.9, (float) 1374.0, (byte) 0, true);
 		qs.setQuestVar(98);
 		updateQuestStatus(player, qs);
 		return true;
@@ -320,7 +322,7 @@ public class _1929ASliverofDarkness extends QuestHandler
 		if(player.getCommonData().getLevel() < 20)
 			return false;
 		env.setQuestId(questId);
-		questService.startQuest(env, QuestStatus.START);
+		QuestService.startQuest(env, QuestStatus.START);
 		return true;
 	}
 	
@@ -365,7 +367,7 @@ public class _1929ASliverofDarkness extends QuestHandler
 			removeStigma(player);
 			qs.setQuestVar(2);
 			updateQuestStatus(player, qs);
-			PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(SystemMessageId.QUEST_FAILED_$1, questsData.getQuestById(questId).getName()));
+			PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(SystemMessageId.QUEST_FAILED_$1, DataManager.QUEST_DATA.getQuestById(questId).getName()));
 		}
 		return false;
 	}
@@ -385,7 +387,7 @@ public class _1929ASliverofDarkness extends QuestHandler
 					removeStigma(player);
 					qs.setQuestVar(2);
 					updateQuestStatus(player, qs);
-					PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(SystemMessageId.QUEST_FAILED_$1, questsData.getQuestById(questId).getName()));
+					PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(SystemMessageId.QUEST_FAILED_$1, DataManager.QUEST_DATA.getQuestById(questId).getName()));
 				}
 			}
 		}
