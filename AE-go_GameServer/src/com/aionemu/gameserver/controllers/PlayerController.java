@@ -65,6 +65,7 @@ import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.restrictions.RestrictionsManager;
 import com.aionemu.gameserver.services.ClassChangeService;
 import com.aionemu.gameserver.services.DuelService;
+import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.services.ZoneService;
 import com.aionemu.gameserver.services.ZoneService.ZoneUpdateMode;
@@ -731,6 +732,6 @@ public class PlayerController extends CreatureController<Player>
 	
 	public boolean addItems(int itemId, int count)
 	{
-		return sp.getItemService().addItems(getOwner(), Collections.singletonList(new QuestItems(itemId, count)));
+		return ItemService.addItems(getOwner(), Collections.singletonList(new QuestItems(itemId, count)));
 	}
 }

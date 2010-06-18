@@ -33,7 +33,6 @@ import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
-import com.google.inject.Inject;
 
 /**
  * @author Rhys2002
@@ -43,9 +42,6 @@ public class _1038TheShadowsCommand extends QuestHandler
 {
 	private final static int	questId	= 1038;// Replace dionera in npc file
 	private final static int[]	npc_ids	= { 203933, 700172, 203991, 700162 };
-	
-	@Inject
-	ItemService itemService;
 	
 	public _1038TheShadowsCommand()
 	{
@@ -178,7 +174,7 @@ public class _1038TheShadowsCommand extends QuestHandler
 							{
 								PacketSendUtility.sendPacket(player, new SM_USE_OBJECT(player.getObjectId(), targetObjectId, 3000, 0));
 								PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, 38, 0, targetObjectId), true);
-								itemService.addItems(player, Collections.singletonList(new QuestItems(182201007, 1)));
+								ItemService.addItems(player, Collections.singletonList(new QuestItems(182201007, 1)));
 								qs.setQuestVar(3);
 								updateQuestStatus(player, qs);
 							}

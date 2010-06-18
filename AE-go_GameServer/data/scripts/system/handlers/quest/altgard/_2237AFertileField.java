@@ -31,7 +31,6 @@ import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
-import com.google.inject.Inject;
 
 /**
  * @author Mr.Poke
@@ -39,9 +38,6 @@ import com.google.inject.Inject;
  */
 public class _2237AFertileField extends QuestHandler
 {
-	
-	@Inject
-	ItemService itemService;
 
 	private final static int	questId	= 2237;
 
@@ -99,7 +95,7 @@ public class _2237AFertileField extends QuestHandler
 									targetObjectId, 3000, 0));
 								PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, 38, 0,
 									targetObjectId), true);
-								itemService.addItems(player, Collections.singletonList(new QuestItems(182203226, 1)));
+								ItemService.addItems(player, Collections.singletonList(new QuestItems(182203226, 1)));
 								((Npc)player.getTarget()).getController().onDie(null);
 							}
 						}, 3000);

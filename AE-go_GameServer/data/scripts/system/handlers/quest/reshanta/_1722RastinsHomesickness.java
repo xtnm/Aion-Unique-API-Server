@@ -28,7 +28,6 @@ import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author Rhys2002
@@ -38,9 +37,6 @@ public class _1722RastinsHomesickness extends QuestHandler
 {
 	private final static int	questId	= 1722;
 	private final static int[]	npc_ids	= { 278547, 278560, 278517, 278544, 278532, 278539, 278524, 278555, 278567 };
-	
-	@Inject
-	ItemService					itemService;
 
 	public _1722RastinsHomesickness()
 	{
@@ -223,7 +219,7 @@ public class _1722RastinsHomesickness extends QuestHandler
 				case 10255:
 					if(var == 7)
 					{
-						itemService.addItems(player, Collections.singletonList(new QuestItems(182202101, 1)));
+						ItemService.addItems(player, Collections.singletonList(new QuestItems(182202101, 1)));
 						qs.setStatus(QuestStatus.REWARD);
 						updateQuestStatus(player, qs);
 						PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));

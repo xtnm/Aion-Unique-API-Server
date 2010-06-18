@@ -32,7 +32,6 @@ import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
-import com.google.inject.Inject;
 
 /**
  * @author Rhys2002
@@ -40,9 +39,7 @@ import com.google.inject.Inject;
  */
 public class _1055EternalRest extends QuestHandler
 {
-	@Inject
-	ItemService itemService;
-	
+
 	private final static int	questId	= 1055;
 	private final static int[]	npc_ids	= { 204629, 204625, 204628, 204627, 204626, 204622, 700270 };
 
@@ -141,7 +138,7 @@ public class _1055EternalRest extends QuestHandler
 					{
 						qs.setQuestVarById(0, var + 1);				
 						updateQuestStatus(player, qs);	
-						itemService.addItems(player, Collections.singletonList(new QuestItems(182201613, 1)));
+						ItemService.addItems(player, Collections.singletonList(new QuestItems(182201613, 1)));
 						return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 10000);
 					}
 					else
@@ -176,7 +173,7 @@ public class _1055EternalRest extends QuestHandler
 					if(var == 2)
 					{
 						if(player.getInventory().getItemCountByItemId(182201609) == 0)
-							itemService.addItems(player, Collections.singletonList(new QuestItems(182201609, 1)));
+							ItemService.addItems(player, Collections.singletonList(new QuestItems(182201609, 1)));
 							PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
 						return true;
 					}
@@ -194,7 +191,7 @@ public class _1055EternalRest extends QuestHandler
 					if(var == 2)
 					{
 						if(player.getInventory().getItemCountByItemId(182201610) == 0)
-							itemService.addItems(player, Collections.singletonList(new QuestItems(182201610, 1)));
+							ItemService.addItems(player, Collections.singletonList(new QuestItems(182201610, 1)));
 							PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
 						return true;
 					}
@@ -212,7 +209,7 @@ public class _1055EternalRest extends QuestHandler
 					if(var == 2)
 					{
 						if(player.getInventory().getItemCountByItemId(182201611) == 0)
-							itemService.addItems(player, Collections.singletonList(new QuestItems(182201611, 1)));					
+							ItemService.addItems(player, Collections.singletonList(new QuestItems(182201611, 1)));					
 							PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
 						return true;
 					}
@@ -230,7 +227,7 @@ public class _1055EternalRest extends QuestHandler
 					if(var == 2)
 					{
 						if(player.getInventory().getItemCountByItemId(182201612) == 0)
-							itemService.addItems(player, Collections.singletonList(new QuestItems(182201612, 1)));	
+							ItemService.addItems(player, Collections.singletonList(new QuestItems(182201612, 1)));	
 							PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
 						return true;
 					}

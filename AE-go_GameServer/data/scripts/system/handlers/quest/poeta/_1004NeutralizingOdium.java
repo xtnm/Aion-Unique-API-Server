@@ -34,7 +34,6 @@ import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
-import com.google.inject.Inject;
 
 /**
  * @author MrPoke
@@ -42,8 +41,6 @@ import com.google.inject.Inject;
  */
 public class _1004NeutralizingOdium extends QuestHandler
 {
-	@Inject
-	ItemService itemService;
 	private final static int	questId	= 1004;
 
 	public _1004NeutralizingOdium()
@@ -91,7 +88,7 @@ public class _1004NeutralizingOdium extends QuestHandler
 						return false;
 					case 10000:
 						if(player.getInventory().getItemCountByItemId(182200005) == 0)
-							if (!itemService.addItems(player, Collections.singletonList(new QuestItems(182200005, 1))))
+							if (!ItemService.addItems(player, Collections.singletonList(new QuestItems(182200005, 1))))
 								return true;
 						qs.setQuestVarById(0, var + 1);
 						updateQuestStatus(player, qs);

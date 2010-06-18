@@ -32,7 +32,6 @@ import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
-import com.google.inject.Inject;
 
 /**
  * @author Rhys2002
@@ -40,8 +39,6 @@ import com.google.inject.Inject;
  */
 public class _2051SavingBeluslanFortress extends QuestHandler
 {
-	@Inject
-	ItemService itemService;
 
 	private final static int	questId	= 2051;
 	private final static int[]	npc_ids	= { 204702, 204733, 204206, 278040, 700285 };//Artifact of Time and Space Not Appearing, so using the quest item to finish quest until its sorted!!
@@ -190,7 +187,7 @@ public class _2051SavingBeluslanFortress extends QuestHandler
 					{
 						qs.setQuestVarById(0, var + 1);					
 						updateQuestStatus(player, qs);
-						itemService.addItems(player, Collections.singletonList(new QuestItems(182204302, 1)));
+						ItemService.addItems(player, Collections.singletonList(new QuestItems(182204302, 1)));
 						return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 10000);
 					}
 					else

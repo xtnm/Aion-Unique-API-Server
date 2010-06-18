@@ -35,7 +35,6 @@ import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
-import com.google.inject.Inject;
 
 /**
  * @author Rhys2002
@@ -45,9 +44,6 @@ public class _1114TheNymphsGown extends QuestHandler
 {
 	private final static int	questId	= 1114;
 	private final static int[]	npc_ids	= { 203075, 203058, 700008 };
-	
-	@Inject
-	ItemService					itemService;
 
 	public _1114TheNymphsGown()
 	{
@@ -78,7 +74,7 @@ public class _1114TheNymphsGown extends QuestHandler
 				if(env.getDialogId() == 1002)
 				{
 					QuestService.startQuest(env, QuestStatus.START);
-					if(!itemService.addItems(player, Collections.singletonList(new QuestItems(182200226, 1))));
+					if(!ItemService.addItems(player, Collections.singletonList(new QuestItems(182200226, 1))));
 					player.getInventory().removeFromBagByItemId(182200214, 1);
 					PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(0, 0));
 					return true;
@@ -184,7 +180,7 @@ public class _1114TheNymphsGown extends QuestHandler
 								return;
 							((Npc)obj).getAggroList().addDamage(player, 50);
 						}									
-								if(!itemService.addItems(player, Collections.singletonList(new QuestItems(182200217, 1))));								
+								if(!ItemService.addItems(player, Collections.singletonList(new QuestItems(182200217, 1))));								
 								qs.setQuestVarById(0, 2);
 								updateQuestStatus(player, qs);
 							}

@@ -21,16 +21,12 @@ import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer
  */
 public class CM_MANASTONE_REMOVE extends AionClientPacket
 {
-
-	@Inject
-	private ItemService itemService;
 	
 	private int npcObjId;
 	private int itemObjId;
@@ -59,7 +55,7 @@ public class CM_MANASTONE_REMOVE extends AionClientPacket
 		
 		if(npc != null)
 		{
-			itemService.removeManastone(player, itemObjId, slotNum);
+			ItemService.removeManastone(player, itemObjId, slotNum);
 		}
 	}
 

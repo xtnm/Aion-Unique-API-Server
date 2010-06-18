@@ -36,7 +36,6 @@ import com.aionemu.gameserver.utils.MathUtil;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.zone.ZoneName;
-import com.google.inject.Inject;
 
 /**
  * @author Mr. Poke
@@ -44,9 +43,6 @@ import com.google.inject.Inject;
  */
 public class _1019FlyingReconnaissance extends QuestHandler
 {
-	
-	@Inject
-	ItemService itemService;
 
 	private final static int	questId	= 1019;
 
@@ -95,7 +91,7 @@ public class _1019FlyingReconnaissance extends QuestHandler
 						case 10000:
 							if (var == 0)
 							{
-								if (!itemService.addItems(player, Collections.singletonList(new QuestItems(182200505, 1))))
+								if (!ItemService.addItems(player, Collections.singletonList(new QuestItems(182200505, 1))))
 									return true;
 								qs.setQuestVarById(0, var + 1);
 								updateQuestStatus(player, qs);
@@ -133,7 +129,7 @@ public class _1019FlyingReconnaissance extends QuestHandler
 							if (var == 3 || var == 5)
 							{
 								if (var == 5)
-									if (!itemService.addItems(player, Collections.singletonList(new QuestItems(182200023, 1))))
+									if (!ItemService.addItems(player, Collections.singletonList(new QuestItems(182200023, 1))))
 										return true;
 								qs.setQuestVarById(0, var + 1);
 								updateQuestStatus(player, qs);

@@ -35,7 +35,6 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_INVENTORY_UPDATE;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_PRIVATE_STORE_NAME;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_UPDATE_ITEM;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author Simple
@@ -43,8 +42,6 @@ import com.google.inject.Inject;
  */
 public class PrivateStoreService
 {
-	@Inject
-	ItemService	itemService;
 
 	/**
 	 * @param activePlayer
@@ -179,7 +176,7 @@ public class PrivateStoreService
 					
 					GodStone godStone = item.getGodStone();
 					decreaseItemFromPlayer(seller, item, tradeItem);
-					itemService.addFullItem(buyer, item.getItemTemplate().getTemplateId(), tradeItem.getCount(), manaStones, godStone, item.getEchantLevel());
+					ItemService.addFullItem(buyer, item.getItemTemplate().getTemplateId(), tradeItem.getCount(), manaStones, godStone, item.getEchantLevel());
 					if(storeItem.getCount() == tradeItem.getCount())
 						store.removeItem(storeItem.getItemObjId());
 				}

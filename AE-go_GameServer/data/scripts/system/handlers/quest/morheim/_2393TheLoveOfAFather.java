@@ -32,7 +32,6 @@ import com.aionemu.gameserver.services.ZoneService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.zone.ZoneName;
-import com.google.inject.Inject;
 
 /**
  * @author Nephis and AU quest helper Team
@@ -41,9 +40,6 @@ import com.google.inject.Inject;
 public class _2393TheLoveOfAFather extends QuestHandler
 {
 	private final static int	questId	= 2393;
-
-	@Inject
-	ItemService itemService;
 
 	public _2393TheLoveOfAFather()
 	{
@@ -79,7 +75,7 @@ public class _2393TheLoveOfAFather extends QuestHandler
 			{
 				PacketSendUtility.broadcastPacket(player, new SM_ITEM_USAGE_ANIMATION(player.getObjectId(), itemObjId, id, 0, 1, 0), true);
 				player.getInventory().removeFromBagByObjectId(itemObjId, 1);
-				itemService.addItems(player, Collections.singletonList(new QuestItems(182204163, 1)));
+				ItemService.addItems(player, Collections.singletonList(new QuestItems(182204163, 1)));
 				qs.setStatus(QuestStatus.REWARD);
 				updateQuestStatus(player, qs);
 			}
@@ -103,7 +99,7 @@ public class _2393TheLoveOfAFather extends QuestHandler
 					return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 4762);
 				else if(env.getDialogId() == 1002)
 				{
-					if (itemService.addItems(player, Collections.singletonList(new QuestItems(182204162, 1))))
+					if (ItemService.addItems(player, Collections.singletonList(new QuestItems(182204162, 1))))
 						return defaultQuestStartDialog(env);
 					else
 						return true;

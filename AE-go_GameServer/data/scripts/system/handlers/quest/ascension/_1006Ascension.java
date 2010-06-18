@@ -59,8 +59,6 @@ public class _1006Ascension extends QuestHandler
 	private final static int		questId	= 1006;
 
 	@Inject
-	ItemService itemService;
-	@Inject
 	TeleportService teleportService;
 	@Inject
 	InstanceService instanceService;
@@ -155,7 +153,7 @@ public class _1006Ascension extends QuestHandler
 						if(var == 0)
 						{
 							if(player.getInventory().getItemCountByItemId(182200007) == 0)
-								if (!itemService.addItems(player, Collections.singletonList(new QuestItems(182200007, 1))))
+								if (!ItemService.addItems(player, Collections.singletonList(new QuestItems(182200007, 1))))
 									return true;
 							qs.setQuestVarById(0, var + 1);
 							updateQuestStatus(player, qs);
@@ -230,7 +228,7 @@ public class _1006Ascension extends QuestHandler
 						{
 							PacketSendUtility.sendPacket(player, new SM_PLAY_MOVIE(0, 14));
 							player.getInventory().removeFromBagByItemId(182200008, 1);
-							itemService.addItems(player, Collections.singletonList(new QuestItems(182200009, 1)));
+							ItemService.addItems(player, Collections.singletonList(new QuestItems(182200009, 1)));
 						}
 						return false;
 					case 10001:
@@ -347,7 +345,7 @@ public class _1006Ascension extends QuestHandler
 			{
 				PacketSendUtility.broadcastPacket(player, new SM_ITEM_USAGE_ANIMATION(player.getObjectId(), itemObjId, id, 0, 1, 0), true);
 				player.getInventory().removeFromBagByObjectId(itemObjId, 1);
-				itemService.addItems(player, Collections.singletonList(new QuestItems(182200008, 1)));
+				ItemService.addItems(player, Collections.singletonList(new QuestItems(182200008, 1)));
 				qs.setQuestVarById(0, 2);
 				updateQuestStatus(player, qs);
 			}

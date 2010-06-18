@@ -28,7 +28,6 @@ import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author Nanou
@@ -37,9 +36,6 @@ import com.google.inject.Inject;
 public class _3938WellRounded extends QuestHandler
 {
 	private final static int	questId	= 3938;
-	
-	@Inject
-	private ItemService itemService;
 
 	public _3938WellRounded()
 	{
@@ -57,7 +53,7 @@ public class _3938WellRounded extends QuestHandler
 		qe.setNpcQuestData(203784).addOnTalkEvent(questId);		//Hestia
 		qe.setNpcQuestData(203786).addOnTalkEvent(questId);		//Diana
 		qe.setNpcQuestData(798316).addOnTalkEvent(questId);		//Anusis
-		qe.setNpcQuestData(203752).addOnTalkEvent(questId);		//Jucléas
+		qe.setNpcQuestData(203752).addOnTalkEvent(questId);		//Juclï¿½as
 		qe.setNpcQuestData(203701).addOnTalkEvent(questId);		//Lavirintos
 	}
 
@@ -161,7 +157,7 @@ public class _3938WellRounded extends QuestHandler
 							case 10006:
 								if(player.getInventory().getItemCountByItemId(152201596) == 0)
 								{
-									if(!itemService.addItems(player, Collections.singletonList(new QuestItems(152201596, 1))))
+									if(!ItemService.addItems(player, Collections.singletonList(new QuestItems(152201596, 1))))
 											return true;
 								}
 								qs.setQuestVarById(0, var + 1);
@@ -185,7 +181,7 @@ public class _3938WellRounded extends QuestHandler
 							case 10006:
 								if(player.getInventory().getItemCountByItemId(152201639) == 0)
 								{
-									if(!itemService.addItems(player, Collections.singletonList(new QuestItems(152201639, 1))))
+									if(!ItemService.addItems(player, Collections.singletonList(new QuestItems(152201639, 1))))
 											return true;
 								}
 								qs.setQuestVarById(0, var + 1);
@@ -209,7 +205,7 @@ public class _3938WellRounded extends QuestHandler
 							case 10006:
 								if(player.getInventory().getItemCountByItemId(152201615) == 0)
 								{
-									if(!itemService.addItems(player, Collections.singletonList(new QuestItems(152201615, 1))))
+									if(!ItemService.addItems(player, Collections.singletonList(new QuestItems(152201615, 1))))
 											return true;
 								}
 								qs.setQuestVarById(0, var + 1);
@@ -233,7 +229,7 @@ public class _3938WellRounded extends QuestHandler
 							case 10006:
 								if(player.getInventory().getItemCountByItemId(152201632) == 0)
 								{
-									if(!itemService.addItems(player, Collections.singletonList(new QuestItems(152201632, 1))))
+									if(!ItemService.addItems(player, Collections.singletonList(new QuestItems(152201632, 1))))
 											return true;
 								}
 								qs.setQuestVarById(0, var + 1);
@@ -257,7 +253,7 @@ public class _3938WellRounded extends QuestHandler
 							case 10006:
 								if(player.getInventory().getItemCountByItemId(152201644) == 0)
 								{
-									if(!itemService.addItems(player, Collections.singletonList(new QuestItems(152201644, 1))))
+									if(!ItemService.addItems(player, Collections.singletonList(new QuestItems(152201644, 1))))
 											return true;
 								}
 								qs.setQuestVarById(0, var + 1);
@@ -281,7 +277,7 @@ public class _3938WellRounded extends QuestHandler
 							case 10006:
 								if(player.getInventory().getItemCountByItemId(152201643) == 0)
 								{
-									if(!itemService.addItems(player, Collections.singletonList(new QuestItems(152201643, 1))))
+									if(!ItemService.addItems(player, Collections.singletonList(new QuestItems(152201643, 1))))
 											return true;
 								}
 								qs.setQuestVarById(0, var + 1);

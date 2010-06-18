@@ -30,7 +30,6 @@ import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
-import com.google.inject.Inject;
 
 /**
 * @author Mr.Poke remod by Nephis and quest helper team
@@ -38,9 +37,6 @@ import com.google.inject.Inject;
 */
 public class _1311AGermOfHope extends QuestHandler
 {
-   
-   @Inject
-   ItemService itemService;
 
    private final static int   questId   = 1311;
 
@@ -74,7 +70,7 @@ public class _1311AGermOfHope extends QuestHandler
                return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 1011);
             else if(env.getDialogId() == 1013)
             {
-               if (itemService.addItems(player, Collections.singletonList(new QuestItems(182201305, 1))))
+               if (ItemService.addItems(player, Collections.singletonList(new QuestItems(182201305, 1))))
                return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 4);
                else
                   return true;

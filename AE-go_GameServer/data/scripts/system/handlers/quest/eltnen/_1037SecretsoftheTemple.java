@@ -32,7 +32,6 @@ import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
-import com.google.inject.Inject;
 
 /**
  * @author Rhys2002
@@ -42,10 +41,7 @@ public class _1037SecretsoftheTemple extends QuestHandler
 {
 	private final static int	questId	= 1037;
 	private final static int[]	npc_ids	= { 203965, 203967, 700151, 700154, 700150, 700153, 700152 };
-	
-	@Inject
-	ItemService itemService;
-	
+
 	public _1037SecretsoftheTemple()
 	{
 		super(questId);
@@ -144,7 +140,7 @@ public class _1037SecretsoftheTemple extends QuestHandler
 						qs.setQuestVarById(0, var + 1);
 						updateQuestStatus(player, qs);
 						PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
-						itemService.addItems(player, Collections.singletonList(new QuestItems(182201027, 1)));	
+						ItemService.addItems(player, Collections.singletonList(new QuestItems(182201027, 1)));	
 						return true;
 					}					
 				return false;

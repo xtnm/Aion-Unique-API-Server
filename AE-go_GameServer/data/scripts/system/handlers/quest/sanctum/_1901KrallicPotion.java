@@ -31,16 +31,12 @@ import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /* @author edynamic90 */
 
 public class _1901KrallicPotion extends QuestHandler
 {
 	private final static int	questId	= 1901;
-
-	@Inject
-	ItemService					itemService;
 
 	public _1901KrallicPotion()
 	{
@@ -186,7 +182,7 @@ public class _1901KrallicPotion extends QuestHandler
 									return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 2375);
 								case 10004:
 									if(player.getInventory().getItemCountByItemId(182206000) == 0)
-										if(!itemService.addItems(player, Collections.singletonList(new QuestItems(
+										if(!ItemService.addItems(player, Collections.singletonList(new QuestItems(
 											182206000, 1))))
 											return true;
 									qs.setQuestVarById(0, var + 1);// var==4

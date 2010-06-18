@@ -20,15 +20,12 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.services.ItemService;
-import com.google.inject.Inject;
 /**
  *
  * @author kosyachok
  */
 public class CM_REPLACE_ITEM extends AionClientPacket
 {
-	@Inject
-	private ItemService itemService;
 
 	private int sourceStorageType;
 	private int sourceItemObjId;
@@ -53,7 +50,7 @@ public class CM_REPLACE_ITEM extends AionClientPacket
 	protected void runImpl()
 	{
 		Player player = getConnection().getActivePlayer();
-		itemService.switchStoragesItems(player, sourceStorageType, sourceItemObjId, replaceStorageType, replaceItemObjId);
+		ItemService.switchStoragesItems(player, sourceStorageType, sourceItemObjId, replaceStorageType, replaceItemObjId);
 	}
 
 }

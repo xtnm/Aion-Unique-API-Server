@@ -31,7 +31,6 @@ import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
-import com.google.inject.Inject;
 
 /**
  * @author Rhys2002 -- TODO Timer and Fail dialog when implemented
@@ -41,10 +40,7 @@ public class _1035RefreshingtheSprings extends QuestHandler
 {
 	private final static int	questId	= 1035;
 	private final static int[]	npc_ids	= { 203917, 203992, 700158, 203965, 203968, 203987, 700160, 203934, 700159 };
-	
-	@Inject
-	ItemService itemService;
-	
+
 	public _1035RefreshingtheSprings()
 	{
 		super(questId);
@@ -222,7 +218,7 @@ public class _1035RefreshingtheSprings extends QuestHandler
 						qs.setQuestVarById(0, var + 1);
 						updateQuestStatus(player, qs);
 						PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
-						itemService.addItems(player, Collections.singletonList(new QuestItems(182201024, 1)));							
+						ItemService.addItems(player, Collections.singletonList(new QuestItems(182201024, 1)));							
 						return true;
 					}
 				case 10006:
@@ -231,7 +227,7 @@ public class _1035RefreshingtheSprings extends QuestHandler
 						qs.setQuestVarById(0, var + 1);
 						updateQuestStatus(player, qs);
 						PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
-						itemService.addItems(player, Collections.singletonList(new QuestItems(182201025, 1)));						
+						ItemService.addItems(player, Collections.singletonList(new QuestItems(182201025, 1)));						
 						return true;
 					}					
 				return false;

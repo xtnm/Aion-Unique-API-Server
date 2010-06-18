@@ -28,7 +28,6 @@ import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author Mr. Poke
@@ -36,9 +35,6 @@ import com.google.inject.Inject;
  */
 public class _2223AMythicalMonster extends QuestHandler
 {
-
-	@Inject
-	ItemService itemService;
 
 	private final static int	questId	= 2223;
 
@@ -89,7 +85,7 @@ public class _2223AMythicalMonster extends QuestHandler
 						case 10000:
 							if (var == 0)
 							{
-								if (!itemService.addItems(player, Collections.singletonList(new QuestItems(182203217, 1))))
+								if (!ItemService.addItems(player, Collections.singletonList(new QuestItems(182203217, 1))))
 									return true;
 								qs.setQuestVarById(0, var + 1);
 								updateQuestStatus(player, qs);

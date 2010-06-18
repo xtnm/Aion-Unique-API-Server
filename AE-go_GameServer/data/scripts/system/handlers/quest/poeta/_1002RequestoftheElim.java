@@ -51,8 +51,7 @@ public class _1002RequestoftheElim extends QuestHandler
 	InstanceService instanceService;
 	@Inject
 	TeleportService teleportService;
-	@Inject
-	ItemService itemService;
+
 	private final static int	questId	= 1002;
 
 
@@ -180,7 +179,7 @@ public class _1002RequestoftheElim extends QuestHandler
 					if(var == 1)
 					{
 						if(player.getInventory().getItemCountByItemId(182200002) == 0)
-							if (!itemService.addItems(player, Collections.singletonList(new QuestItems(182200002, 1))))
+							if (!ItemService.addItems(player, Collections.singletonList(new QuestItems(182200002, 1))))
 								return true;
 						qs.setQuestVarById(0, var + 1);
 						updateQuestStatus(player, qs);

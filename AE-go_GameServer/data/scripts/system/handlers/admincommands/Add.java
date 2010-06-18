@@ -23,7 +23,6 @@ import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.Util;
 import com.aionemu.gameserver.utils.chathandlers.AdminCommand;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author Phantom, ATracer
@@ -32,8 +31,6 @@ import com.google.inject.Inject;
 
 public class Add extends AdminCommand
 {
-	@Inject
-	private ItemService itemService;
 	
 	public Add()
 	{
@@ -94,7 +91,7 @@ public class Add extends AdminCommand
 			}
 		}
 		
-		int count = itemService.addItem(receiver, itemId, itemCount);
+		int count = ItemService.addItem(receiver, itemId, itemCount);
 
 		if(count == 0)
 		{

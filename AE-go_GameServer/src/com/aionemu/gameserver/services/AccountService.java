@@ -63,8 +63,6 @@ public class AccountService
 	private LegionService				legionService;
 	@Inject
 	private PlayerInitialData			playerInitialData;
-	@Inject
-	private ItemService					itemService;
 
 	/**
 	 * Returns {@link Account} object that has given id.
@@ -163,7 +161,7 @@ public class AccountService
 			if(account.getAccountWarehouse() == null)
 			{
 				Storage accWarehouse = DAOManager.getDAO(InventoryDAO.class).loadStorage(player, StorageType.ACCOUNT_WAREHOUSE);
-				itemService.loadItemStones(accWarehouse.getStorageItems());
+				ItemService.loadItemStones(accWarehouse.getStorageItems());
 				account.setAccountWarehouse(accWarehouse);
 			}
 		}

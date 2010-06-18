@@ -26,8 +26,6 @@ import com.google.inject.Inject;
 public final class TmpInjectorProxy
 {
 	@Inject
-	private ItemService		itemService;
-	@Inject
 	private SpawnEngine		spawnEngine;
 
 	public static final TmpInjectorProxy getInstance()
@@ -39,14 +37,6 @@ public final class TmpInjectorProxy
 	private static class SingletonHolder
 	{
 		protected static final TmpInjectorProxy instance = new TmpInjectorProxy();
-	}
-	
-	/**
-	 * @return the itemService
-	 */
-	public ItemService getItemService()
-	{
-		return itemService;
 	}
 
 	/**

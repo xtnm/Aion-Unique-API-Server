@@ -57,8 +57,6 @@ public class _2008Ascension extends QuestHandler
 	@Inject
 	TeleportService	teleportService;
 	@Inject
-	ItemService itemService;
-	@Inject
 	InstanceService instanceService;
 
 	public _2008Ascension()
@@ -248,7 +246,7 @@ public class _2008Ascension extends QuestHandler
 						if(var == 1)
 						{
 							if(player.getInventory().getItemCountByItemId(182203009) == 0)
-								if (itemService.addItems(player, Collections.singletonList(new QuestItems(182203009, 1))))
+								if (ItemService.addItems(player, Collections.singletonList(new QuestItems(182203009, 1))))
 									return true;
 								
 							qs.setQuestVarById(0, var + 1);
@@ -269,7 +267,7 @@ public class _2008Ascension extends QuestHandler
 						if(var == 2)
 						{
 							if(player.getInventory().getItemCountByItemId(182203010) == 0)
-								if (!itemService.addItems(player, Collections.singletonList(new QuestItems(182203010, 1))))
+								if (!ItemService.addItems(player, Collections.singletonList(new QuestItems(182203010, 1))))
 									return true;
 							qs.setQuestVarById(0, var + 1);
 							updateQuestStatus(player, qs);
@@ -289,7 +287,7 @@ public class _2008Ascension extends QuestHandler
 						if(var == 3)
 						{
 							if(player.getInventory().getItemCountByItemId(182203011) == 0)
-								if (!itemService.addItems(player, Collections.singletonList(new QuestItems(182203011, 1))))
+								if (!ItemService.addItems(player, Collections.singletonList(new QuestItems(182203011, 1))))
 									return true;
 								
 							qs.setQuestVarById(0, var + 1);

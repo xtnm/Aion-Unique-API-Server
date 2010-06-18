@@ -30,7 +30,6 @@ import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author Xitanium
@@ -38,9 +37,7 @@ import com.google.inject.Inject;
  */
 public class _1414OperationWindmill extends QuestHandler
 {
-	@Inject
-	ItemService itemService;
-	
+
 	private final static int	questId	= 1414;
 
 	public _1414OperationWindmill()
@@ -72,7 +69,7 @@ public class _1414OperationWindmill extends QuestHandler
 					return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 1011);
 				else if(env.getDialogId() == 1002)
 				{
-					if (itemService.addItems(player, Collections.singletonList(new QuestItems(182201349, 1))))
+					if (ItemService.addItems(player, Collections.singletonList(new QuestItems(182201349, 1))))
 						return defaultQuestStartDialog(env);
 					else
 						return true;

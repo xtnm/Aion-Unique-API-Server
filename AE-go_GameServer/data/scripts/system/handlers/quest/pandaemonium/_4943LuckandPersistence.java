@@ -31,7 +31,6 @@ import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author Nanou
@@ -40,10 +39,7 @@ import com.google.inject.Inject;
 public class _4943LuckandPersistence extends QuestHandler
 {
 	private final static int	questId	= 4943;
-	
-	@Inject
-	private ItemService itemService;
-	
+
 	private static final Logger log = Logger.getLogger(_4943LuckandPersistence.class);
 
 	public _4943LuckandPersistence()
@@ -162,7 +158,7 @@ public class _4943LuckandPersistence extends QuestHandler
 									
 									if(player.getInventory().getItemCountByItemId(182207123) == 0)
 									{
-										if(!itemService.addItems(player, Collections.singletonList(new QuestItems(182207123, 1))))
+										if(!ItemService.addItems(player, Collections.singletonList(new QuestItems(182207123, 1))))
 											return true;
 									}
 								

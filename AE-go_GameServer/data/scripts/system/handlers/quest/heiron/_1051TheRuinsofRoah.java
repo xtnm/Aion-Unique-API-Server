@@ -32,7 +32,6 @@ import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
-import com.google.inject.Inject;
 
 /**
  * @author Rhys2002
@@ -40,9 +39,7 @@ import com.google.inject.Inject;
  */
 public class _1051TheRuinsofRoah extends QuestHandler
 {
-	@Inject
-	ItemService itemService;
-	
+
 	private final static int	questId	= 1051;
 	private final static int[]	npc_ids	= { 204501, 204582, 203882, 278503, 700303, 700217 };
 
@@ -234,7 +231,7 @@ public class _1051TheRuinsofRoah extends QuestHandler
 			else if(qs.getQuestVarById(0) == 2 && env.getDialogId() == 10002)
 			{
 				PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 0));
-				itemService.addItems(player, Collections.singletonList(new QuestItems(182201601, 1)));
+				ItemService.addItems(player, Collections.singletonList(new QuestItems(182201601, 1)));
 				qs.setQuestVarById(0, 3);
 				updateQuestStatus(player, qs);				
 			return true;
@@ -253,7 +250,7 @@ public class _1051TheRuinsofRoah extends QuestHandler
 					{
 						PacketSendUtility.sendPacket(player, new SM_USE_OBJECT(player.getObjectId(), targetObjectId, 3000, 0));
 						PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, 38, 0, targetObjectId), true);
-						itemService.addItems(player, Collections.singletonList(new QuestItems(182201602, 1)));
+						ItemService.addItems(player, Collections.singletonList(new QuestItems(182201602, 1)));
 					}
 				}, 3000);
 			}

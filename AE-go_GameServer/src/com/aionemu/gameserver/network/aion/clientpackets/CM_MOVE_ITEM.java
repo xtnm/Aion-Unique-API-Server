@@ -21,7 +21,6 @@ import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_EMOTION;
 import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author alexa026, kosyachok
@@ -29,8 +28,6 @@ import com.google.inject.Inject;
  */
 public class CM_MOVE_ITEM extends AionClientPacket
 {
-	@Inject
-	private ItemService itemService;
 
 	/**
 	 * Target object id that client wants to TALK WITH or 0 if wants to unselect
@@ -67,7 +64,7 @@ public class CM_MOVE_ITEM extends AionClientPacket
 	protected void runImpl()
 	{
 		Player player = getConnection().getActivePlayer();
-		itemService.moveItem(player, targetObjectId, source, destination, slot);
+		ItemService.moveItem(player, targetObjectId, source, destination, slot);
 
 		PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player,36,0,0));
 

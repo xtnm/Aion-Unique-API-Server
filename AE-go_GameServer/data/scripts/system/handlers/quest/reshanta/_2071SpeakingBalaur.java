@@ -30,7 +30,6 @@ import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.utils.MathUtil;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author Rhys2002
@@ -38,9 +37,7 @@ import com.google.inject.Inject;
  */
 public class _2071SpeakingBalaur extends QuestHandler
 {
-	@Inject
-	ItemService itemService;
-	
+
 	private final static int	questId	= 2071;
 	private final static int[]	npc_ids	= { 278003, 278086, 278039, 279027, 204210 };
 
@@ -197,7 +194,7 @@ public class _2071SpeakingBalaur extends QuestHandler
 					{
 						qs.setQuestVarById(0, var + 1);
 						updateQuestStatus(player, qs);
-						itemService.addItems(player, Collections.singletonList(new QuestItems(182205501, 1)));
+						ItemService.addItems(player, Collections.singletonList(new QuestItems(182205501, 1)));
 						PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
 						return true;
 					}

@@ -28,7 +28,6 @@ import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author Mr. Poke
@@ -36,9 +35,6 @@ import com.google.inject.Inject;
  */
 public class _2019SecuringtheSupplyRoute extends QuestHandler
 {
-
-	@Inject
-	ItemService itemService;
 
 	private final static int	questId	= 2019;
 
@@ -94,7 +90,7 @@ public class _2019SecuringtheSupplyRoute extends QuestHandler
 						case 10001:
 							if (var== 4)
 							{
-								if (!itemService.addItems(player, Collections.singletonList(new QuestItems(182203024, 1))))
+								if (!ItemService.addItems(player, Collections.singletonList(new QuestItems(182203024, 1))))
 									return true;
 								qs.setQuestVarById(0, var+1);
 								updateQuestStatus(player, qs);

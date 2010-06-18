@@ -28,15 +28,12 @@ import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
-import com.google.inject.Inject;
 
 /**
  * @author MrPoke Like: Sleeping on the Job quest.
  */
 public class ReportTo extends QuestHandler
 {
-	@Inject
-	ItemService itemService;
 
 	private final int	questId;
 	private final int	startNpc;
@@ -82,7 +79,7 @@ public class ReportTo extends QuestHandler
 					return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 1011);
 				else if(env.getDialogId() == 1002 && itemId != 0)
 				{
-					if (itemService.addItems(player, Collections.singletonList(new QuestItems(itemId, 1))))
+					if (ItemService.addItems(player, Collections.singletonList(new QuestItems(itemId, 1))))
 						return defaultQuestStartDialog(env);
 					return true;
 				}

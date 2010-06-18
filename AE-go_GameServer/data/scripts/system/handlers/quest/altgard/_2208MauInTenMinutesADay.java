@@ -31,7 +31,6 @@ import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
-import com.google.inject.Inject;
 
 /**
  * @author Mr. Poke
@@ -39,8 +38,6 @@ import com.google.inject.Inject;
  */
 public class _2208MauInTenMinutesADay extends QuestHandler
 {
-	@Inject
-	ItemService itemService;
 	
 	private final static int	questId	= 2208;
 	
@@ -74,7 +71,7 @@ public class _2208MauInTenMinutesADay extends QuestHandler
 					return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 1011);
 				else if(env.getDialogId() == 1002)
 				{
-					if (itemService.addItems(player, Collections.singletonList(new QuestItems(182203205, 1))))
+					if (ItemService.addItems(player, Collections.singletonList(new QuestItems(182203205, 1))))
 						return defaultQuestStartDialog(env);
 					return true;
 				}

@@ -39,9 +39,7 @@ import com.google.inject.Inject;
 public class CraftService 
 {
 	private static final Logger log = Logger.getLogger(CraftService.class);
-	
-	@Inject
-	private ItemService itemService;
+
 	@Inject
 	private SkillTaskFactory taskFactory;
 
@@ -63,7 +61,7 @@ public class CraftService
 		if(productItemId != 0)
 		{
 			int xpReward = (int)((0.008*(recipetemplate.getSkillpoint()+100)*(recipetemplate.getSkillpoint()+100)+60)*player.getRates().getCraftingXPRate());
-			itemService.addItem(player, productItemId, recipetemplate.getQuantity());			
+			ItemService.addItem(player, productItemId, recipetemplate.getQuantity());			
 
 			if (player.getSkillList().addSkillXp(player, recipetemplate.getSkillid(), xpReward))
 				player.getCommonData().addExp(xpReward);

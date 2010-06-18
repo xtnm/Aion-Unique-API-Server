@@ -19,7 +19,6 @@ package com.aionemu.gameserver.dataholders.loadingutils;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import com.aionemu.gameserver.services.EnchantService;
-import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.services.ServiceProxy;
 import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.spawnengine.SpawnEngine;
@@ -38,15 +37,6 @@ public class XmlServiceProxy extends XmlAdapter<Object, Object>
 	public void setServiceProxy(ServiceProxy serviceProxy)
 	{
 		this.serviceProxy = serviceProxy;
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public ItemService getItemService()
-	{
-		return serviceProxy.getItemService();
 	}
 
 	/**

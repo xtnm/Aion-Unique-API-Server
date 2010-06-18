@@ -45,7 +45,6 @@ import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.utils.idfactory.IDFactory;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author kosyachok
@@ -55,14 +54,11 @@ public class MailService
 {
 	private static final Logger	log			= Logger.getLogger(MailService.class);
 
-	private ItemService			itemService;
-
 	protected Queue<Player>		newPlayers	= new ConcurrentLinkedQueue<Player>();
 
-	@Inject
-	public MailService(ItemService itemService)
+
+	public MailService()
 	{
-		this.itemService = itemService;
 	}
 
 	/**
@@ -193,7 +189,7 @@ public class MailService
 				}
 				else if(senderItem.getItemCount() > attachedItemCount)
 				{
-					attachedItem = itemService.newItem(senderItem.getItemTemplate().getTemplateId(), attachedItemCount);
+					attachedItem = ItemService.newItem(senderItem.getItemTemplate().getTemplateId(), attachedItemCount);
 					senderItem.decreaseItemCount(attachedItemCount);
 					PacketSendUtility.sendPacket(sender, new SM_UPDATE_ITEM(senderItem));
 

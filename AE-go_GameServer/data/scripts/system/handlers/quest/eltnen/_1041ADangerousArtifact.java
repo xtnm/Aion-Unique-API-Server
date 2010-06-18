@@ -33,17 +33,14 @@ import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author Xitanium
  * 
  */
 public class _1041ADangerousArtifact extends QuestHandler
-{	
-	@Inject
-	ItemService itemService;
-	
+{
+
 	private final static int	questId	= 1041;
 
 	public _1041ADangerousArtifact()
@@ -211,7 +208,7 @@ public class _1041ADangerousArtifact extends QuestHandler
 				else if(env.getDialogId() == 10006)
 				{
 					qs.setQuestVar(8); 
-					itemService.addItems(player, Collections.singletonList(new QuestItems(182201011, 1)));
+					ItemService.addItems(player, Collections.singletonList(new QuestItems(182201011, 1)));
 					updateQuestStatus(player, qs);
 					PacketSendUtility
 						.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));

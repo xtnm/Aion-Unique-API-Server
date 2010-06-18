@@ -32,7 +32,6 @@ import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author Rhys2002
@@ -42,9 +41,6 @@ public class _1071SpeakingBalaur extends QuestHandler
 {
 	private final static int	questId	= 1071;
 
-	@Inject
-	ItemService itemService;
-	
 	public _1071SpeakingBalaur()
 	{
 		super(questId);
@@ -141,7 +137,7 @@ public class _1071SpeakingBalaur extends QuestHandler
 						qs.setQuestVarById(0, var + 1);
 						updateQuestStatus(player, qs);
 						player.getInventory().removeFromBagByItemId(182202002, 1);
-						itemService.addItems(player, Collections.singletonList(new QuestItems(182202001, 1)));						
+						ItemService.addItems(player, Collections.singletonList(new QuestItems(182202001, 1)));						
 						PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
 						return true;
 					}
@@ -164,7 +160,7 @@ public class _1071SpeakingBalaur extends QuestHandler
 					{
 						KinahsItemPlayer.decreaseItemCount(20000);
 						PacketSendUtility.sendPacket(player, new SM_UPDATE_ITEM(KinahsItemPlayer));
-						itemService.addItems(player, Collections.singletonList(new QuestItems(182202001, 1)));
+						ItemService.addItems(player, Collections.singletonList(new QuestItems(182202001, 1)));
 						qs.setQuestVar(7);
 						updateQuestStatus(player, qs);
 						PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
@@ -214,7 +210,7 @@ public class _1071SpeakingBalaur extends QuestHandler
 					{
 						qs.setQuestVarById(0, var + 1);
 						updateQuestStatus(player, qs);
-						itemService.addItems(player, Collections.singletonList(new QuestItems(182202002, 1)));						
+						ItemService.addItems(player, Collections.singletonList(new QuestItems(182202002, 1)));						
 						PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
 						return true;
 					}

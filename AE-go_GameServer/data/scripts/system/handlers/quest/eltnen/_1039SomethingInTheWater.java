@@ -33,7 +33,6 @@ import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author Xitanium
@@ -42,9 +41,6 @@ import com.google.inject.Inject;
 public class _1039SomethingInTheWater extends QuestHandler
 {	
 
-	@Inject
-	ItemService itemService;
-	
 	private final static int	questId	= 1039;
 	private final static int[]	mob_ids	= { 210946, 210947 };
 	
@@ -97,7 +93,7 @@ public class _1039SomethingInTheWater extends QuestHandler
 			{
 				PacketSendUtility.broadcastPacket(player, new SM_ITEM_USAGE_ANIMATION(player.getObjectId(), itemObjId, id, 0, 1, 0), true);
 				player.getInventory().removeFromBagByObjectId(itemObjId, 1);
-				itemService.addItems(player, Collections.singletonList(new QuestItems(182201010, 1)));
+				ItemService.addItems(player, Collections.singletonList(new QuestItems(182201010, 1)));
 				qs.setQuestVar(2);
 				updateQuestStatus(player, qs);
 			}
@@ -161,7 +157,7 @@ public class _1039SomethingInTheWater extends QuestHandler
 				else if(env.getDialogId() == 10000)
 				{
 					qs.setQuestVar(1);
-					itemService.addItems(player, Collections.singletonList(new QuestItems(182201009, 1)));
+					ItemService.addItems(player, Collections.singletonList(new QuestItems(182201009, 1)));
 					updateQuestStatus(player, qs);
 					PacketSendUtility
 						.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));

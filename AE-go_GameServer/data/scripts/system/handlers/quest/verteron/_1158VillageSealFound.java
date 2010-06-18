@@ -31,7 +31,6 @@ import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
-import com.google.inject.Inject;
 
 /**
  * @author Rhys2002
@@ -39,8 +38,6 @@ import com.google.inject.Inject;
  */
 public class _1158VillageSealFound extends QuestHandler
 {
-	@Inject
-	ItemService itemService;
 
 	private final static int questId = 1158;
 
@@ -107,7 +104,7 @@ public class _1158VillageSealFound extends QuestHandler
 					qs.setQuestVarById(0, 1);
 					qs.setStatus(QuestStatus.REWARD);									
 					updateQuestStatus(player, qs);
-					itemService.addItems(player, Collections.singletonList(new QuestItems(182200502, 1)));
+					ItemService.addItems(player, Collections.singletonList(new QuestItems(182200502, 1)));
 					PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
 					return true;
 				}

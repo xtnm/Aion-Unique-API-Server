@@ -53,8 +53,6 @@ public class TradeService
 	private static final Logger	log	= Logger.getLogger(TradeService.class);
 
 	@Inject
-	private ItemService			itemService;
-	@Inject
 	private TradeListData		tradeListData;
 	@Inject
 	private GoodsListData		goodsListData;
@@ -91,7 +89,7 @@ public class TradeService
 		List<Item> addedItems = new ArrayList<Item>();
 		for(TradeItem tradeItem : tradeList.getTradeItems())
 		{
-			int count = itemService.addItem(player, tradeItem.getItemTemplate().getTemplateId(), tradeItem.getCount());
+			int count = ItemService.addItem(player, tradeItem.getItemTemplate().getTemplateId(), tradeItem.getCount());
 			if(count != 0)
 			{
 				log.warn(String.format("CHECKPOINT: itemservice couldnt add all items on buy: %d %d %d %d", player
@@ -138,7 +136,7 @@ public class TradeService
 		List<Item> addedItems = new ArrayList<Item>();
 		for(TradeItem tradeItem : tradeList.getTradeItems())
 		{
-			int count = itemService.addItem(player, tradeItem.getItemTemplate().getTemplateId(), tradeItem.getCount());
+			int count = ItemService.addItem(player, tradeItem.getItemTemplate().getTemplateId(), tradeItem.getCount());
 			if(count != 0)
 			{
 				log.warn(String.format("CHECKPOINT: itemservice couldnt add all items on buy: %d %d %d %d", player

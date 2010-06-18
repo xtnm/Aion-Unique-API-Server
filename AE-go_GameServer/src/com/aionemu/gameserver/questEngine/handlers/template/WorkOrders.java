@@ -28,7 +28,6 @@ import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author Mr. Poke
@@ -37,8 +36,6 @@ import com.google.inject.Inject;
 public class WorkOrders extends QuestHandler
 {
 	private final WorkOrdersData workOrdersData;
-	@Inject
-	ItemService itemService;
 	/**
 	 * @param questId
 	 */
@@ -74,7 +71,7 @@ public class WorkOrders extends QuestHandler
 				case 1002:
 					if (QuestService.startQuest(env, QuestStatus.START))
 					{
-						if (itemService.addItems(player, workOrdersData.getGiveComponent()))
+						if (ItemService.addItems(player, workOrdersData.getGiveComponent()))
 						{
 							player.getRecipeList().addRecipe(player, DataManager.RECIPE_DATA.getRecipeTemplateById(workOrdersData.getRecipeId()));
 							PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 0));

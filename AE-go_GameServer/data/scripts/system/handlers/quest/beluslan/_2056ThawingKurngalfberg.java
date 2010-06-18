@@ -35,7 +35,6 @@ import com.aionemu.gameserver.services.ZoneService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.zone.ZoneName;
-import com.google.inject.Inject;
 
 /**
  * @author Rhys2002
@@ -43,8 +42,6 @@ import com.google.inject.Inject;
  */
 public class _2056ThawingKurngalfberg extends QuestHandler
 {
-	@Inject
-	ItemService itemService;
 	
 	private final static int	questId	= 2056;
 	private final static int[]	npc_ids	= { 204753, 790016, 730036, 279000 };
@@ -155,7 +152,7 @@ public class _2056ThawingKurngalfberg extends QuestHandler
 				case 2035:
 					if(var == 1 && player.getInventory().getItemCountByItemId(182204315) != 1)
 					{
-						itemService.addItems(player, Collections.singletonList(new QuestItems(182204315, 1)));
+						ItemService.addItems(player, Collections.singletonList(new QuestItems(182204315, 1)));
 						return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 2035);
 					}
 					else 
@@ -172,7 +169,7 @@ public class _2056ThawingKurngalfberg extends QuestHandler
 				case 1353:
 					if(var == 1 && player.getInventory().getItemCountByItemId(182204313) != 1)
 					{
-						itemService.addItems(player, Collections.singletonList(new QuestItems(182204313, 1)));
+						ItemService.addItems(player, Collections.singletonList(new QuestItems(182204313, 1)));
 						return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 1353);
 					}
 					else 
@@ -189,7 +186,7 @@ public class _2056ThawingKurngalfberg extends QuestHandler
 				case 1694:
 					if(var == 1 && player.getInventory().getItemCountByItemId(182204314) != 1)
 					{
-						itemService.addItems(player, Collections.singletonList(new QuestItems(182204314, 1)));
+						ItemService.addItems(player, Collections.singletonList(new QuestItems(182204314, 1)));
 						return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 1694);
 					}
 					else 

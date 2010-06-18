@@ -56,8 +56,6 @@ public class _1929ASliverofDarkness extends QuestHandler
 	TeleportService teleportService;
 	@Inject
 	InstanceService instanceService;
-	@Inject
-	ItemService itemService;
 
 	private final static int		questId	= 1929;
 
@@ -242,7 +240,7 @@ public class _1929ASliverofDarkness extends QuestHandler
 								List<QuestItems> items = new ArrayList<QuestItems>();
 								items.add(new QuestItems(itemId, 1));
 								items.add(new QuestItems(141000001, 2));
-								if (itemService.addItems(player, items))
+								if (ItemService.addItems(player, items))
 								{
 									PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 1));
 								}

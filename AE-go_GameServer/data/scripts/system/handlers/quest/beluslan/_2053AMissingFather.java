@@ -34,7 +34,6 @@ import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.zone.ZoneName;
-import com.google.inject.Inject;
 
 /**
  * @author Rhys2002
@@ -42,8 +41,6 @@ import com.google.inject.Inject;
  */
 public class _2053AMissingFather extends QuestHandler
 {
-	@Inject
-	ItemService itemService;
 	
 	private final static int	questId	= 2053;
 	private final static int[]	npc_ids	= { 204707, 204749, 204800, 700359, 730108 };
@@ -147,7 +144,7 @@ public class _2053AMissingFather extends QuestHandler
 					{
 						qs.setQuestVarById(0, var + 1);
 						updateQuestStatus(player, qs);
-						itemService.addItems(player, Collections.singletonList(new QuestItems(182204305, 1)));
+						ItemService.addItems(player, Collections.singletonList(new QuestItems(182204305, 1)));
 						PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
 						return true;
 					}

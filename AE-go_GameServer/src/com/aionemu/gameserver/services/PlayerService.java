@@ -94,7 +94,6 @@ public class PlayerService
 	private static final Logger			log			= Logger.getLogger(PlayerService.class);
 	private CacheMap<Integer, Player>	playerCache	= CacheMapFactory.createSoftCacheMap("Player", "player");
 
-	private ItemService					itemService;
 	private LegionService				legionService;
 	private TeleportService				teleportService;
 	private ObjectControllerFactory		controllerFactory;
@@ -107,13 +106,12 @@ public class PlayerService
 	private ChatService					chatService;
 
 	@Inject
-	public PlayerService(ItemService itemService,
+	public PlayerService(
 		LegionService legionService, TeleportService teleportService, ObjectControllerFactory controllerFactory,
 		SkillLearnService skillLearnService, GroupService groupService, PunishmentService punishmentService,
 		PlayerStatsData playerStatsData, PlayerInitialData playerInitialData,
 		InstanceService instanceService, ChatService chatService)
 	{
-		this.itemService = itemService;
 		this.legionService = legionService;
 		this.teleportService = teleportService;
 		this.controllerFactory = controllerFactory;
@@ -232,7 +230,7 @@ public class PlayerService
 		player.setGameStats(new PlayerGameStats(playerStatsData, player));
 
 		Equipment equipment = DAOManager.getDAO(InventoryDAO.class).loadEquipment(player);
-		itemService.loadItemStones(equipment.getEquippedItemsWithoutStigma());
+		ItemService.loadItemStones(equipment.getEquippedItemsWithoutStigma());
 		equipment.setOwner(player);
 		player.setEquipment(equipment);
 
@@ -252,12 +250,12 @@ public class PlayerService
 		player.setStorage(accWarehouse, StorageType.ACCOUNT_WAREHOUSE);
 		
 		Storage inventory = DAOManager.getDAO(InventoryDAO.class).loadStorage(player, StorageType.CUBE);
-		itemService.loadItemStones(inventory.getStorageItems());
+		ItemService.loadItemStones(inventory.getStorageItems());
 
 		player.setStorage(inventory, StorageType.CUBE);
 		
 		Storage warehouse = DAOManager.getDAO(InventoryDAO.class).loadStorage(player, StorageType.REGULAR_WAREHOUSE);
-		itemService.loadItemStones(warehouse.getStorageItems());
+		ItemService.loadItemStones(warehouse.getStorageItems());
 
 		player.setStorage(warehouse, StorageType.REGULAR_WAREHOUSE);
 		
@@ -268,7 +266,7 @@ public class PlayerService
 		
 		DAOManager.getDAO(PlayerPunishmentsDAO.class).loadPlayerPunishments(player);
 
-		itemService.restoreKinah(player);
+		ItemService.restoreKinah(player);
 
 		// update passive stats after effect controller, stats and equipment are initialized
 		player.getController().updatePassiveStats();
@@ -330,7 +328,7 @@ public class PlayerService
 		for(ItemType itemType : items)
 		{
 			int itemId = itemType.getTemplate().getTemplateId();
-			Item item = itemService.newItem(itemId, itemType.getCount());
+			Item item = ItemService.newItem(itemId, itemType.getCount());
 			if(item == null)
 				continue;
 

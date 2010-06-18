@@ -7,7 +7,6 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.services.ItemService;
-import com.google.inject.Inject;
 
 /**
  *
@@ -15,8 +14,6 @@ import com.google.inject.Inject;
  */
 public class CM_SPLIT_ITEM extends AionClientPacket
 {
-	@Inject
-	private ItemService itemService;
 
 	int sourceItemObjId;
 	int sourceStorageType;
@@ -50,8 +47,8 @@ public class CM_SPLIT_ITEM extends AionClientPacket
 		Player player = getConnection().getActivePlayer();
 
 		if(destinationItemObjId == 0)
-			itemService.splitItem(player, sourceItemObjId, itemAmount, slotNum, sourceStorageType, destinationStorageType);
+			ItemService.splitItem(player, sourceItemObjId, itemAmount, slotNum, sourceStorageType, destinationStorageType);
 		else
-			itemService.mergeItems(player, sourceItemObjId, itemAmount, destinationItemObjId, sourceStorageType, destinationStorageType);
+			ItemService.mergeItems(player, sourceItemObjId, itemAmount, destinationItemObjId, sourceStorageType, destinationStorageType);
 	}
 }

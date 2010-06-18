@@ -30,7 +30,6 @@ import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author Rhys2002
@@ -40,9 +39,6 @@ public class _1036KaidanPrisoner extends QuestHandler
 {
 	private final static int	questId	= 1036;
 	private final static int[]	npc_ids	= { 203904, 204045, 204003, 204004, 204020, 203901 };
-	
-	@Inject
-	ItemService itemService;
 	
 	public _1036KaidanPrisoner()
 	{
@@ -176,7 +172,7 @@ public class _1036KaidanPrisoner extends QuestHandler
 						qs.setQuestVarById(0, var + 1);
 						updateQuestStatus(player, qs);
 						PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
-						itemService.addItems(player, Collections.singletonList(new QuestItems(182201004, 1)));						
+						ItemService.addItems(player, Collections.singletonList(new QuestItems(182201004, 1)));						
 						return true;
 					}
 				return false;
@@ -198,7 +194,7 @@ public class _1036KaidanPrisoner extends QuestHandler
 						qs.setStatus(QuestStatus.REWARD);						
 						updateQuestStatus(player, qs);
 						PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
-						itemService.addItems(player, Collections.singletonList(new QuestItems(182201005, 1)));							
+						ItemService.addItems(player, Collections.singletonList(new QuestItems(182201005, 1)));							
 						return true;
 					}
 				return false;

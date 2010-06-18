@@ -26,7 +26,6 @@ import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.Util;
 import com.aionemu.gameserver.utils.chathandlers.AdminCommand;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author Antivirus
@@ -35,8 +34,6 @@ import com.google.inject.Inject;
 
 public class AddSet extends AdminCommand
 {
-	@Inject
-	private ItemService itemService;
 	
 	public AddSet()
 	{
@@ -103,7 +100,7 @@ public class AddSet extends AdminCommand
 		
 		for( ItemPart setPart : itemSet.getItempart())
 		{
-			int count = itemService.addItem(receiver, setPart.getItemid(), 1);
+			int count = ItemService.addItem(receiver, setPart.getItemid(), 1);
 	
 			if(count != 0)
 			{

@@ -34,7 +34,6 @@ import com.aionemu.gameserver.services.ZoneService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.zone.ZoneName;
-import com.google.inject.Inject;
 
 /**
  * @author Rhys2002
@@ -42,8 +41,6 @@ import com.google.inject.Inject;
  */
 public class _2052AnUndeadOccupation extends QuestHandler
 {
-	@Inject
-	ItemService itemService;
 	
 	private final static int	questId	= 2052;
 	private final static int[]	npc_ids	= { 204715, 204801, 204805 };//182204303 184000022 152000553 182204304
@@ -166,7 +163,7 @@ public class _2052AnUndeadOccupation extends QuestHandler
 					{
 						qs.setQuestVarById(0, var + 1);					
 						updateQuestStatus(player, qs);
-						itemService.addItems(player, Collections.singletonList(new QuestItems(182204304, 1)));
+						ItemService.addItems(player, Collections.singletonList(new QuestItems(182204304, 1)));
 						return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 10000);
 					}
 					else

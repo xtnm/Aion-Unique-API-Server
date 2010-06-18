@@ -53,8 +53,6 @@ public class _2900NoEscapingDestiny extends QuestHandler
 	TeleportService teleportService;
 	@Inject
 	InstanceService instanceService;
-	@Inject
-	ItemService itemService;
 
 	private final static int		questId	= 2900;
 
@@ -257,7 +255,7 @@ public class _2900NoEscapingDestiny extends QuestHandler
 								List<QuestItems> items = new ArrayList<QuestItems>();
 								items.add(new QuestItems(itemId, 1));
 								items.add(new QuestItems(141000001, 2));
-								if (!itemService.addItems(player, items))
+								if (!ItemService.addItems(player, items))
 									return true;
 								else
 									return false;

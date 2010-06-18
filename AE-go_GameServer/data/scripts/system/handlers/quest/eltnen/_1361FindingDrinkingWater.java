@@ -34,7 +34,6 @@ import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author Xitanium
@@ -42,9 +41,6 @@ import com.google.inject.Inject;
  */
 public class _1361FindingDrinkingWater extends QuestHandler
 {
-
-	@Inject
-	ItemService itemService;
 
 	private final static int	questId	= 1361;
 
@@ -83,7 +79,7 @@ public class _1361FindingDrinkingWater extends QuestHandler
 			{
 				PacketSendUtility.broadcastPacket(player, new SM_ITEM_USAGE_ANIMATION(player.getObjectId(), itemObjId, id, 0, 1, 0), true);
 				player.getInventory().removeFromBagByObjectId(itemObjId, 1);
-				itemService.addItems(player, Collections.singletonList(new QuestItems(182201327, 1)));
+				ItemService.addItems(player, Collections.singletonList(new QuestItems(182201327, 1)));
 				qs.setQuestVar(1);
 				updateQuestStatus(player, qs);
 			}
@@ -107,7 +103,7 @@ public class _1361FindingDrinkingWater extends QuestHandler
 					return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 1011);
 				else if(env.getDialogId() == 1002)
 				{
-					if (itemService.addItems(player, Collections.singletonList(new QuestItems(182201326, 1))))
+					if (ItemService.addItems(player, Collections.singletonList(new QuestItems(182201326, 1))))
 						return defaultQuestStartDialog(env);
 					else
 						return true;

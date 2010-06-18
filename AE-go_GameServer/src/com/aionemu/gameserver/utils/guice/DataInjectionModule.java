@@ -52,7 +52,6 @@ import com.aionemu.gameserver.services.EnchantService;
 import com.aionemu.gameserver.services.ExchangeService;
 import com.aionemu.gameserver.services.GroupService;
 import com.aionemu.gameserver.services.InstanceService;
-import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.services.KiskService;
 import com.aionemu.gameserver.services.LegionService;
 import com.aionemu.gameserver.services.MailService;
@@ -104,7 +103,6 @@ public class DataInjectionModule extends AbstractModule
 		bind(AccountService.class).in(Scopes.SINGLETON);
 		bind(SocialService.class).in(Scopes.SINGLETON);
 		bind(ScriptService.class).in(Scopes.SINGLETON);
-		bind(ItemService.class).in(Scopes.SINGLETON);
 		bind(TradeService.class).in(Scopes.SINGLETON);
 		bind(DropService.class).asEagerSingleton();
 		bind(CubeExpandService.class).in(Scopes.SINGLETON);

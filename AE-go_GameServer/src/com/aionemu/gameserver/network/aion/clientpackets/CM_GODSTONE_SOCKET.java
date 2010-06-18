@@ -22,7 +22,6 @@ import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.utils.MathUtil;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer
@@ -30,9 +29,6 @@ import com.google.inject.Inject;
  */
 public class CM_GODSTONE_SOCKET extends AionClientPacket
 {
-
-	@Inject
-	private ItemService itemService;
 	
 	private int npcId;
 	private int weaponId;
@@ -63,6 +59,6 @@ public class CM_GODSTONE_SOCKET extends AionClientPacket
 		if(!MathUtil.isInRange(activePlayer, npc, 15))
 			return;
 		
-		itemService.socketGodstone(activePlayer, weaponId, stoneId);
+		ItemService.socketGodstone(activePlayer, weaponId, stoneId);
 	}
 }

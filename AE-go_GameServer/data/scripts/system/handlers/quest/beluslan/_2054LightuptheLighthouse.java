@@ -35,7 +35,6 @@ import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
-import com.google.inject.Inject;
 
 /**
  * @author Rhys2002
@@ -43,8 +42,6 @@ import com.google.inject.Inject;
  */
 public class _2054LightuptheLighthouse extends QuestHandler
 {
-	@Inject
-	ItemService itemService;
 	
 	private final static int	questId	= 2054;
 	private final static int[]	npc_ids	= { 204768, 204739, 730109, 730140, 700287 };
@@ -180,7 +177,7 @@ public class _2054LightuptheLighthouse extends QuestHandler
 						updateQuestStatus(player, qs);
 						npc.getController().onDespawn(true);
 						npc.getController().scheduleRespawn();						
-						itemService.addItems(player, Collections.singletonList(new QuestItems(182204309, 1)));
+						ItemService.addItems(player, Collections.singletonList(new QuestItems(182204309, 1)));
 						PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
 						return true;
 					}						

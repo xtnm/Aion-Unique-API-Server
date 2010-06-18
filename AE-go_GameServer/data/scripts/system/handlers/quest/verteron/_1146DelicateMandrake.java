@@ -28,7 +28,6 @@ import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author Mr. Poke + Dune11
@@ -37,9 +36,6 @@ import com.google.inject.Inject;
 public class _1146DelicateMandrake extends QuestHandler
 {
 	private final static int	questId	= 1146;
-
-	@Inject
-	ItemService itemService;
 
 	public _1146DelicateMandrake()
 	{
@@ -68,7 +64,7 @@ public class _1146DelicateMandrake extends QuestHandler
 			{
 				if(env.getDialogId() == 25)
 					return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 1011);
-					if (itemService.addItems(player, Collections.singletonList(new QuestItems(182200519, 1))))
+					if (ItemService.addItems(player, Collections.singletonList(new QuestItems(182200519, 1))))
 					return defaultQuestStartDialog(env);
 			}
 		}

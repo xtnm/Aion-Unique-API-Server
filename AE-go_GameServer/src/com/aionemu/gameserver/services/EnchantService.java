@@ -19,8 +19,6 @@ package com.aionemu.gameserver.services;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.inject.Inject;
-
 import org.apache.log4j.Logger;
 
 import com.aionemu.commons.utils.Rnd;
@@ -54,8 +52,6 @@ import com.aionemu.gameserver.utils.PacketSendUtility;
 public class EnchantService
 {
 	private static final Logger	log	= Logger.getLogger(EnchantService.class);
-	@Inject
-	private ItemService			itemService;
 
 	/**
 	 * @param player
@@ -102,7 +98,7 @@ public class EnchantService
 
 		inventory.removeFromBagByObjectId(parentItem.getObjectId(), 1);
 
-		itemService.addItem(player, enchantItemId, number);
+		ItemService.addItem(player, enchantItemId, number);
 	}
 
 	/**
@@ -241,7 +237,7 @@ public class EnchantService
 		{
 			PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_GIVE_ITEM_OPTION_SUCCEED(new DescriptionId(
 				Integer.parseInt(targetItem.getName()))));
-			ManaStone manaStone = itemService.addManaStone(targetItem, parentItem.getItemTemplate().getTemplateId());
+			ManaStone manaStone = ItemService.addManaStone(targetItem, parentItem.getItemTemplate().getTemplateId());
 			if(targetItem.isEquipped())
 			{
 				ItemEquipmentListener.addStoneStats(manaStone, player.getGameStats());
@@ -258,7 +254,7 @@ public class EnchantService
 				ItemEquipmentListener.removeStoneStats(manaStones, player.getGameStats());
 				PacketSendUtility.sendPacket(player, new SM_STATS_INFO(player));
 			}
-			itemService.removeAllManastone(player, targetItem);
+			ItemService.removeAllManastone(player, targetItem);
 		}
 
 		PacketSendUtility.sendPacket(player, new SM_UPDATE_ITEM(targetItem));

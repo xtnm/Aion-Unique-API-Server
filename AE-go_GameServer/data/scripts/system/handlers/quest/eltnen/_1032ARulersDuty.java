@@ -35,7 +35,6 @@ import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.services.ZoneService;
 import com.aionemu.gameserver.world.zone.ZoneName;
-import com.google.inject.Inject;
 
 /**
  * @author Xitanium
@@ -43,10 +42,7 @@ import com.google.inject.Inject;
  */
 public class _1032ARulersDuty extends QuestHandler
 {
-	
-	@Inject
-	ItemService itemService;
-	
+
 	private final static int	questId	= 1032;
 
 	public _1032ARulersDuty()
@@ -216,7 +212,7 @@ public class _1032ARulersDuty extends QuestHandler
 				{
 					if (qs.getQuestVarById(0) == 3 && env.getDialogId() == -1)
 					{
-						itemService.addItems(player, Collections.singletonList(new QuestItems(182201001, 1)));
+						ItemService.addItems(player, Collections.singletonList(new QuestItems(182201001, 1)));
 						final int targetObjectId = env.getVisibleObject().getObjectId();
 						PacketSendUtility.sendPacket(player, new SM_USE_OBJECT(player.getObjectId(), targetObjectId, 3000,
 							1));

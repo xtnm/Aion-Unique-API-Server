@@ -32,7 +32,6 @@ import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
-import com.google.inject.Inject;
 
 /**
  * @author Rhys2002
@@ -40,9 +39,7 @@ import com.google.inject.Inject;
  */
 public class _2034TheHandBehindtheIceClaw extends QuestHandler
 {
-	@Inject
-	ItemService itemService;
-	
+
 	private final static int	questId	= 2034;
 	private final static int[]	npc_ids	= { 204303, 204332, 700246, 204301 };
 
@@ -155,7 +152,7 @@ public class _2034TheHandBehindtheIceClaw extends QuestHandler
 						qs.setQuestVarById(0, var + 1);
 						updateQuestStatus(player, qs);
 					}
-						itemService.addItems(player, Collections.singletonList(new QuestItems(182204008, 1)));
+						ItemService.addItems(player, Collections.singletonList(new QuestItems(182204008, 1)));
 						PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(env.getVisibleObject().getObjectId(), 10));
 						return true;
 				case 10003:

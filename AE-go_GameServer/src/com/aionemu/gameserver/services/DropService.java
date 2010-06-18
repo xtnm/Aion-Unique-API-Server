@@ -56,13 +56,11 @@ public class DropService
 	private Map<Integer, Set<DropItem>>	currentDropMap		= new FastMap<Integer, Set<DropItem>>().shared();
 	private Map<Integer, DropNpc>		dropRegistrationMap	= new FastMap<Integer, DropNpc>().shared();
 
-	private ItemService					itemService;
 	private GroupService				groupService;
 
 	@Inject
-	public DropService(ItemService itemService, GroupService groupService)
+	public DropService(GroupService groupService)
 	{
-		this.itemService = itemService;
 		this.groupService = groupService;
 		dropList = DAOManager.getDAO(DropListDAO.class).load();
 		log.info(dropList.getSize() + " npc drops loaded");
@@ -239,7 +237,7 @@ public class DropService
 			int currentDropItemCount = requestedItem.getCount();
 			int itemId = requestedItem.getDropTemplate().getItemId();
 			
-			currentDropItemCount = itemService.addItem(player, itemId, currentDropItemCount);
+			currentDropItemCount = ItemService.addItem(player, itemId, currentDropItemCount);
 
 			if(currentDropItemCount == 0)
 			{

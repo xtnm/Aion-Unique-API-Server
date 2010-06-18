@@ -33,7 +33,6 @@ import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.zone.ZoneName;
-import com.google.inject.Inject;
 
 /**
  * @author Mr. Poke
@@ -41,8 +40,6 @@ import com.google.inject.Inject;
  */
 public class _2013ADangerousCrop extends QuestHandler
 {
-	@Inject
-	ItemService itemService;
 
 	private final static int	questId	= 2013;
 
@@ -95,7 +92,7 @@ public class _2013ADangerousCrop extends QuestHandler
 							if(var == 0 || var == 2 || var == 8)
 							{
 								if (var == 2)
-									if (!itemService.addItems(player, Collections.singletonList(new QuestItems(182203012, 1))))
+									if (!ItemService.addItems(player, Collections.singletonList(new QuestItems(182203012, 1))))
 										return true;
 								if (var == 8)
 									player.getInventory().removeFromBagByItemId(182203012, 1);

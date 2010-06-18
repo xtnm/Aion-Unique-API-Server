@@ -32,8 +32,6 @@ public class ServiceProxy
 	@Inject
 	private ExchangeService			exchangeService;
 	@Inject
-	private ItemService				itemService;
-	@Inject
 	private LegionService			legionService;
 	@Inject
 	private PrivateStoreService		privateStoreService;
@@ -80,14 +78,6 @@ public class ServiceProxy
 	public ExchangeService getExchangeService()
 	{
 		return exchangeService;
-	}
-
-	/**
-	 * @return the itemService
-	 */
-	public ItemService getItemService()
-	{
-		return itemService;
 	}
 
 	/**

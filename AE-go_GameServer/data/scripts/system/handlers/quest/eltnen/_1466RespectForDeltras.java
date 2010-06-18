@@ -32,7 +32,6 @@ import com.aionemu.gameserver.services.ZoneService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.zone.ZoneName;
-import com.google.inject.Inject;
 
 /**
  * @author Nephis and AU quest helper Team
@@ -41,9 +40,6 @@ import com.google.inject.Inject;
 public class _1466RespectForDeltras extends QuestHandler
 {
 	private final static int	questId	= 1466;
-
-	@Inject
-	ItemService itemService;
 
 	public _1466RespectForDeltras()
 	{
@@ -103,7 +99,7 @@ public class _1466RespectForDeltras extends QuestHandler
 					return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 4762);
 				else if(env.getDialogId() == 1002)
 				{
-					if (itemService.addItems(player, Collections.singletonList(new QuestItems(182201385, 1))))
+					if (ItemService.addItems(player, Collections.singletonList(new QuestItems(182201385, 1))))
 						return defaultQuestStartDialog(env);
 					else
 						return true;

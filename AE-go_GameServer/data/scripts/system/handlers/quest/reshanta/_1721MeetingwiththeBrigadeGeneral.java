@@ -28,7 +28,6 @@ import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
 * @author MrPoke
@@ -37,9 +36,6 @@ import com.google.inject.Inject;
 public class _1721MeetingwiththeBrigadeGeneral extends QuestHandler
 {
    private final static int   questId   = 1721;
-   
-	@Inject
-	ItemService					itemService;   
 
    public _1721MeetingwiththeBrigadeGeneral()
    {
@@ -72,7 +68,7 @@ public class _1721MeetingwiththeBrigadeGeneral extends QuestHandler
 					return sendQuestDialog(player, env.getVisibleObject().getObjectId(), 1011);
 				else if(env.getDialogId() == 1002)
 				{
-					if (itemService.addItems(player, Collections.singletonList(new QuestItems(182202151, 1))))
+					if (ItemService.addItems(player, Collections.singletonList(new QuestItems(182202151, 1))))
 						return defaultQuestStartDialog(env);
 					else
 						return true;

@@ -35,7 +35,6 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_EXCHANGE_REQUEST;
 import com.aionemu.gameserver.restrictions.RestrictionsManager;
 import com.aionemu.gameserver.taskmanager.AbstractFIFOPeriodicTaskManager;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer
@@ -43,8 +42,6 @@ import com.google.inject.Inject;
  */
 public class ExchangeService
 {
-	@Inject
-	private ItemService					itemService;
 
 	private Map<Integer, Exchange>		exchanges			= new HashMap<Integer, Exchange>();
 
@@ -185,7 +182,7 @@ public class ExchangeService
 			Item newItem = null;
 			if(itemCount < item.getItemCount())
 			{
-				newItem = itemService.newItem(item.getItemId(), itemCount);
+				newItem = ItemService.newItem(item.getItemId(), itemCount);
 			}
 			else
 			{
@@ -328,7 +325,7 @@ public class ExchangeService
 				exchangeItem.setItem(itemInInventory);
 				//release when only part stack was added in the beginning -> full stack in the end
 				if(item.getObjectId() != exchangeItem.getItemObjId())
-					itemService.releaseItemId(item);
+					ItemService.releaseItemId(item);
 				PacketSendUtility.sendPacket(player, new SM_DELETE_ITEM(itemInInventory.getObjectId()));
 			}			
 		}
@@ -369,7 +366,7 @@ public class ExchangeService
 			Item itemToPut = exchangeItem.getItem();
 			itemToPut.setEquipmentSlot(0);
 			player.getInventory().putToBag(itemToPut);
-			itemService.updateItem(player, itemToPut, true);
+			ItemService.updateItem(player, itemToPut, true);
 			exchange2.addItemToUpdate(itemToPut);
 		}	
 		int kinahToExchange = exchange1.getKinahCount();

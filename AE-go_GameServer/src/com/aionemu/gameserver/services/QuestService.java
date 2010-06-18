@@ -57,8 +57,6 @@ import com.aionemu.gameserver.utils.PacketSendUtility;
  */
 public final class QuestService
 {
-
-	static ItemService		itemService = TmpInjectorProxy.getInstance().getItemService();
 	static SpawnEngine		spawnEngine = TmpInjectorProxy.getInstance().getSpawnEngine();
 	static QuestsData		questsData = DataManager.QUEST_DATA;
 
@@ -124,7 +122,7 @@ public final class QuestService
 					questItems.add(selectebleRewardItem);
 			}
 		}
-		if (itemService.addItems(player, questItems))
+		if (ItemService.addItems(player, questItems))
 		{
 			if(rewards.getGold() != null)
 			{
