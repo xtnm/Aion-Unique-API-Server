@@ -19,7 +19,10 @@ package com.aionemu.gameserver.services;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+
+import org.apache.log4j.Logger;
 
 import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.model.ChatType;
@@ -40,10 +43,18 @@ import com.aionemu.gameserver.utils.PacketSendUtility;
 
 public class CraftSkillUpdateService
 {
+	private static final Logger	log			= Logger.getLogger(CraftSkillUpdateService.class);
+
 	private static final Map<Integer, LearnTemplate> npcBySkill = new HashMap <Integer, LearnTemplate>();
 	private static final Map<Integer, Integer> cost = new HashMap <Integer, Integer>();
+	private static final List<Integer> craftingSkillIds = new ArrayList<Integer>();
 
-	public CraftSkillUpdateService()
+	public static final CraftSkillUpdateService getInstance()
+	{
+		return SingletonHolder.instance;
+	}
+
+	private CraftSkillUpdateService()
 	{
 		// Asmodian
 		npcBySkill.put(204096, new LearnTemplate(30002, false,"Extract Vitality"));
@@ -72,7 +83,17 @@ public class CraftSkillUpdateService
 		cost.put(199, 115000);
 		cost.put(299, 460000);
 		cost.put(399, 1500000);
+		
+		craftingSkillIds.add(40001);		
+		craftingSkillIds.add(40002);
+		craftingSkillIds.add(40003);
+		craftingSkillIds.add(40004);
+		craftingSkillIds.add(40007);
+		craftingSkillIds.add(40008);
+		
+		log.info("CraftSkillUpdateService: Initialized.");
 	}
+
 	class LearnTemplate
 	{
 		private int skillId;
@@ -159,31 +180,14 @@ public class CraftSkillUpdateService
 	}
 	
 	/**
-	 * 
-	 * @return crafting skillIds in ArrayList<Integer>
-	 */
-	public ArrayList<Integer> getCraftingSkills()
-	{
-		ArrayList<Integer> craftingSkillIds = new ArrayList<Integer>();
-		craftingSkillIds.add(40001);		
-		craftingSkillIds.add(40002);
-		craftingSkillIds.add(40003);
-		craftingSkillIds.add(40004);
-		craftingSkillIds.add(40007);
-		craftingSkillIds.add(40008);
-		
-		return craftingSkillIds;
-	}
-	
-	/**
 	 * check if skillId is crafting skill or not
 	 * 
 	 * @param skillId
 	 * @return true or false
 	 */
-	public boolean isCraftingSkill(int skillId)
+	private static boolean isCraftingSkill(int skillId)
 	{
-		Iterator<Integer> it = getCraftingSkills().iterator();
+		Iterator<Integer> it = craftingSkillIds.iterator();
 		while(it.hasNext())
 		{
 			if(it.next() == skillId)
@@ -196,11 +200,11 @@ public class CraftSkillUpdateService
 	 * Get total mastered crafting skills
 	 * @return total number of mastered crafting skills
 	 */
-	private int getTotalMasterCraftingSkills(Player player)
+	private static int getTotalMasterCraftingSkills(Player player)
 	{	
 		int mastered = 0;
 
-		Iterator<Integer> it = getCraftingSkills().iterator();
+		Iterator<Integer> it = craftingSkillIds.iterator();
 		while(it.hasNext())
 		{
 			int skillId = it.next();
@@ -221,12 +225,17 @@ public class CraftSkillUpdateService
 	 * 
 	 * @return true or false
 	 */
-	public boolean canLearnMoreMasterCraftingSkill(Player player)
+	private static boolean canLearnMoreMasterCraftingSkill(Player player)
 	{
 		if(getTotalMasterCraftingSkills(player) < 2)
 			return true;
 		else
 			return false;
-	}	
+	}
 
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final CraftSkillUpdateService instance = new CraftSkillUpdateService();
+	}
 }

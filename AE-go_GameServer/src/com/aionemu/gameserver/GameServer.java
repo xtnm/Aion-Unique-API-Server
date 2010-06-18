@@ -39,8 +39,12 @@ import com.aionemu.gameserver.questEngine.QuestEngine;
 import com.aionemu.gameserver.services.AnnouncementService;
 import com.aionemu.gameserver.services.BrokerService;
 import com.aionemu.gameserver.services.DebugService;
+import com.aionemu.gameserver.services.DropService;
 import com.aionemu.gameserver.services.DuelService;
+import com.aionemu.gameserver.services.ExchangeService;
 import com.aionemu.gameserver.services.GameTimeService;
+import com.aionemu.gameserver.services.GroupService;
+import com.aionemu.gameserver.services.MailService;
 import com.aionemu.gameserver.services.ServiceProxy;
 import com.aionemu.gameserver.services.TmpInjectorProxy;
 import com.aionemu.gameserver.services.WeatherService;
@@ -117,7 +121,6 @@ public class GameServer
 		DAOManager.getDAO(PlayerDAO.class).setPlayersOffline(false);
 		gs.spawnMonsters();
 		gs.initQuests();
-		gs.initBroker();
 
 		Util.printSection("TaskManagers");
 		PacketBroadcaster.getInstance();
@@ -133,6 +136,16 @@ public class GameServer
 		WeatherService.getInstance();
 
 		DuelService.getInstance();
+
+		MailService.getInstance();
+
+		GroupService.getInstance();
+
+		BrokerService.getInstance();
+
+		DropService.getInstance();
+
+		ExchangeService.getInstance();
 
 		Util.printSection("System");
 		AEVersions.printFullVersionInfo();
@@ -175,12 +188,6 @@ public class GameServer
 		QuestEngine questEngine = QuestEngine.getInstance();
 		questEngine.setInjector(injector);
 		questEngine.load();
-	}
-	
-	private void initBroker()
-	{
-		BrokerService brService = injector.getInstance(BrokerService.class);
-		brService.initBrokerService();
 	}
 
 	/**

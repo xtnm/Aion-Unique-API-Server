@@ -63,25 +63,42 @@ public class GroupService
 	/**
 	 * Caching group members
 	 */
-	private final FastMap<Integer, PlayerGroup>		groupMembers	= new FastMap<Integer, PlayerGroup>();
+	private final FastMap<Integer, PlayerGroup>		groupMembers;
 
 	/**
 	 * Caching remove group member schedule
 	 */
-	private FastMap<Integer, ScheduledFuture<?>>	playerGroup		= new FastMap<Integer, ScheduledFuture<?>>();
+	private FastMap<Integer, ScheduledFuture<?>>	playerGroup;
+
+	
+	public static final GroupService getInstance()
+	{
+		return SingletonHolder.instance;
+	}
+
+	
+	/**
+	 * @param playerGroup
+	 */
+	private GroupService()
+	{
+		groupMembers	= new FastMap<Integer, PlayerGroup>();
+		playerGroup		= new FastMap<Integer, ScheduledFuture<?>>();
+	}
+
 
 	/**
 	 * This method will add a member to the group member cache
 	 * 
 	 * @param player
 	 */
-	public void addGroupMemberToCache(Player player)
+	private void addGroupMemberToCache(Player player)
 	{
 		if(!groupMembers.containsKey(player.getObjectId()))
 			groupMembers.put(player.getObjectId(), player.getPlayerGroup());
 	}
 
-	public void removeGroupMemberFromCache(int playerObjId)
+	private void removeGroupMemberFromCache(int playerObjId)
 	{
 		if(groupMembers.containsKey(playerObjId))
 			groupMembers.remove(playerObjId);
@@ -102,7 +119,7 @@ public class GroupService
 	 * @param playerObjId
 	 * @return PlayerGroup
 	 */
-	public PlayerGroup getGroup(int playerObjId)
+	private PlayerGroup getGroup(int playerObjId)
 	{
 		return groupMembers.get(playerObjId);
 	}
@@ -160,7 +177,7 @@ public class GroupService
 	/**
 	 * @param player
 	 */
-	public void removePlayerFromGroup(Player player)
+	private void removePlayerFromGroup(Player player)
 	{
 		if(player.isInGroup())
 		{
@@ -177,7 +194,7 @@ public class GroupService
 	/**
 	 * @param player
 	 */
-	public void setGroupLeader(Player player)
+	private void setGroupLeader(Player player)
 	{
 		final PlayerGroup group = player.getPlayerGroup();
 
@@ -410,7 +427,7 @@ public class GroupService
 	 * @param playerGroupCache
 	 *            the playerGroupCache to set
 	 */
-	public void addPlayerGroupCache(int playerObjId, ScheduledFuture<?> future)
+	private void addPlayerGroupCache(int playerObjId, ScheduledFuture<?> future)
 	{
 		if(!playerGroup.containsKey(playerObjId))
 			playerGroup.put(playerObjId, future);
@@ -421,7 +438,7 @@ public class GroupService
 	 * 
 	 * @param playerObjId
 	 */
-	public void cancelScheduleRemove(int playerObjId)
+	private void cancelScheduleRemove(int playerObjId)
 	{
 		if(playerGroup.containsKey(playerObjId))
 		{
@@ -542,5 +559,12 @@ public class GroupService
 				return player;
 		}
 		return player;
+	}
+	
+	
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final GroupService instance = new GroupService();
 	}
 }

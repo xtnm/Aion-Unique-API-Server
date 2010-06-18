@@ -19,7 +19,6 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.services.BrokerService;
-import com.google.inject.Inject;
 
 /**
  * @author kosyachok
@@ -32,9 +31,6 @@ public class CM_BROKER_LIST extends AionClientPacket
 	private int sortType;
 	private int page;
 	private int listMask;
-	
-	@Inject
-	BrokerService brokerService;
 	
 	public CM_BROKER_LIST(int opcode)
 	{
@@ -55,6 +51,6 @@ public class CM_BROKER_LIST extends AionClientPacket
 	{
 		Player player = getConnection().getActivePlayer();
 		
-		brokerService.showRequestedItems(player, listMask, sortType, page);
+		BrokerService.getInstance().showRequestedItems(player, listMask, sortType, page);
 	}
 }

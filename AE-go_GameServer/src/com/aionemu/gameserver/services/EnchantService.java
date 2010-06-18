@@ -58,7 +58,7 @@ public class EnchantService
 	 * @param targetItem
 	 * @param parentItem
 	 */
-	public void breakItem(Player player, Item targetItem, Item parentItem)
+	public static void breakItem(Player player, Item targetItem, Item parentItem)
 	{
 		Storage inventory = player.getInventory();
 
@@ -106,7 +106,7 @@ public class EnchantService
 	 * @param parentItem
 	 * @param targetItem
 	 */
-	public boolean enchantItem(Player player, Item parentItem, Item targetItem)
+	public static boolean enchantItem(Player player, Item parentItem, Item targetItem)
 	{
 		int enchantStoneLevel = parentItem.getItemTemplate().getLevel();
 		int targetItemLevel = targetItem.getItemTemplate().getLevel();
@@ -203,7 +203,7 @@ public class EnchantService
 	 * @param parentItem
 	 * @param targetItem
 	 */
-	public boolean socketManastone(Player player, Item parentItem, Item targetItem)
+	public static boolean socketManastone(Player player, Item parentItem, Item targetItem)
 	{
 		boolean result = false;
 		int successRate = 76;

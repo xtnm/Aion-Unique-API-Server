@@ -30,13 +30,10 @@ import com.google.inject.Inject;
 public class GiveMissingSkills extends AdminCommand
 {
 	
-	private SkillLearnService skillLearnService;
-	
 	@Inject
-	public GiveMissingSkills(SkillLearnService skillLearnService)
+	public GiveMissingSkills()
 	{
 		super("givemissingskills");
-		this.skillLearnService = skillLearnService;
 	}
 	
 	@Override
@@ -48,7 +45,7 @@ public class GiveMissingSkills extends AdminCommand
 			return;
 		}
 		
-		skillLearnService.addMissingSkills(admin);
+		SkillLearnService.addMissingSkills(admin);
 	}
 	
 }

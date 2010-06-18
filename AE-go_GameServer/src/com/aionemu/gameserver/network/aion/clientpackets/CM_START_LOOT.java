@@ -19,7 +19,6 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.services.DropService;
-import com.google.inject.Inject;
 
 /**
  * 
@@ -34,9 +33,6 @@ public class CM_START_LOOT extends AionClientPacket
 	
 	private int					targetObjectId;
 	private int					action;
-
-	@Inject
-	private DropService 	dropService;
 	
 	/**
 	 * Constructs new instance of <tt>CM_CM_REQUEST_DIALOG </tt> packet
@@ -67,11 +63,11 @@ public class CM_START_LOOT extends AionClientPacket
 
 		if(action == 0) //open
 		{
-			dropService.requestDropList(player, targetObjectId);
+			DropService.getInstance().requestDropList(player, targetObjectId);
 		}
 		else if(action == 1) //close
 		{
-			dropService.requestDropList(player, targetObjectId, true);
+			DropService.getInstance().requestDropList(player, targetObjectId, true);
 		}
 	}
 }

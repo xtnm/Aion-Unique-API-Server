@@ -18,7 +18,7 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 
 import org.apache.log4j.Logger;
 
-import com.aionemu.gameserver.dataholders.TradeListData;
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.model.gameobjects.Npc;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.templates.TradeListTemplate;
@@ -27,7 +27,6 @@ import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.services.PrivateStoreService;
 import com.aionemu.gameserver.services.TradeService;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * 
@@ -36,8 +35,6 @@ import com.google.inject.Inject;
  */
 public class CM_BUY_ITEM extends AionClientPacket
 {
-	@Inject
-	TradeListData tradeListData;
 	
 	private int	sellerObjId;
 	private int	unk1;
@@ -56,11 +53,6 @@ public class CM_BUY_ITEM extends AionClientPacket
 	 * Logger
 	 */
 	private static final Logger	log	= Logger.getLogger(CM_BUY_ITEM.class);
-
-	@Inject
-	private TradeService		tradeService;
-	@Inject
-	private PrivateStoreService	privateStoreService;
 
 	private TradeList			tradeList;
 
@@ -110,22 +102,22 @@ public class CM_BUY_ITEM extends AionClientPacket
 		{
 			case 0:
 				Player targetPlayer = (Player) World.getInstance().findAionObject(sellerObjId);
-				privateStoreService.sellStoreItem(targetPlayer, player, tradeList);
+				PrivateStoreService.sellStoreItem(targetPlayer, player, tradeList);
 				break;
 
 			case 1:
-				tradeService.performSellToShop(player, tradeList);
+				TradeService.performSellToShop(player, tradeList);
 				break;
 
 			case 12:
-				tradeService.performBuyFromShop(player, tradeList);
+				TradeService.performBuyFromShop(player, tradeList);
 				break;
 
 			case 13:
 				Npc npc = (Npc) World.getInstance().findAionObject(sellerObjId);
-				TradeListTemplate tlist = tradeListData.getTradeListTemplate(npc.getNpcId());
+				TradeListTemplate tlist = DataManager.TRADE_LIST_DATA.getTradeListTemplate(npc.getNpcId());
 				if(tlist.isAbyss())
-					tradeService.performBuyFromAbyssShop(player, tradeList);
+					TradeService.performBuyFromAbyssShop(player, tradeList);
 				break;
 
 			default:

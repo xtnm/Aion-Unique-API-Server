@@ -19,7 +19,6 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.services.ExchangeService;
-import com.google.inject.Inject;
 
 /**
  * @author -Avol-
@@ -27,8 +26,6 @@ import com.google.inject.Inject;
  */
 public class CM_EXCHANGE_OK extends AionClientPacket
 {
-	@Inject	
-	private ExchangeService			exchangeService;
 
 	public CM_EXCHANGE_OK(int opcode)
 	{
@@ -45,6 +42,6 @@ public class CM_EXCHANGE_OK extends AionClientPacket
 	protected void runImpl()
 	{	
 		final Player activePlayer = getConnection().getActivePlayer();
-		exchangeService.confirmExchange(activePlayer);
+		ExchangeService.getInstance().confirmExchange(activePlayer);
 	}
 }

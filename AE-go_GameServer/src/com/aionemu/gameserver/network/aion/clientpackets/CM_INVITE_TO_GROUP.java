@@ -23,7 +23,6 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.services.GroupService;
 import com.aionemu.gameserver.utils.Util;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * 
@@ -32,8 +31,6 @@ import com.google.inject.Inject;
  */
 public class CM_INVITE_TO_GROUP extends AionClientPacket
 {
-	@Inject
-	private GroupService	groupService;
 
 	private String			name;
 
@@ -70,7 +67,7 @@ public class CM_INVITE_TO_GROUP extends AionClientPacket
 				sendPacket(SM_SYSTEM_MESSAGE.STR_MSG_REJECTED_INVITE_PARTY(invited.getName()));
 				return;
 			}
-			groupService.invitePlayerToGroup(inviter, invited);
+			GroupService.getInstance().invitePlayerToGroup(inviter, invited);
 		}
 		else
 			inviter.getClientConnection().sendPacket(SM_SYSTEM_MESSAGE.PLAYER_IS_OFFLINE(name));

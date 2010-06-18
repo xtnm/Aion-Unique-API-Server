@@ -20,7 +20,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.aionemu.gameserver.dataholders.WarehouseExpandData;
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.model.gameobjects.Creature;
 import com.aionemu.gameserver.model.gameobjects.Item;
 import com.aionemu.gameserver.model.gameobjects.Npc;
@@ -32,7 +32,6 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_QUESTION_WINDOW;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_WAREHOUSE_INFO;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author Simple
@@ -40,9 +39,6 @@ import com.google.inject.Inject;
 public class WarehouseService
 {
 	private static final Logger	log			= Logger.getLogger(WarehouseService.class);
-
-	@Inject
-	WarehouseExpandData			warehouseExpandData;
 
 	private static final int	MIN_EXPAND	= 0;
 	private static final int	MAX_EXPAND	= 10;
@@ -53,9 +49,9 @@ public class WarehouseService
 	 * @param player
 	 * @param npc
 	 */
-	public void expandWarehouse(final Player player, Npc npc)
+	public static void expandWarehouse(final Player player, Npc npc)
 	{
-		final WarehouseExpandTemplate expandTemplate = warehouseExpandData.getWarehouseExpandListTemplate(npc
+		final WarehouseExpandTemplate expandTemplate = DataManager.WAREHOUSEEXPANDER_DATA.getWarehouseExpandListTemplate(npc
 			.getNpcId());
 
 		if(expandTemplate == null)
@@ -107,7 +103,7 @@ public class WarehouseService
 	 * 
 	 * @param player
 	 */
-	private void expand(Player player)
+	private static void expand(Player player)
 	{
 		PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1300433, "8")); // 8 Slots added
 		player.setWarehouseSize(player.getWarehouseSize() + 1);
@@ -121,7 +117,7 @@ public class WarehouseService
 	 * @param level
 	 * @return true or false
 	 */
-	private boolean validateNewSize(int level)
+	private static boolean validateNewSize(int level)
 	{
 		// check min and max level
 		if(level < MIN_EXPAND || level > MAX_EXPAND)
@@ -136,7 +132,7 @@ public class WarehouseService
 	 * @param level
 	 * @return true or false
 	 */
-	private boolean npcCanExpandLevel(WarehouseExpandTemplate clist, int level)
+	private static boolean npcCanExpandLevel(WarehouseExpandTemplate clist, int level)
 	{
 		// check if level exists in template
 		if(!clist.contains(level))
@@ -151,7 +147,7 @@ public class WarehouseService
 	 * @param level
 	 * @return
 	 */
-	private int getPriceByLevel(WarehouseExpandTemplate clist, int level)
+	private static int getPriceByLevel(WarehouseExpandTemplate clist, int level)
 	{
 		return clist.get(level).getPrice();
 	}
@@ -162,7 +158,7 @@ public class WarehouseService
 	 *  
 	 * @param player
 	 */
-	public void sendWarehouseInfo(Player player, boolean sendAccountWh)
+	public static void sendWarehouseInfo(Player player, boolean sendAccountWh)
 	{		
 		List<Item> items = player.getStorage(StorageType.REGULAR_WAREHOUSE.getId()).getStorageItems();
 		

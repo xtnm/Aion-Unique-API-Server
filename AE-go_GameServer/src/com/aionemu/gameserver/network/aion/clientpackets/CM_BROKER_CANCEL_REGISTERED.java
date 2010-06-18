@@ -19,7 +19,6 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.services.BrokerService;
-import com.google.inject.Inject;
 
 /**
  * @author kosyachok
@@ -30,9 +29,6 @@ public class CM_BROKER_CANCEL_REGISTERED extends AionClientPacket
 	@SuppressWarnings("unused")
 	private int npcId;
 	private int brokerItemId;
-	
-	@Inject
-	BrokerService brokerService;
 	
 	public CM_BROKER_CANCEL_REGISTERED(int opcode)
 	{
@@ -51,6 +47,6 @@ public class CM_BROKER_CANCEL_REGISTERED extends AionClientPacket
 	{
 		Player player = getConnection().getActivePlayer();
 		
-		brokerService.cancelRegisteredItem(player, brokerItemId);
+		BrokerService.getInstance().cancelRegisteredItem(player, brokerItemId);
 	}
 }

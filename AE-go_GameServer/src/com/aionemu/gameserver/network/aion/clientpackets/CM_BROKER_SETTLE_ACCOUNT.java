@@ -19,7 +19,6 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.services.BrokerService;
-import com.google.inject.Inject;
 
 /**
  * @author kosyachok
@@ -29,9 +28,6 @@ public class CM_BROKER_SETTLE_ACCOUNT extends AionClientPacket
 {
 	@SuppressWarnings("unused")
 	private int npcId;
-	
-	@Inject
-	BrokerService brokerService;
 	
 	public CM_BROKER_SETTLE_ACCOUNT(int opcode)
 	{
@@ -49,6 +45,6 @@ public class CM_BROKER_SETTLE_ACCOUNT extends AionClientPacket
 	{
 		Player player = getConnection().getActivePlayer();
 		
-		brokerService.settleAccount(player);
+		BrokerService.getInstance().settleAccount(player);
 	}
 }

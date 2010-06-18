@@ -49,10 +49,15 @@ public class ExchangeService
 
 	private final int					DELAY_EXCHANGE_SAVE	= 5000;
 	
+	public static final ExchangeService getInstance()
+	{
+		return SingletonHolder.instance;
+	}
+
 	/**
 	 * Default constructor
 	 */
-	public ExchangeService()
+	private ExchangeService()
 	{
 		saveManager = new ExchangePeriodicTaskManager(DELAY_EXCHANGE_SAVE);
 	}
@@ -85,7 +90,7 @@ public class ExchangeService
 		return RestrictionsManager.canTrade(player1) && RestrictionsManager.canTrade(player2);
 	}
 
-	public Player getCurrentParter(Player player)
+	private Player getCurrentParter(Player player)
 	{
 		Exchange exchange = exchanges.get(player.getObjectId());
 		return exchange != null ? exchange.getTargetPlayer() : null;
@@ -95,7 +100,7 @@ public class ExchangeService
 	 * @param player
 	 * @return Exchange
 	 */
-	public Exchange getCurrentExchange(Player player)
+	private Exchange getCurrentExchange(Player player)
 	{
 		return exchanges.get(player.getObjectId());
 	}
@@ -446,5 +451,10 @@ public class ExchangeService
 				DAOManager.getDAO(InventoryDAO.class).store(item, player2Id);
 			}
 		}
+	}
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final ExchangeService instance = new ExchangeService();
 	}
 }

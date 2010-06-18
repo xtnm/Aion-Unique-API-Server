@@ -19,7 +19,6 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.services.BrokerService;
-import com.google.inject.Inject;
 
 /**
  * @author kosyak
@@ -29,9 +28,6 @@ public class CM_BROKER_REGISTERED extends AionClientPacket
 {
 	@SuppressWarnings("unused")
 	private int npcId;
-	
-	@Inject
-	BrokerService brokerService;
 	
 	/**
 	 * 
@@ -52,6 +48,6 @@ public class CM_BROKER_REGISTERED extends AionClientPacket
 	{
 		Player player = getConnection().getActivePlayer();
 		
-		brokerService.showRegisteredItems(player);
+		BrokerService.getInstance().showRegisteredItems(player);
 	}
 }

@@ -50,7 +50,7 @@ public class PrivateStoreService
 	 * @param itemAmount
 	 * @param itemPrice
 	 */
-	public void addItem(Player activePlayer, TradePSItem[] tradePSItems)
+	public static void addItem(Player activePlayer, TradePSItem[] tradePSItems)
 	{
 		/**
 		 * Check if player already has a store, if not create one
@@ -86,7 +86,7 @@ public class PrivateStoreService
 	 * 
 	 * @return
 	 */
-	private boolean validateItem(Item item, int itemId, int itemAmount)
+	private static boolean validateItem(Item item, int itemId, int itemAmount)
 	{
         return !(item.getItemTemplate().getTemplateId() != itemId || itemAmount > item.getItemCount());
     }
@@ -96,7 +96,7 @@ public class PrivateStoreService
 	 * 
 	 * @param activePlayer
 	 */
-	private void createStore(Player activePlayer)
+	private static void createStore(Player activePlayer)
 	{
 		activePlayer.setStore(new PrivateStore(activePlayer));
 		activePlayer.setState(CreatureState.PRIVATE_SHOP);
@@ -108,7 +108,7 @@ public class PrivateStoreService
 	 * 
 	 * @param activePlayer
 	 */
-	public void closePrivateStore(Player activePlayer)
+	public static void closePrivateStore(Player activePlayer)
 	{
 		activePlayer.setStore(null);
 		activePlayer.unsetState(CreatureState.PRIVATE_SHOP);
@@ -118,7 +118,7 @@ public class PrivateStoreService
 	/**
 	 * This method will move the item to the new player and move kinah to item owner
 	 */
-	public void sellStoreItem(Player seller, Player buyer, TradeList tradeList)
+	public static void sellStoreItem(Player seller, Player buyer, TradeList tradeList)
 	{
 		/**
 		 * 1. Check if we are busy with two valid participants
@@ -203,7 +203,7 @@ public class PrivateStoreService
 	 * @param seller
 	 * @param item
 	 */
-	private void decreaseItemFromPlayer(Player seller, Item item, TradeItem tradeItem)
+	private static void decreaseItemFromPlayer(Player seller, Item item, TradeItem tradeItem)
 	{
 		seller.getInventory().decreaseItemCount(item, tradeItem.getCount());
 		PacketSendUtility.sendPacket(seller, new SM_UPDATE_ITEM(item));
@@ -216,7 +216,7 @@ public class PrivateStoreService
 	 * @param tradeList
 	 * @return
 	 */
-	private TradeList loadObjIds(Player seller, TradeList tradeList)
+	private static TradeList loadObjIds(Player seller, TradeList tradeList)
 	{
 		PrivateStore store = seller.getStore();
 		TradeList newTradeList = new TradeList();
@@ -245,7 +245,7 @@ public class PrivateStoreService
 	 * @param player1
 	 * @param player2
 	 */
-	private boolean validateParticipants(Player itemOwner, Player newOwner)
+	private static boolean validateParticipants(Player itemOwner, Player newOwner)
 	{
 		return itemOwner != null && newOwner != null && itemOwner.isOnline() && newOwner.isOnline();
 	}
@@ -253,7 +253,7 @@ public class PrivateStoreService
 	/**
 	 * @param tradeList
 	 */
-	private boolean validateBuyItems(Player seller, TradeList tradeList)
+	private static boolean validateBuyItems(Player seller, TradeList tradeList)
 	{
 		for(TradeItem tradeItem : tradeList.getTradeItems())
 		{
@@ -272,7 +272,7 @@ public class PrivateStoreService
 	 * @param newOwner
 	 * @return
 	 */
-	private int getKinahAmount(Player player)
+	private static int getKinahAmount(Player player)
 	{
 		return player.getInventory().getKinahItem().getItemCount();
 	}
@@ -283,7 +283,7 @@ public class PrivateStoreService
 	 * @param player
 	 * @param price
 	 */
-	private void decreaseKinahAmount(Player player, int price)
+	private static void decreaseKinahAmount(Player player, int price)
 	{
 		player.getInventory().decreaseKinah(price);
 	}
@@ -294,7 +294,7 @@ public class PrivateStoreService
 	 * @param player
 	 * @param price
 	 */
-	private void increaseKinahAmount(Player player, int price)
+	private static void increaseKinahAmount(Player player, int price)
 	{
 		player.getInventory().increaseKinah(price);
 	}
@@ -306,7 +306,7 @@ public class PrivateStoreService
 	 * @param tradePSItems
 	 * @return
 	 */
-	private Item getItemByObjId(Player seller, int itemObjId)
+	private static Item getItemByObjId(Player seller, int itemObjId)
 	{
 		return seller.getInventory().getItemByObjId(itemObjId);
 	}
@@ -318,7 +318,7 @@ public class PrivateStoreService
 	 * @param tradeList
 	 * @return
 	 */
-	private int getTotalPrice(PrivateStore store, TradeList tradeList)
+	private static int getTotalPrice(PrivateStore store, TradeList tradeList)
 	{
 		int totalprice = 0;
 		for(TradeItem tradeItem : tradeList.getTradeItems())
@@ -332,7 +332,7 @@ public class PrivateStoreService
 	/**
 	 * @param activePlayer
 	 */
-	public void openPrivateStore(Player activePlayer, String name)
+	public static void openPrivateStore(Player activePlayer, String name)
 	{
 		if(name != null)
 		{

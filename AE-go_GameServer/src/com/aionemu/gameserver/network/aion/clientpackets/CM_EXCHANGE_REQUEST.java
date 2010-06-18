@@ -27,7 +27,6 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.services.ExchangeService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author -Avol-
@@ -36,8 +35,6 @@ import com.google.inject.Inject;
 public class CM_EXCHANGE_REQUEST extends AionClientPacket
 {
 	public Integer			targetObjectId;
-	@Inject
-	private ExchangeService exchangeService;
 
 	public CM_EXCHANGE_REQUEST(int opcode)
 	{
@@ -78,7 +75,7 @@ public class CM_EXCHANGE_REQUEST extends AionClientPacket
 					@Override
 					public void acceptRequest(Creature requester, Player responder)
 					{
-						exchangeService.registerExchange(activePlayer, targetPlayer);
+						ExchangeService.getInstance().registerExchange(activePlayer, targetPlayer);
 					}
 
 					@Override

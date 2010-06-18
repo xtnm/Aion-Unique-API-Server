@@ -19,18 +19,12 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.services.PrivateStoreService;
-import com.google.inject.Inject;
 
 /**
  * @author Simple
  */
 public class CM_PRIVATE_STORE_NAME extends AionClientPacket
 {
-	/**
-	 * Private store information
-	 */
-	@Inject
-	PrivateStoreService	privateStoreService;
 	private String		name;
 
 	/**
@@ -59,6 +53,6 @@ public class CM_PRIVATE_STORE_NAME extends AionClientPacket
 	protected void runImpl()
 	{
 		Player activePlayer = getConnection().getActivePlayer();
-		privateStoreService.openPrivateStore(activePlayer, name);
+		PrivateStoreService.openPrivateStore(activePlayer, name);
 	}
 }

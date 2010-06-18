@@ -27,6 +27,7 @@ import com.aionemu.gameserver.model.gameobjects.Item;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_ITEM_USAGE_ANIMATION;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
+import com.aionemu.gameserver.services.EnchantService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 
@@ -72,13 +73,13 @@ public class EnchantItemAction extends AbstractItemAction
 				int itemId = parentItem.getItemTemplate().getTemplateId();
 				if(itemId > 166000000 && itemId < 167000000)
 				{
-					boolean result = xsp.getEnchantService().enchantItem(player, parentItem, targetItem);
+					boolean result = EnchantService.enchantItem(player, parentItem, targetItem);
 					PacketSendUtility.sendPacket(player, new SM_ITEM_USAGE_ANIMATION(player.getObjectId(), parentItem
 						.getObjectId(), parentItem.getItemTemplate().getTemplateId(), 0, result ? 1 : 2, 0));
 				}
 				else
 				{
-					boolean result = xsp.getEnchantService().socketManastone(player, parentItem, targetItem);
+					boolean result = EnchantService.socketManastone(player, parentItem, targetItem);
 					PacketSendUtility.sendPacket(player, new SM_ITEM_USAGE_ANIMATION(player.getObjectId(), parentItem
 						.getObjectId(), parentItem.getItemTemplate().getTemplateId(), 0, result ? 1 : 2, 0));
 				}

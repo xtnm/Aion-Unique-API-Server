@@ -23,6 +23,8 @@ import com.aionemu.gameserver.model.group.PlayerGroup;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_LOOT_STATUS;
 import com.aionemu.gameserver.questEngine.QuestEngine;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
+import com.aionemu.gameserver.services.DropService;
+import com.aionemu.gameserver.services.GroupService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.stats.StatFunctions;
 import com.aionemu.gameserver.world.World;
@@ -45,20 +47,20 @@ public class MonsterController extends NpcController
 		
 		if (winner instanceof PlayerGroup)
 		{
-			sp.getGroupService().doReward((PlayerGroup)winner, getOwner());
+			GroupService.getInstance().doReward((PlayerGroup)winner, getOwner());
 			
 			Player leader = ((PlayerGroup)winner).getGroupLeader();
 			
 			// Give Drop
-			sp.getDropService().registerDrop(getOwner(), leader);
+			DropService.getInstance().registerDrop(getOwner(), leader);
 			PacketSendUtility.broadcastPacket(this.getOwner(), new SM_LOOT_STATUS(this.getOwner().getObjectId(), 0));
 		}
 		else if (((Player)winner).isInGroup())
 		{
-			sp.getGroupService().doReward(((Player)winner).getPlayerGroup(), getOwner());
+			GroupService.getInstance().doReward(((Player)winner).getPlayerGroup(), getOwner());
 			
 			// Give Drop
-			sp.getDropService().registerDrop(getOwner(), (Player)winner);
+			DropService.getInstance().registerDrop(getOwner(), (Player)winner);
 			PacketSendUtility.broadcastPacket(this.getOwner(), new SM_LOOT_STATUS(this.getOwner().getObjectId(), 0));
 		}
 		else
@@ -87,7 +89,7 @@ public class MonsterController extends NpcController
 			QuestEngine.getInstance().onKill(new QuestEnv(getOwner(), player, 0 , 0));
 			
 			// Give Drop
-			sp.getDropService().registerDrop(getOwner() , player);			
+			DropService.getInstance().registerDrop(getOwner() , player);			
 			PacketSendUtility.broadcastPacket(this.getOwner(), new SM_LOOT_STATUS(this.getOwner().getObjectId(), 0));
 		}
 	}
@@ -96,7 +98,7 @@ public class MonsterController extends NpcController
 	public void onRespawn()
 	{
 		super.onRespawn();
-		sp.getDropService().unregisterDrop(getOwner());
+		DropService.getInstance().unregisterDrop(getOwner());
 	}
 
 	@Override

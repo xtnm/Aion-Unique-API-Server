@@ -20,18 +20,12 @@ import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.trade.TradePSItem;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.services.PrivateStoreService;
-import com.google.inject.Inject;
 
 /**
  * @author Simple
  */
 public class CM_PRIVATE_STORE extends AionClientPacket
 {
-	/**
-	 * Inject Private Store Service
-	 */
-	@Inject
-	PrivateStoreService		privateStoreService;
 
 	/**
 	 * Private store information
@@ -87,11 +81,11 @@ public class CM_PRIVATE_STORE extends AionClientPacket
 		 */
 		if(itemCount > 0)
 		{
-			privateStoreService.addItem(activePlayer, tradePSItems);
+			PrivateStoreService.addItem(activePlayer, tradePSItems);
 		}
 		else
 		{
-			privateStoreService.closePrivateStore(activePlayer);
+			PrivateStoreService.closePrivateStore(activePlayer);
 		}
 
 	}

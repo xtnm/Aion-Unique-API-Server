@@ -18,7 +18,7 @@ package com.aionemu.gameserver.services;
 
 import org.apache.log4j.Logger;
 
-import com.aionemu.gameserver.dataholders.CubeExpandData;
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.model.gameobjects.Creature;
 import com.aionemu.gameserver.model.gameobjects.Npc;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
@@ -28,7 +28,6 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_CUBE_UPDATE;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_QUESTION_WINDOW;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer
@@ -37,9 +36,6 @@ import com.google.inject.Inject;
 public class CubeExpandService
 {
 	private static final Logger	log			= Logger.getLogger(CubeExpandService.class);
-
-	@Inject
-	CubeExpandData				cubicExpandData;
 
 	private static final int	MIN_EXPAND	= 0;
 	private static final int	MAX_EXPAND	= 9;
@@ -50,9 +46,9 @@ public class CubeExpandService
 	 * @param player
 	 * @param npc
 	 */
-	public void expandCube(final Player player, Npc npc)
+	public static void expandCube(final Player player, Npc npc)
 	{
-		final CubeExpandTemplate expandTemplate = cubicExpandData.getCubeExpandListTemplate(npc.getNpcId());
+		final CubeExpandTemplate expandTemplate = DataManager.CUBEEXPANDER_DATA.getCubeExpandListTemplate(npc.getNpcId());
 
 		if(expandTemplate == null)
 		{
@@ -104,7 +100,7 @@ public class CubeExpandService
 	 * Expands the cubes
 	 * @param player
 	 */
-	private void expand(Player player)
+	private static void expand(Player player)
 	{
 		PacketSendUtility.sendPacket(player, new SM_SYSTEM_MESSAGE(1300431, "9")); // 9 Slots added
 		player.setCubesize(player.getCubeSize() + 1);
@@ -117,7 +113,7 @@ public class CubeExpandService
 	 * @param level
 	 * @return true or false
 	 */
-	private boolean validateNewSize(int level)
+	private static boolean validateNewSize(int level)
 	{
 		// check min and max level
 		if(level < MIN_EXPAND || level > MAX_EXPAND)
@@ -132,7 +128,7 @@ public class CubeExpandService
 	 * @param level
 	 * @return true or false
 	 */
-	private boolean npcCanExpandLevel(CubeExpandTemplate clist, int level)
+	private static boolean npcCanExpandLevel(CubeExpandTemplate clist, int level)
 	{
 		// check if level exists in template
 		if(!clist.contains(level))
@@ -147,7 +143,7 @@ public class CubeExpandService
 	 * @param level
 	 * @return
 	 */
-	private int getPriceByLevel(CubeExpandTemplate clist, int level)
+	private static int getPriceByLevel(CubeExpandTemplate clist, int level)
 	{
 		return clist.get(level).getPrice();
 	}

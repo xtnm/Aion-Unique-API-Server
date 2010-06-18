@@ -40,6 +40,7 @@ import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import com.aionemu.gameserver.configs.administration.AdminConfig;
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.dataholders.PortalData;
 import com.aionemu.gameserver.dataholders.QuestScriptsData;
 import com.aionemu.gameserver.dataholders.QuestsData;
@@ -62,10 +63,6 @@ import com.google.inject.Inject;
 public class Reload extends AdminCommand
 {
 	private static final Logger	log	= Logger.getLogger(Reload.class);
-	@Inject
-	QuestsData questsData;
-	@Inject
-	QuestScriptsData questScriptsData;
 	@Inject
 	SkillData skillData;
 	@Inject
@@ -103,8 +100,9 @@ public class Reload extends AdminCommand
 				Unmarshaller un = jc.createUnmarshaller();
 				un.setSchema(getSchema("./data/static_data/static_data.xsd"));
 				QuestsData newQuestData = (QuestsData) un.unmarshal(xml);
+				QuestsData questsData = DataManager.QUEST_DATA;
 				questsData.setQuestsData(newQuestData.getQuestsData());
-				
+				QuestScriptsData questScriptsData = DataManager.QUEST_SCRIPTS_DATA;
 				questScriptsData.getData().clear();
 				for(File file : listFiles(dir, true))
 				{

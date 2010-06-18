@@ -54,11 +54,16 @@ public class MailService
 {
 	private static final Logger	log			= Logger.getLogger(MailService.class);
 
-	protected Queue<Player>		newPlayers	= new ConcurrentLinkedQueue<Player>();
+	protected Queue<Player>		newPlayers;
 
-
-	public MailService()
+	public static final MailService getInstance()
 	{
+		return SingletonHolder.instance;
+	}
+
+	private MailService()
+	{
+		newPlayers	= new ConcurrentLinkedQueue<Player>();
 	}
 
 	/**
@@ -419,5 +424,11 @@ public class MailService
 			if(player.getMailbox().haveUnread())
 				PacketSendUtility.sendPacket(player, new SM_MAIL_SERVICE(true, true));
 		}
+	}
+	
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final MailService instance = new MailService();
 	}
 }

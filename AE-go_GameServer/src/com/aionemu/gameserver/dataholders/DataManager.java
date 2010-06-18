@@ -73,7 +73,7 @@ public final class DataManager
 	 * 
 	 * @see PlayerExperienceTable
 	 */
-	public TradeListData				TRADE_LIST_DATA;
+	public static TradeListData				TRADE_LIST_DATA;
 
 	public static PlayerExperienceTable	PLAYER_EXPERIENCE_TABLE;
 
@@ -81,15 +81,15 @@ public final class DataManager
 
 	public TeleLocationData				TELELOCATION_DATA;
 
-	public CubeExpandData				CUBEEXPANDER_DATA;
+	public static CubeExpandData		CUBEEXPANDER_DATA;
 
-	public WarehouseExpandData			WAREHOUSEEXPANDER_DATA;
+	public static WarehouseExpandData	WAREHOUSEEXPANDER_DATA;
 
 	public BindPointData				BIND_POINT_DATA;
 
-	public static QuestsData					QUEST_DATA;
+	public static QuestsData			QUEST_DATA;
 
-	public static QuestScriptsData				QUEST_SCRIPTS_DATA;
+	public static QuestScriptsData		QUEST_SCRIPTS_DATA;
 	
 	public PlayerStatsData				PLAYER_STATS_DATA;
 	
@@ -110,7 +110,7 @@ public final class DataManager
 	 */
 	public static SkillData				SKILL_DATA;
 
-	public SkillTreeData				SKILL_TREE_DATA;
+	public static SkillTreeData			SKILL_TREE_DATA;
 
 	/**
 	 * 
@@ -119,7 +119,7 @@ public final class DataManager
 
 	public static ZoneData				ZONE_DATA;
 
-	public GoodsListData				GOODSLIST_DATA;
+	public static GoodsListData			GOODSLIST_DATA;
 
 	public static TribeRelationsData	TRIBE_RELATIONS_DATA;
 

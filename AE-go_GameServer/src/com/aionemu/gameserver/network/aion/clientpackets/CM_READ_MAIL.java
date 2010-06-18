@@ -19,7 +19,6 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.services.MailService;
-import com.google.inject.Inject;
 
 /**
  * @author kosyachok
@@ -27,9 +26,7 @@ import com.google.inject.Inject;
  */
 public class CM_READ_MAIL extends AionClientPacket
 {
-	@Inject
-	MailService mailService;
-	
+
 	int mailObjId;
 	
 	public CM_READ_MAIL(int opcode)
@@ -47,6 +44,6 @@ public class CM_READ_MAIL extends AionClientPacket
 	protected void runImpl()
 	{
 		Player player = getConnection().getActivePlayer();
-		mailService.readMail(player, mailObjId);
+		MailService.getInstance().readMail(player, mailObjId);
 	}
 }

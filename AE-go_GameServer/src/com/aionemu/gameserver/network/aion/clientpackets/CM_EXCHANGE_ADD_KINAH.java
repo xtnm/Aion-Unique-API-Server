@@ -19,7 +19,6 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.services.ExchangeService;
-import com.google.inject.Inject;
 
 /**
  * 
@@ -30,9 +29,6 @@ public class CM_EXCHANGE_ADD_KINAH extends AionClientPacket
 {
 	public int unk;
 	public int itemCount;
-
-	@Inject
-	private ExchangeService exchangeService;
 
 	public CM_EXCHANGE_ADD_KINAH(int opcode)
 	{
@@ -56,6 +52,6 @@ public class CM_EXCHANGE_ADD_KINAH extends AionClientPacket
 	protected void runImpl()
 	{
 		final Player activePlayer = getConnection().getActivePlayer();		
-		exchangeService.addKinah(activePlayer, itemCount);
+		ExchangeService.getInstance().addKinah(activePlayer, itemCount);
 	}
 }

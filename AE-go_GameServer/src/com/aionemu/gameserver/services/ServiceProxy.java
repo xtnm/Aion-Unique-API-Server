@@ -28,57 +28,19 @@ import com.google.inject.Inject;
 public class ServiceProxy
 {
 	@Inject
-	private DropService				dropService;
-	@Inject
-	private ExchangeService			exchangeService;
-	@Inject
 	private LegionService			legionService;
-	@Inject
-	private PrivateStoreService		privateStoreService;
 	@Inject
 	private RespawnService			respawnService;
 	@Inject
 	private TeleportService			teleportService;
 	@Inject
-	private TradeService			tradeService;
-	@Inject
-	private CubeExpandService		cubeExpandService;
-	@Inject
-	private SkillLearnService		skillLearnService;
-	@Inject
-	private GroupService			groupService;
-	@Inject
 	private CraftService			craftService;
-	@Inject
-	private CraftSkillUpdateService	craftSkillUpdateService;
-	@Inject
-	private WarehouseService		warehouseService;
 	@Inject
 	private PlayerService			playerService;
 	@Inject
-	private BrokerService			brokerService;
-	@Inject
 	private SpawnEngine				spawnEngine;
 	@Inject
-	private EnchantService			enchantService;
-	@Inject
 	private KiskService				kiskService;
-
-	/**
-	 * @return the dropService
-	 */
-	public DropService getDropService()
-	{
-		return dropService;
-	}
-
-	/**
-	 * @return the exchangeService
-	 */
-	public ExchangeService getExchangeService()
-	{
-		return exchangeService;
-	}
 
 	/**
 	 * @return the legionService
@@ -86,14 +48,6 @@ public class ServiceProxy
 	public LegionService getLegionService()
 	{
 		return legionService;
-	}
-
-	/**
-	 * @return the privateStoreService
-	 */
-	public PrivateStoreService getPrivateStoreService()
-	{
-		return privateStoreService;
 	}
 
 	/**
@@ -113,38 +67,6 @@ public class ServiceProxy
 	}
 
 	/**
-	 * @return the tradeService
-	 */
-	public TradeService getTradeService()
-	{
-		return tradeService;
-	}
-
-	/**
-	 * @return the cubeExpandService
-	 */
-	public CubeExpandService getCubeExpandService()
-	{
-		return cubeExpandService;
-	}
-
-	/**
-	 * @return the skillLearnService
-	 */
-	public SkillLearnService getSkillLearnService()
-	{
-		return skillLearnService;
-	}
-
-	/**
-	 * @return groupService
-	 */
-	public GroupService getGroupService()
-	{
-		return groupService;
-	}
-
-	/**
 	 * 
 	 * @return craftService
 	 */
@@ -154,32 +76,11 @@ public class ServiceProxy
 	}
 
 	/**
-	 * @return the craftSkillUpdateService
-	 */
-	public CraftSkillUpdateService getCraftSkillUpdateService()
-	{
-		return craftSkillUpdateService;
-	}
-
-	/**
-	 * @return warehouseService
-	 */
-	public WarehouseService getWarehouseService()
-	{
-		return warehouseService;
-	}
-
-	/**
 	 * @return the playerService
 	 */
 	public PlayerService getPlayerService()
 	{
 		return playerService;
-	}
-	
-	public BrokerService getBrokerService()
-	{
-		return brokerService;
 	}
 
 	/**
@@ -188,14 +89,6 @@ public class ServiceProxy
 	public SpawnEngine getSpawnEngine()
 	{
 		return spawnEngine;
-	}
-
-	/**
-	 * @return the enchantService
-	 */
-	public EnchantService getEnchantService()
-	{
-		return enchantService;
 	}
 	
 	/**

@@ -22,6 +22,7 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_LOOT_STATUS;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_USE_OBJECT;
 import com.aionemu.gameserver.questEngine.QuestEngine;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
+import com.aionemu.gameserver.services.DropService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 
@@ -66,9 +67,9 @@ public class ActionitemController extends NpcController
 		if (lastActor == null)
 			return;
 		
-		sp.getDropService().registerDrop(getOwner() , lastActor);
+		DropService.getInstance().registerDrop(getOwner() , lastActor);
 		PacketSendUtility.broadcastPacket(getOwner(), new SM_LOOT_STATUS(this.getOwner().getObjectId(), 0));
-		sp.getDropService().requestDropList(lastActor, getOwner().getObjectId());
+		DropService.getInstance().requestDropList(lastActor, getOwner().getObjectId());
 		
 		lastActor = null;
 	}
@@ -77,6 +78,6 @@ public class ActionitemController extends NpcController
 	public void onRespawn()
 	{
 		super.onRespawn();
-		sp.getDropService().unregisterDrop(getOwner());
+		DropService.getInstance().unregisterDrop(getOwner());
 	}
 }

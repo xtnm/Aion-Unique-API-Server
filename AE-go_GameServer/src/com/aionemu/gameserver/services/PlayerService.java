@@ -97,8 +97,6 @@ public class PlayerService
 	private LegionService				legionService;
 	private TeleportService				teleportService;
 	private ObjectControllerFactory		controllerFactory;
-	private SkillLearnService			skillLearnService;
-	private GroupService				groupService;
 	private PunishmentService			punishmentService;
 	private PlayerStatsData				playerStatsData;
 	private PlayerInitialData			playerInitialData;
@@ -108,15 +106,13 @@ public class PlayerService
 	@Inject
 	public PlayerService(
 		LegionService legionService, TeleportService teleportService, ObjectControllerFactory controllerFactory,
-		SkillLearnService skillLearnService, GroupService groupService, PunishmentService punishmentService,
+		PunishmentService punishmentService,
 		PlayerStatsData playerStatsData, PlayerInitialData playerInitialData,
 		InstanceService instanceService, ChatService chatService)
 	{
 		this.legionService = legionService;
 		this.teleportService = teleportService;
 		this.controllerFactory = controllerFactory;
-		this.skillLearnService = skillLearnService;
-		this.groupService = groupService;
 		this.punishmentService = punishmentService;
 		this.playerStatsData = playerStatsData;
 		this.playerInitialData = playerInitialData;
@@ -210,8 +206,8 @@ public class PlayerService
 		if(legionMember != null)
 			player.setLegionMember(legionMember);
 
-		if(groupService.isGroupMember(playerObjId))
-			groupService.setGroup(player);
+		if(GroupService.getInstance().isGroupMember(playerObjId))
+			GroupService.getInstance().setGroup(player);
 		
 		MacroList macroses = DAOManager.getDAO(PlayerMacrossesDAO.class).restoreMacrosses(playerObjId);
 		player.setMacroList(macroses);
@@ -306,7 +302,7 @@ public class PlayerService
 		Player newPlayer = new Player(controllerFactory.playerController(), playerCommonData, playerAppearance);
 
 		// Starting skills
-		skillLearnService.addNewSkills(newPlayer, true);
+		SkillLearnService.addNewSkills(newPlayer, true);
 
 		// Starting items
 		PlayerCreationData playerCreationData = playerInitialData.getPlayerCreationData(playerCommonData
@@ -416,7 +412,7 @@ public class PlayerService
 			legionService.onLogout(player);
 
 		if(player.isInGroup())
-			groupService.scheduleRemove(player);
+			GroupService.getInstance().scheduleRemove(player);
 
 		player.getController().delete();
 		DAOManager.getDAO(PlayerDAO.class).onlinePlayer(player, false);

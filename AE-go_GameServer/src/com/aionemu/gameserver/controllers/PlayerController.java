@@ -65,8 +65,10 @@ import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.restrictions.RestrictionsManager;
 import com.aionemu.gameserver.services.ClassChangeService;
 import com.aionemu.gameserver.services.DuelService;
+import com.aionemu.gameserver.services.GroupService;
 import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.services.QuestService;
+import com.aionemu.gameserver.services.SkillLearnService;
 import com.aionemu.gameserver.services.ZoneService;
 import com.aionemu.gameserver.services.ZoneService.ZoneUpdateMode;
 import com.aionemu.gameserver.skillengine.SkillEngine;
@@ -319,7 +321,7 @@ public class PlayerController extends CreatureController<Player>
 				PlayerGroup pg = ((PlayerGroup)aggro.getAttacker());
 				
 				float groupApPercentage = (float)aggro.getDamage() / totalDamage;
-				sp.getGroupService().doReward(victim, pg, groupApPercentage);
+				GroupService.getInstance().doReward(victim, pg, groupApPercentage);
 			}
 			else
 			{
@@ -592,7 +594,7 @@ public class PlayerController extends CreatureController<Player>
 			player.getSkillList().addSkill(player, 30002, skillLevel, true);
 		}
 		// add new skills
-		sp.getSkillLearnService().addNewSkills(player, false);
+		SkillLearnService.addNewSkills(player, false);
 
 		/** update member list packet if player is legion member **/
 		if(player.isLegionMember())

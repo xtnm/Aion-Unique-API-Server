@@ -50,6 +50,10 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_ATTACK_STATUS.TYPE;
 import com.aionemu.gameserver.questEngine.QuestEngine;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.restrictions.RestrictionsManager;
+import com.aionemu.gameserver.services.CraftSkillUpdateService;
+import com.aionemu.gameserver.services.CubeExpandService;
+import com.aionemu.gameserver.services.TradeService;
+import com.aionemu.gameserver.services.WarehouseService;
 import com.aionemu.gameserver.utils.MathUtil;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.world.World;
@@ -195,7 +199,7 @@ public class NpcController extends CreatureController<Npc>
 		switch(dialogId)
 		{
 			case 2:
-				PacketSendUtility.sendPacket(player, new SM_TRADELIST(npc, sp.getTradeService().getTradeListData()
+				PacketSendUtility.sendPacket(player, new SM_TRADELIST(npc, TradeService.getTradeListData()
 					.getTradeListTemplate(npc.getNpcId())));
 				break;
 			case 3:
@@ -249,7 +253,7 @@ public class NpcController extends CreatureController<Npc>
 						return;
 
 					PacketSendUtility.sendPacket(player, new SM_DIALOG_WINDOW(targetObjectId, 26));
-					sp.getWarehouseService().sendWarehouseInfo(player, true);
+					WarehouseService.sendWarehouseInfo(player, true);
 				}
 				break;
 			case 27:
@@ -323,14 +327,14 @@ public class NpcController extends CreatureController<Npc>
 				// improve extraction
 			case 40:
 				// learn tailoring armor smithing etc...
-				sp.getCraftSkillUpdateService().learnSkill(player, npc);
+				CraftSkillUpdateService.getInstance().learnSkill(player, npc);
 				break;
 			case 41:
 				// expand cube
-				sp.getCubeExpandService().expandCube(player, npc);
+				CubeExpandService.expandCube(player, npc);
 				break;
 			case 42:
-				sp.getWarehouseService().expandWarehouse(player, npc);
+				WarehouseService.expandWarehouse(player, npc);
 				break;
 			case 47:
 				// legion warehouse

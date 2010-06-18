@@ -19,16 +19,13 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.services.MailService;
-import com.google.inject.Inject;
 /**
  * @author kosyachok
  *
  */
 public class CM_SEND_MAIL extends AionClientPacket
 {	
-	@Inject
-	MailService mailService;
-	
+
 	private String recipientName;
 	private String title;
 	private String message;
@@ -61,8 +58,8 @@ public class CM_SEND_MAIL extends AionClientPacket
 	{
 		Player player = getConnection().getActivePlayer();
 		if(express == 0)
-			mailService.sendMail(player, recipientName, title, message, itemObjId, itemCount, kinahCount, false);
+			MailService.getInstance().sendMail(player, recipientName, title, message, itemObjId, itemCount, kinahCount, false);
 		if(express == 1)
-			mailService.sendMail(player, recipientName, title, message, itemObjId, itemCount, kinahCount, true);
+			MailService.getInstance().sendMail(player, recipientName, title, message, itemObjId, itemCount, kinahCount, true);
 	}
 }

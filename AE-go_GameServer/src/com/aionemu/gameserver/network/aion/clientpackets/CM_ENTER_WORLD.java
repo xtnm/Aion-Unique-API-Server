@@ -82,17 +82,11 @@ public class CM_ENTER_WORLD extends AionClientPacket
 	@Inject
 	private LegionService		legionService;
 	@Inject
-	private GroupService		groupService;
-	@Inject
 	private TeleportService		teleportService;
 	@Inject
 	private PunishmentService	punishmentService;
 	@Inject
-	private MailService			mailService;
-	@Inject
 	private PeriodicSaveService periodicSaveService;
-	@Inject
-	private BrokerService		brokerService;
 	@Inject
 	private ChatService			chatService;
 	@Inject
@@ -229,7 +223,7 @@ public class CM_ENTER_WORLD extends AionClientPacket
 				legionService.onLogin(player);
 
 			if(player.isInGroup())
-				groupService.onLogin(player);
+				GroupService.getInstance().onLogin(player);
 
 			player.setRates(Rates.getRatesFor(client.getAccount().getMembership()));
 
@@ -238,7 +232,7 @@ public class CM_ENTER_WORLD extends AionClientPacket
 			/**
 			 * Notify mail service to load all mails
 			 */
-			mailService.onPlayerLogin(player);
+			MailService.getInstance().onPlayerLogin(player);
 			/**
 			 * Schedule periodic saving of this player
 			 */
@@ -246,7 +240,7 @@ public class CM_ENTER_WORLD extends AionClientPacket
 			/**
 			 * Notify player if have broker settled items
 			 */
-			brokerService.onPlayerLogin(player);
+			BrokerService.getInstance().onPlayerLogin(player);
 			/**
 			 * Start initializing chat connection(/1, /2, /3, /4 channels)
 			 */

@@ -26,6 +26,7 @@ import com.aionemu.gameserver.model.gameobjects.Item;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_ITEM_USAGE_ANIMATION;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
+import com.aionemu.gameserver.services.EnchantService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 
@@ -72,7 +73,7 @@ public class ExtractAction extends AbstractItemAction
 				PacketSendUtility.sendPacket(player, new SM_ITEM_USAGE_ANIMATION(player.getObjectId(), parentItem
 					.getObjectId(), parentItem.getItemTemplate().getTemplateId(), 0, 1, 0));
 
-				xsp.getEnchantService().breakItem(player, targetItem, parentItem);
+				EnchantService.breakItem(player, targetItem, parentItem);
 			}
 		}, 5000);
 

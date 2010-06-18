@@ -19,7 +19,6 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.services.DropService;
-import com.google.inject.Inject;
 
 /**
  * @author alexa026
@@ -29,9 +28,6 @@ public class CM_LOOT_ITEM extends AionClientPacket
 {
 	private int					targetObjectId;
 	private int					index;
-	
-	@Inject
-	private DropService dropService;
 	
 	public CM_LOOT_ITEM(int opcode)
 	{
@@ -55,6 +51,6 @@ public class CM_LOOT_ITEM extends AionClientPacket
 	protected void runImpl()
 	{
 		Player player = getConnection().getActivePlayer();
-		dropService.requestDropItem(player, targetObjectId, index);
+		DropService.getInstance().requestDropItem(player, targetObjectId, index);
 	}
 }

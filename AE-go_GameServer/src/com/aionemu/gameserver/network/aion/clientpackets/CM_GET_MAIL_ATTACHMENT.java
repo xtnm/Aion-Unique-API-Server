@@ -19,7 +19,6 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.services.MailService;
-import com.google.inject.Inject;
 
 /**
  * @author kosyachok
@@ -27,8 +26,6 @@ import com.google.inject.Inject;
  */
 public class CM_GET_MAIL_ATTACHMENT extends AionClientPacket
 {
-	@Inject
-	MailService mailService;
 	
 	private int mailObjId;
 	private int attachmentType;
@@ -49,6 +46,6 @@ public class CM_GET_MAIL_ATTACHMENT extends AionClientPacket
 	protected void runImpl()
 	{
 		Player player = getConnection().getActivePlayer();
-		mailService.getAttachments(player, mailObjId, attachmentType);
+		MailService.getInstance().getAttachments(player, mailObjId, attachmentType);
 	}
 }

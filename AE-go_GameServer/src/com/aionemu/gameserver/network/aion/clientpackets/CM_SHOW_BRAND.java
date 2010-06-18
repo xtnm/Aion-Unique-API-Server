@@ -19,7 +19,6 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 import com.aionemu.gameserver.model.group.PlayerGroup;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.services.GroupService;
-import com.google.inject.Inject;
 
 /**
  * @author Sweetkr
@@ -27,8 +26,6 @@ import com.google.inject.Inject;
  */
 public class CM_SHOW_BRAND extends AionClientPacket
 {
-	@Inject
-	private GroupService	groupService;
 
 	private int				brandId;
 	private int				targetObjectId;
@@ -60,6 +57,6 @@ public class CM_SHOW_BRAND extends AionClientPacket
 		PlayerGroup playerGroup = getConnection().getActivePlayer().getPlayerGroup();
 
 		if(playerGroup != null)
-			groupService.showBrand(playerGroup, brandId, targetObjectId);
+			GroupService.getInstance().showBrand(playerGroup, brandId, targetObjectId);
 	}
 }

@@ -28,7 +28,6 @@ import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.services.DropService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.chathandlers.AdminCommand;
-import com.google.inject.Inject;
 /**
  * 
  * @author ATracer
@@ -36,8 +35,6 @@ import com.google.inject.Inject;
  */
 public class AddDrop extends AdminCommand
 {
-	@Inject
-	private DropService dropService;
 
 	public AddDrop()
 	{
@@ -67,7 +64,7 @@ public class AddDrop extends AdminCommand
 			final int max = Integer.parseInt(params[3]);
 			final int chance = Integer.parseInt(params[4]);
 
-			DropList dropList = dropService.getDropList();
+			DropList dropList = DropService.getInstance().getDropList();
 
 			DropTemplate dropTemplate = new DropTemplate(mobId, itemId, min, max, chance);
 			dropList.addDropTemplate(mobId, dropTemplate);

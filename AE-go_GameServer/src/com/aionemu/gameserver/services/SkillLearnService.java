@@ -17,7 +17,7 @@
 package com.aionemu.gameserver.services;
 
 import com.aionemu.gameserver.configs.main.CustomConfig;
-import com.aionemu.gameserver.dataholders.SkillTreeData;
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.model.PlayerClass;
 import com.aionemu.gameserver.model.Race;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
@@ -25,22 +25,19 @@ import com.aionemu.gameserver.model.gameobjects.player.SkillList;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SKILL_LIST;
 import com.aionemu.gameserver.skillengine.model.learn.SkillLearnTemplate;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer
  *
  */
 public class SkillLearnService
-{	
-	@Inject
-	private SkillTreeData skillTreeData;
+{
 	/**
 	 * 
 	 * @param player
 	 * @param isNewCharacter
 	 */
-	public void addNewSkills(Player player, boolean isNewCharacter)
+	public static void addNewSkills(Player player, boolean isNewCharacter)
 	{
 		int level = player.getCommonData().getLevel();
 		PlayerClass playerClass = player.getCommonData().getPlayerClass();
@@ -59,7 +56,7 @@ public class SkillLearnService
 	 *  
 	 * @param player
 	 */
-	public void addMissingSkills(Player player)
+	public static void addMissingSkills(Player player)
 	{
 		int level = player.getCommonData().getLevel();
 		PlayerClass playerClass = player.getCommonData().getPlayerClass();
@@ -99,10 +96,10 @@ public class SkillLearnService
 	 * @param playerRace
 	 * @param isNewCharacter
 	 */
-	private void addSkills(Player player, int level, PlayerClass playerClass, Race playerRace, boolean isNewCharacter)
+	private static void addSkills(Player player, int level, PlayerClass playerClass, Race playerRace, boolean isNewCharacter)
 	{
 		SkillLearnTemplate[] skillTemplates =
-			skillTreeData.getTemplatesFor(playerClass, level, playerRace);
+			DataManager.SKILL_TREE_DATA.getTemplatesFor(playerClass, level, playerRace);
 		
 		SkillList playerSkillList = player.getSkillList();
 		
@@ -124,7 +121,7 @@ public class SkillLearnService
 	 * @param template
 	 * @return
 	 */
-	private boolean checkLearnIsPossible(SkillList playerSkillList, SkillLearnTemplate template)
+	private static boolean checkLearnIsPossible(SkillList playerSkillList, SkillLearnTemplate template)
 	{
 		if (playerSkillList.isSkillPresent(template.getSkillId()))
 			return true;

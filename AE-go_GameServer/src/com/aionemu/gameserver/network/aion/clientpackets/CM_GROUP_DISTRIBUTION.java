@@ -20,7 +20,6 @@ import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.restrictions.RestrictionsManager;
 import com.aionemu.gameserver.services.GroupService;
-import com.google.inject.Inject;
 
 /**
  * @author Lyahim
@@ -28,8 +27,6 @@ import com.google.inject.Inject;
  */
 public class CM_GROUP_DISTRIBUTION extends AionClientPacket
 {
-	@Inject
-	GroupService	groupService;
 
 	private int		amount;
 
@@ -61,6 +58,6 @@ public class CM_GROUP_DISTRIBUTION extends AionClientPacket
 		if(!RestrictionsManager.canTrade(player))
 			return;
 
-		groupService.groupDistribution(player, amount);
+		GroupService.getInstance().groupDistribution(player, amount);
 	}
 }

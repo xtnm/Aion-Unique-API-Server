@@ -42,7 +42,6 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_LOOT_STATUS;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer
@@ -56,12 +55,13 @@ public class DropService
 	private Map<Integer, Set<DropItem>>	currentDropMap		= new FastMap<Integer, Set<DropItem>>().shared();
 	private Map<Integer, DropNpc>		dropRegistrationMap	= new FastMap<Integer, DropNpc>().shared();
 
-	private GroupService				groupService;
-
-	@Inject
-	public DropService(GroupService groupService)
+	public static final DropService getInstance()
 	{
-		this.groupService = groupService;
+		return SingletonHolder.instance;
+	}
+
+	private DropService()
+	{
 		dropList = DAOManager.getDAO(DropListDAO.class).load();
 		log.info(dropList.getSize() + " npc drops loaded");
 	}
@@ -110,7 +110,7 @@ public class DropService
 		{
 			if(player.isInGroup())
 			{
-				dropRegistrationMap.put(npcUniqueId, new DropNpc(groupService.getMembersToRegistrateByRules(player,
+				dropRegistrationMap.put(npcUniqueId, new DropNpc(GroupService.getInstance().getMembersToRegistrateByRules(player,
 					player.getPlayerGroup())));
 			}
 			else
@@ -199,7 +199,7 @@ public class DropService
 		if(player.isInGroup())
 		{
 			if(player.getPlayerGroup().getGroupLeader().getObjectId() == player.getObjectId())
-				dropRegistrationMap.put(npcId, new DropNpc(groupService.getGroupMembers(player.getPlayerGroup(), true)));
+				dropRegistrationMap.put(npcId, new DropNpc(GroupService.getInstance().getGroupMembers(player.getPlayerGroup(), true)));
 		}
 		player.unsetState(CreatureState.LOOTING);
 		player.setState(CreatureState.ACTIVE);
@@ -273,5 +273,11 @@ public class DropService
 				npc.getController().onDespawn(true);
 			}
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final DropService instance = new DropService();
 	}
 }

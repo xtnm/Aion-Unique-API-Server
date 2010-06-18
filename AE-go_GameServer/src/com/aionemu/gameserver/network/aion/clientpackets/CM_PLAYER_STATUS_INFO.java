@@ -20,7 +20,6 @@ import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.services.GroupService;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * Called when entering the world and during group management
@@ -32,11 +31,6 @@ import com.google.inject.Inject;
 
 public class CM_PLAYER_STATUS_INFO extends AionClientPacket
 {
-	/**
-	 * Injections
-	 */
-	@Inject
-	private GroupService	groupService;
 
 	/**
 	 * Definitions
@@ -75,7 +69,7 @@ public class CM_PLAYER_STATUS_INFO extends AionClientPacket
                 if(player == null || player.getPlayerGroup() == null)
                     return;
 
-                groupService.playerStatusInfo(status, player);
+                GroupService.getInstance().playerStatusInfo(status, player);
                 break;
         }
 	}

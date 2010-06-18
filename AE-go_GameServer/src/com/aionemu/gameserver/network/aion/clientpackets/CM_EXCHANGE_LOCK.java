@@ -21,7 +21,6 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.services.ExchangeService;
-import com.google.inject.Inject;
 
 /**
  * @author -Avol-
@@ -29,8 +28,6 @@ import com.google.inject.Inject;
  */
 public class CM_EXCHANGE_LOCK extends AionClientPacket
 {
-	@Inject
-	private ExchangeService exchangeService;
 
 	public CM_EXCHANGE_LOCK(int opcode)
 	{
@@ -47,6 +44,6 @@ public class CM_EXCHANGE_LOCK extends AionClientPacket
 	protected void runImpl()
 	{	
 		final Player activePlayer = getConnection().getActivePlayer();
-		exchangeService.lockExchange(activePlayer);
+		ExchangeService.getInstance().lockExchange(activePlayer);
 	}
 }

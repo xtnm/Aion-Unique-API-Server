@@ -24,6 +24,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.dataholders.GoodsListData;
 import com.aionemu.gameserver.dataholders.TradeListData;
 import com.aionemu.gameserver.model.gameobjects.Item;
@@ -42,7 +43,6 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_INVENTORY_UPDATE;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_UPDATE_ITEM;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer, Rama
@@ -52,10 +52,9 @@ public class TradeService
 {
 	private static final Logger	log	= Logger.getLogger(TradeService.class);
 
-	@Inject
-	private TradeListData		tradeListData;
-	@Inject
-	private GoodsListData		goodsListData;
+
+	private static final TradeListData		tradeListData = DataManager.TRADE_LIST_DATA;
+	private static final GoodsListData		goodsListData = DataManager.GOODSLIST_DATA;
 
 	/**
 	 * 
@@ -63,7 +62,7 @@ public class TradeService
 	 * @param tradeList
 	 * @return true or false
 	 */
-	public boolean performBuyFromShop(Player player, TradeList tradeList)
+	public static boolean performBuyFromShop(Player player, TradeList tradeList)
 	{
 
 		if(!validateBuyItems(tradeList))
@@ -112,7 +111,7 @@ public class TradeService
 	 * @param tradeList
 	 * @return true or false
 	 */
-	public boolean performBuyFromAbyssShop(Player player, TradeList tradeList)
+	public static boolean performBuyFromAbyssShop(Player player, TradeList tradeList)
 	{
 
 		if(!validateBuyItems(tradeList))
@@ -161,7 +160,7 @@ public class TradeService
 	/**
 	 * @param tradeList
 	 */
-	private boolean validateBuyItems(TradeList tradeList)
+	private static boolean validateBuyItems(TradeList tradeList)
 	{
 		Npc npc = (Npc) World.getInstance().findAionObject(tradeList.getSellerObjId());
 		TradeListTemplate tradeListTemplate = tradeListData.getTradeListTemplate(npc.getObjectTemplate()
@@ -191,7 +190,7 @@ public class TradeService
 	 * @param tradeList
 	 * @return true or false
 	 */
-	public boolean performSellToShop(Player player, TradeList tradeList)
+	public static boolean performSellToShop(Player player, TradeList tradeList)
 	{
 		Storage inventory = player.getInventory();
 
@@ -236,7 +235,7 @@ public class TradeService
 	/**
 	 * @return the tradeListData
 	 */
-	public TradeListData getTradeListData()
+	public static TradeListData getTradeListData()
 	{
 		return tradeListData;
 	}

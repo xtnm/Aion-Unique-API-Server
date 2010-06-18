@@ -76,8 +76,15 @@ public class BrokerService
 
 	private Map<Integer, BrokerPlayerCache>	playerBrokerCache		= new FastMap<Integer, BrokerPlayerCache>().shared();
 
+	public static final BrokerService getInstance()
+	{
+		return SingletonHolder.instance;
+	}
+
 	public BrokerService()
 	{
+		initBrokerService();
+		
 		saveManager = new BrokerPeriodicTaskManager(DELAY_BROKER_SAVE);
 		ThreadPoolManager.getInstance().scheduleAtFixedRate(new Runnable(){
 
@@ -89,7 +96,7 @@ public class BrokerService
 		}, DELAY_BROKER_CHECK, DELAY_BROKER_CHECK);
 	}
 
-	public void initBrokerService()
+	private void initBrokerService()
 	{
 		log.info("Loading broker...");
 		int loadedBrokerItemsCount = 0;
@@ -755,5 +762,11 @@ public class BrokerService
 			if(kinahItem != null)
 				DAOManager.getDAO(InventoryDAO.class).store(kinahItem, playerId);
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final BrokerService instance = new BrokerService();
 	}
 }
