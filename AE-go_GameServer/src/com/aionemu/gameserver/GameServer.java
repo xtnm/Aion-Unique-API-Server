@@ -48,9 +48,9 @@ import com.aionemu.gameserver.utils.ThreadUncaughtExceptionHandler;
 import com.aionemu.gameserver.utils.Util;
 import com.aionemu.gameserver.utils.gametime.GameTimeManager;
 import com.aionemu.gameserver.utils.guice.DataInjectionModule;
-import com.aionemu.gameserver.utils.guice.IDFactoriesInjectionModule;
 import com.aionemu.gameserver.utils.guice.NetworkInjectionModule;
 import com.aionemu.gameserver.utils.guice.ObjectFactoryInjectionModule;
+import com.aionemu.gameserver.utils.idfactory.IDFactory;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
@@ -80,9 +80,11 @@ public class GameServer
 		NetworkInjectionModule networkIM = new NetworkInjectionModule();
 		ObjectFactoryInjectionModule controllerIM = new ObjectFactoryInjectionModule();
 
-		injector = Guice.createInjector(dataIM, networkIM, new IDFactoriesInjectionModule(), controllerIM);
+		injector = Guice.createInjector(dataIM, networkIM, controllerIM);
 		dataIM.setInjector(injector);
 		networkIM.setInjector(injector);
+		
+		IDFactory.getInstance();
 
 		// after all data is loaded need to set service proxy to xml service adapter
 		injector.getInstance(XmlServiceProxy.class).setServiceProxy(injector.getInstance(ServiceProxy.class));

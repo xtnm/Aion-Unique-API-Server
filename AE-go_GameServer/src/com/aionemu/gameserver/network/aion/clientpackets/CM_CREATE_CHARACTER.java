@@ -36,7 +36,6 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_CREATE_CHARACTER;
 import com.aionemu.gameserver.services.PlayerService;
 import com.aionemu.gameserver.utils.Util;
 import com.aionemu.gameserver.utils.idfactory.IDFactory;
-import com.aionemu.gameserver.utils.idfactory.IDFactoryAionObject;
 import com.google.inject.Inject;
 
 /**
@@ -54,10 +53,6 @@ public class CM_CREATE_CHARACTER extends AionClientPacket
 
 	@Inject
 	private PlayerService		playerService;
-
-	@Inject
-	@IDFactoryAionObject
-	private IDFactory			aionObjectsIDFactory;
 
 	/**
 	 * Constructs new instance of <tt>CM_CREATE_CHARACTER </tt> packet
@@ -80,7 +75,7 @@ public class CM_CREATE_CHARACTER extends AionClientPacket
 		@SuppressWarnings("unused")
 		String someShit = readS(); // something + accointId
 
-		playerCommonData = new PlayerCommonData(aionObjectsIDFactory.nextId());
+		playerCommonData = new PlayerCommonData(IDFactory.getInstance().nextId());
 		String name = Util.convertName(readS());
 
 		playerCommonData.setName(name);
@@ -187,19 +182,19 @@ public class CM_CREATE_CHARACTER extends AionClientPacket
 		if(!playerService.isValidName(playerCommonData.getName()))
 		{
 			client.sendPacket(new SM_CREATE_CHARACTER(null, SM_CREATE_CHARACTER.RESPONSE_INVALID_NAME));
-			aionObjectsIDFactory.releaseId(playerCommonData.getPlayerObjId());
+			IDFactory.getInstance().releaseId(playerCommonData.getPlayerObjId());
 			return;
 		}
 		if(!playerService.isFreeName(playerCommonData.getName()))
 		{
 			client.sendPacket(new SM_CREATE_CHARACTER(null, SM_CREATE_CHARACTER.RESPONSE_NAME_ALREADY_USED));
-			aionObjectsIDFactory.releaseId(playerCommonData.getPlayerObjId());
+			IDFactory.getInstance().releaseId(playerCommonData.getPlayerObjId());
 			return;
 		}
 		if(!playerCommonData.getPlayerClass().isStartingClass())
 		{
 			client.sendPacket(new SM_CREATE_CHARACTER(null, SM_CREATE_CHARACTER.FAILED_TO_CREATE_THE_CHARACTER));
-			aionObjectsIDFactory.releaseId(playerCommonData.getPlayerObjId());
+			IDFactory.getInstance().releaseId(playerCommonData.getPlayerObjId());
 			return;
 		}
 

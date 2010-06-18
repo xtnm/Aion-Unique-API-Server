@@ -36,14 +36,14 @@ public class QuestHandler
 {
 	private final Integer questId;
 
-	protected static QuestEngine		qe;
+	protected QuestEngine		qe;
 	/**
 	 * @param questId
 	 */
 	protected QuestHandler(Integer questId)
 	{
 		this.questId = questId;
-		qe = QuestEngine.getInstance();
+		this.qe = QuestEngine.getInstance();
 	}
 	
 	public synchronized void updateQuestStatus(Player player, QuestState qs)

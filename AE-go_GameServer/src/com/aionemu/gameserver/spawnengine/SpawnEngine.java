@@ -32,12 +32,12 @@ import com.aionemu.gameserver.controllers.ServantController;
 import com.aionemu.gameserver.controllers.SummonController;
 import com.aionemu.gameserver.controllers.effect.EffectController;
 import com.aionemu.gameserver.dataholders.BindPointData;
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.dataholders.GatherableData;
 import com.aionemu.gameserver.dataholders.NpcData;
 import com.aionemu.gameserver.dataholders.NpcSkillData;
 import com.aionemu.gameserver.dataholders.SpawnsData;
 import com.aionemu.gameserver.dataholders.SummonStatsData;
-import com.aionemu.gameserver.dataholders.WorldMapsData;
 import com.aionemu.gameserver.model.NpcType;
 import com.aionemu.gameserver.model.gameobjects.Creature;
 import com.aionemu.gameserver.model.gameobjects.Gatherable;
@@ -57,7 +57,6 @@ import com.aionemu.gameserver.model.templates.spawn.SpawnGroup;
 import com.aionemu.gameserver.model.templates.spawn.SpawnTemplate;
 import com.aionemu.gameserver.model.templates.stats.SummonStatsTemplate;
 import com.aionemu.gameserver.utils.idfactory.IDFactory;
-import com.aionemu.gameserver.utils.idfactory.IDFactoryAionObject;
 import com.aionemu.gameserver.world.KnownList;
 import com.aionemu.gameserver.world.StaticObjectKnownList;
 import com.aionemu.gameserver.world.World;
@@ -80,9 +79,6 @@ public class SpawnEngine
 
 	@Inject
 	private World						world;
-	@IDFactoryAionObject
-	@Inject
-	private IDFactory					aionObjectsIDFactory;
 	@Inject
 	private SpawnsData					spawnsData;
 	@Inject
@@ -93,8 +89,6 @@ public class SpawnEngine
 	private RiftSpawnManager			riftSpawnManager;
 	@Inject
 	private StaticObjectSpawnManager	staticObjectSpawnManager;
-	@Inject
-	private WorldMapsData				worldMapsData;
 	@Inject
 	private BindPointData				bindPointData;
 	@Inject
@@ -144,7 +138,7 @@ public class SpawnEngine
 				return null;
 			npcCounter++;
 		}
-
+		IDFactory iDFactory = IDFactory.getInstance();
 		if(template instanceof NpcTemplate)
 		{
 			NpcType npcType = ((NpcTemplate) template).getNpcType();
@@ -154,33 +148,33 @@ public class SpawnEngine
 			{
 				case AGGRESSIVE:
 				case ATTACKABLE:
-					npc = new Monster(aionObjectsIDFactory.nextId(), injector.getInstance(MonsterController.class),
+					npc = new Monster(iDFactory.nextId(), injector.getInstance(MonsterController.class),
 						spawn, template);
 					npc.setKnownlist(new KnownList(npc));
 					break;
 				case POSTBOX:
-					npc = new Npc(aionObjectsIDFactory.nextId(), injector.getInstance(PostboxController.class), spawn,
+					npc = new Npc(iDFactory.nextId(), injector.getInstance(PostboxController.class), spawn,
 						template);
 					npc.setKnownlist(new StaticObjectKnownList(npc));
 					break;
 				case RESURRECT:
 					BindpointController bindPointController = injector.getInstance(BindpointController.class);
 					bindPointController.setBindPointTemplate(bindPointData.getBindPointTemplate(objectId));
-					npc = new Npc(aionObjectsIDFactory.nextId(), bindPointController, spawn, template);
+					npc = new Npc(iDFactory.nextId(), bindPointController, spawn, template);
 					npc.setKnownlist(new StaticObjectKnownList(npc));
 					break;
 				case USEITEM:
-					npc = new Npc(aionObjectsIDFactory.nextId(), injector.getInstance(ActionitemController.class),
+					npc = new Npc(iDFactory.nextId(), injector.getInstance(ActionitemController.class),
 						spawn, template);
 					npc.setKnownlist(new StaticObjectKnownList(npc));
 					break;
 				case PORTAL:
-					npc = new Npc(aionObjectsIDFactory.nextId(), injector.getInstance(PortalController.class), spawn,
+					npc = new Npc(iDFactory.nextId(), injector.getInstance(PortalController.class), spawn,
 						template);
 					npc.setKnownlist(new StaticObjectKnownList(npc));
 					break;
 				default: // NON_ATTACKABLE
-					npc = new Npc(aionObjectsIDFactory.nextId(), injector.getInstance(NpcController.class), spawn,
+					npc = new Npc(iDFactory.nextId(), injector.getInstance(NpcController.class), spawn,
 						template);
 					npc.setKnownlist(new KnownList(npc));
 
@@ -194,7 +188,7 @@ public class SpawnEngine
 		}
 		else if(template instanceof GatherableTemplate)
 		{
-			Gatherable gatherable = new Gatherable(spawn, template, aionObjectsIDFactory.nextId(), injector
+			Gatherable gatherable = new Gatherable(spawn, template, iDFactory.nextId(), injector
 				.getInstance(GatherableController.class));
 			gatherable.setKnownlist(new StaticObjectKnownList(gatherable));
 			bringIntoWorld(gatherable, spawn, instanceIndex);
@@ -214,7 +208,7 @@ public class SpawnEngine
 	{
 		int objectId = spawn.getSpawnGroup().getNpcid();
 		NpcTemplate npcTemplate = npcData.getNpcTemplate(objectId);
-		Trap trap = new Trap(aionObjectsIDFactory.nextId(), injector.getInstance(NpcController.class), spawn,
+		Trap trap = new Trap(IDFactory.getInstance().nextId(), injector.getInstance(NpcController.class), spawn,
 			npcTemplate);
 		trap.setKnownlist(new KnownList(trap));
 		trap.setEffectController(new EffectController(trap));
@@ -235,7 +229,7 @@ public class SpawnEngine
 	{
 		int npcId = spawn.getSpawnGroup().getNpcid();
 		NpcTemplate template = npcData.getNpcTemplate(npcId);
-		Kisk kisk = new Kisk(aionObjectsIDFactory.nextId(), injector.getInstance(KiskController.class),
+		Kisk kisk = new Kisk(IDFactory.getInstance().nextId(), injector.getInstance(KiskController.class),
 			spawn, template, creator);
 		kisk.setKnownlist(new StaticObjectKnownList(kisk));
 		kisk.setEffectController(new EffectController(kisk));
@@ -256,7 +250,7 @@ public class SpawnEngine
 	{
 		int objectId = spawn.getSpawnGroup().getNpcid();
 		NpcTemplate npcTemplate = npcData.getNpcTemplate(objectId);
-		Servant servant = new Servant(aionObjectsIDFactory.nextId(), injector.getInstance(ServantController.class), spawn,
+		Servant servant = new Servant(IDFactory.getInstance().nextId(), injector.getInstance(ServantController.class), spawn,
 			npcTemplate);
 		servant.setKnownlist(new KnownList(servant));
 		servant.setEffectController(new EffectController(servant));
@@ -289,7 +283,7 @@ public class SpawnEngine
 		
 		byte level = (byte) (npcTemplate.getLevel() + skillLvl - 1);
 		SummonStatsTemplate statsTemplate = summonStatsData.getSummonTemplate(npcId, level);
-		Summon summon = new Summon(aionObjectsIDFactory.nextId(), injector.getInstance(SummonController.class), spawn,
+		Summon summon = new Summon(IDFactory.getInstance().nextId(), injector.getInstance(SummonController.class), spawn,
 			npcTemplate, statsTemplate, level);
 		summon.setKnownlist(new KnownList(summon));
 		summon.setEffectController(new EffectController(summon));
@@ -397,7 +391,7 @@ public class SpawnEngine
 		this.npcCounter = 0;
 		this.gatherableCounter = 0;
 		
-		for(WorldMapTemplate worldMapTemplate : worldMapsData)
+		for(WorldMapTemplate worldMapTemplate : DataManager.WORLD_MAPS_DATA)
 		{
 			if(worldMapTemplate.isInstance())
 				continue;

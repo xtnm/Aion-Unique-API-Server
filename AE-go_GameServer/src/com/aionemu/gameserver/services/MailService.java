@@ -44,7 +44,6 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_UPDATE_ITEM;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.utils.idfactory.IDFactory;
-import com.aionemu.gameserver.utils.idfactory.IDFactoryAionObject;
 import com.aionemu.gameserver.world.World;
 import com.google.inject.Inject;
 
@@ -56,16 +55,14 @@ public class MailService
 {
 	private static final Logger	log			= Logger.getLogger(MailService.class);
 
-	private IDFactory			aionObjectsIDFactory;
 	private World				world;
 	private ItemService			itemService;
 
 	protected Queue<Player>		newPlayers	= new ConcurrentLinkedQueue<Player>();
 
 	@Inject
-	public MailService(@IDFactoryAionObject IDFactory aionObjectsIDFactory, World world, ItemService itemService)
+	public MailService(World world, ItemService itemService)
 	{
-		this.aionObjectsIDFactory = aionObjectsIDFactory;
 		this.world = world;
 		this.itemService = itemService;
 	}
@@ -224,7 +221,7 @@ public class MailService
 
 		Timestamp time = new Timestamp(Calendar.getInstance().getTimeInMillis());
 
-		Letter newLetter = new Letter(aionObjectsIDFactory.nextId(), recipientCommonData.getPlayerObjId(),
+		Letter newLetter = new Letter(IDFactory.getInstance().nextId(), recipientCommonData.getPlayerObjId(),
 			attachedItem, finalAttachedKinahCount, title, message, sender.getName(), time, true, express);
 
 		if(!DAOManager.getDAO(MailDAO.class).storeLetter(time, newLetter))

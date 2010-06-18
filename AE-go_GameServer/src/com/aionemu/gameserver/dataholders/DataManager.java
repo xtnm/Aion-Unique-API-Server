@@ -66,7 +66,7 @@ public final class DataManager
 	 * 
 	 * @see WorldMapsData
 	 */
-	public final WorldMapsData			WORLD_MAPS_DATA;
+	public static WorldMapsData			WORLD_MAPS_DATA;
 
 	/**
 	 * Experience table is keeping information about experience required for each level.

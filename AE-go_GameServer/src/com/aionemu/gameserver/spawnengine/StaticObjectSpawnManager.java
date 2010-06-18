@@ -24,7 +24,6 @@ import com.aionemu.gameserver.model.templates.VisibleObjectTemplate;
 import com.aionemu.gameserver.model.templates.spawn.SpawnGroup;
 import com.aionemu.gameserver.model.templates.spawn.SpawnTemplate;
 import com.aionemu.gameserver.utils.idfactory.IDFactory;
-import com.aionemu.gameserver.utils.idfactory.IDFactoryAionObject;
 import com.aionemu.gameserver.world.KnownList;
 import com.aionemu.gameserver.world.World;
 import com.google.inject.Inject;
@@ -37,9 +36,6 @@ public class StaticObjectSpawnManager
 {
 	@Inject
 	private ItemData itemData;
-	@IDFactoryAionObject
-	@Inject
-	private IDFactory aionObjectsIDFactory;
 	@Inject
 	private World	world;
 	@Inject
@@ -61,7 +57,7 @@ public class StaticObjectSpawnManager
 		for(int i = 0; i < pool; i++)
 		{
 			SpawnTemplate spawn = spawnGroup.getNextAvailableTemplate(instanceIndex);
-			int objectId = aionObjectsIDFactory.nextId();
+			int objectId = IDFactory.getInstance().nextId();
 			StaticObject staticObject = new StaticObject(objectId, controllerFactory.staticObjectController(), spawn, objectTemplate);
 			staticObject.setKnownlist(new KnownList(staticObject));
 			bringIntoWorld(staticObject, spawn, instanceIndex);

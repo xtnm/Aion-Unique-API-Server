@@ -60,7 +60,6 @@ import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.utils.Util;
 import com.aionemu.gameserver.utils.idfactory.IDFactory;
-import com.aionemu.gameserver.utils.idfactory.IDFactoryAionObject;
 import com.aionemu.gameserver.world.World;
 import com.aionemu.gameserver.world.container.LegionContainer;
 import com.aionemu.gameserver.world.container.LegionMemberContainer;
@@ -79,7 +78,6 @@ public class LegionService
 	private final LegionContainer		allCachedLegions		= new LegionContainer();
 	private final LegionMemberContainer	allCachedLegionMembers	= new LegionMemberContainer();
 
-	private IDFactory					aionObjectsIDFactory;
 	private World						world;
 
 	/**
@@ -106,9 +104,8 @@ public class LegionService
 	private LegionRestrictions			legionRestrictions		= new LegionRestrictions();
 
 	@Inject
-	public LegionService(@IDFactoryAionObject IDFactory aionObjectsIDFactory, World world)
+	public LegionService(World world)
 	{
-		this.aionObjectsIDFactory = aionObjectsIDFactory;
 		this.world = world;
 	}
 
@@ -570,7 +567,7 @@ public class LegionService
 			/**
 			 * Create new legion and put originator as first member
 			 */
-			Legion legion = new Legion(aionObjectsIDFactory.nextId(), legionName);
+			Legion legion = new Legion(IDFactory.getInstance().nextId(), legionName);
 			legion.addLegionMember(activePlayer.getObjectId());
 			
 			activePlayer.getInventory().decreaseKinah(LegionConfig.LEGION_CREATE_REQUIRED_KINAH);

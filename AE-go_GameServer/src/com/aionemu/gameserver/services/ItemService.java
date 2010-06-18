@@ -48,8 +48,6 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_UPDATE_WAREHOUSE_ITE
 import com.aionemu.gameserver.network.aion.serverpackets.SM_WAREHOUSE_UPDATE;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.idfactory.IDFactory;
-import com.aionemu.gameserver.utils.idfactory.IDFactoryAionObject;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer
@@ -59,10 +57,6 @@ import com.google.inject.Inject;
 public class ItemService
 { 
 	private static Logger log = Logger.getLogger(ItemService.class);
-
-	@Inject
-	@IDFactoryAionObject
-	private IDFactory aionObjectsIDFactory;
 
 	/**
 	 * @param itemId
@@ -89,7 +83,7 @@ public class ItemService
 		}
 
 		//TODO if Item object will contain ownerId - item can be saved to DB before return
-		return new Item(aionObjectsIDFactory.nextId(), itemTemplate, count, false, 0);
+		return new Item(IDFactory.getInstance().nextId(), itemTemplate, count, false, 0);
 	}
 
 	/**
@@ -538,7 +532,7 @@ public class ItemService
 	 */
 	public void releaseItemId(Item item)
 	{
-		aionObjectsIDFactory.releaseId(item.getObjectId());
+		IDFactory.getInstance().releaseId(item.getObjectId());
 	}
 	
 

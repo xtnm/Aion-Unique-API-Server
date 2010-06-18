@@ -40,7 +40,6 @@ import com.aionemu.gameserver.dataholders.TeleporterData;
 import com.aionemu.gameserver.dataholders.TradeListData;
 import com.aionemu.gameserver.dataholders.WalkerData;
 import com.aionemu.gameserver.dataholders.WarehouseExpandData;
-import com.aionemu.gameserver.dataholders.WorldMapsData;
 import com.aionemu.gameserver.dataholders.ZoneData;
 import com.aionemu.gameserver.dataholders.loadingutils.XmlServiceProxy;
 import com.aionemu.gameserver.services.AccountService;
@@ -154,12 +153,6 @@ public class DataInjectionModule extends AbstractModule
 	{
 		return datamanager.SPAWNS_DATA;
 	}
-
-	@Provides
-	WorldMapsData provideWorldMapsData(DataManager datamanager)
-	{
-		return datamanager.WORLD_MAPS_DATA;
-	}	
 
 	@Provides
 	NpcData provideNpcData(DataManager datamanager)

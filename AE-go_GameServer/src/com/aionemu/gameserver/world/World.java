@@ -24,14 +24,13 @@ import javolution.util.FastMap;
 import org.apache.log4j.Logger;
 
 import com.aionemu.commons.callbacks.Enhancable;
-import com.aionemu.gameserver.dataholders.WorldMapsData;
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.model.gameobjects.AionObject;
 import com.aionemu.gameserver.model.gameobjects.Npc;
 import com.aionemu.gameserver.model.gameobjects.VisibleObject;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.templates.WorldMapTemplate;
 import com.aionemu.gameserver.utils.idfactory.IDFactory;
-import com.aionemu.gameserver.utils.idfactory.IDFactoryAionObject;
 import com.aionemu.gameserver.world.container.PlayerContainer;
 import com.aionemu.gameserver.world.exceptions.AlreadySpawnedException;
 import com.aionemu.gameserver.world.exceptions.DuplicateAionObjectException;
@@ -39,7 +38,6 @@ import com.aionemu.gameserver.world.exceptions.NotSetPositionException;
 import com.aionemu.gameserver.world.exceptions.WorldMapNotExistException;
 import com.aionemu.gameserver.world.listeners.ObjectAddedToWorldListener;
 import com.aionemu.gameserver.world.listeners.ObjectRemovedFromWorldListener;
-import com.google.inject.Inject;
 
 /**
  * World object for storing and spawning, despawning etc players and other in-game objects. It also manage WorldMaps and
@@ -68,18 +66,13 @@ public class World
 	 */
 	private final Map<Integer, WorldMap>	worldMaps	= new FastMap<Integer, WorldMap>().shared();
 
-	private IDFactory						aionObjectsIDFactory;
-
 	/**
 	 * Constructor.
-	 * 
-	 * @param worldMapsData
 	 */
-	@Inject
-	public World(WorldMapsData worldMapsData, @IDFactoryAionObject IDFactory aionObjectsIDFactory)
+
+	public World()
 	{
-		this.aionObjectsIDFactory = aionObjectsIDFactory;
-		for(WorldMapTemplate template : worldMapsData)
+		for(WorldMapTemplate template : DataManager.WORLD_MAPS_DATA)
 		{
 			worldMaps.put(template.getMapId(), new WorldMap(template, this));
 		}
@@ -113,7 +106,7 @@ public class World
 		if(object instanceof Player)
 			allPlayers.remove((Player) object);
 		if(object instanceof Npc)
-			aionObjectsIDFactory.releaseId(object.getObjectId());
+			IDFactory.getInstance().releaseId(object.getObjectId());
 	}
 
 	/**

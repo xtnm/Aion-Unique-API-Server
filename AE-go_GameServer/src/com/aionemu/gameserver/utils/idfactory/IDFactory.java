@@ -19,6 +19,14 @@ package com.aionemu.gameserver.utils.idfactory;
 import java.util.BitSet;
 import java.util.concurrent.locks.ReentrantLock;
 
+import org.apache.log4j.Logger;
+
+import com.aionemu.commons.database.dao.DAOManager;
+import com.aionemu.gameserver.dao.InventoryDAO;
+import com.aionemu.gameserver.dao.LegionDAO;
+import com.aionemu.gameserver.dao.MailDAO;
+import com.aionemu.gameserver.dao.PlayerDAO;
+
 /**
  * This class is responsible for id generation for all Aion-Emu objects.<br>
  * This class is Thread-Safe.<br>
@@ -29,16 +37,17 @@ import java.util.concurrent.locks.ReentrantLock;
 public class IDFactory
 {
 
+	private static final Logger							log						= Logger.getLogger(IDFactory.class);
 	/**
 	 * Bitset that is used for all id's.<br>
 	 * We are allowing BitSet to grow over time, so in the end it can be as big as {@link Integer#MAX_VALUE}
 	 */
-	private final BitSet		idList		= new BitSet();
+	private final BitSet		idList;
 
 	/**
 	 * Synchronization of bitset
 	 */
-	private final ReentrantLock	lock		= new ReentrantLock();
+	private final ReentrantLock	lock;
 
 	/**
 	 * Id that will be used as minimal on next id request
@@ -52,6 +61,26 @@ public class IDFactory
 	 * @throws IDFactoryError
 	 *             if there is no free id's
 	 */
+	
+	private IDFactory()
+	{
+		idList		= new BitSet();
+		lock		= new ReentrantLock();
+		lockIds(0);
+		// Here should be calls to all IDFactoryAwareDAO implementations to initialize
+		// used values in IDFactory
+		lockIds(DAOManager.getDAO(PlayerDAO.class).getUsedIDs());
+		lockIds(DAOManager.getDAO(InventoryDAO.class).getUsedIDs());
+		lockIds(DAOManager.getDAO(LegionDAO.class).getUsedIDs());
+		lockIds(DAOManager.getDAO(MailDAO.class).getUsedIDs());
+		log.info("IDFactory: " + getUsedCount() + " id's used.");
+	}
+
+	public static final IDFactory getInstance()
+	{
+		return SingletonHolder.instance;
+	}
+
 	public int nextId()
 	{
 		try
@@ -96,7 +125,7 @@ public class IDFactory
 	 * @throws IDFactoryError
 	 *             if some of the id's were locked before
 	 */
-	public void lockIds(int... ids)
+	private void lockIds(int... ids)
 	{
 		try
 		{
@@ -192,5 +221,11 @@ public class IDFactory
 		{
 			lock.unlock();
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final IDFactory instance = new IDFactory();
 	}
 }

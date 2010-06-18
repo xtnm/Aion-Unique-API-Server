@@ -46,11 +46,9 @@ import com.aionemu.gameserver.utils.MathUtil;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.utils.idfactory.IDFactory;
-import com.aionemu.gameserver.utils.idfactory.IDFactoryAionObject;
 import com.aionemu.gameserver.utils.stats.AbyssRankEnum;
 import com.aionemu.gameserver.utils.stats.StatFunctions;
 import com.aionemu.gameserver.world.WorldType;
-import com.google.inject.Inject;
 
 /**
  * @author Simple
@@ -71,13 +69,6 @@ public class GroupService
 	 * Caching remove group member schedule
 	 */
 	private FastMap<Integer, ScheduledFuture<?>>	playerGroup		= new FastMap<Integer, ScheduledFuture<?>>();
-
-	/**
-	 * Injections
-	 */
-	@Inject
-	@IDFactoryAionObject
-	private IDFactory								aionObjectsIDFactory;
 
 	/**
 	 * This method will add a member to the group member cache
@@ -142,7 +133,7 @@ public class GroupService
 					}
 					else
 					{
-						new PlayerGroup(aionObjectsIDFactory.nextId(), inviter);
+						new PlayerGroup(IDFactory.getInstance().nextId(), inviter);
 						inviter.getPlayerGroup().addPlayerToGroup(invited);
 						addGroupMemberToCache(inviter);
 						addGroupMemberToCache(invited);
@@ -393,7 +384,7 @@ public class GroupService
 	 */
 	private void disbandGroup(PlayerGroup group)
 	{
-		aionObjectsIDFactory.releaseId(group.getGroupId());
+		IDFactory.getInstance().releaseId(group.getGroupId());
 		group.getGroupLeader().setPlayerGroup(null);
 		PacketSendUtility.sendPacket(group.getGroupLeader(), SM_SYSTEM_MESSAGE.DISBAND_GROUP());
 		group.disband();

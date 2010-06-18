@@ -37,7 +37,6 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_DELETE;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.utils.idfactory.IDFactory;
-import com.aionemu.gameserver.utils.idfactory.IDFactoryAionObject;
 import com.aionemu.gameserver.world.KnownList;
 import com.aionemu.gameserver.world.World;
 import com.google.inject.Inject;
@@ -52,9 +51,6 @@ public class RiftSpawnManager
 	
 	@Inject
 	private NpcData npcData;
-	@IDFactoryAionObject
-	@Inject
-	private IDFactory aionObjectsIDFactory;
 	@Inject
 	private World	world;
 	@Inject
@@ -123,7 +119,7 @@ public class RiftSpawnManager
 	private Npc spawnInstance(int instanceIndex, SpawnGroup spawnGroup, SpawnTemplate spawnTemplate, RiftController riftController)
 	{
 		NpcTemplate masterObjectTemplate = npcData.getNpcTemplate(spawnGroup.getNpcid());
-		Npc npc = new Npc(aionObjectsIDFactory.nextId(),riftController,
+		Npc npc = new Npc(IDFactory.getInstance().nextId(),riftController,
 			spawnTemplate, masterObjectTemplate);
 		
 		npc.setKnownlist(new KnownList(npc));
