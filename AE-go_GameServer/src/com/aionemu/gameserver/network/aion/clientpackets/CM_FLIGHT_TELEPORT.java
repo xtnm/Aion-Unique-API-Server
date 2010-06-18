@@ -20,7 +20,6 @@ import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.gameobjects.state.CreatureState;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * Packet about player flying teleport movement.
@@ -30,8 +29,6 @@ import com.google.inject.Inject;
  */
 public class CM_FLIGHT_TELEPORT extends AionClientPacket
 {
-	@Inject
-	private World				world;
 	float x, y, z;
 	int distance;
 
@@ -70,7 +67,7 @@ public class CM_FLIGHT_TELEPORT extends AionClientPacket
 		if(player != null && player.isInState(CreatureState.FLIGHT_TELEPORT))
 		{
 			player.setFlightDistance(distance);
-			world.updatePosition(player, x, y, z, (byte)0);
+			World.getInstance().updatePosition(player, x, y, z, (byte)0);
 		}
 	}
 }

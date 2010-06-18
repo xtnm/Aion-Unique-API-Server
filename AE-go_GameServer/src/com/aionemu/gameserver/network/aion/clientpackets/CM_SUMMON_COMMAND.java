@@ -23,7 +23,6 @@ import com.aionemu.gameserver.model.gameobjects.Summon;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer
@@ -34,9 +33,6 @@ public class CM_SUMMON_COMMAND extends AionClientPacket
 
 	private int mode;
 	private int targetObjId;
-	
-	@Inject
-	private World world;
 	
 	public CM_SUMMON_COMMAND(int opcode)
 	{
@@ -62,7 +58,7 @@ public class CM_SUMMON_COMMAND extends AionClientPacket
 			switch(mode)
 			{
 				case 0:
-					AionObject target = world.findAionObject(targetObjId);
+					AionObject target = World.getInstance().findAionObject(targetObjId);
 					if(target != null && target instanceof Creature)
 					{
 						summon.getController().attackMode();

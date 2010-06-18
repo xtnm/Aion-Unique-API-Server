@@ -37,6 +37,7 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_STATUPDATE_EXP;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.stats.XPLossEnum;
+import com.aionemu.gameserver.world.World;
 import com.aionemu.gameserver.world.WorldPosition;
 
 /**
@@ -412,7 +413,7 @@ public class PlayerCommonData extends VisibleObjectTemplate
 	{
 		if (online && getPosition() != null)
 		{
-			return getPosition().getWorld().findPlayer(playerObjId);
+			return World.getInstance().findPlayer(playerObjId);
 		}
 		return null;
 	}

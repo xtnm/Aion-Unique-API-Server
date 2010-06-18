@@ -28,7 +28,6 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_PLAYER_SEARCH;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.utils.Util;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * Received when a player searches using the social search panel
@@ -42,9 +41,6 @@ public class CM_PLAYER_SEARCH extends AionClientPacket
 	 * The max number of players to return as results
 	 */
 	public static final int	MAX_RESULTS	= 125;
-
-	@Inject
-	private World			world;
 
 	private String			name;
 	private int				region;
@@ -89,7 +85,7 @@ public class CM_PLAYER_SEARCH extends AionClientPacket
 	{
 		Player activePlayer = getConnection().getActivePlayer();
 
-		Iterator<Player> it = world.getPlayersIterator();
+		Iterator<Player> it = World.getInstance().getPlayersIterator();
 
 		List<Player> matches = new ArrayList<Player>(MAX_RESULTS);
 

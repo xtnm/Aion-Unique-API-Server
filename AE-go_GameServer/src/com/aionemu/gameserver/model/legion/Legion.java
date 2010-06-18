@@ -147,12 +147,12 @@ public class Legion
 	/**
 	 * @return the online legionMembers
 	 */
-	public ArrayList<Player> getOnlineLegionMembers(World world)
+	public ArrayList<Player> getOnlineLegionMembers()
 	{
 		ArrayList<Player> onlineLegionMembers = new ArrayList<Player>();
 		for(int legionMemberObjId : legionMembers)
 		{
-			Player onlineLegionMember = world.findPlayer(legionMemberObjId);
+			Player onlineLegionMember = World.getInstance().findPlayer(legionMemberObjId);
 			if(onlineLegionMember != null)
 				onlineLegionMembers.add(onlineLegionMember);
 		}

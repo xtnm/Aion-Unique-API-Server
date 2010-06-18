@@ -31,7 +31,6 @@ import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.services.ZoneService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
-import com.aionemu.gameserver.world.World;
 import com.aionemu.gameserver.world.WorldMapInstance;
 import com.aionemu.gameserver.world.WorldMapType;
 import com.google.inject.Inject;
@@ -50,8 +49,6 @@ public class _1020SealingTheAbyssGate extends QuestHandler
 	TeleportService teleportService;
 	@Inject
 	InstanceService instanceService;
-	@Inject
-	World world;
 	
 	private final static int	questId	= 1020;
 	private final static int[]	npcIds	= { 203098, 700141, 700142, 700551 };

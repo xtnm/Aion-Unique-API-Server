@@ -36,8 +36,6 @@ public class MoveToMe extends AdminCommand
 {
 	@Inject
 	private TeleportService teleportService;
-	@Inject
-	private World	world;
 
 	/**
 	 * Constructor.
@@ -67,7 +65,7 @@ public class MoveToMe extends AdminCommand
 			return;
 		}
 
-		Player playerToMove = world.findPlayer(Util.convertName(params[0]));
+		Player playerToMove = World.getInstance().findPlayer(Util.convertName(params[0]));
 		if (playerToMove == null)
 		{
 			PacketSendUtility.sendMessage(admin, "The specified player is not online.");

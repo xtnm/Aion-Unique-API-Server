@@ -23,6 +23,7 @@ import com.aionemu.gameserver.configs.administration.AdminConfig;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.chathandlers.AdminCommand;
+import com.aionemu.gameserver.world.World;
 
 /**
  * @author Ben
@@ -50,7 +51,7 @@ public class Announce extends AdminCommand
 		}
 		else
 		{
-			Iterator<Player> iter = admin.getActiveRegion().getWorld().getPlayersIterator();
+			Iterator<Player> iter = World.getInstance().getPlayersIterator();
 			StringBuilder sbMessage = new StringBuilder("Announce: ");
 
 			for(String p : params)

@@ -41,9 +41,6 @@ public class CM_LS_CONTROL_RESPONSE extends LsClientPacket
 	private int		accountId;
 
 	@Inject
-	private World	world;
-
-	@Inject
 	private LoginServer	loginServer;
 
 	public CM_LS_CONTROL_RESPONSE(int opcode)
@@ -71,6 +68,7 @@ public class CM_LS_CONTROL_RESPONSE extends LsClientPacket
 	@Override
 	protected void runImpl()
 	{
+		World world = World.getInstance();
 		Player admin = world.findPlayer(Util.convertName(adminName));
 		Player player = world.findPlayer(Util.convertName(playerName));
 		loginServer.accountUpdate(accountId, param, type);

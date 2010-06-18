@@ -26,7 +26,6 @@ import com.aionemu.gameserver.questEngine.QuestEngine;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.services.ClassChangeService;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * 
@@ -45,8 +44,7 @@ public class CM_DIALOG_SELECT extends AionClientPacket
 	@SuppressWarnings("unused")
 	private int		lastPage;
 	private int		questId;
-	@Inject
-	World world;
+
 	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(CM_DIALOG_SELECT.class);
 	/**
@@ -91,7 +89,7 @@ public class CM_DIALOG_SELECT extends AionClientPacket
 			return;
 		}
 
-		AionObject object = world.findAionObject(targetObjectId);
+		AionObject object = World.getInstance().findAionObject(targetObjectId);
 
 		if(object instanceof Creature)
 		{

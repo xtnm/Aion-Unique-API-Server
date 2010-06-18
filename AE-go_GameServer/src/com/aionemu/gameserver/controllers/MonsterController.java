@@ -25,6 +25,7 @@ import com.aionemu.gameserver.questEngine.QuestEngine;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.stats.StatFunctions;
+import com.aionemu.gameserver.world.World;
 import com.aionemu.gameserver.world.WorldType;
 
 /**
@@ -76,7 +77,7 @@ public class MonsterController extends NpcController
 			player.getCommonData().setDp(dpReward + currentDp);
 			
 			// AP reward
-			WorldType worldType = sp.getWorld().getWorldMap(player.getWorldId()).getWorldType();
+			WorldType worldType = World.getInstance().getWorldMap(player.getWorldId()).getWorldType();
 			if(worldType == WorldType.ABYSS)
 			{
 				int apReward = StatFunctions.calculateSoloAPReward(player, getOwner());

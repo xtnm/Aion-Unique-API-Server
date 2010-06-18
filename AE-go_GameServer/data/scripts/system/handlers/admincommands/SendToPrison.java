@@ -37,8 +37,6 @@ public class SendToPrison extends AdminCommand
 {
 	@Inject
 	private PunishmentService punishmentService;
-	@Inject
-	private World	world;
 
 	public SendToPrison()
 	{
@@ -62,7 +60,7 @@ public class SendToPrison extends AdminCommand
 
 		try
 		{
-			Player playerToPrison = world.findPlayer(Util.convertName(params[0]));
+			Player playerToPrison = World.getInstance().findPlayer(Util.convertName(params[0]));
 			int delay = Integer.parseInt(params[1]);
 
 			if(playerToPrison != null)

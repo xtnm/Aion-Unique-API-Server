@@ -45,8 +45,6 @@ public class CM_TELEPORT_SELECT extends AionClientPacket
 	@Inject
 	private TeleportService teleportService;
 	@Inject
-	private World world;
-	@Inject
 	private TeleporterData teleporterData;
 
 	public CM_TELEPORT_SELECT(int opcode)
@@ -73,7 +71,7 @@ public class CM_TELEPORT_SELECT extends AionClientPacket
 	{
 		Player activePlayer = getConnection().getActivePlayer();
 
-		Npc npc = (Npc)world.findAionObject(targetObjectId);
+		Npc npc = (Npc)World.getInstance().findAionObject(targetObjectId);
 
 		if(activePlayer == null || activePlayer.getLifeStats().isAlreadyDead())
 			return;

@@ -24,7 +24,6 @@ import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.Util;
 import com.aionemu.gameserver.utils.chathandlers.AdminCommand;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author Elusive
@@ -33,9 +32,6 @@ import com.google.inject.Inject;
 
 public class Kick extends AdminCommand
 {
-	@Inject
-	private World	world;
-
 	/**
 	 * Constructor of Kick
 	 */
@@ -58,7 +54,7 @@ public class Kick extends AdminCommand
 			PacketSendUtility.sendMessage(admin, "syntax //kick <character_name>");
 			return;
 		}
-		Player player = world.findPlayer(Util.convertName(params[0]));
+		Player player = World.getInstance().findPlayer(Util.convertName(params[0]));
 		if (player == null)
 		{
 			PacketSendUtility.sendMessage(admin, "The specified player is not online.");

@@ -55,15 +55,13 @@ public class MailService
 {
 	private static final Logger	log			= Logger.getLogger(MailService.class);
 
-	private World				world;
 	private ItemService			itemService;
 
 	protected Queue<Player>		newPlayers	= new ConcurrentLinkedQueue<Player>();
 
 	@Inject
-	public MailService(World world, ItemService itemService)
+	public MailService(ItemService itemService)
 	{
-		this.world = world;
 		this.itemService = itemService;
 	}
 
@@ -100,7 +98,7 @@ public class MailService
 		}
 		
 		PlayerCommonData recipientCommonData = DAOManager.getDAO(PlayerDAO.class).loadPlayerCommonDataByName(
-			recipientName, world);
+			recipientName);
 		Player onlineRecipient;
 
 		if(recipientCommonData == null)
@@ -117,7 +115,7 @@ public class MailService
 
 		if(recipientCommonData.isOnline())
 		{
-			onlineRecipient = world.findPlayer(recipientCommonData.getPlayerObjId());
+			onlineRecipient = World.getInstance().findPlayer(recipientCommonData.getPlayerObjId());
 			if(!onlineRecipient.getMailbox().haveFreeSlots())
 			{
 				PacketSendUtility.sendPacket(sender, new SM_MAIL_SERVICE(MailMessage.RECIPIENT_MAILBOX_FULL));

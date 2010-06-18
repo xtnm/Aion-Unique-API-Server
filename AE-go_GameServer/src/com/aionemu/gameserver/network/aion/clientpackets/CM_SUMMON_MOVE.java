@@ -25,7 +25,6 @@ import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_MOVE;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer
@@ -37,9 +36,6 @@ public class CM_SUMMON_MOVE extends AionClientPacket
 	 * logger for this class
 	 */
 	private static final Logger	log	= Logger.getLogger(CM_MOVE.class);
-
-	@Inject
-	private World				world;
 
 	private MovementType		type;
 
@@ -111,7 +107,7 @@ public class CM_SUMMON_MOVE extends AionClientPacket
 		{
 			case MOVEMENT_START_MOUSE:
 			case MOVEMENT_START_KEYBOARD:
-				world.updatePosition(summon, x, y, z, heading);
+				World.getInstance().updatePosition(summon, x, y, z, heading);
 				PacketSendUtility.broadcastPacket(summon, new SM_MOVE(summon, x, y, z, x2, y2, z2, heading, type));
 				break;
 			case VALIDATE_MOUSE:
@@ -122,7 +118,7 @@ public class CM_SUMMON_MOVE extends AionClientPacket
 				break;
 			case MOVEMENT_STOP:
 				PacketSendUtility.broadcastPacket(summon, new SM_MOVE(summon, x, y, z, heading, type));
-				world.updatePosition(summon, x, y, z, heading);
+				World.getInstance().updatePosition(summon, x, y, z, heading);
 				break;
 			case UNKNOWN:
 				StringBuilder sb = new StringBuilder();

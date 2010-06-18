@@ -52,8 +52,6 @@ public class RiftSpawnManager
 	@Inject
 	private NpcData npcData;
 	@Inject
-	private World	world;
-	@Inject
 	private ObjectControllerFactory objectControllerFactory;
 	
 	private ConcurrentLinkedQueue<Npc> rifts = new ConcurrentLinkedQueue<Npc>();
@@ -104,7 +102,7 @@ public class RiftSpawnManager
 		if(masterGroup == null || slaveGroup == null)
 			return;
 		
-		int instanceCount = world.getWorldMap(masterGroup.getMapid()).getInstanceCount();
+		int instanceCount = World.getInstance().getWorldMap(masterGroup.getMapid()).getInstanceCount();
 		
 		SpawnTemplate masterTemplate = masterGroup.getNextRandomTemplate();
 		SpawnTemplate slaveTemplate = slaveGroup.getNextRandomTemplate();
@@ -126,6 +124,7 @@ public class RiftSpawnManager
 		npc.setEffectController(new EffectController(npc));
 		npc.getController().onRespawn();
 
+		World world = World.getInstance();
 		world.storeObject(npc);
 		world.setPosition(npc, spawnTemplate.getWorldId(), instanceIndex, 
 			spawnTemplate.getX(), spawnTemplate.getY(), spawnTemplate.getZ(), spawnTemplate.getHeading());
@@ -152,7 +151,7 @@ public class RiftSpawnManager
 				{
 					PacketSendUtility.broadcastPacket(npc, new SM_DELETE(npc, 15));
 					npc.getController().onDespawn(true);
-					world.despawn(npc);						
+					World.getInstance().despawn(npc);						
 				}	
 				rifts.remove(npc);
 			}

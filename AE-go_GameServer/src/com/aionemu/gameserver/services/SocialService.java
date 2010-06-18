@@ -44,9 +44,9 @@ public class SocialService
 	private PlayerInitialData playerInitialData;
 	
 	@Inject
-	public SocialService(World world, PlayerService playerService, PlayerInitialData playerInitialData)
+	public SocialService(PlayerService playerService, PlayerInitialData playerInitialData)
 	{
-		this.world = world;
+		this.world = World.getInstance();
 		this.playerService = playerService;
 		this.playerInitialData = playerInitialData;
 	}
@@ -93,7 +93,7 @@ public class SocialService
 			player.getClientConnection()
 				.sendPacket(new SM_BLOCK_RESPONSE(
 								SM_BLOCK_RESPONSE.UNBLOCK_SUCCESSFUL,
-								DAOManager.getDAO(PlayerDAO.class).loadPlayerCommonData(blockedUserId, world, playerInitialData).getName()
+								DAOManager.getDAO(PlayerDAO.class).loadPlayerCommonData(blockedUserId, playerInitialData).getName()
 							));
 			
 			player.getClientConnection()
@@ -171,7 +171,7 @@ public class SocialService
 				friend2Player = world.findPlayer(exFriend2Id);
 			
 			String friend2Name = friend2Player != null ? friend2Player.getName() : 
-				DAOManager.getDAO(PlayerDAO.class).loadPlayerCommonData(exFriend2Id, world, playerInitialData).getName();
+				DAOManager.getDAO(PlayerDAO.class).loadPlayerCommonData(exFriend2Id, playerInitialData).getName();
 			
 			//Delete from deleter's friend list and send packets
 			deleter.getFriendList().delFriend(exFriend2Id);

@@ -54,7 +54,6 @@ import com.aionemu.gameserver.taskmanager.AbstractFIFOPeriodicTaskManager;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author kosyachok
@@ -74,9 +73,6 @@ public class BrokerService
 	private final int						DELAY_BROKER_CHECK		= 60000;
 
 	private BrokerPeriodicTaskManager		saveManager;
-
-	@Inject
-	private World							world;
 
 	private Map<Integer, BrokerPlayerCache>	playerBrokerCache		= new FastMap<Integer, BrokerPlayerCache>().shared();
 
@@ -368,7 +364,7 @@ public class BrokerService
 				break;
 		}
 
-		Player seller = world.findPlayer(brokerItem.getSellerId());
+		Player seller = World.getInstance().findPlayer(brokerItem.getSellerId());
 
 		saveManager.add(new BrokerOpSaveTask(brokerItem));
 

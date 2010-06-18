@@ -64,8 +64,8 @@ public class TeleportService
 
 	private static final int	TELEPORT_DEFAULT_DELAY	= 2200;
 
-	@Inject
-	private World				world;
+	private static final World				world = World.getInstance();
+
 	@Inject
 	private PlayerService		playerService;
 	@Inject

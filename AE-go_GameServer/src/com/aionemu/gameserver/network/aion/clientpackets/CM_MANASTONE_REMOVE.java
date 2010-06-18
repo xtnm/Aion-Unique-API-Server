@@ -28,8 +28,7 @@ import com.google.inject.Inject;
  */
 public class CM_MANASTONE_REMOVE extends AionClientPacket
 {
-	@Inject
-	private World world;
+
 	@Inject
 	private ItemService itemService;
 	
@@ -55,7 +54,7 @@ public class CM_MANASTONE_REMOVE extends AionClientPacket
 	@Override
 	protected void runImpl()
 	{
-		AionObject npc = world.findAionObject(npcObjId);
+		AionObject npc = World.getInstance().findAionObject(npcObjId);
 		Player player = getConnection().getActivePlayer();
 		
 		if(npc != null)

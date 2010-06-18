@@ -76,8 +76,7 @@ public class CM_ENTER_WORLD extends AionClientPacket
 	 * Object Id of player that is entering world
 	 */
 	private int					objectId;
-	@Inject
-	private World				world;
+
 	@Inject
 	private PlayerService		playerService;
 	@Inject
@@ -144,7 +143,7 @@ public class CM_ENTER_WORLD extends AionClientPacket
 			/*
 			 * Store player into World.
 			 */
-			world.storeObject(player);
+			World.getInstance().storeObject(player);
 
 			sendPacket(new SM_SKILL_LIST(player));
 			stigmaService.onPlayerLogin(player);

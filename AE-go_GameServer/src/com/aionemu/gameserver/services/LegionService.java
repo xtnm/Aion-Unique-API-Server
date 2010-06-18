@@ -63,7 +63,6 @@ import com.aionemu.gameserver.utils.idfactory.IDFactory;
 import com.aionemu.gameserver.world.World;
 import com.aionemu.gameserver.world.container.LegionContainer;
 import com.aionemu.gameserver.world.container.LegionMemberContainer;
-import com.google.inject.Inject;
 
 /**
  * 
@@ -103,10 +102,9 @@ public class LegionService
 	 */
 	private LegionRestrictions			legionRestrictions		= new LegionRestrictions();
 
-	@Inject
-	public LegionService(World world)
+	public LegionService()
 	{
-		this.world = world;
+		this.world = World.getInstance();
 	}
 
 	/**
@@ -869,7 +867,7 @@ public class LegionService
 	 */
 	private void updateAfterDisbandLegion(Legion legion)
 	{
-		for(Player onlineLegionMember : legion.getOnlineLegionMembers(world))
+		for(Player onlineLegionMember : legion.getOnlineLegionMembers())
 		{
 			PacketSendUtility.broadcastPacket(onlineLegionMember, new SM_LEGION_UPDATE_TITLE(onlineLegionMember
 				.getObjectId(), 0, "", 0), true);
@@ -887,7 +885,7 @@ public class LegionService
 	private void updateMembersEmblem(Legion legion)
 	{
 		LegionEmblem legionEmblem = legion.getLegionEmblem();
-		for(Player onlineLegionMember : legion.getOnlineLegionMembers(world))
+		for(Player onlineLegionMember : legion.getOnlineLegionMembers())
 		{
 			PacketSendUtility.broadcastPacket(onlineLegionMember, new SM_LEGION_UPDATE_EMBLEM(legion.getLegionId(),
 				legionEmblem.getEmblemId(), legionEmblem.getColor_r(), legionEmblem.getColor_g(), legionEmblem
@@ -903,7 +901,7 @@ public class LegionService
 	 */
 	private void updateMembersOfDisbandLegion(Legion legion, int unixTime)
 	{
-		for(Player onlineLegionMember : legion.getOnlineLegionMembers(world))
+		for(Player onlineLegionMember : legion.getOnlineLegionMembers())
 		{
 			PacketSendUtility.sendPacket(onlineLegionMember, new SM_LEGION_UPDATE_MEMBER(onlineLegionMember, 1300303,
 				unixTime + ""));
@@ -919,7 +917,7 @@ public class LegionService
 	 */
 	private void updateMembersOfRecreateLegion(Legion legion)
 	{
-		for(Player onlineLegionMember : legion.getOnlineLegionMembers(world))
+		for(Player onlineLegionMember : legion.getOnlineLegionMembers())
 		{
 			PacketSendUtility.sendPacket(onlineLegionMember, new SM_LEGION_UPDATE_MEMBER(onlineLegionMember, 1300307,
 				""));
@@ -1155,7 +1153,7 @@ public class LegionService
 		legion.setLegionName(newLegionName);
 		PacketSendUtility.broadcastPacketToLegion(legion, new SM_LEGION_INFO(legion), world);
 
-		for(Player legionMember : legion.getOnlineLegionMembers(world))
+		for(Player legionMember : legion.getOnlineLegionMembers())
 		{
 			PacketSendUtility.broadcastPacket(legionMember, new SM_LEGION_UPDATE_TITLE(legionMember.getObjectId(),
 				legion.getLegionId(), legion.getLegionName(), legionMember.getLegionMember().getRank().getRankId()),

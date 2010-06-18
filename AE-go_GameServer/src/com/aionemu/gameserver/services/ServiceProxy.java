@@ -17,7 +17,6 @@
 package com.aionemu.gameserver.services;
 
 import com.aionemu.gameserver.spawnengine.SpawnEngine;
-import com.aionemu.gameserver.world.World;
 import com.google.inject.Inject;
 
 /**
@@ -28,8 +27,6 @@ import com.google.inject.Inject;
  */
 public class ServiceProxy
 {
-	@Inject
-	private World					world;
 	@Inject
 	private DropService				dropService;
 	@Inject
@@ -72,14 +69,6 @@ public class ServiceProxy
 	private EnchantService			enchantService;
 	@Inject
 	private KiskService				kiskService;
-	
-	/**
-	 * @return the world
-	 */
-	public World getWorld()
-	{
-		return world;
-	}
 
 	/**
 	 * @return the dropService

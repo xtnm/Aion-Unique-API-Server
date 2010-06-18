@@ -30,8 +30,8 @@ import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import com.aionemu.gameserver.configs.administration.AdminConfig;
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.dataholders.SpawnsData;
-import com.aionemu.gameserver.dataholders.WorldMapsData;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.templates.WorldMapTemplate;
 import com.aionemu.gameserver.model.templates.spawn.SpawnGroup;
@@ -52,8 +52,6 @@ public class SaveSpawnData extends AdminCommand
 
 	@Inject
 	private SpawnsData	spawnsData;
-	@Inject
-	private WorldMapsData worldMapsData;
 
 	public SaveSpawnData()
 	{
@@ -85,7 +83,7 @@ public class SaveSpawnData extends AdminCommand
 		
 		boolean isAllSave = params.length == 1 && "all".equalsIgnoreCase(params[0]);
 		
-		for(WorldMapTemplate template : worldMapsData)
+		for(WorldMapTemplate template : DataManager.WORLD_MAPS_DATA)
 		{		
 			List<SpawnGroup> spawnsForWorld = null;
 			if(isAllSave)

@@ -56,26 +56,36 @@ public class World
 	/**
 	 * Container with all players that entered world.
 	 */
-	private final PlayerContainer			allPlayers	= new PlayerContainer();
+	private final PlayerContainer			allPlayers;
 	/**
 	 * Container with all AionObjects in the world [ie Players, Npcs etc]
 	 */
-	private final Map<Integer, AionObject>	allObjects	= new FastMap<Integer, AionObject>().shared();
+	private final Map<Integer, AionObject>	allObjects;
 	/**
 	 * World maps supported by server.
 	 */
-	private final Map<Integer, WorldMap>	worldMaps	= new FastMap<Integer, WorldMap>().shared();
+	private final Map<Integer, WorldMap>	worldMaps;
+
 
 	/**
 	 * Constructor.
 	 */
-
-	public World()
+	private World()
 	{
+		allPlayers	= new PlayerContainer();
+		allObjects	= new FastMap<Integer, AionObject>().shared();
+		worldMaps	= new FastMap<Integer, WorldMap>().shared();
+
 		for(WorldMapTemplate template : DataManager.WORLD_MAPS_DATA)
 		{
 			worldMaps.put(template.getMapId(), new WorldMap(template, this));
 		}
+		log.info("World: "+worldMaps.size()+" worlds map created.");
+	}
+
+	public static final World getInstance()
+	{
+		return SingletonHolder.instance;
 	}
 
 	/**
@@ -338,5 +348,11 @@ public class World
 			object.getSpawn().setSpawned(false, object.getInstanceId());
 
 		object.clearKnownlist();
+	}
+	
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final World instance = new World();
 	}
 }

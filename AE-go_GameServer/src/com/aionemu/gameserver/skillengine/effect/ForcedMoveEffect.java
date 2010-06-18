@@ -28,6 +28,7 @@ import com.aionemu.gameserver.skillengine.model.Effect;
 import com.aionemu.gameserver.skillengine.model.SpellStatus;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
+import com.aionemu.gameserver.world.World;
 
 /**
  * @author Sarynth
@@ -67,7 +68,7 @@ public class ForcedMoveEffect extends EffectTemplate
 			{
 				// TODO: use moveToDistance - Currently defaults to 0
 				// Will require distance for the ranger pushback skill.
-				effected.getActiveRegion().getWorld().updatePosition(
+				World.getInstance().updatePosition(
 					effected,
 					effector.getX(),
 					effector.getY(),

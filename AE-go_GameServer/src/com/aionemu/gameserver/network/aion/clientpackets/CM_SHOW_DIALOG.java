@@ -23,7 +23,6 @@ import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_LOOKATOBJECT;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * 
@@ -34,9 +33,6 @@ import com.google.inject.Inject;
 public class CM_SHOW_DIALOG extends AionClientPacket
 {
 	private int	targetObjectId;
-
-	@Inject
-	private World world;
 
 	/**
 	 * Constructs new instance of <tt>CM_SHOW_DIALOG </tt> packet
@@ -62,7 +58,7 @@ public class CM_SHOW_DIALOG extends AionClientPacket
 	@Override
 	protected void runImpl()
 	{
-		AionObject targetObject = world.findAionObject(targetObjectId);
+		AionObject targetObject = World.getInstance().findAionObject(targetObjectId);
 		Player player = getConnection().getActivePlayer();
 
 		if(targetObject == null || player == null)

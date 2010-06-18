@@ -28,6 +28,7 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_MOVE;
 import com.aionemu.gameserver.utils.MathUtil;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
+import com.aionemu.gameserver.world.World;
 
 /**
  * @author ATracer
@@ -205,7 +206,7 @@ public class MoveController
 			}
 
 			moveCounter++;
-			owner.getActiveRegion().getWorld().updatePosition(owner, 
+			World.getInstance().updatePosition(owner, 
 				ownerX + x2, ownerY + y2, ownerZ + z2, heading2, moveCounter % 5 == 0);
 		}
 		else

@@ -33,7 +33,6 @@ import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.MapRegion;
 import com.aionemu.gameserver.world.World;
 import com.aionemu.gameserver.world.WorldMap;
-import com.google.inject.Inject;
 
 /**
  * This service in future should schedule job that is changing weather sometimes in region and probably sends to all
@@ -44,8 +43,6 @@ import com.google.inject.Inject;
  */
 public class WeatherService
 {
-	@Inject
-	private World						world;
 
 	private final long					WEATHER_DURATION	= 2 * 60 * 60 * 1000;	// 2 hours
 
@@ -217,7 +214,7 @@ public class WeatherService
 	 */
 	public void changeRegionWeather(int regionId, Integer weatherType)
 	{
-		WorldMap worldMap = world.getWorldMap(regionId);
+		WorldMap worldMap = World.getInstance().getWorldMap(regionId);
 		WeatherKey key = getKeyFromMapByWorldMap(worldMap);
 		worldWeathers.put(key, weatherType);
 		onWeatherChange(worldMap, null);
@@ -236,7 +233,7 @@ public class WeatherService
 	{
 		if(player == null)
 		{
-			for(Iterator<Player> playerIterator = world.getPlayersIterator(); playerIterator.hasNext();)
+			for(Iterator<Player> playerIterator = World.getInstance().getPlayersIterator(); playerIterator.hasNext();)
 			{
 				Player currentPlayer = playerIterator.next();
 				

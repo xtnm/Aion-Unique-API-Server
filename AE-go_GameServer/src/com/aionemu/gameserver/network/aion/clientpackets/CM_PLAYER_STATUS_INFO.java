@@ -36,8 +36,6 @@ public class CM_PLAYER_STATUS_INFO extends AionClientPacket
 	 * Injections
 	 */
 	@Inject
-	private World			world;
-	@Inject
 	private GroupService	groupService;
 
 	/**
@@ -72,7 +70,7 @@ public class CM_PLAYER_STATUS_INFO extends AionClientPacket
                 if(playerObjId == 0)
                     player = getConnection().getActivePlayer();
                 else
-                    player = world.findPlayer(playerObjId);
+                    player = World.getInstance().findPlayer(playerObjId);
 
                 if(player == null || player.getPlayerGroup() == null)
                     return;

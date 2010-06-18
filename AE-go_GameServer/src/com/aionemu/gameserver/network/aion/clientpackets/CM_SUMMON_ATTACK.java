@@ -21,7 +21,6 @@ import com.aionemu.gameserver.model.gameobjects.Summon;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer
@@ -38,9 +37,6 @@ public class CM_SUMMON_ATTACK extends AionClientPacket
 	private int unk2;
 	@SuppressWarnings("unused")
 	private int unk3;
-	
-	@Inject
-	private World world;
 	
 	public CM_SUMMON_ATTACK(int opcode)
 	{
@@ -66,7 +62,7 @@ public class CM_SUMMON_ATTACK extends AionClientPacket
 		if(summon == null)//TODO log here?
 			return;
 		
-		Creature creature = (Creature) world.findAionObject(targetObjId);
+		Creature creature = (Creature) World.getInstance().findAionObject(targetObjId);
 		summon.getController().attackTarget(creature);
 	}
 }

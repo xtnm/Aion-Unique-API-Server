@@ -22,7 +22,6 @@ import com.aionemu.gameserver.model.gameobjects.Summon;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer
@@ -38,9 +37,6 @@ public class CM_SUMMON_CASTSPELL extends AionClientPacket
 	private int skillLvl;
 	@SuppressWarnings("unused")
 	private float unk;
-	
-	@Inject
-	private World world;
 	
 	public CM_SUMMON_CASTSPELL(int opcode)
 	{
@@ -66,7 +62,7 @@ public class CM_SUMMON_CASTSPELL extends AionClientPacket
 		if(summon == null)//TODO log here?
 			return;
 		
-		AionObject targetObject = world.findAionObject(targetObjId);
+		AionObject targetObject = World.getInstance().findAionObject(targetObjId);
 		if(targetObject instanceof Creature)
 		{
 			summon.getController().useSkill(skillId, (Creature) targetObject);

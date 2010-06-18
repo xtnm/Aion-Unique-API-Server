@@ -46,7 +46,6 @@ import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.services.ZoneService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
-import com.aionemu.gameserver.world.World;
 import com.aionemu.gameserver.world.WorldMapInstance;
 import com.aionemu.gameserver.world.zone.ZoneName;
 import com.google.inject.Inject;
@@ -67,8 +66,6 @@ public class _1006Ascension extends QuestHandler
 	TeleportService teleportService;
 	@Inject
 	InstanceService instanceService;
-	@Inject
-	World world;
 	
 	public _1006Ascension()
 	{

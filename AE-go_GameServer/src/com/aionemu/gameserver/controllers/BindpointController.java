@@ -104,9 +104,8 @@ public class BindpointController extends NpcController
 			PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.STR_ALREADY_REGISTER_THIS_RESURRECT_POINT());
 			return;
 		}
-		
-		World world = sp.getWorld();
-		WorldType worldType = world.getWorldMap(player.getWorldId()).getWorldType();
+
+		WorldType worldType = World.getInstance().getWorldMap(player.getWorldId()).getWorldType();
 		if (!CustomConfig.ENABLE_CROSS_FACTION_BINDING)
 		{
 			if( worldType == WorldType.ASMODAE && player.getCommonData().getRace()==Race.ELYOS )

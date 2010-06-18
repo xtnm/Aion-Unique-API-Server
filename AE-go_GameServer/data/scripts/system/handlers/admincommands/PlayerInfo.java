@@ -40,8 +40,6 @@ import com.google.inject.Inject;
  */
 public class PlayerInfo extends AdminCommand
 {
-	@Inject
-	private World	world;
 	
 	@Inject
 	private LegionService legionService;
@@ -72,7 +70,7 @@ public class PlayerInfo extends AdminCommand
 			return;
 		}
 		
-		Player target = world.findPlayer(Util.convertName(params[0]));
+		Player target = World.getInstance().findPlayer(Util.convertName(params[0]));
 		
 		if(target == null)
 		{

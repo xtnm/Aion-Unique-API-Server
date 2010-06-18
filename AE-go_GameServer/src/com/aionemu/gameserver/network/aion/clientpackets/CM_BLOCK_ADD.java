@@ -38,8 +38,6 @@ public class CM_BLOCK_ADD extends AionClientPacket
 	private String			reason;
 	@Inject
 	private SocialService 	socialService;
-	@Inject
-	private World			world;
 	
 	public CM_BLOCK_ADD(int opcode)
 	{
@@ -64,7 +62,7 @@ public class CM_BLOCK_ADD extends AionClientPacket
 		
 		Player activePlayer = getConnection().getActivePlayer();
 		
-		Player targetPlayer = world.findPlayer(targetName);
+		Player targetPlayer = World.getInstance().findPlayer(targetName);
 		
 		//Trying to block self
 		if (activePlayer.getName().equalsIgnoreCase(targetName))

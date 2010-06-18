@@ -41,7 +41,6 @@ import com.aionemu.gameserver.model.gameobjects.player.StorageType;
 import com.aionemu.gameserver.model.legion.LegionMember;
 import com.aionemu.gameserver.utils.collections.cachemap.CacheMap;
 import com.aionemu.gameserver.utils.collections.cachemap.CacheMapFactory;
-import com.aionemu.gameserver.world.World;
 import com.google.inject.Inject;
 
 /**
@@ -56,8 +55,6 @@ public class AccountService
 
 	private CacheMap<Integer, Account>	accountsMap	= CacheMapFactory.createSoftCacheMap("Account", "account");
 
-	@Inject
-	private World						world;
 	@Inject
 	private PlayerService				playerService;
 	@Inject
@@ -142,7 +139,7 @@ public class AccountService
 
 		for(int playerOid : playerOids)
 		{
-			PlayerCommonData playerCommonData = playerDAO.loadPlayerCommonData(playerOid, world, playerInitialData);
+			PlayerCommonData playerCommonData = playerDAO.loadPlayerCommonData(playerOid, playerInitialData);
 			PlayerAppearance appereance = appereanceDAO.load(playerOid);
 			Player player = new Player(controllerFactory.playerController(), playerCommonData, appereance);
 

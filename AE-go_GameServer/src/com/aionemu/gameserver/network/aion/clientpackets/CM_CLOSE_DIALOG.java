@@ -23,7 +23,6 @@ import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_LOOKATOBJECT;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 public class CM_CLOSE_DIALOG extends AionClientPacket
 {
@@ -31,9 +30,6 @@ public class CM_CLOSE_DIALOG extends AionClientPacket
 	* Target object id that client wants to TALK WITH or 0 if wants to unselect
 	*/
 	private int	targetObjectId;
-
-	@Inject
-	private World world;
 
 	/**
 	* Constructs new instance of <tt>CM_CM_REQUEST_DIALOG </tt> packet
@@ -59,7 +55,7 @@ public class CM_CLOSE_DIALOG extends AionClientPacket
 	@Override
 	protected void runImpl()
 	{
-		AionObject targetObject = world.findAionObject(targetObjectId);
+		AionObject targetObject = World.getInstance().findAionObject(targetObjectId);
 		Player player = getConnection().getActivePlayer();
 
 		if(targetObject == null || player == null)

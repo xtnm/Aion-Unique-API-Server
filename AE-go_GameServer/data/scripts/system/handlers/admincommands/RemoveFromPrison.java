@@ -37,8 +37,6 @@ public class RemoveFromPrison extends AdminCommand
 {
 	@Inject
 	private PunishmentService	punishmentService;
-	@Inject
-	private World				world;
 
 	public RemoveFromPrison()
 	{
@@ -62,7 +60,7 @@ public class RemoveFromPrison extends AdminCommand
 
 		try
 		{
-			Player playerFromPrison = world.findPlayer(Util.convertName(params[0]));
+			Player playerFromPrison = World.getInstance().findPlayer(Util.convertName(params[0]));
 
 			if(playerFromPrison != null)
 			{

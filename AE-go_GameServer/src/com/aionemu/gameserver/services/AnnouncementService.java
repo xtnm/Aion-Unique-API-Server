@@ -34,7 +34,6 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_MESSAGE;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * Automatic Announcement System
@@ -50,12 +49,9 @@ public class AnnouncementService
 
 	private Set<Announcement>	announcements;
 	private List<Future<?>>		delays	= new ArrayList<Future<?>>();
-	private World				world;
 	
-	@Inject
-	public AnnouncementService(World world)
+	public AnnouncementService()
 	{
-		this.world = world;
 		this.load();
 	}
 
@@ -90,7 +86,7 @@ public class AnnouncementService
 				@Override
 				public void run()
 				{
-					final Iterator<Player> iter = world.getPlayersIterator();
+					final Iterator<Player> iter = World.getInstance().getPlayersIterator();
 					while (iter.hasNext())
 					{
 						Player player = iter.next();

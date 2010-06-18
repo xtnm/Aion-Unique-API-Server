@@ -693,7 +693,7 @@ public class PlayerController extends CreatureController<Player>
 	public void checkWaterLevel()
 	{
 		Player player = getOwner();
-		World world = sp.getWorld();
+		World world = World.getInstance();
 		float z = player.getZ();
 		
 		if(player.getLifeStats().isAlreadyDead())

@@ -18,6 +18,7 @@ package com.aionemu.gameserver.controllers;
 
 import com.aionemu.gameserver.model.gameobjects.VisibleObject;
 import com.aionemu.gameserver.services.ServiceProxy;
+import com.aionemu.gameserver.world.World;
 import com.google.inject.Inject;
 
 /**
@@ -84,12 +85,12 @@ public abstract class VisibleObjectController<T extends VisibleObject>
 		 * despawn object from world.
 		 */
 		if(getOwner().isSpawned())
-			sp.getWorld().despawn(getOwner());
+			World.getInstance().despawn(getOwner());
 		/**
 		 * Delete object from World.
 		 */
 
-		sp.getWorld().removeObject(getOwner());
+		World.getInstance().removeObject(getOwner());
 	}
 	
 	/**

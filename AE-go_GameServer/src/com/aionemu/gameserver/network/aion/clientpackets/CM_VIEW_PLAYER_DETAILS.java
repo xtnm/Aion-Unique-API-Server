@@ -24,7 +24,6 @@ import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_VIEW_PLAYER_DETAILS;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author Avol
@@ -35,9 +34,6 @@ public class CM_VIEW_PLAYER_DETAILS extends AionClientPacket
 	private static final Logger log = Logger.getLogger(CM_VIEW_PLAYER_DETAILS.class);
 
 	private int targetObjectId;
-
-	@Inject	
-	private World			world;
 
 	public CM_VIEW_PLAYER_DETAILS(int opcode)
 	{
@@ -59,7 +55,7 @@ public class CM_VIEW_PLAYER_DETAILS extends AionClientPacket
 	@Override
 	protected void runImpl()
 	{
-		Player player = world.findPlayer(targetObjectId);
+		Player player = World.getInstance().findPlayer(targetObjectId);
 		if(player == null)
 		{
 			//probably targetObjectId can be 0

@@ -30,7 +30,6 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.skillengine.model.SkillTargetSlot;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author Simple
@@ -38,9 +37,6 @@ import com.google.inject.Inject;
  */
 public class DuelService
 {
-	@Inject
-	World								world;
-
 	private static Logger				log		= Logger.getLogger(DuelService.class);
 
 	private FastMap<Integer, Integer>	duels	= new FastMap<Integer, Integer>();
@@ -177,7 +173,7 @@ public class DuelService
 		player.getController().cancelCurrentSkill();
 		
 		int opponnentId = duels.get(player.getObjectId());
-		Player opponent = world.findPlayer(opponnentId);
+		Player opponent = World.getInstance().findPlayer(opponnentId);
 
 		if(opponent != null)
 		{

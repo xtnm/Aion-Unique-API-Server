@@ -24,7 +24,6 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_TARGET_SELECTED;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_TARGET_UPDATE;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * Client Sends this packet when /Select NAME is typed.<br>
@@ -41,9 +40,6 @@ public class CM_TARGET_SELECT extends AionClientPacket
 	 */
 	private int	targetObjectId;
 	private int	type;
-
-	@Inject
-	private World	world;
 
 	/**
 	 * Constructs new client packet instance.
@@ -76,7 +72,7 @@ public class CM_TARGET_SELECT extends AionClientPacket
 		if(player == null)
 			return;
 
-		AionObject obj = world.findAionObject(targetObjectId);
+		AionObject obj = World.getInstance().findAionObject(targetObjectId);
 		if(obj != null && obj instanceof VisibleObject)
 		{
 			if(type == 1)

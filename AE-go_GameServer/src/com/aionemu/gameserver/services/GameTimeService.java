@@ -33,7 +33,6 @@ import com.aionemu.gameserver.utils.gametime.GameTime;
 import com.aionemu.gameserver.utils.gametime.GameTimeManager;
 import com.aionemu.gameserver.utils.gametime.listeners.DayTimeListener;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer
@@ -42,8 +41,6 @@ import com.google.inject.Inject;
 public class GameTimeService
 {
 	private static Logger	log	= Logger.getLogger(GameTimeService.class);
-	@Inject
-	private World			world;
 	
 	private final static int GAMETIME_UPDATE = 3 * 60000;
 
@@ -58,7 +55,7 @@ public class GameTimeService
 			public void run()
 			{
 				log.info("Sending current game time to all players");
-				Iterator<Player> iterator = world.getPlayersIterator();
+				Iterator<Player> iterator = World.getInstance().getPlayersIterator();
 				while(iterator.hasNext())
 				{
 					Player next = iterator.next();
@@ -79,7 +76,7 @@ public class GameTimeService
 	 */
 	private void sendDayTimeChangeEvents(DayTime dayTime)
 	{
-		Iterator<AionObject> it = world.getObjectsIterator();
+		Iterator<AionObject> it = World.getInstance().getObjectsIterator();
 		while(it.hasNext())
 		{
 			AionObject obj = it.next();

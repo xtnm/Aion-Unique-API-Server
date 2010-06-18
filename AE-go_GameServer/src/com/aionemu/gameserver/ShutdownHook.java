@@ -43,8 +43,6 @@ public class ShutdownHook extends Thread
 	private static final Logger	log	= Logger.getLogger(ShutdownHook.class);
 
 	@Inject
-	private World				world;
-	@Inject
 	private PlayerService		playerService;
 	@Inject
 	private LoginServer			loginServer;
@@ -87,7 +85,7 @@ public class ShutdownHook extends Thread
 	{
 		try
 		{
-			Iterator<Player> onlinePlayers = world.getPlayersIterator();
+			Iterator<Player> onlinePlayers = World.getInstance().getPlayersIterator();
 			if(!onlinePlayers.hasNext())
 				return;
 			while(onlinePlayers.hasNext())
@@ -107,7 +105,7 @@ public class ShutdownHook extends Thread
 	{
 		try
 		{
-			Iterator<Player> onlinePlayers = world.getPlayersIterator();
+			Iterator<Player> onlinePlayers = World.getInstance().getPlayersIterator();
 			if(!onlinePlayers.hasNext())
 				return;
 			while(onlinePlayers.hasNext())
@@ -129,7 +127,7 @@ public class ShutdownHook extends Thread
 		{
 			try
 			{
-				if(world.getPlayersIterator().hasNext())
+				if(World.getInstance().getPlayersIterator().hasNext())
 				{
 					log.info("Runtime is " + mode.getText() + " in " + i + " seconds.");
 					sendShutdownMessage(i);
@@ -161,7 +159,7 @@ public class ShutdownHook extends Thread
 
 		// Disconnect all players.
 		Iterator<Player> onlinePlayers;
-		onlinePlayers = world.getPlayersIterator();
+		onlinePlayers = World.getInstance().getPlayersIterator();
 		while(onlinePlayers.hasNext())
 		{
 			Player activePlayer = onlinePlayers.next();

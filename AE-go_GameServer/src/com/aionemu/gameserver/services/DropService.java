@@ -58,13 +58,11 @@ public class DropService
 
 	private ItemService					itemService;
 	private GroupService				groupService;
-	private World						world;
 
 	@Inject
-	public DropService(ItemService itemService, World world, GroupService groupService)
+	public DropService(ItemService itemService, GroupService groupService)
 	{
 		this.itemService = itemService;
-		this.world = world;
 		this.groupService = groupService;
 		dropList = DAOManager.getDAO(DropListDAO.class).load();
 		log.info(dropList.getSize() + " npc drops loaded");
@@ -271,7 +269,7 @@ public class DropService
 			player.unsetState(CreatureState.LOOTING);
 			player.setState(CreatureState.ACTIVE);
 			PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, 36, 0, npcId), true);
-			Npc npc = (Npc) world.findAionObject(npcId);
+			Npc npc = (Npc) World.getInstance().findAionObject(npcId);
 			if(npc != null)
 			{
 				npc.getController().onDespawn(true);

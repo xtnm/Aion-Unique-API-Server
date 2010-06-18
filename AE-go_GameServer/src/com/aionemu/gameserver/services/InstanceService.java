@@ -22,8 +22,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.aionemu.commons.utils.Rnd;
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.dataholders.PortalData;
-import com.aionemu.gameserver.dataholders.WorldMapsData;
 import com.aionemu.gameserver.model.gameobjects.VisibleObject;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.group.PlayerGroup;
@@ -45,13 +45,9 @@ public class InstanceService
 {
 	private static Logger	log	= Logger.getLogger(InstanceService.class);
 	@Inject
-	private World			world;
-	@Inject
 	private SpawnEngine		spawnEngine;
 	@Inject
 	private PortalData		portalData;
-	@Inject
-	private WorldMapsData	worldMapsData;
 	@Inject
 	private TeleportService teleportService;
 
@@ -62,7 +58,7 @@ public class InstanceService
 	 */
 	public synchronized WorldMapInstance getNextAvailableInstance(int worldId)
 	{
-		WorldMap map = world.getWorldMap(worldId);
+		WorldMap map = World.getInstance().getWorldMap(worldId);
 
 		if(!map.isInstanceType())
 			throw new UnsupportedOperationException("Invalid call for next available instance  of " + worldId);
@@ -89,7 +85,7 @@ public class InstanceService
 		int worldId = instance.getMapId();
 		int instanceId = instance.getInstanceId();
 
-		WorldMap map = world.getWorldMap(worldId);
+		WorldMap map = World.getInstance().getWorldMap(worldId);
 		map.removeWorldMapInstance(instanceId);
 
 		log.info("Destroying instance:" + worldId + " " + instanceId);
@@ -139,7 +135,7 @@ public class InstanceService
 	 */
 	public WorldMapInstance getRegisteredInstance(int worldId, int objectId)
 	{
-		Iterator<WorldMapInstance> iterator = world.getWorldMap(worldId).iterator();
+		Iterator<WorldMapInstance> iterator = World.getInstance().getWorldMap(worldId).iterator();
 		while(iterator.hasNext())
 		{
 			WorldMapInstance instance = iterator.next();
@@ -156,7 +152,7 @@ public class InstanceService
 	{
 		int worldId = player.getWorldId();
 		
-		WorldMapTemplate worldTemplate = worldMapsData.getTemplate(worldId);
+		WorldMapTemplate worldTemplate = DataManager.WORLD_MAPS_DATA.getTemplate(worldId);
 		if(worldTemplate.isInstance())
 		{
 			PortalTemplate portalTemplate = portalData.getInstancePortalTemplate(worldId, player.getCommonData().getRace());
@@ -170,7 +166,7 @@ public class InstanceService
 			WorldMapInstance registeredInstance = this.getRegisteredInstance(worldId, lookupId);
 			if(registeredInstance != null)
 			{
-				world.setPosition(player, worldId, registeredInstance.getInstanceId(), player.getX(), player.getY(),
+				World.getInstance().setPosition(player, worldId, registeredInstance.getInstanceId(), player.getX(), player.getY(),
 					player.getZ(), player.getHeading());
 				return;
 			}
@@ -218,7 +214,7 @@ public class InstanceService
 		}
 		else
 		{
-			world.setPosition(player, entryPoint.getMapId(), 1, entryPoint.getX(), entryPoint.getY(),
+			World.getInstance().setPosition(player, entryPoint.getMapId(), 1, entryPoint.getX(), entryPoint.getY(),
 				entryPoint.getZ(), player.getHeading());
 		}	
 		
@@ -231,7 +227,7 @@ public class InstanceService
 	 */
 	public boolean isInstanceExist(int worldId, int instanceId)
 	{
-		return world.getWorldMap(worldId).getWorldMapInstanceById(instanceId) != null;
+		return World.getInstance().getWorldMap(worldId).getWorldMapInstanceById(instanceId) != null;
 	}
 	
 	/**

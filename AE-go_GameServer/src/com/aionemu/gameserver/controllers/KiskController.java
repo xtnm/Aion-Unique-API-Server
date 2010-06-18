@@ -29,6 +29,7 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_ATTACK_STATUS.TYPE;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
+import com.aionemu.gameserver.world.World;
 
 /**
  * @author Sarynth
@@ -82,7 +83,7 @@ public class KiskController extends NpcController
 			public void run()
 			{
 				if (kisk != null && kisk.isSpawned())
-					sp.getWorld().despawn(kisk);
+					World.getInstance().despawn(kisk);
 			}
 		}, 3 * 1000));
 	}

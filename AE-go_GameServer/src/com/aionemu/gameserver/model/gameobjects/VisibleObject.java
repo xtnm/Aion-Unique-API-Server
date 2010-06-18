@@ -21,6 +21,7 @@ import com.aionemu.gameserver.model.templates.VisibleObjectTemplate;
 import com.aionemu.gameserver.model.templates.spawn.SpawnTemplate;
 import com.aionemu.gameserver.world.KnownList;
 import com.aionemu.gameserver.world.MapRegion;
+import com.aionemu.gameserver.world.World;
 import com.aionemu.gameserver.world.WorldPosition;
 import com.aionemu.gameserver.world.WorldType;
 
@@ -111,7 +112,7 @@ public abstract class VisibleObject extends AionObject
 	 */
 	public WorldType getWorldType()
 	{
-		return position.getWorld().getWorldMap(getWorldId()).getWorldType();
+		return World.getInstance().getWorldMap(getWorldId()).getWorldType();
 	}
 	
 	/**
@@ -180,7 +181,7 @@ public abstract class VisibleObject extends AionObject
 	 */
 	public boolean isInWorld()
 	{
-		return position.getWorld().findAionObject(getObjectId()) != null;
+		return World.getInstance().findAionObject(getObjectId()) != null;
 	}
 	
 	/**

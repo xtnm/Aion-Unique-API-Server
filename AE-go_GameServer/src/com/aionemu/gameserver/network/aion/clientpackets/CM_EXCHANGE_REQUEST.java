@@ -37,8 +37,6 @@ public class CM_EXCHANGE_REQUEST extends AionClientPacket
 {
 	public Integer			targetObjectId;
 	@Inject
-	private World			world;
-	@Inject
 	private ExchangeService exchangeService;
 
 	public CM_EXCHANGE_REQUEST(int opcode)
@@ -57,7 +55,7 @@ public class CM_EXCHANGE_REQUEST extends AionClientPacket
 	protected void runImpl()
 	{
 		final Player activePlayer = getConnection().getActivePlayer();
-		final Player targetPlayer = world.findPlayer(targetObjectId);
+		final Player targetPlayer = World.getInstance().findPlayer(targetObjectId);
 
 		/**
 		 * check if not trading with yourself.

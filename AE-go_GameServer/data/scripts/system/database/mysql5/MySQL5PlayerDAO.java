@@ -165,7 +165,7 @@ public class MySQL5PlayerDAO extends PlayerDAO
 
 	
 	@Override
-	public PlayerCommonData loadPlayerCommonDataByName(final String name, final World world)
+	public PlayerCommonData loadPlayerCommonDataByName(final String name)
 	{
 		final List<Integer> playerObjId = new ArrayList<Integer>();
 		
@@ -189,14 +189,14 @@ public class MySQL5PlayerDAO extends PlayerDAO
 		if(playerObjId.size() == 0)
 			return null;
 		else
-			return loadPlayerCommonData(playerObjId.get(0), world, null);
+			return loadPlayerCommonData(playerObjId.get(0), null);
 	}
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public PlayerCommonData loadPlayerCommonData(final int playerObjId, final World world, final PlayerInitialData playerInitialData)
+	public PlayerCommonData loadPlayerCommonData(final int playerObjId, final PlayerInitialData playerInitialData)
 	{
 
 		PlayerCommonData cached = playerCommonData.get(playerObjId);
@@ -254,7 +254,7 @@ public class MySQL5PlayerDAO extends PlayerDAO
 					worldId = ld.getMapId();
 				}		
 
-				WorldPosition position = world.createPosition(worldId, x, y, z, heading);
+				WorldPosition position = World.getInstance().createPosition(worldId, x, y, z, heading);
 				cd.setPosition(position);
 			}
 		});

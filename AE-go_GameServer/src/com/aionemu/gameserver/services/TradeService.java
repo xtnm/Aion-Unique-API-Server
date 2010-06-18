@@ -55,8 +55,6 @@ public class TradeService
 	@Inject
 	private ItemService			itemService;
 	@Inject
-	private World				world;
-	@Inject
 	private TradeListData		tradeListData;
 	@Inject
 	private GoodsListData		goodsListData;
@@ -167,7 +165,7 @@ public class TradeService
 	 */
 	private boolean validateBuyItems(TradeList tradeList)
 	{
-		Npc npc = (Npc) world.findAionObject(tradeList.getSellerObjId());
+		Npc npc = (Npc) World.getInstance().findAionObject(tradeList.getSellerObjId());
 		TradeListTemplate tradeListTemplate = tradeListData.getTradeListTemplate(npc.getObjectTemplate()
 			.getTemplateId());
 

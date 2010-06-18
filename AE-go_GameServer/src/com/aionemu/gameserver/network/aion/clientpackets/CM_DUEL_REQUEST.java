@@ -38,8 +38,6 @@ public class CM_DUEL_REQUEST extends AionClientPacket
 	private int			objectId;
 	@Inject
 	private DuelService	duelService;
-	@Inject
-	private World		world;
 
 	/**
 	 * Constructs new instance of <tt>CM_DUEL_REQUEST</tt> packet
@@ -64,7 +62,7 @@ public class CM_DUEL_REQUEST extends AionClientPacket
 	protected void runImpl()
 	{
 		Player activePlayer = getConnection().getActivePlayer();
-		AionObject target = world.findAionObject(objectId);
+		AionObject target = World.getInstance().findAionObject(objectId);
 
 		if(target == null)
 			return;

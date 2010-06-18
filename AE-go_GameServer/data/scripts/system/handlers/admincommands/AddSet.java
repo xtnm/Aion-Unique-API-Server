@@ -37,8 +37,6 @@ public class AddSet extends AdminCommand
 {
 	@Inject
 	private ItemService itemService;
-	@Inject
-	private World	world;
 	
 	public AddSet()
 	{
@@ -72,7 +70,7 @@ public class AddSet extends AdminCommand
 		}
 		catch (NumberFormatException e)
 		{
-			receiver = world.findPlayer(Util.convertName(params[0]));
+			receiver = World.getInstance().findPlayer(Util.convertName(params[0]));
 			try
 			{
 				itemSetId = Integer.parseInt(params[1]);				

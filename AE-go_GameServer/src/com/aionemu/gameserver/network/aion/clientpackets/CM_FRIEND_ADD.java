@@ -39,8 +39,6 @@ public class CM_FRIEND_ADD extends AionClientPacket
 	private String 				targetName;
 	@Inject
 	private SocialService 		socialService;
-	@Inject
-	private World				world;
 	
 	public CM_FRIEND_ADD(int opcode) {
 		super(opcode);
@@ -64,7 +62,7 @@ public class CM_FRIEND_ADD extends AionClientPacket
 	{
 		
 		final Player activePlayer = getConnection().getActivePlayer();
-		final Player targetPlayer = world.findPlayer(targetName);
+		final Player targetPlayer = World.getInstance().findPlayer(targetName);
 		
 	
 		if (targetName.equalsIgnoreCase(activePlayer.getName()))

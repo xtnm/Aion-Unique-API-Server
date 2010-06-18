@@ -35,8 +35,6 @@ import com.google.inject.Inject;
 public class Promote extends AdminCommand
 {
 	@Inject
-	private World	world;
-	@Inject
 	private LoginServer loginServer;
 
 	/**
@@ -99,7 +97,7 @@ public class Promote extends AdminCommand
 			return;
 		}
 
-		Player player = world.findPlayer(Util.convertName(params[0]));
+		Player player = World.getInstance().findPlayer(Util.convertName(params[0]));
 		if (player == null)
 		{
 			PacketSendUtility.sendMessage(admin, "The specified player is not online.");

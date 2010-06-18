@@ -51,6 +51,7 @@ import com.aionemu.gameserver.utils.guice.DataInjectionModule;
 import com.aionemu.gameserver.utils.guice.NetworkInjectionModule;
 import com.aionemu.gameserver.utils.guice.ObjectFactoryInjectionModule;
 import com.aionemu.gameserver.utils.idfactory.IDFactory;
+import com.aionemu.gameserver.world.World;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
@@ -85,6 +86,7 @@ public class GameServer
 		networkIM.setInjector(injector);
 		
 		IDFactory.getInstance();
+		World.getInstance();
 
 		// after all data is loaded need to set service proxy to xml service adapter
 		injector.getInstance(XmlServiceProxy.class).setServiceProxy(injector.getInstance(ServiceProxy.class));

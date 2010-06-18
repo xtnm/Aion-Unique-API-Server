@@ -30,7 +30,6 @@ import com.aionemu.gameserver.taskmanager.tasks.GroupUpdater;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.stats.StatFunctions;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * Packet about player movement.
@@ -44,9 +43,6 @@ public class CM_MOVE extends AionClientPacket
 	 * logger for this class
 	 */
 	private static final Logger	log	= Logger.getLogger(CM_MOVE.class);
-
-	@Inject
-	private World				world;
 
 	private MovementType		type;
 
@@ -117,7 +113,7 @@ public class CM_MOVE extends AionClientPacket
 	protected void runImpl()
 	{
 		Player player = getConnection().getActivePlayer();
-		
+		World world = World.getInstance();
 		//packet was not read correctly
 		if(type == null)
 			return;

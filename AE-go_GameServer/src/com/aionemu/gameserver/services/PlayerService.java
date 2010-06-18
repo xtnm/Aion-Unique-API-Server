@@ -94,7 +94,6 @@ public class PlayerService
 	private static final Logger			log			= Logger.getLogger(PlayerService.class);
 	private CacheMap<Integer, Player>	playerCache	= CacheMapFactory.createSoftCacheMap("Player", "player");
 
-	private World						world;
 	private ItemService					itemService;
 	private LegionService				legionService;
 	private TeleportService				teleportService;
@@ -109,13 +108,12 @@ public class PlayerService
 	private ChatService					chatService;
 
 	@Inject
-	public PlayerService(World world, ItemService itemService,
+	public PlayerService(ItemService itemService,
 		LegionService legionService, TeleportService teleportService, ObjectControllerFactory controllerFactory,
 		SkillLearnService skillLearnService, GroupService groupService, PunishmentService punishmentService,
 		DuelService duelService, PlayerStatsData playerStatsData, PlayerInitialData playerInitialData,
 		InstanceService instanceService, ChatService chatService)
 	{
-		this.world = world;
 		this.itemService = itemService;
 		this.legionService = legionService;
 		this.teleportService = teleportService;
@@ -224,8 +222,8 @@ public class PlayerService
 
 		player.setSkillList(DAOManager.getDAO(PlayerSkillListDAO.class).loadSkillList(playerObjId));
 		player.setKnownlist(new KnownList(player));
-		player.setFriendList(DAOManager.getDAO(FriendListDAO.class).load(player, world, playerInitialData));
-		player.setBlockList(DAOManager.getDAO(BlockListDAO.class).load(player, world, playerInitialData));
+		player.setFriendList(DAOManager.getDAO(FriendListDAO.class).load(player, playerInitialData));
+		player.setBlockList(DAOManager.getDAO(BlockListDAO.class).load(player, playerInitialData));
 		player.setTitleList(DAOManager.getDAO(PlayerTitleListDAO.class).loadTitleList(playerObjId));
 
 		DAOManager.getDAO(PlayerSettingsDAO.class).loadSettings(player);
@@ -306,7 +304,7 @@ public class PlayerService
 	{
 		LocationData ld = playerInitialData.getSpawnLocation(playerCommonData.getRace());
 
-		WorldPosition position = world.createPosition(ld.getMapId(), ld.getX(), ld.getY(), ld.getZ(), ld.getHeading());
+		WorldPosition position = World.getInstance().createPosition(ld.getMapId(), ld.getX(), ld.getY(), ld.getZ(), ld.getHeading());
 		playerCommonData.setPosition(position);
 
 		Player newPlayer = new Player(controllerFactory.playerController(), playerCommonData, playerAppearance);

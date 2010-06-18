@@ -39,8 +39,6 @@ public class ChatService
 
 	@Inject
 	private ChatServer				chatServer;
-	@Inject
-	private World					world;
 
 	private Map<Integer, Player>	players	= new HashMap<Integer, Player>();
 
@@ -100,7 +98,7 @@ public class ChatService
 	 */
 	public void playerAuthed(int playerId, byte[] token)
 	{
-		Player player = world.findPlayer(playerId);
+		Player player = World.getInstance().findPlayer(playerId);
 		if(player != null)
 		{
 			players.put(playerId, player);

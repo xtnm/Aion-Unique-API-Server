@@ -43,8 +43,6 @@ public class CraftService
 	@Inject
 	private ItemService itemService;
 	@Inject
-	private World world;
-	@Inject
 	private SkillTaskFactory taskFactory;
 
 	/**
@@ -93,7 +91,7 @@ public class CraftService
 		{
 			// check for pre-usage crafting -----------------------------------------------------
 			int skillId = recipeTemplate.getSkillid();
-			AionObject target = world.findAionObject(targetObjId);
+			AionObject target = World.getInstance().findAionObject(targetObjId);
 			
 			//morphing dont need static object/npc to use
 			if ((skillId != 40009) && (target == null || !(target instanceof StaticObject)))

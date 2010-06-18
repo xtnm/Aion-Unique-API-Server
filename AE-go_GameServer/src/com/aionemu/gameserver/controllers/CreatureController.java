@@ -33,6 +33,7 @@ import com.aionemu.gameserver.skillengine.SkillEngine;
 import com.aionemu.gameserver.skillengine.model.HealType;
 import com.aionemu.gameserver.skillengine.model.Skill;
 import com.aionemu.gameserver.utils.PacketSendUtility;
+import com.aionemu.gameserver.world.World;
 
 /**
  * This class is for controlling Creatures [npc's, players etc]
@@ -172,7 +173,7 @@ public abstract class CreatureController<T extends Creature> extends VisibleObje
 	public void stopMoving()
 	{
 		Creature owner = getOwner();
-		sp.getWorld().updatePosition(owner, owner.getX(), owner.getY(), owner.getZ(), owner.getHeading());
+		World.getInstance().updatePosition(owner, owner.getX(), owner.getY(), owner.getZ(), owner.getHeading());
 		PacketSendUtility.broadcastPacket(owner, new SM_MOVE(owner, owner.getX(), owner.getY(), owner.getZ(),
 			owner.getHeading(), MovementType.MOVEMENT_STOP));
 	}

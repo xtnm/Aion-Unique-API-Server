@@ -30,8 +30,7 @@ import com.google.inject.Inject;
  */
 public class CM_GODSTONE_SOCKET extends AionClientPacket
 {
-	@Inject
-	private World world;
+
 	@Inject
 	private ItemService itemService;
 	
@@ -57,7 +56,7 @@ public class CM_GODSTONE_SOCKET extends AionClientPacket
 	{
 		Player activePlayer = getConnection().getActivePlayer();
 		
-		Npc npc = (Npc) world.findAionObject(npcId);
+		Npc npc = (Npc) World.getInstance().findAionObject(npcId);
 		if(npc == null)
 			return;
 		

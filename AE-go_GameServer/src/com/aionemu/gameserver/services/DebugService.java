@@ -24,7 +24,6 @@ import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionConnection;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer
@@ -33,9 +32,6 @@ import com.google.inject.Inject;
 public class DebugService
 {
 	private static final Logger	log							= Logger.getLogger(DebugService.class);
-
-	@Inject
-	private World				world;
 
 	private static final int	ANALYZE_PLAYERS_INTERVAL	= 30 * 60 * 1000;
 
@@ -56,7 +52,7 @@ public class DebugService
 	{
 		log.info("Starting analysis of world players at " + System.currentTimeMillis());
 
-		Iterator<Player> playersIterator = world.getPlayersIterator();
+		Iterator<Player> playersIterator = World.getInstance().getPlayersIterator();
 		while(playersIterator.hasNext())
 		{
 			Player player = playersIterator.next();

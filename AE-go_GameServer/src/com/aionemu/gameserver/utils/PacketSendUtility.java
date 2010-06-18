@@ -157,7 +157,7 @@ public class PacketSendUtility
 	 */
 	public static void broadcastPacketToLegion(Legion legion, AionServerPacket packet, World world)
 	{
-		for(Player onlineLegionMember : legion.getOnlineLegionMembers(world))
+		for(Player onlineLegionMember : legion.getOnlineLegionMembers())
 		{
 			sendPacket(onlineLegionMember, packet);
 		}
@@ -165,7 +165,7 @@ public class PacketSendUtility
 
 	public static void broadcastPacketToLegion(Legion legion, AionServerPacket packet, World world, int playerObjId)
 	{
-		for(Player onlineLegionMember : legion.getOnlineLegionMembers(world))
+		for(Player onlineLegionMember : legion.getOnlineLegionMembers())
 		{
 			if(onlineLegionMember.getObjectId() != playerObjId)
 				sendPacket(onlineLegionMember, packet);

@@ -35,8 +35,6 @@ import com.google.inject.Inject;
  */
 public class CM_LEVEL_READY extends AionClientPacket
 {
-	@Inject
-	private World			world;
 
 	@Inject
 	private WeatherService	weatherService;
@@ -77,7 +75,7 @@ public class CM_LEVEL_READY extends AionClientPacket
 		/**
 		 * Spawn player into the world.
 		 */
-		world.spawn(activePlayer);
+		World.getInstance().spawn(activePlayer);
 		
 		activePlayer.getController().refreshZoneImpl();
 		

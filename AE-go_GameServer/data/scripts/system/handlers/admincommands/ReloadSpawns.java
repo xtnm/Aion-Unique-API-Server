@@ -39,8 +39,6 @@ import com.google.inject.Inject;
 public class ReloadSpawns extends AdminCommand
 {
 	@Inject
-	private World		world;
-	@Inject
 	private SpawnEngine	spawnEngine;
 
 	/**
@@ -61,7 +59,7 @@ public class ReloadSpawns extends AdminCommand
 		}
 		
 		// despawn all
-		Iterator<AionObject> it = world.getObjectsIterator(); 
+		Iterator<AionObject> it = World.getInstance().getObjectsIterator(); 
 		while(it.hasNext())
 		{
 			AionObject obj = it.next();

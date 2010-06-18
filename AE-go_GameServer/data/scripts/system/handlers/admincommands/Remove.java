@@ -26,7 +26,6 @@ import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.Util;
 import com.aionemu.gameserver.utils.chathandlers.AdminCommand;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author Phantom, ATracer
@@ -34,8 +33,6 @@ import com.google.inject.Inject;
  */
 public class Remove extends AdminCommand
 {
-	@Inject
-	private World	world;
 	
 	public Remove()
 	{
@@ -59,7 +56,7 @@ public class Remove extends AdminCommand
 
 		int itemId = 0;
 		int itemCount = 1;
-		Player target = world.findPlayer(Util.convertName(params[0]));
+		Player target = World.getInstance().findPlayer(Util.convertName(params[0]));
 		if(target == null)
 		{
 			PacketSendUtility.sendMessage(admin, "Player isn't online.");

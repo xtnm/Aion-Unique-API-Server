@@ -63,7 +63,7 @@ public class RespawnService
 	 */
 	public Future<?> scheduleRespawnTask(final VisibleObject visibleObject)
 	{
-		final World world = visibleObject.getPosition().getWorld();
+		final World world = World.getInstance();
 		final int interval = visibleObject.getSpawn().getSpawnGroup().getInterval();		
 	
 		return ThreadPoolManager.getInstance().schedule(new Runnable()

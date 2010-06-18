@@ -80,7 +80,6 @@ import com.aionemu.gameserver.spawnengine.RiftSpawnManager;
 import com.aionemu.gameserver.spawnengine.SpawnEngine;
 import com.aionemu.gameserver.utils.chathandlers.ChatHandlers;
 import com.aionemu.gameserver.utils.chathandlers.ChatHandlersFactory;
-import com.aionemu.gameserver.world.World;
 import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
 import com.google.inject.Provides;
@@ -108,7 +107,6 @@ public class DataInjectionModule extends AbstractModule
 		bind(XmlServiceProxy.class).in(Scopes.SINGLETON);
 		bind(ShutdownHook.class).in(Scopes.SINGLETON);	
 		bind(DataManager.class).asEagerSingleton();
-		bind(World.class).asEagerSingleton();
 		bind(SpawnEngine.class).asEagerSingleton();
 		bind(PeriodicSaveService.class).in(Scopes.SINGLETON);
 		bind(PlayerService.class).in(Scopes.SINGLETON);

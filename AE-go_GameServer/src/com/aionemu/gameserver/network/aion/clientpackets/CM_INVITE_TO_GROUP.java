@@ -33,8 +33,6 @@ import com.google.inject.Inject;
 public class CM_INVITE_TO_GROUP extends AionClientPacket
 {
 	@Inject
-	private World			world;
-	@Inject
 	private GroupService	groupService;
 
 	private String			name;
@@ -63,7 +61,7 @@ public class CM_INVITE_TO_GROUP extends AionClientPacket
 		final String playerName = Util.convertName(name);
 
 		final Player inviter = getConnection().getActivePlayer();
-		final Player invited = world.findPlayer(playerName);
+		final Player invited = World.getInstance().findPlayer(playerName);
 
 		if(invited != null)
 		{

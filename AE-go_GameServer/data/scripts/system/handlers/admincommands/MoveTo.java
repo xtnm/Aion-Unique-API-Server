@@ -22,7 +22,6 @@ import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.chathandlers.AdminCommand;
-import com.aionemu.gameserver.world.World;
 import com.aionemu.gameserver.world.WorldMapType;
 import com.google.inject.Inject;
 
@@ -34,8 +33,6 @@ import com.google.inject.Inject;
 
 public class MoveTo extends AdminCommand
 {
-	@SuppressWarnings("unused")
-	private final World		world;
 	private TeleportService teleportService;
 
 	/**
@@ -43,10 +40,9 @@ public class MoveTo extends AdminCommand
 	 */
 
 	@Inject
-	public MoveTo(World world, TeleportService teleportService)
+	public MoveTo(TeleportService teleportService)
 	{
 		super("moveto");
-		this.world = world; 
 		this.teleportService = teleportService;
 	}
 

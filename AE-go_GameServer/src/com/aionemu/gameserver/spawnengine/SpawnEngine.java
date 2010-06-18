@@ -77,8 +77,8 @@ public class SpawnEngine
 {
 	private static Logger				log					= Logger.getLogger(SpawnEngine.class);
 
-	@Inject
 	private World						world;
+
 	@Inject
 	private SpawnsData					spawnsData;
 	@Inject
@@ -110,6 +110,7 @@ public class SpawnEngine
 	public void setInjector(Injector injector)
 	{
 		this.injector = injector;
+		this.world = World.getInstance();
 	}
 
 	/**

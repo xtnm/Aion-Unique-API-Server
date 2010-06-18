@@ -28,7 +28,6 @@ import com.aionemu.gameserver.restrictions.RestrictionsManager;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.Util;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * Packet that reads Whisper chat messages.<br>
@@ -51,9 +50,6 @@ public class CM_CHAT_MESSAGE_WHISPER extends AionClientPacket
 	 * Message text
 	 */
 	private String				message;
-
-	@Inject
-	private World				world;
 
 	/**
 	 * Constructs new client packet instance.
@@ -84,7 +80,7 @@ public class CM_CHAT_MESSAGE_WHISPER extends AionClientPacket
 		String formatname = Util.convertName(name);
 
 		Player sender = getConnection().getActivePlayer();
-		Player receiver = world.findPlayer(formatname);
+		Player receiver = World.getInstance().findPlayer(formatname);
 
 		log.info(String.format("[MESSAGE] [%s] Whisper To: %s, Message: %s", sender.getName(), formatname, message));
 

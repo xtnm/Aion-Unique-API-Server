@@ -38,8 +38,6 @@ public class CM_BUY_ITEM extends AionClientPacket
 {
 	@Inject
 	TradeListData tradeListData;
-	@Inject
-	World world;
 	
 	private int	sellerObjId;
 	private int	unk1;
@@ -111,7 +109,7 @@ public class CM_BUY_ITEM extends AionClientPacket
 		switch(unk1)
 		{
 			case 0:
-				Player targetPlayer = (Player) player.getActiveRegion().getWorld().findAionObject(sellerObjId);
+				Player targetPlayer = (Player) World.getInstance().findAionObject(sellerObjId);
 				privateStoreService.sellStoreItem(targetPlayer, player, tradeList);
 				break;
 
@@ -124,7 +122,7 @@ public class CM_BUY_ITEM extends AionClientPacket
 				break;
 
 			case 13:
-				Npc npc = (Npc) world.findAionObject(sellerObjId);
+				Npc npc = (Npc) World.getInstance().findAionObject(sellerObjId);
 				TradeListTemplate tlist = tradeListData.getTradeListTemplate(npc.getNpcId());
 				if(tlist.isAbyss())
 					tradeService.performBuyFromAbyssShop(player, tradeList);
