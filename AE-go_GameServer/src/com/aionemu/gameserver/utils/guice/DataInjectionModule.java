@@ -40,24 +40,18 @@ import com.aionemu.gameserver.dataholders.TeleporterData;
 import com.aionemu.gameserver.dataholders.TradeListData;
 import com.aionemu.gameserver.dataholders.WalkerData;
 import com.aionemu.gameserver.dataholders.WarehouseExpandData;
-import com.aionemu.gameserver.dataholders.ZoneData;
 import com.aionemu.gameserver.dataholders.loadingutils.XmlServiceProxy;
 import com.aionemu.gameserver.services.AccountService;
-import com.aionemu.gameserver.services.AnnouncementService;
 import com.aionemu.gameserver.services.BrokerService;
 import com.aionemu.gameserver.services.ChatService;
 import com.aionemu.gameserver.services.CraftService;
 import com.aionemu.gameserver.services.CraftSkillUpdateService;
 import com.aionemu.gameserver.services.CubeExpandService;
-import com.aionemu.gameserver.services.DebugService;
 import com.aionemu.gameserver.services.DropService;
-import com.aionemu.gameserver.services.DuelService;
 import com.aionemu.gameserver.services.EnchantService;
 import com.aionemu.gameserver.services.ExchangeService;
-import com.aionemu.gameserver.services.GameTimeService;
 import com.aionemu.gameserver.services.GroupService;
 import com.aionemu.gameserver.services.InstanceService;
-import com.aionemu.gameserver.services.ItemRemodelService;
 import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.services.KiskService;
 import com.aionemu.gameserver.services.LegionService;
@@ -70,12 +64,9 @@ import com.aionemu.gameserver.services.RespawnService;
 import com.aionemu.gameserver.services.ServiceProxy;
 import com.aionemu.gameserver.services.SkillLearnService;
 import com.aionemu.gameserver.services.SocialService;
-import com.aionemu.gameserver.services.StigmaService;
 import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.services.TradeService;
 import com.aionemu.gameserver.services.WarehouseService;
-import com.aionemu.gameserver.services.WeatherService;
-import com.aionemu.gameserver.services.ZoneService;
 import com.aionemu.gameserver.spawnengine.RiftSpawnManager;
 import com.aionemu.gameserver.spawnengine.SpawnEngine;
 import com.aionemu.gameserver.utils.chathandlers.ChatHandlers;
@@ -119,7 +110,6 @@ public class DataInjectionModule extends AbstractModule
 		bind(CubeExpandService.class).in(Scopes.SINGLETON);
 		bind(RiftSpawnManager.class).in(Scopes.SINGLETON);
 		bind(ExchangeService.class).in(Scopes.SINGLETON);
-		bind(WeatherService.class).in(Scopes.SINGLETON);
 		bind(LegionService.class).in(Scopes.SINGLETON);
 		bind(PrivateStoreService.class).in(Scopes.SINGLETON);
 		bind(RespawnService.class).in(Scopes.SINGLETON);
@@ -130,19 +120,12 @@ public class DataInjectionModule extends AbstractModule
 		bind(CraftSkillUpdateService.class).in(Scopes.SINGLETON);
 		bind(WarehouseService.class).in(Scopes.SINGLETON);
 		bind(PunishmentService.class).in(Scopes.SINGLETON);
-		bind(ZoneService.class).in(Scopes.SINGLETON);		
-		bind(DuelService.class).in(Scopes.SINGLETON);
 		bind(ServiceProxy.class).in(Scopes.SINGLETON);
 		bind(MailService.class).in(Scopes.SINGLETON);
 		bind(InstanceService.class).in(Scopes.SINGLETON);
 		bind(EnchantService.class).in(Scopes.SINGLETON);
-		bind(DebugService.class).asEagerSingleton();
-		bind(StigmaService.class).in(Scopes.SINGLETON);
-		bind(GameTimeService.class).asEagerSingleton();
 		bind(BrokerService.class).asEagerSingleton();
-		bind(AnnouncementService.class).asEagerSingleton();
 		bind(ChatService.class).asEagerSingleton();
-		bind(ItemRemodelService.class).in(Scopes.SINGLETON);
 		bind(KiskService.class).in(Scopes.SINGLETON);
 	}
 	
@@ -263,12 +246,6 @@ public class DataInjectionModule extends AbstractModule
 	PlayerInitialData providePlayerInitialData(DataManager datamanager)
 	{
 		return datamanager.PLAYER_INITIAL_DATA;
-	}
-	
-	@Provides
-	ZoneData provideZoneData(DataManager datamanager)
-	{
-		return datamanager.ZONE_DATA;
 	}
 	
 	@Provides

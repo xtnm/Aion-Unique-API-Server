@@ -31,7 +31,6 @@ import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.ItemService;
-import com.aionemu.gameserver.services.ZoneService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.zone.ZoneName;
@@ -45,8 +44,6 @@ public class _2053AMissingFather extends QuestHandler
 {
 	@Inject
 	ItemService itemService;
-	@Inject
-	ZoneService zoneService;
 	
 	private final static int	questId	= 2053;
 	private final static int[]	npc_ids	= { 204707, 204749, 204800, 700359, 730108 };

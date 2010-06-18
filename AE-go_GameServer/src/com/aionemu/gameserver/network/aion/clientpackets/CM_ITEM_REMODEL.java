@@ -19,7 +19,6 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.services.ItemRemodelService;
-import com.google.inject.Inject;
 
 /**
  * @author Sarynth
@@ -27,10 +26,7 @@ import com.google.inject.Inject;
  */
 public class CM_ITEM_REMODEL extends AionClientPacket
 {	
-	@Inject
-	private ItemRemodelService		itemRemodelService;
-	
-	
+
 	private int keepItemId;
 	private int extractItemId;
 	
@@ -57,6 +53,6 @@ public class CM_ITEM_REMODEL extends AionClientPacket
 	protected void runImpl()
 	{
 		final Player activePlayer = getConnection().getActivePlayer();
-		itemRemodelService.remodelItem(activePlayer, keepItemId, extractItemId);
+		ItemRemodelService.remodelItem(activePlayer, keepItemId, extractItemId);
 	}
 }

@@ -42,9 +42,14 @@ public class GameTimeService
 {
 	private static Logger	log	= Logger.getLogger(GameTimeService.class);
 	
+	public static final GameTimeService getInstance()
+	{
+		return SingletonHolder.instance;
+	}
+
 	private final static int GAMETIME_UPDATE = 3 * 60000;
 
-	public GameTimeService()
+	private GameTimeService()
 	{
 		/**
 		 * Update players with current game time
@@ -68,6 +73,8 @@ public class GameTimeService
 		 * Update npcs with time changes
 		 */
 		addGameTimeHook();
+		
+		log.info("GameTimeService started. Update interval:" + GAMETIME_UPDATE);
 	}
 
 	/**
@@ -90,7 +97,7 @@ public class GameTimeService
 	/**
 	 * Called only once when game server starts
 	 */
-	public void addGameTimeHook()
+	private void addGameTimeHook()
 	{
 		((EnhancedObject) GameTimeManager.getGameTime()).addCallback(new DayTimeListener(){
 			@Override
@@ -102,4 +109,9 @@ public class GameTimeService
 		});
 	}
 
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final GameTimeService instance = new GameTimeService();
+	}
 }

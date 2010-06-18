@@ -18,12 +18,13 @@ package com.aionemu.gameserver.services;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javolution.util.FastMap;
 
 import com.aionemu.commons.utils.Rnd;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
@@ -50,9 +51,14 @@ public class WeatherService
 
 	private Map<WeatherKey, Integer>	worldWeathers;
 
-	public WeatherService()
+	public static final WeatherService getInstance()
 	{
-		worldWeathers = new HashMap<WeatherKey, Integer>();
+		return SingletonHolder.instance;
+	}
+
+	private WeatherService()
+	{
+		worldWeathers = new FastMap<WeatherKey, Integer>();
 		ThreadPoolManager.getInstance().scheduleAtFixedRate(new Runnable(){
 			/*
 			 * (non-Javadoc)
@@ -252,5 +258,11 @@ public class WeatherService
 		{
 			PacketSendUtility.sendPacket(player, new SM_WEATHER(getWeatherTypeByRegion(worldMap)));
 		}
+	}
+	
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final WeatherService instance = new WeatherService();
 	}
 }

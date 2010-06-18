@@ -33,7 +33,6 @@ import com.aionemu.gameserver.services.ZoneService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.zone.ZoneName;
-import com.google.inject.Inject;
 
 /**
  * @author Rhys2002
@@ -41,8 +40,6 @@ import com.google.inject.Inject;
  */
 public class _1014OdiumintheDukakiSettlement extends QuestHandler
 {
-	@Inject
-	ZoneService zoneService;
 	
 	private final static int	questId	= 1014;
 	private final static int[]	npc_ids	= { 203129, 730020, 203098, 700090 };
@@ -227,7 +224,7 @@ public class _1014OdiumintheDukakiSettlement extends QuestHandler
 		
 		if(id != 182200012 || qs.getQuestVarById(0) != 11)
 			return false;
-		if(!zoneService.isInsideZone(player, ZoneName.ODIUM_REFINING_CAULDRON))
+		if(!ZoneService.getInstance().isInsideZone(player, ZoneName.ODIUM_REFINING_CAULDRON))
 			return false;
 
 		PacketSendUtility.broadcastPacket(player, new SM_ITEM_USAGE_ANIMATION(player.getObjectId(), itemObjId, id, 3000, 0, 0), true);

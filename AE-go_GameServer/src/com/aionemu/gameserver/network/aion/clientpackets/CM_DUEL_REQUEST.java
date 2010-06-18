@@ -23,7 +23,6 @@ import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.services.DuelService;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * 
@@ -36,8 +35,6 @@ public class CM_DUEL_REQUEST extends AionClientPacket
 	 * Target object id that client wants to start duel with
 	 */
 	private int			objectId;
-	@Inject
-	private DuelService	duelService;
 
 	/**
 	 * Constructs new instance of <tt>CM_DUEL_REQUEST</tt> packet
@@ -76,6 +73,7 @@ public class CM_DUEL_REQUEST extends AionClientPacket
 				sendPacket(SM_SYSTEM_MESSAGE.STR_MSG_REJECTED_DUEL(targetPlayer.getName()));
 				return;
 			}
+			DuelService duelService = DuelService.getInstance();
 			duelService.onDuelRequest(activePlayer, targetPlayer);
 			duelService.confirmDuelWith(activePlayer, targetPlayer);
 		}

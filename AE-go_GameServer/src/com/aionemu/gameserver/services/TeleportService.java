@@ -69,8 +69,6 @@ public class TeleportService
 	@Inject
 	private PlayerService		playerService;
 	@Inject
-	private DuelService			duelService;
-	@Inject
 	private TeleLocationData	teleLocationData;
 	@Inject
 	private TeleporterData		teleporterData;
@@ -285,8 +283,8 @@ public class TeleportService
 		if(player.getLifeStats().isAlreadyDead() || !player.isSpawned())
 			return false;
 
-		if(duelService.isDueling(player.getObjectId()))
-			duelService.loseDuel(player);
+		if(DuelService.getInstance().isDueling(player.getObjectId()))
+			DuelService.getInstance().loseDuel(player);
 
 		if(delay == 0)
 		{

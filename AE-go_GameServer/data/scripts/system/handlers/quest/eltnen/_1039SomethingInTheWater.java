@@ -44,8 +44,6 @@ public class _1039SomethingInTheWater extends QuestHandler
 
 	@Inject
 	ItemService itemService;
-	@Inject
-	ZoneService zoneService;
 	
 	private final static int	questId	= 1039;
 	private final static int[]	mob_ids	= { 210946, 210947 };
@@ -87,7 +85,7 @@ public class _1039SomethingInTheWater extends QuestHandler
 
 		if(id != 182201009) //Empty Water Bottle
 			return false;
-		if(!zoneService.isInsideZone(player, ZoneName.MYSTIC_SPRING_OF_AGAIRON))
+		if(!ZoneService.getInstance().isInsideZone(player, ZoneName.MYSTIC_SPRING_OF_AGAIRON))
 			return false;
 		final QuestState qs = player.getQuestStateList().getQuestState(questId);
 		if(qs == null)

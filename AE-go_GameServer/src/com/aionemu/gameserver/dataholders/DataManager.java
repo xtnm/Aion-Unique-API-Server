@@ -117,7 +117,7 @@ public final class DataManager
 	 */
 	public static WalkerData			WALKER_DATA;
 
-	public ZoneData						ZONE_DATA;
+	public static ZoneData				ZONE_DATA;
 
 	public GoodsListData				GOODSLIST_DATA;
 

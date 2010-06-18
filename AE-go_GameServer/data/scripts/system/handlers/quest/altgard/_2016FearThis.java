@@ -46,9 +46,6 @@ public class _2016FearThis extends QuestHandler
 	@Inject
 	ItemService itemService;
 
-	@Inject
-	ZoneService zoneService;
-
 	private final static int	questId	= 2016;
 
 	public _2016FearThis()
@@ -164,7 +161,7 @@ public class _2016FearThis extends QuestHandler
 
 		if(id != 182203019)
 			return false;
-		if(!zoneService.isInsideZone(player, ZoneName.Q2016))
+		if(!ZoneService.getInstance().isInsideZone(player, ZoneName.Q2016))
 			return false;
 		final QuestState qs = player.getQuestStateList().getQuestState(questId);
 		if(qs == null)

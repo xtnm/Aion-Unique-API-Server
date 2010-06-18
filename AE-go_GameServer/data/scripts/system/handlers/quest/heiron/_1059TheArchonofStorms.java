@@ -48,8 +48,6 @@ public class _1059TheArchonofStorms extends QuestHandler
 {
 	@Inject
 	ItemService itemService;
-	@Inject
-	ZoneService zoneService;
 	
 	private final static int	questId	= 1059;
 	private final static int[]	npc_ids	= { 204505, 204533, 700282, 204535 };
@@ -229,7 +227,7 @@ public class _1059TheArchonofStorms extends QuestHandler
 
 		if(id != 182201619)
 			return false;
-		if(!zoneService.isInsideZone(player, ZoneName.PATEMA_GEYSER))
+		if(!ZoneService.getInstance().isInsideZone(player, ZoneName.PATEMA_GEYSER))
 			return false;
 		final QuestState qs = player.getQuestStateList().getQuestState(questId);
 		if(qs == null)

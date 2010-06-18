@@ -47,8 +47,6 @@ public class _1019FlyingReconnaissance extends QuestHandler
 	
 	@Inject
 	ItemService itemService;
-	@Inject
-	ZoneService zoneService;
 
 	private final static int	questId	= 1019;
 
@@ -235,7 +233,7 @@ public class _1019FlyingReconnaissance extends QuestHandler
 
 		if(id != 182200023)
 			return false;
-		if(!zoneService.isInsideZone(player, ZoneName.TURSIN_TOTEM_POLE))
+		if(!ZoneService.getInstance().isInsideZone(player, ZoneName.TURSIN_TOTEM_POLE))
 			return false;
 		final QuestState qs = player.getQuestStateList().getQuestState(questId);
 		if(qs == null)

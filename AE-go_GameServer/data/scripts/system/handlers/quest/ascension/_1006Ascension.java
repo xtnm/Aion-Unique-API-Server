@@ -61,8 +61,6 @@ public class _1006Ascension extends QuestHandler
 	@Inject
 	ItemService itemService;
 	@Inject
-	ZoneService zoneService;
-	@Inject
 	TeleportService teleportService;
 	@Inject
 	InstanceService instanceService;
@@ -337,7 +335,7 @@ public class _1006Ascension extends QuestHandler
 
 		if(id != 182200007)
 			return false;
-		if(!zoneService.isInsideZone(player, ZoneName.ITEMUSE_Q1006))
+		if(!ZoneService.getInstance().isInsideZone(player, ZoneName.ITEMUSE_Q1006))
 			return false;
 		final QuestState qs = player.getQuestStateList().getQuestState(questId);
 		if(qs == null)

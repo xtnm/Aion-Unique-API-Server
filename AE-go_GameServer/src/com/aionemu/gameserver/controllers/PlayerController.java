@@ -64,7 +64,9 @@ import com.aionemu.gameserver.questEngine.QuestEngine;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.restrictions.RestrictionsManager;
 import com.aionemu.gameserver.services.ClassChangeService;
+import com.aionemu.gameserver.services.DuelService;
 import com.aionemu.gameserver.services.QuestService;
+import com.aionemu.gameserver.services.ZoneService;
 import com.aionemu.gameserver.services.ZoneService.ZoneUpdateMode;
 import com.aionemu.gameserver.skillengine.SkillEngine;
 import com.aionemu.gameserver.skillengine.model.HealType;
@@ -241,7 +243,7 @@ public class PlayerController extends CreatureController<Player>
 		{
 			if(isDueling((Player) master))
 			{
-				sp.getDuelService().onDie(player);
+				DuelService.getInstance().onDie(player);
 				return;
 			}
 		}
@@ -521,7 +523,7 @@ public class PlayerController extends CreatureController<Player>
 	 */
 	public boolean isDueling(Player player)
 	{
-		return sp.getDuelService().isDueling(player.getObjectId(), getOwner().getObjectId());
+		return DuelService.getInstance().isDueling(player.getObjectId(), getOwner().getObjectId());
 	}
 
 	public void updateNearbyQuestList()
@@ -650,7 +652,7 @@ public class PlayerController extends CreatureController<Player>
 	public final void addZoneUpdateMask(ZoneUpdateMode mode)
 	{
 		zoneUpdateMask |= mode.mask();
-		sp.getZoneService().add(getOwner());
+		ZoneService.getInstance().add(getOwner());
 	}
 
 	public final void removeZoneUpdateMask(ZoneUpdateMode mode)
@@ -668,7 +670,7 @@ public class PlayerController extends CreatureController<Player>
 	 */
 	public void updateZoneImpl()
 	{
-		sp.getZoneService().checkZone(getOwner());
+		ZoneService.getInstance().checkZone(getOwner());
 	}
 
 	/**
@@ -676,7 +678,7 @@ public class PlayerController extends CreatureController<Player>
 	 */
 	public void refreshZoneImpl()
 	{
-		sp.getZoneService().findZoneInCurrentMap(getOwner());
+		ZoneService.getInstance().findZoneInCurrentMap(getOwner());
 	}
 
 	/**
@@ -712,9 +714,9 @@ public class PlayerController extends CreatureController<Player>
 		//TODO need fix character height
 		float playerheight = player.getPlayerAppearance().getHeight() * 1.6f;
 		if(z < world.getWorldMap(player.getWorldId()).getWaterLevel() - playerheight)
-			sp.getZoneService().startDrowning(player);
+			ZoneService.getInstance().startDrowning(player);
 		else
-			sp.getZoneService().stopDrowning(player);
+			ZoneService.getInstance().stopDrowning(player);
 	}
 
 	@Override

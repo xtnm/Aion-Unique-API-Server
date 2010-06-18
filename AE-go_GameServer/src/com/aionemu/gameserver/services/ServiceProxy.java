@@ -58,10 +58,6 @@ public class ServiceProxy
 	@Inject
 	private PlayerService			playerService;
 	@Inject
-	private ZoneService				zoneService;
-	@Inject
-	private DuelService				duelService;
-	@Inject
 	private BrokerService			brokerService;
 	@Inject
 	private SpawnEngine				spawnEngine;
@@ -189,22 +185,6 @@ public class ServiceProxy
 	public PlayerService getPlayerService()
 	{
 		return playerService;
-	}
-
-	/**
-	 * @return the zoneService
-	 */
-	public ZoneService getZoneService()
-	{
-		return zoneService;
-	}
-
-	/**
-	 * @return the duelService
-	 */
-	public DuelService getDuelService()
-	{
-		return duelService;
 	}
 	
 	public BrokerService getBrokerService()

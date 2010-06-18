@@ -101,7 +101,6 @@ public class PlayerService
 	private SkillLearnService			skillLearnService;
 	private GroupService				groupService;
 	private PunishmentService			punishmentService;
-	private DuelService					duelService;
 	private PlayerStatsData				playerStatsData;
 	private PlayerInitialData			playerInitialData;
 	private InstanceService				instanceService;
@@ -111,7 +110,7 @@ public class PlayerService
 	public PlayerService(ItemService itemService,
 		LegionService legionService, TeleportService teleportService, ObjectControllerFactory controllerFactory,
 		SkillLearnService skillLearnService, GroupService groupService, PunishmentService punishmentService,
-		DuelService duelService, PlayerStatsData playerStatsData, PlayerInitialData playerInitialData,
+		PlayerStatsData playerStatsData, PlayerInitialData playerInitialData,
 		InstanceService instanceService, ChatService chatService)
 	{
 		this.itemService = itemService;
@@ -121,7 +120,6 @@ public class PlayerService
 		this.skillLearnService = skillLearnService;
 		this.groupService = groupService;
 		this.punishmentService = punishmentService;
-		this.duelService = duelService;
 		this.playerStatsData = playerStatsData;
 		this.playerInitialData = playerInitialData;
 		this.instanceService = instanceService;
@@ -402,8 +400,8 @@ public class PlayerService
 		if(player.getLifeStats().isAlreadyDead())
 			teleportService.moveToBindLocation(player, false);
 
-		if(duelService.isDueling(player.getObjectId()))
-			duelService.loseDuel(player);
+		if(DuelService.getInstance().isDueling(player.getObjectId()))
+			DuelService.getInstance().loseDuel(player);
 		
 		//temp
 		if(player.getSummon() != null)

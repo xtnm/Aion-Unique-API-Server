@@ -39,7 +39,23 @@ public class DuelService
 {
 	private static Logger				log		= Logger.getLogger(DuelService.class);
 
-	private FastMap<Integer, Integer>	duels	= new FastMap<Integer, Integer>();
+	private FastMap<Integer, Integer>	duels;
+
+	public static final DuelService getInstance()
+	{
+		return SingletonHolder.instance;
+	}
+
+	
+	/**
+	 * @param duels
+	 */
+	private DuelService()
+	{
+		this.duels = new FastMap<Integer, Integer>();
+		log.info("DuelService started.");
+	}
+
 
 	/**
 	 * Send the duel request to the owner
@@ -242,5 +258,11 @@ public class DuelService
 	{
 		duels.remove(requesterObjId);
 		duels.remove(responderObjId);
+	}
+	
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final DuelService instance = new DuelService();
 	}
 }

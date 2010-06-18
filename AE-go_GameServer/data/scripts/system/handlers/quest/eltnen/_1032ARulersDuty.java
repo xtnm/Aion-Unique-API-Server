@@ -43,8 +43,6 @@ import com.google.inject.Inject;
  */
 public class _1032ARulersDuty extends QuestHandler
 {
-	@Inject
-	ZoneService zoneService;
 	
 	@Inject
 	ItemService itemService;
@@ -76,7 +74,7 @@ public class _1032ARulersDuty extends QuestHandler
 
 		if(id != 182201001)
 			return false;
-		if(!zoneService.isInsideZone(player, ZoneName.PUTRID_MIRE))
+		if(!ZoneService.getInstance().isInsideZone(player, ZoneName.PUTRID_MIRE))
 			return false;
 		final QuestState qs = player.getQuestStateList().getQuestState(questId);
 		PacketSendUtility.broadcastPacket(player, new SM_ITEM_USAGE_ANIMATION(player.getObjectId(), itemObjId, id, 3000, 0, 0), true);

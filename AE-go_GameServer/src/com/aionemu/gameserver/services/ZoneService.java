@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.dataholders.ZoneData;
 import com.aionemu.gameserver.model.TaskId;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
@@ -34,7 +35,6 @@ import com.aionemu.gameserver.world.MapRegion;
 import com.aionemu.gameserver.world.WorldPosition;
 import com.aionemu.gameserver.world.zone.ZoneInstance;
 import com.aionemu.gameserver.world.zone.ZoneName;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer
@@ -42,18 +42,24 @@ import com.google.inject.Inject;
  */
 public final class ZoneService extends AbstractFIFOPeriodicTaskManager<Player>
 {
-	private Map<ZoneName, ZoneInstance> zoneMap = new HashMap<ZoneName, ZoneInstance>();
-	private Map<Integer, Collection<ZoneInstance>> zoneByMapIdMap = new HashMap<Integer, Collection<ZoneInstance>>();
+	private Map<ZoneName, ZoneInstance> zoneMap;
+	private Map<Integer, Collection<ZoneInstance>> zoneByMapIdMap;
 	
 	private ZoneData zoneData;
 	
 	private static final long DROWN_PERIOD = 2000;
 	
-	@Inject
-	public ZoneService(ZoneData zoneData)
+	public static final ZoneService getInstance()
+	{
+		return SingletonHolder.instance;
+	}
+
+	private ZoneService()
 	{
 		super(4000);
-		this.zoneData = zoneData;
+		this.zoneData = DataManager.ZONE_DATA;
+		this.zoneMap = new HashMap<ZoneName, ZoneInstance>();
+		this.zoneByMapIdMap = new HashMap<Integer, Collection<ZoneInstance>>();
 		initializeZones();
 	}
 	
@@ -126,7 +132,7 @@ public final class ZoneService extends AbstractFIFOPeriodicTaskManager<Player>
 	 *  Initializes zone instances using zone templates from xml
 	 *  Adds neighbors to each zone instance using lookup by ZoneName
 	 */
-	public void initializeZones()
+	private void initializeZones()
 	{
 		Iterator<ZoneTemplate> iterator = zoneData.iterator();
 		while(iterator.hasNext())
@@ -163,7 +169,7 @@ public final class ZoneService extends AbstractFIFOPeriodicTaskManager<Player>
 	 * 
 	 * @return
 	 */
-	public Collection<ZoneInstance> createZoneSetCollection()
+	private Collection<ZoneInstance> createZoneSetCollection()
 	{
 		SortedSet<ZoneInstance> collection = new TreeSet<ZoneInstance>(new Comparator<ZoneInstance>(){
 
@@ -364,5 +370,11 @@ public final class ZoneService extends AbstractFIFOPeriodicTaskManager<Player>
 	protected String getCalledMethodName()
 	{
 		return "zoneService()";
+	}
+	
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final ZoneService instance = new ZoneService();
 	}
 }

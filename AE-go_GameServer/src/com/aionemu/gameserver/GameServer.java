@@ -36,9 +36,15 @@ import com.aionemu.gameserver.dataholders.loadingutils.XmlServiceProxy;
 import com.aionemu.gameserver.network.chatserver.ChatServer;
 import com.aionemu.gameserver.network.loginserver.LoginServer;
 import com.aionemu.gameserver.questEngine.QuestEngine;
+import com.aionemu.gameserver.services.AnnouncementService;
 import com.aionemu.gameserver.services.BrokerService;
+import com.aionemu.gameserver.services.DebugService;
+import com.aionemu.gameserver.services.DuelService;
+import com.aionemu.gameserver.services.GameTimeService;
 import com.aionemu.gameserver.services.ServiceProxy;
 import com.aionemu.gameserver.services.TmpInjectorProxy;
+import com.aionemu.gameserver.services.WeatherService;
+import com.aionemu.gameserver.services.ZoneService;
 import com.aionemu.gameserver.spawnengine.SpawnEngine;
 import com.aionemu.gameserver.taskmanager.tasks.PacketBroadcaster;
 import com.aionemu.gameserver.utils.AEVersions;
@@ -115,6 +121,18 @@ public class GameServer
 
 		Util.printSection("TaskManagers");
 		PacketBroadcaster.getInstance();
+
+		GameTimeService.getInstance();
+
+		AnnouncementService.getInstance();
+
+		DebugService.getInstance();
+
+		ZoneService.getInstance();
+		
+		WeatherService.getInstance();
+
+		DuelService.getInstance();
 
 		Util.printSection("System");
 		AEVersions.printFullVersionInfo();

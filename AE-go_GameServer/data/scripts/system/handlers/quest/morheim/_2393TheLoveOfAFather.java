@@ -44,8 +44,6 @@ public class _2393TheLoveOfAFather extends QuestHandler
 
 	@Inject
 	ItemService itemService;
-	@Inject
-	ZoneService zoneService;
 
 	public _2393TheLoveOfAFather()
 	{
@@ -69,7 +67,7 @@ public class _2393TheLoveOfAFather extends QuestHandler
 
 		if(id != 182204162)
 			return false;
-		if(!zoneService.isInsideZone(player, ZoneName.Q2393))
+		if(!ZoneService.getInstance().isInsideZone(player, ZoneName.Q2393))
 			return false;
 		final QuestState qs = player.getQuestStateList().getQuestState(questId);
 		if(qs == null)

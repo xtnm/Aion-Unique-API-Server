@@ -45,8 +45,6 @@ public class _1361FindingDrinkingWater extends QuestHandler
 
 	@Inject
 	ItemService itemService;
-	@Inject
-	ZoneService zoneService;
 
 	private final static int	questId	= 1361;
 
@@ -73,7 +71,7 @@ public class _1361FindingDrinkingWater extends QuestHandler
 
 		if(id != 182201326) //Empty Bucket
 			return false;
-		if(!zoneService.isInsideZone(player, ZoneName.MYSTIC_SPRING_OF_ANATHE))
+		if(!ZoneService.getInstance().isInsideZone(player, ZoneName.MYSTIC_SPRING_OF_ANATHE))
 			return false;
 		final QuestState qs = player.getQuestStateList().getQuestState(questId);
 		if(qs == null)

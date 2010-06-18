@@ -44,8 +44,6 @@ public class _1466RespectForDeltras extends QuestHandler
 
 	@Inject
 	ItemService itemService;
-	@Inject
-	ZoneService zoneService;
 
 	public _1466RespectForDeltras()
 	{
@@ -70,7 +68,7 @@ public class _1466RespectForDeltras extends QuestHandler
 
 		if(id != 182201385)
 			return false;
-		if(!zoneService.isInsideZone(player, ZoneName.Q1466))
+		if(!ZoneService.getInstance().isInsideZone(player, ZoneName.Q1466))
 			return false;
 		final QuestState qs = player.getQuestStateList().getQuestState(questId);
 		if(qs == null)

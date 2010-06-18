@@ -17,11 +17,13 @@
 package com.aionemu.gameserver.services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.Future;
+
+import javolution.util.FastSet;
 
 import org.apache.log4j.Logger;
 
@@ -47,12 +49,17 @@ public class AnnouncementService
 	 */
 	private static final Logger	log		= Logger.getLogger(AnnouncementService.class);
 
-	private Set<Announcement>	announcements;
+	private Collection<Announcement>	announcements;
 	private List<Future<?>>		delays	= new ArrayList<Future<?>>();
 	
-	public AnnouncementService()
+	private AnnouncementService()
 	{
 		this.load();
+	}
+
+	public static final AnnouncementService getInstance()
+	{
+		return SingletonHolder.instance;
 	}
 
 	/**
@@ -75,9 +82,9 @@ public class AnnouncementService
 	/**
 	 * Load the announcements system
 	 */
-	public void load()
+	private void load()
 	{
-		announcements = new CopyOnWriteArraySet<Announcement>(getDAO().getAnnouncements());
+		announcements = new FastSet<Announcement>(getDAO().getAnnouncements()).shared();
 		
 		for (final Announcement announce : announcements)
 		{
@@ -132,5 +139,11 @@ public class AnnouncementService
 	private AnnouncementsDAO getDAO()
 	{
 		return DAOManager.getDAO(AnnouncementsDAO.class);
+	}
+	
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final AnnouncementService instance = new AnnouncementService();
 	}
 }

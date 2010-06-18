@@ -22,7 +22,6 @@ import com.aionemu.gameserver.services.ZoneService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.chathandlers.AdminCommand;
 import com.aionemu.gameserver.world.zone.ZoneInstance;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer
@@ -30,9 +29,7 @@ import com.google.inject.Inject;
  */
 public class Zone extends AdminCommand 
 {
-	@Inject
-	private ZoneService zoneService;
-	
+
     public Zone() {
         super("zone");
     }
@@ -67,7 +64,7 @@ public class Zone extends AdminCommand
         }
         else if("refresh".equalsIgnoreCase(params[0]))
         {
-        	zoneService.findZoneInCurrentMap(admin);
+        	ZoneService.getInstance().findZoneInCurrentMap(admin);
         }
     }
 }

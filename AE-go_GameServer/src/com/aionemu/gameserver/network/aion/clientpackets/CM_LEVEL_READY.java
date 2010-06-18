@@ -37,9 +37,6 @@ public class CM_LEVEL_READY extends AionClientPacket
 {
 
 	@Inject
-	private WeatherService	weatherService;
-	
-	@Inject
 	private RiftSpawnManager riftSpawnManager;
 	
 	/**
@@ -82,7 +79,7 @@ public class CM_LEVEL_READY extends AionClientPacket
 		/**
 		 * Loading weather for the player's region
 		 */
-		weatherService.loadWeather(activePlayer);
+		WeatherService.getInstance().loadWeather(activePlayer);
 
 		QuestEngine.getInstance().onEnterWorld(new QuestEnv(null, activePlayer, 0, 0));
 		

@@ -28,7 +28,6 @@ import com.aionemu.gameserver.services.InstanceService;
 import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.services.TeleportService;
-import com.aionemu.gameserver.services.ZoneService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.WorldMapInstance;
@@ -43,8 +42,6 @@ public class _1020SealingTheAbyssGate extends QuestHandler
 {
 	@Inject
 	ItemService itemService;
-	@Inject
-	ZoneService zoneService;
 	@Inject
 	TeleportService teleportService;
 	@Inject

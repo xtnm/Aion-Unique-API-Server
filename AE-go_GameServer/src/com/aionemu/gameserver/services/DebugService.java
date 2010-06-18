@@ -35,7 +35,12 @@ public class DebugService
 
 	private static final int	ANALYZE_PLAYERS_INTERVAL	= 30 * 60 * 1000;
 
-	public DebugService()
+	public static final DebugService getInstance()
+	{
+		return SingletonHolder.instance;
+	}
+
+	private DebugService()
 	{
 		ThreadPoolManager.getInstance().scheduleAtFixedRate(new Runnable(){
 
@@ -46,6 +51,7 @@ public class DebugService
 			}
 
 		}, ANALYZE_PLAYERS_INTERVAL, ANALYZE_PLAYERS_INTERVAL);
+		log.info("DebugService started. Analyze iterval: "+ANALYZE_PLAYERS_INTERVAL);
 	}
 
 	private void analyzeWorldPlayers()
@@ -83,4 +89,9 @@ public class DebugService
 		}
 	}
 
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final DebugService instance = new DebugService();
+	}
 }

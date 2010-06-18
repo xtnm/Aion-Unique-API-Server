@@ -38,7 +38,7 @@ public class ItemRemodelService
 	 * @param keepItemObjId
 	 * @param extractItemObjId
 	 */
-	public void remodelItem (Player player, int keepItemObjId, int extractItemObjId)
+	public static void remodelItem (Player player, int keepItemObjId, int extractItemObjId)
 	{
 		Storage inventory = player.getInventory();
 		Item keepItem = inventory.getItemByObjId(keepItemObjId);

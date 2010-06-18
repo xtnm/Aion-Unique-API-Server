@@ -24,7 +24,6 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_UPDATE_PLAYER_APPEAR
 import com.aionemu.gameserver.restrictions.RestrictionsManager;
 import com.aionemu.gameserver.services.StigmaService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * 
@@ -35,9 +34,6 @@ public class CM_EQUIP_ITEM extends AionClientPacket
 	public int	slotRead;
 	public int	itemUniqueId;
 	public int	action;
-
-	@Inject
-	private StigmaService stigmaService;
 	
 	public CM_EQUIP_ITEM(int opcode)
 	{
@@ -83,10 +79,10 @@ public class CM_EQUIP_ITEM extends AionClientPacket
 			switch(action)
 			{
 				case 0:
-					stigmaService.notifyEquipAction(activePlayer, resultItem);
+					StigmaService.notifyEquipAction(activePlayer, resultItem);
 					break;
 				case 1:
-					stigmaService.notifyUnequipAction(activePlayer, resultItem);
+					StigmaService.notifyUnequipAction(activePlayer, resultItem);
 					break;
 			}		
 		}

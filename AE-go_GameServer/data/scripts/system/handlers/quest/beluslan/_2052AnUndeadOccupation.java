@@ -44,8 +44,6 @@ public class _2052AnUndeadOccupation extends QuestHandler
 {
 	@Inject
 	ItemService itemService;
-	@Inject
-	ZoneService zoneService;
 	
 	private final static int	questId	= 2052;
 	private final static int[]	npc_ids	= { 204715, 204801, 204805 };//182204303 184000022 152000553 182204304
@@ -218,7 +216,7 @@ public class _2052AnUndeadOccupation extends QuestHandler
 
 		if(qs == null || qs.getQuestVarById(0) != 15 || id != 182204304)
 			return false;
-		if(!zoneService.isInsideZone(player, ZoneName.BERITRAS_WEAPON_220040000))
+		if(!ZoneService.getInstance().isInsideZone(player, ZoneName.BERITRAS_WEAPON_220040000))
 			return false;
 
 		PacketSendUtility.broadcastPacket(player, new SM_ITEM_USAGE_ANIMATION(player.getObjectId(), itemObjId, id, 3000, 0, 0), true);

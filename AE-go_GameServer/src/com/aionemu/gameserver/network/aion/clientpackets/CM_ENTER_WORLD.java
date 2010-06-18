@@ -90,8 +90,6 @@ public class CM_ENTER_WORLD extends AionClientPacket
 	@Inject
 	private MailService			mailService;
 	@Inject
-	private StigmaService		stigmaService;
-	@Inject
 	private PeriodicSaveService periodicSaveService;
 	@Inject
 	private BrokerService		brokerService;
@@ -146,7 +144,7 @@ public class CM_ENTER_WORLD extends AionClientPacket
 			World.getInstance().storeObject(player);
 
 			sendPacket(new SM_SKILL_LIST(player));
-			stigmaService.onPlayerLogin(player);
+			StigmaService.onPlayerLogin(player);
 			
 			if(player.getSkillCoolDowns() != null)
 				sendPacket(new SM_SKILL_COOLDOWN(player.getSkillCoolDowns()));

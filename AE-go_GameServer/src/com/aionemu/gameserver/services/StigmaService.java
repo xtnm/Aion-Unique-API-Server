@@ -42,7 +42,7 @@ public class StigmaService
 	/**
 	 * @param resultItem
 	 */
-	public void notifyEquipAction(Player player, Item resultItem)
+	public static void notifyEquipAction(Player player, Item resultItem)
 	{
 		if(resultItem.getItemTemplate().isStigma())
 		{
@@ -71,7 +71,7 @@ public class StigmaService
 	/**
 	 * @param resultItem
 	 */
-	public void notifyUnequipAction(Player player, Item resultItem)
+	public static void notifyUnequipAction(Player player, Item resultItem)
 	{
 		if(resultItem.getItemTemplate().isStigma())
 		{
@@ -87,7 +87,7 @@ public class StigmaService
 	 * 
 	 * @param player
 	 */
-	public void onPlayerLogin(Player player)
+	public static void onPlayerLogin(Player player)
 	{
 		List<Item> equippedItems = player.getEquipment().getEquippedItems();
 		for(Item item : equippedItems)

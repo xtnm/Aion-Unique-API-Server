@@ -22,7 +22,6 @@ import com.aionemu.gameserver.services.WeatherService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.chathandlers.AdminCommand;
 import com.aionemu.gameserver.world.WorldMapType;
-import com.google.inject.Inject;
 
 /**
  * Admin command allowing to change weathers of the world.
@@ -33,9 +32,6 @@ import com.google.inject.Inject;
 
 public class Weather extends AdminCommand
 {
-
-	@Inject
-	private WeatherService		weatherService;
 
 	private final static String	RESET	= "reset";
 
@@ -87,7 +83,7 @@ public class Weather extends AdminCommand
 
 		if(regionName.equals(RESET))
 		{
-			weatherService.resetWeather();
+			WeatherService.getInstance().resetWeather();
 			return;
 		}
 
@@ -105,7 +101,7 @@ public class Weather extends AdminCommand
 		{
 			if(weatherType > -1 && weatherType < 9)
 			{
-				weatherService.changeRegionWeather(region.getId(), new Integer(weatherType));
+				WeatherService.getInstance().changeRegionWeather(region.getId(), new Integer(weatherType));
 			}
 			else
 			{

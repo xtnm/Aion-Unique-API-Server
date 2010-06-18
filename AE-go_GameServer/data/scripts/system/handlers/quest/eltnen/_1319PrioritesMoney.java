@@ -22,7 +22,6 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_DIALOG_WINDOW;
 import com.aionemu.gameserver.questEngine.handlers.QuestHandler;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.services.ItemService;
-import com.aionemu.gameserver.services.ZoneService;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.utils.PacketSendUtility;
@@ -37,8 +36,6 @@ public class _1319PrioritesMoney extends QuestHandler //NEED FIX ITEM
 
 	@Inject
 	ItemService itemService;
-	@Inject
-	ZoneService zoneService;
 
 	private final static int	questId	= 1319;
 

@@ -45,8 +45,6 @@ public class _2056ThawingKurngalfberg extends QuestHandler
 {
 	@Inject
 	ItemService itemService;
-	@Inject
-	ZoneService zoneService;
 	
 	private final static int	questId	= 2056;
 	private final static int[]	npc_ids	= { 204753, 790016, 730036, 279000 };
@@ -209,7 +207,7 @@ public class _2056ThawingKurngalfberg extends QuestHandler
 		final int itemObjId = item.getObjectId();
 
 		final QuestState qs = player.getQuestStateList().getQuestState(questId);
-		if(!zoneService.isInsideZone(player, ZoneName.THE_SACRED_ORCHARD_220040000))
+		if(!ZoneService.getInstance().isInsideZone(player, ZoneName.THE_SACRED_ORCHARD_220040000))
 			return false;
 			
 		if(id != 182204313 && qs.getQuestVarById(0) == 2  || id != 182204314 && 
