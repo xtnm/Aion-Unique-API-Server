@@ -16,11 +16,10 @@
  */
 package com.aionemu.gameserver.model.gameobjects.stats;
 
-import java.util.List;
 import java.util.TreeSet;
-import java.util.Map.Entry;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.apache.log4j.Logger;
@@ -34,6 +33,7 @@ import com.aionemu.gameserver.model.gameobjects.stats.id.StatEffectId;
 import com.aionemu.gameserver.model.gameobjects.stats.listeners.StatChangeListener;
 import com.aionemu.gameserver.model.gameobjects.stats.modifiers.StatModifier;
 import com.aionemu.gameserver.model.items.ItemSlot;
+import com.aionemu.gameserver.taskmanager.tasks.StatUpdater;
 
 /**
  * @author xavier
@@ -213,13 +213,17 @@ public class CreatureGameStats<T extends Creature>
 		return statsModifiers.containsKey(id);
 	}
 	
-	
+	protected final void recomputeStats()
+	{
+		StatUpdater.getInstance().startTask(owner);
+	}
+
 	/**
 	 * Recomputation of all stats
 	 * Additional logic is in StatChangeListener callbacks
 	 */
 	@Enhancable(callback = StatChangeListener.class)
-	protected void recomputeStats()
+	public void recomputeStatsImpl()
 	{
 		//need check this lock, may be remove
 		lock.writeLock().lock();
@@ -227,16 +231,15 @@ public class CreatureGameStats<T extends Creature>
 		{
 			resetStats();
 			FastMap<StatEnum, StatModifiers> orderedModifiers = new FastMap<StatEnum, StatModifiers>();
-
-			for(Entry<StatEffectId, TreeSet<StatModifier>> modifiers : statsModifiers.entrySet())
+			for (FastMap.Entry<StatEffectId, TreeSet<StatModifier>> e = statsModifiers.head(), end = statsModifiers.tail(); (e = e.getNext()) != end;)
 			{
-				StatEffectId eid = modifiers.getKey();
+				StatEffectId eid = e.getKey();
 				int slots;
 				
-				if(modifiers.getValue() == null)
+				if(e.getValue() == null)
 					continue;
 				
-				for(StatModifier modifier : modifiers.getValue())
+				for(StatModifier modifier : e.getValue())
 				{
 					slots = ItemSlot.NONE.getSlotIdMask();
 					if(eid instanceof ItemStatEffectId)
@@ -260,10 +263,10 @@ public class CreatureGameStats<T extends Creature>
 							setStat(StatEnum.MAIN_HAND_POWER, 0);
 					}
 
-					List<ItemSlot> oSlots = ItemSlot.getSlotsFor(slots);
-					for(ItemSlot slot : oSlots)
+					FastList<ItemSlot> oSlots = ItemSlot.getSlotsFor(slots);
+					for (FastList.Node<ItemSlot> n = oSlots.head(), listEnd = oSlots.tail(); (n = n.getNext()) != listEnd;)
 					{
-						StatEnum statToModify = modifier.getStat().getMainOrSubHandStat(slot);
+						StatEnum statToModify = modifier.getStat().getMainOrSubHandStat(n.getValue());
 						if(!orderedModifiers.containsKey(statToModify))
 						{
 							orderedModifiers.put(statToModify, new StatModifiers());
@@ -272,10 +275,9 @@ public class CreatureGameStats<T extends Creature>
 					}
 				}
 			}
-
-			for(Entry<StatEnum, StatModifiers> entry : orderedModifiers.entrySet())
+			for (FastMap.Entry<StatEnum, StatModifiers> e = orderedModifiers.head(), end = orderedModifiers.tail(); (e = e.getNext()) != end;)
 			{
-				applyModifiers(entry.getKey(), entry.getValue());
+				applyModifiers(e.getKey(), e.getValue());
 			}
 			
 			setStat(StatEnum.ATTACK_SPEED, Math.round(getBaseStat(StatEnum.MAIN_HAND_ATTACK_SPEED)
@@ -352,8 +354,10 @@ public class CreatureGameStats<T extends Creature>
 		Stat oStat = stats.get(stat);
 		for(StatModifierPriority priority : StatModifierPriority.values())
 		{
-			for(StatModifier modifier : modifiers.getModifiers(priority))
+			FastList<StatModifier> mod = modifiers.getModifiers(priority);
+			for (FastList.Node<StatModifier> n = mod.head(), listEnd = mod.tail(); (n = n.getNext()) != listEnd;)
 			{
+				StatModifier modifier = n.getValue();
 				int newValue = modifier.apply(oStat.getBase(), oStat.getCurrent());
 				oStat.increase(newValue, modifier.isBonus());
 			}

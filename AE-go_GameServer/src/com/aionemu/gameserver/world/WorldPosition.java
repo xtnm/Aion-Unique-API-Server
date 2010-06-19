@@ -55,7 +55,7 @@ public class WorldPosition
 	 * 
 	 * @return world map id
 	 */
-	public int getMapId()
+	public Integer getMapId()
 	{
 		return mapRegion.getMapId();
 	}

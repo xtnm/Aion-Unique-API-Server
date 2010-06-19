@@ -820,10 +820,10 @@ public class Equipment
 		
 		for(int slot : armorSlots)
 		{
-			if(equipment.get(slot) != null && equipment.get(slot).getItemTemplate().getArmorType() == armorType)
-				return true;
+			if(equipment.get(slot) != null && equipment.get(slot).getItemTemplate().getArmorType() != armorType)
+				return false;
 		}
-		return false;
+		return true;
 	}
 	
 	public Item getMainHandWeapon()

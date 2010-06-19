@@ -105,7 +105,7 @@ public class WorldMap
 	 * 
 	 * @return map id
 	 */
-	public int getMapId()
+	public Integer getMapId()
 	{
 		return worldMapTemplate.getMapId();
 	}

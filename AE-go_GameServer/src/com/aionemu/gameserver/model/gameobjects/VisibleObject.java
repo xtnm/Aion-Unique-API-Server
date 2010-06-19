@@ -100,7 +100,7 @@ public abstract class VisibleObject extends AionObject
 	 * 
 	 * @return world map id
 	 */
-	public int getWorldId()
+	public Integer getWorldId()
 	{
 		return position.getMapId();
 	}

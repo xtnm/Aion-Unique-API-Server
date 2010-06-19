@@ -16,10 +16,10 @@
  */
 package com.aionemu.gameserver.world;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import com.aionemu.gameserver.model.gameobjects.AionObject;
@@ -164,16 +164,15 @@ public class KnownList implements Iterable<VisibleObject>
 	{
 		if(owner == null || !owner.isSpawned())
 			return;
-		
-		Iterator<MapRegion> neighboursIt = owner.getActiveRegion().getNeighboursIterator();
 
-		while(neighboursIt.hasNext())
+		FastList<MapRegion> list = owner.getActiveRegion().getNeighbours();
+		for (FastList.Node<MapRegion> n = list.head(), end = list.tail(); (n = n.getNext()) != end;)
 		{
-			MapRegion r = neighboursIt.next();
-			Collection<VisibleObject> objects = r.getObjects();
-
-			for(VisibleObject newObject : objects)
+			MapRegion r = n.getValue();
+			FastMap<Integer, VisibleObject> objects = r.getObjects();
+			for (FastMap.Entry<Integer, VisibleObject> e = objects.head(), mapEnd = objects.tail(); (e = e.getNext()) != mapEnd;)
 			{
+				VisibleObject newObject = e.getValue();
 				if(newObject == owner || newObject == null)
 					continue;
 				

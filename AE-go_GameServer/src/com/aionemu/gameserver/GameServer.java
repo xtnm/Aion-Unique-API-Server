@@ -53,6 +53,7 @@ import com.aionemu.gameserver.services.WeatherService;
 import com.aionemu.gameserver.services.ZoneService;
 import com.aionemu.gameserver.spawnengine.SpawnEngine;
 import com.aionemu.gameserver.taskmanager.tasks.PacketBroadcaster;
+import com.aionemu.gameserver.taskmanager.tasks.StatUpdater;
 import com.aionemu.gameserver.utils.AEVersions;
 import com.aionemu.gameserver.utils.DeadlockDetector;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
@@ -106,6 +107,8 @@ public class GameServer
 		Util.printSection("TaskManagers");
 		PacketBroadcaster.getInstance();
 
+		StatUpdater.getInstance();
+	
 		GameTimeService.getInstance();
 
 		AnnouncementService.getInstance();

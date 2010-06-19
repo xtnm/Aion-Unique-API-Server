@@ -92,7 +92,7 @@ public class WorldMapInstance
 	 *
 	 * @return world map id
 	 */
-	public int getMapId()
+	public Integer getMapId()
 	{
 		return getParent().getMapId();
 	}
@@ -128,7 +128,7 @@ public class WorldMapInstance
 	 */
 	MapRegion getRegion(float x, float y)
 	{
-		int regionId = getRegionId(x, y);
+		Integer regionId = getRegionId(x, y);
 		MapRegion region = regions.get(regionId);
 		if(region == null)
 		{
@@ -151,7 +151,7 @@ public class WorldMapInstance
 	 * @param y
 	 * @return region id.
 	 */
-	private int getRegionId(float x, float y)
+	private Integer getRegionId(float x, float y)
 	{
 		return ((int) x) / regionSize * maxWorldSize + ((int) y) / regionSize;
 	}
@@ -162,7 +162,7 @@ public class WorldMapInstance
 	 * @param regionId
 	 * @return newly created map region
 	 */
-	private MapRegion createMapRegion(int regionId)
+	private MapRegion createMapRegion(Integer regionId)
 	{
 		MapRegion r = new MapRegion(regionId, this);
 		regions.put(regionId, r);

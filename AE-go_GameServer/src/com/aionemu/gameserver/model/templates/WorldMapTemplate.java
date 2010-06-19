@@ -40,7 +40,7 @@ public class WorldMapTemplate
 	 * Map Id.
 	 */
 	@XmlAttribute(name = "id", required = true)
-	private int		mapId;
+	private Integer		mapId;
 
 	/**
 	 * Number of twin instances [players will be balanced so every one could exp easy]
@@ -89,7 +89,7 @@ public class WorldMapTemplate
 		return name;
 	}
 
-	public int getMapId()
+	public Integer getMapId()
 	{
 		return mapId;
 	}

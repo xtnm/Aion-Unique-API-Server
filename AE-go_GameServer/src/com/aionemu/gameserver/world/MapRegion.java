@@ -16,11 +16,7 @@
  */
 package com.aionemu.gameserver.world;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-
+import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import com.aionemu.gameserver.model.gameobjects.VisibleObject;
@@ -44,7 +40,7 @@ public class MapRegion
 	/**
 	 * Surrounding regions + self.
 	 */
-	private final List<MapRegion>		neighbours	= new ArrayList<MapRegion>(9);
+	private final FastList<MapRegion>		neighbours	= new FastList<MapRegion>(9);
 	/**
 	 * Objects on this map region.
 	 */
@@ -99,23 +95,21 @@ public class MapRegion
 	}
 
 	/**
-	 * Returns iterator over neighbours regions
-	 * 
-	 * @return neighbours iterator
-	 */
-	public Iterator<MapRegion> getNeighboursIterator()
-	{
-		return neighbours.iterator();
-	}
-
-	/**
 	 * Returns iterator over AionObjects on this region
 	 * 
 	 * @return objects iterator
 	 */
-	public Collection<VisibleObject> getObjects()
+	public FastMap<Integer, VisibleObject> getObjects()
 	{
-		return objects.values();
+		return objects;
+	}
+
+	/**
+	 * @return the neighbours
+	 */
+	public FastList<MapRegion> getNeighbours()
+	{
+		return neighbours;
 	}
 
 	/**
