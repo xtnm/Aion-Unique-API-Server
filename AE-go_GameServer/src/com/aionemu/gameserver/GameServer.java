@@ -58,6 +58,7 @@ import com.aionemu.gameserver.utils.DeadlockDetector;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.utils.ThreadUncaughtExceptionHandler;
 import com.aionemu.gameserver.utils.Util;
+import com.aionemu.gameserver.utils.chathandlers.ChatHandlers;
 import com.aionemu.gameserver.utils.gametime.GameTimeManager;
 import com.aionemu.gameserver.utils.idfactory.IDFactory;
 import com.aionemu.gameserver.world.World;
@@ -134,6 +135,8 @@ public class GameServer
 		ExchangeService.getInstance();
 
 		PeriodicSaveService.getInstance();
+
+		ChatHandlers.getInstance();
 
 		Util.printSection("System");
 		AEVersions.printFullVersionInfo();

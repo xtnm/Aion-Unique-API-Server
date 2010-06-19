@@ -19,6 +19,8 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 
 //import org.apache.log4j.Logger;
 
+import javolution.util.FastList;
+
 import org.apache.log4j.Logger;
 
 import com.aionemu.commons.objects.filter.ObjectFilter;
@@ -86,10 +88,10 @@ public class CM_CHAT_MESSAGE_PUBLIC extends AionClientPacket
 		final Player player = getConnection().getActivePlayer();
 
 		//log.info(String.format("Public Message [%s]: %s, Type: %s", player.getName(), message, type));
-		ChatHandlers chatHandlers = ChatHandlers.getInstance();
-		for(ChatHandler chatHandler : chatHandlers)
+		FastList<ChatHandler> chatHandlers = ChatHandlers.getInstance().getHandlers();
+		for (FastList.Node<ChatHandler> n = chatHandlers.head(), end = chatHandlers.tail(); (n = n.getNext()) != end;)
 		{
-			ChatHandlerResponse response = chatHandler.handleChatMessage(type, message, player);
+			ChatHandlerResponse response = n.getValue().handleChatMessage(type, message, player);
 			if(response.isBlocked())
 				return;
 
@@ -164,8 +166,7 @@ public class CM_CHAT_MESSAGE_PUBLIC extends AionClientPacket
 	{
 		if(player.isLegionMember())
 		{
-			PacketSendUtility.broadcastPacketToLegion(player.getLegion(), new SM_MESSAGE(player, message, type), player
-				.getPosition().getWorld());
+			PacketSendUtility.broadcastPacketToLegion(player.getLegion(), new SM_MESSAGE(player, message, type));
 		}
 	}
 }

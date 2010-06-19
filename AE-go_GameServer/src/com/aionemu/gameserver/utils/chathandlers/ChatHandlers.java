@@ -17,9 +17,12 @@
 
 package com.aionemu.gameserver.utils.chathandlers;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.io.File;
+
+import com.aionemu.commons.scripting.scriptmanager.ScriptManager;
+import com.aionemu.gameserver.GameServerError;
+
+import javolution.util.FastList;
 
 /**
  * This class is managing a list of all chat handlers.
@@ -28,9 +31,13 @@ import java.util.List;
  * @author Luno
  * 
  */
-public class ChatHandlers implements Iterable<ChatHandler>
+public class ChatHandlers
 {
-	private List<ChatHandler>	handlers;
+	private FastList<ChatHandler>	handlers;
+
+	public static final File CHAT_DESCRIPTOR_FILE = new File("./data/scripts/system/handlers.xml");
+	
+	private ScriptManager sm;
 
 	public static final ChatHandlers getInstance()
 	{
@@ -39,22 +46,46 @@ public class ChatHandlers implements Iterable<ChatHandler>
 
 	private ChatHandlers()
 	{
-		handlers	= new ArrayList<ChatHandler>();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Iterator<ChatHandler> iterator()
-	{
-		return handlers.iterator();
+		handlers	= new FastList<ChatHandler>();
+		sm = new ScriptManager();
+		createChatHandlers();
 	}
 
 	void addChatHandler(ChatHandler ch)
 	{
 		handlers.add(ch);
 	}
+	/**
+	 * @return the handlers
+	 */
+	public FastList<ChatHandler> getHandlers()
+	{
+		return handlers;
+	}
+
+	/**
+	 * Creates and return object of {@link ChatHandlers} class
+	 * 
+	 * @return ChatHandlers
+	 */
+	private void createChatHandlers()
+	{
+		final AdminCommandChatHandler adminCCH = new AdminCommandChatHandler();
+		addChatHandler(adminCCH);
+
+		// set global loader
+		sm.setGlobalClassListener(new ChatHandlersLoader(adminCCH));
+
+		try
+		{
+			sm.load(CHAT_DESCRIPTOR_FILE);
+		}
+		catch (Exception e)
+		{
+			throw new GameServerError("Can't initialize chat handlers.", e);
+		}
+	}
+
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{

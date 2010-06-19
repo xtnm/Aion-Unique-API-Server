@@ -32,7 +32,7 @@ public class Resurrect extends AdminCommand
 	/**
 	 * Constructor
 	 */
-	protected Resurrect()
+	public Resurrect()
 	{
 		super("rez");
 	}

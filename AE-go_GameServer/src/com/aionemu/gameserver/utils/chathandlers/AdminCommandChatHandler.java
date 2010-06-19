@@ -17,8 +17,9 @@
 
 package com.aionemu.gameserver.utils.chathandlers;
 
-import java.util.HashMap;
 import java.util.Map;
+
+import javolution.util.FastMap;
 
 import org.apache.log4j.Logger;
 
@@ -38,7 +39,7 @@ public class AdminCommandChatHandler implements ChatHandler
 {
 	private static final Logger			log			= Logger.getLogger(AdminCommandChatHandler.class);
 
-	private Map<String, AdminCommand>	commands	= new HashMap<String, AdminCommand>();
+	private Map<String, AdminCommand>	commands	= new FastMap<String, AdminCommand>();
 
 	AdminCommandChatHandler()
 	{

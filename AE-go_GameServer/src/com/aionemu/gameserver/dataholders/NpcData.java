@@ -53,6 +53,8 @@ public class NpcData
 		{
 			npcData.put(npc.getTemplateId(), npc);
 		}
+		npcs.clear();
+		npcs = null;
 	}
 	
 	public int size()

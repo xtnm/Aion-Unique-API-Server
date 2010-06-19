@@ -254,7 +254,7 @@ public class PlayerCommonData extends VisibleObjectTemplate
 		if(player.isLegionMember() && value > 0)
 		{
 			player.getLegion().addContributionPoints(value);
-			PacketSendUtility.broadcastPacketToLegion(player.getLegion(), new SM_LEGION_EDIT(0x03, player.getLegion()), player.getPosition().getWorld());
+			PacketSendUtility.broadcastPacketToLegion(player.getLegion(), new SM_LEGION_EDIT(0x03, player.getLegion()));
 		}
 	}
 	

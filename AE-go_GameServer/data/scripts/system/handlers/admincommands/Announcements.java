@@ -36,7 +36,7 @@ public class Announcements extends AdminCommand
 {
 	private AnnouncementService announceService;
 	
-	protected Announcements()
+	public Announcements()
 	{
 		super("announcements");
 		announceService = AnnouncementService.getInstance();

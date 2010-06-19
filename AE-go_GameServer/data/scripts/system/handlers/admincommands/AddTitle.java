@@ -31,7 +31,7 @@ import com.aionemu.gameserver.world.World;
 public class AddTitle extends AdminCommand
 {
 
-	protected AddTitle()
+	public AddTitle()
 	{
 		super("addtitle");
 	}

@@ -23,7 +23,6 @@ import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.model.legion.Legion;
 import com.aionemu.gameserver.network.aion.AionServerPacket;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_MESSAGE;
-import com.aionemu.gameserver.world.World;
 
 /**
  * This class contains static methods, which are utility methods, all of them are interacting only with objects passed
@@ -155,7 +154,7 @@ public class PacketSendUtility
 	 * @param packet
 	 *            ServerPacket to be broadcast
 	 */
-	public static void broadcastPacketToLegion(Legion legion, AionServerPacket packet, World world)
+	public static void broadcastPacketToLegion(Legion legion, AionServerPacket packet)
 	{
 		for(Player onlineLegionMember : legion.getOnlineLegionMembers())
 		{
@@ -163,7 +162,7 @@ public class PacketSendUtility
 		}
 	}
 
-	public static void broadcastPacketToLegion(Legion legion, AionServerPacket packet, World world, int playerObjId)
+	public static void broadcastPacketToLegion(Legion legion, AionServerPacket packet, int playerObjId)
 	{
 		for(Player onlineLegionMember : legion.getOnlineLegionMembers())
 		{
