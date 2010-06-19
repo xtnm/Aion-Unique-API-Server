@@ -114,7 +114,7 @@ public class AESystem extends AdminCommand
 			{
 				int val = Integer.parseInt(params[1]);
 				int announceInterval = Integer.parseInt(params[2]);
-				ShutdownHook.doShutdown(val, announceInterval, ShutdownMode.SHUTDOWN);
+				ShutdownHook.getInstance().doShutdown(val, announceInterval, ShutdownMode.SHUTDOWN);
 				PacketSendUtility.sendMessage(admin, "Server will shutdown in " + val + " seconds.");
 			}
 			catch(ArrayIndexOutOfBoundsException e)
@@ -132,7 +132,7 @@ public class AESystem extends AdminCommand
 			{
 				int val = Integer.parseInt(params[1]);
 				int announceInterval = Integer.parseInt(params[2]);
-				ShutdownHook.doShutdown(val, announceInterval, ShutdownMode.RESTART);
+				ShutdownHook.getInstance().doShutdown(val, announceInterval, ShutdownMode.RESTART);
 				PacketSendUtility.sendMessage(admin, "Server will restart in " + val + " seconds.");
 			}
 			catch(ArrayIndexOutOfBoundsException e)

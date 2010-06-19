@@ -76,17 +76,6 @@ public class GameServer
 	private static final Logger	log	= Logger.getLogger(GameServer.class);
 
 	/**
-	 * Creates instance of GameServer, which includes loading static data, initializing world.
-	 */
-	private GameServer()
-	{
-		DataManager.getInstance();
-		IDFactory.getInstance();
-		World.getInstance();
-		
-	}
-
-	/**
 	 * Launching method for GameServer
 	 * 
 	 * @param args
@@ -97,6 +86,11 @@ public class GameServer
 		long start = System.currentTimeMillis();
 
 		initUtilityServicesAndConfig();
+		
+		Util.printSection("World");
+		DataManager.getInstance();
+		IDFactory.getInstance();
+		World.getInstance();
 
 		GameServer gs = new GameServer();
 		// Set all players is offline
@@ -154,7 +148,7 @@ public class GameServer
 			new Thread(new DeadlockDetector(TaskManagerConfig.DEADLOCK_DETECTOR_INTERVAL)).start();
 		}
 
-		Runtime.getRuntime().addShutdownHook(new ShutdownHook());
+		Runtime.getRuntime().addShutdownHook(ShutdownHook.getInstance());
 
 		// gs.injector.getInstance(com.aionemu.gameserver.utils.chathandlers.ChatHandlers.class);
 		onStartup();
@@ -164,8 +158,7 @@ public class GameServer
 	 * Starts servers for connection with aion client and login server.
 	 */
 	private void startServers()
-	{
-		
+	{	
 		ServerCfg aion = new ServerCfg(NetworkConfig.GAME_BIND_ADDRESS, NetworkConfig.GAME_PORT, "Game Connections", new GameConnectionFactoryImpl());
 		//ServerCfg login = new ServerCfg(NetworkConfig.LOGIN_ADDRESS.getHostName(), NetworkConfig.LOGIN_ADDRESS.getPort(), "Login Connections", new LoginConnectionFactoryImpl());
 		NioServer nioServer = new NioServer(1, ThreadPoolManager.getInstance(), aion);
@@ -174,6 +167,7 @@ public class GameServer
 		ChatServer chatServer = ChatServer.getInstance();
 		loginServer.setNioServer(nioServer);
 		chatServer.setNioServer(nioServer);
+		
 		// Nio must go first
 		nioServer.connect();
 		loginServer.connect();
