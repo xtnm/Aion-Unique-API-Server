@@ -31,10 +31,9 @@ import com.aionemu.gameserver.model.account.Account;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.Crypt;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_KEY;
+import com.aionemu.gameserver.network.factories.AionPacketHandlerFactory;
 import com.aionemu.gameserver.network.loginserver.LoginServer;
 import com.aionemu.gameserver.services.PlayerService;
-import com.google.inject.Inject;
-import com.google.inject.assistedinject.Assisted;
 
 /**
  * Object representing connection between GameServer and Aion Client.
@@ -97,7 +96,6 @@ public class AionConnection extends AConnection
 	private String							lastPlayerName = "";
 
 	private AionPacketHandler				aionPacketHandler;
-	private PlayerService					playerService;
 	private long                     		lastPingTimeMS;
 
 	/**
@@ -107,14 +105,13 @@ public class AionConnection extends AConnection
 	 * @param d
 	 * @throws IOException
 	 */
-	@Inject
-	public AionConnection(@Assisted SocketChannel sc, @Assisted Dispatcher d,
-		AionPacketHandler aionPacketHandler, PlayerService playerService) throws IOException
+
+	public AionConnection(SocketChannel sc, Dispatcher d) throws IOException
 	{
 		super(sc, d);
 
-		this.aionPacketHandler = aionPacketHandler;
-		this.playerService = playerService;
+		AionPacketHandlerFactory aionPacketHandlerFactory = AionPacketHandlerFactory.getInstance();
+		this.aionPacketHandler = aionPacketHandlerFactory.getPacketHandler();
 
 		state = State.CONNECTED;
 
@@ -224,13 +221,13 @@ public class AionConnection extends AConnection
 			Player player = getActivePlayer();
 			
 			if(player.getController().isInShutdownProgress())
-				playerService.playerLoggedOut(player);
+				PlayerService.playerLoggedOut(player);
 			
 			// prevent ctrl+alt+del / close window exploit
 			else
 			{
 				int delay = 15;
-				playerService.playerLoggedOutDelay(player, (delay * 1000));
+				PlayerService.playerLoggedOutDelay(player, (delay * 1000));
 			}
 		}
 	}

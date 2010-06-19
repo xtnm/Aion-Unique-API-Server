@@ -20,7 +20,6 @@ import org.apache.log4j.Logger;
 
 import com.aionemu.gameserver.network.chatserver.CsClientPacket;
 import com.aionemu.gameserver.services.ChatService;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer
@@ -37,9 +36,6 @@ public class CM_CS_PLAYER_AUTH_RESPONSE extends CsClientPacket
 	 * Token will be sent to client
 	 */
 	private byte[]					token;
-
-	@Inject
-	private ChatService				chatService;
 
 	/**
 	 * @param opcode
@@ -60,6 +56,6 @@ public class CM_CS_PLAYER_AUTH_RESPONSE extends CsClientPacket
 	@Override
 	protected void runImpl()
 	{
-		chatService.playerAuthed(playerId, token);
+		ChatService.playerAuthed(playerId, token);
 	}
 }

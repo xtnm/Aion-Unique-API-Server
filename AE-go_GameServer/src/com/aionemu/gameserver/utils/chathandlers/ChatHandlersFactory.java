@@ -19,9 +19,7 @@ package com.aionemu.gameserver.utils.chathandlers;
 import java.io.File;
 
 import com.aionemu.commons.scripting.scriptmanager.ScriptManager;
-import com.aionemu.commons.services.ScriptService;
 import com.aionemu.gameserver.GameServerError;
-import com.google.inject.Injector;
 
 /**
  * This factory is responsible for creating class tree starting with {@link ChatHandlers}
@@ -32,14 +30,11 @@ public class ChatHandlersFactory
 {
 	public static final File CHAT_DESCRIPTOR_FILE = new File("./data/scripts/system/handlers.xml");
 
-	private final Injector	injector;
-
 	/**
 	 * @param injector
 	 */
-	public ChatHandlersFactory(Injector injector)
+	public ChatHandlersFactory()
 	{
-		this.injector = injector;
 	}
 
 	/**
@@ -49,7 +44,7 @@ public class ChatHandlersFactory
 	 */
 	public ChatHandlers createChatHandlers()
 	{
-		ChatHandlers handlers = new ChatHandlers();
+		ChatHandlers handlers = ChatHandlers.getInstance();
 
 		final AdminCommandChatHandler adminCCH = new AdminCommandChatHandler();
 
@@ -58,7 +53,7 @@ public class ChatHandlersFactory
 		ScriptManager sm = new ScriptManager();
 
 		// set global loader
-		sm.setGlobalClassListener(new ChatHandlersLoader(injector, adminCCH));
+		sm.setGlobalClassListener(new ChatHandlersLoader(adminCCH));
 
 		try
 		{
@@ -68,9 +63,6 @@ public class ChatHandlersFactory
 		{
 			throw new GameServerError("Can't initialize chat handlers.", e);
 		}
-
-		// save reference to script manager instance.
-		injector.getInstance(ScriptService.class).addScriptManager(sm, CHAT_DESCRIPTOR_FILE);
 
 		return handlers;
 	}

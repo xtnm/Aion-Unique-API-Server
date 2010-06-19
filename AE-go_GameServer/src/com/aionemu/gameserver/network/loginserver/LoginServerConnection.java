@@ -26,6 +26,7 @@ import org.apache.log4j.Logger;
 
 import com.aionemu.commons.network.AConnection;
 import com.aionemu.commons.network.Dispatcher;
+import com.aionemu.gameserver.network.factories.LsPacketHandlerFactory;
 import com.aionemu.gameserver.network.loginserver.serverpackets.SM_GS_AUTH;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 
@@ -76,12 +77,12 @@ public class LoginServerConnection extends AConnection
 	 * @throws IOException
 	 */
 
-	public LoginServerConnection(SocketChannel sc,Dispatcher d,
-		LsPacketHandler lsPacketHandler) throws IOException
+	public LoginServerConnection(SocketChannel sc,Dispatcher d) throws IOException
 	{
 		super(sc, d);
-		this.lsPacketHandler = lsPacketHandler;
-
+		LsPacketHandlerFactory lsPacketHandlerFactory = LsPacketHandlerFactory.getInstance();
+		this.lsPacketHandler = lsPacketHandlerFactory.getPacketHandler();
+		
 		state = State.CONNECTED;
 		log.info("Connected to LoginServer!");
 

@@ -21,7 +21,6 @@ import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.services.SkillLearnService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.chathandlers.AdminCommand;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer
@@ -29,8 +28,7 @@ import com.google.inject.Inject;
  */
 public class GiveMissingSkills extends AdminCommand
 {
-	
-	@Inject
+
 	public GiveMissingSkills()
 	{
 		super("givemissingskills");

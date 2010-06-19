@@ -21,7 +21,6 @@ import com.aionemu.gameserver.model.account.PlayerAccountData;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_RESTORE_CHARACTER;
 import com.aionemu.gameserver.services.PlayerService;
-import com.google.inject.Inject;
 
 /**
  * In this packets aion client is requesting cancellation of character deleting.
@@ -40,9 +39,6 @@ public class CM_RESTORE_CHARACTER extends AionClientPacket
 	 * ObjectId of character that deletion should be canceled
 	 */
 	private int	chaOid;
-
-	@Inject
-	private PlayerService playerService;
 	
 	/**
 	 * Constructs new instance of <tt>CM_RESTORE_CHARACTER </tt> packet
@@ -72,7 +68,7 @@ public class CM_RESTORE_CHARACTER extends AionClientPacket
 		Account account = getConnection().getAccount();
 		PlayerAccountData pad = account.getPlayerAccountData(chaOid);
 
-		boolean success = pad != null && playerService.cancelPlayerDeletion(pad);
+		boolean success = pad != null && PlayerService.cancelPlayerDeletion(pad);
 		sendPacket(new SM_RESTORE_CHARACTER(chaOid, success));
 	}
 }

@@ -31,7 +31,6 @@ import com.aionemu.gameserver.model.account.AccountTime;
 import com.aionemu.gameserver.network.aion.AionConnection;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_L2AUTH_LOGIN_CHECK;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_RECONNECT_KEY;
-import com.aionemu.gameserver.network.factories.LsPacketHandlerFactory;
 import com.aionemu.gameserver.network.loginserver.LoginServerConnection.State;
 import com.aionemu.gameserver.network.loginserver.serverpackets.SM_ACCOUNT_AUTH;
 import com.aionemu.gameserver.network.loginserver.serverpackets.SM_ACCOUNT_DISCONNECTED;
@@ -105,8 +104,7 @@ public class LoginServer
 				sc = SocketChannel.open(NetworkConfig.LOGIN_ADDRESS);
 				sc.configureBlocking(false);
 				Dispatcher d = nioServer.getReadWriteDispatcher();
-				LsPacketHandlerFactory lsPacketHandlerFactory = new LsPacketHandlerFactory();
-				loginServer = new LoginServerConnection(sc, d, lsPacketHandlerFactory.getPacketHandler());
+				loginServer = new LoginServerConnection(sc, d);
 				return loginServer;
 			}
 			catch(Exception e)

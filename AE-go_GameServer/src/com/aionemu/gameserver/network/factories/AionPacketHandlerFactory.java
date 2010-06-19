@@ -20,7 +20,6 @@ import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.network.aion.AionPacketHandler;
 import com.aionemu.gameserver.network.aion.AionConnection.State;
 import com.aionemu.gameserver.network.aion.clientpackets.*;
-import com.google.inject.Injector;
 
 /**
  * This factory is responsible for creating {@link AionPacketHandler} object. It also initializes created handler with a
@@ -33,17 +32,19 @@ import com.google.inject.Injector;
  */
 public class AionPacketHandlerFactory
 {
-	private Injector			injector;
-	private AionPacketHandler	handler	= new AionPacketHandler();
+	private AionPacketHandler handler;
 
+	public static final AionPacketHandlerFactory getInstance()
+	{
+		return SingletonHolder.instance;
+	}
+	
 	/**
 	 * Creates new instance of <tt>AionPacketHandlerFactory</tt><br>
-	 * 
-	 * @param injector
 	 */
-	public AionPacketHandlerFactory(Injector injector)
+	private AionPacketHandlerFactory()
 	{
-		this.injector = injector;
+		handler	= new AionPacketHandler();
 		addPacket(new CM_START_LOOT(0x00), State.IN_GAME);
 		addPacket(new CM_LOOT_ITEM(0x01), State.IN_GAME);
 		addPacket(new CM_MOVE_ITEM(0x02), State.IN_GAME);
@@ -163,8 +164,12 @@ public class AionPacketHandlerFactory
 
 	private void addPacket(AionClientPacket prototype, State... states)
 	{
-		injector.injectMembers(prototype);
 		handler.addPacketPrototype(prototype, states);
 	}
 
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final AionPacketHandlerFactory instance = new AionPacketHandlerFactory();
+	}
 }

@@ -22,7 +22,6 @@ import com.aionemu.gameserver.network.aion.AionConnection;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_DELETE_CHARACTER;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.services.PlayerService;
-import com.google.inject.Inject;
 
 /**
  * In this packets aion client is requesting deletion of character.
@@ -41,8 +40,6 @@ public class CM_DELETE_CHARACTER extends AionClientPacket
 	 * ObjectId of character that should be deleted.
 	 */
 	private int	chaOid;
-	@Inject
-	private PlayerService playerService;
 	
 	/**
 	 * Constructs new instance of <tt>CM_DELETE_CHARACTER </tt> packet
@@ -73,7 +70,7 @@ public class CM_DELETE_CHARACTER extends AionClientPacket
 		PlayerAccountData playerAccData = client.getAccount().getPlayerAccountData(chaOid);
 		if(playerAccData != null && !playerAccData.isLegionMember())
 		{
-			playerService.deletePlayer(playerAccData);
+			PlayerService.deletePlayer(playerAccData);
 			client.sendPacket(new SM_DELETE_CHARACTER(chaOid, playerAccData.getDeletionTimeInSeconds()));
 		}
 		else

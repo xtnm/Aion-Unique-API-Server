@@ -24,6 +24,7 @@ import com.aionemu.gameserver.controllers.SummonController.UnsummonType;
 import com.aionemu.gameserver.controllers.attack.AggroInfo;
 import com.aionemu.gameserver.controllers.attack.AttackResult;
 import com.aionemu.gameserver.controllers.attack.AttackUtil;
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.model.TaskId;
 import com.aionemu.gameserver.model.gameobjects.Creature;
 import com.aionemu.gameserver.model.gameobjects.Gatherable;
@@ -82,7 +83,6 @@ import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.utils.stats.StatFunctions;
 import com.aionemu.gameserver.world.World;
 import com.aionemu.gameserver.world.zone.ZoneInstance;
-import com.google.inject.internal.Nullable;
 
 /**
  * This class is for controlling players.
@@ -236,7 +236,7 @@ public class PlayerController extends CreatureController<Player>
 	 * Should only be triggered from one place (life stats)
 	 */
 	@Override
-	public void onDie(@Nullable Creature lastAttacker)
+	public void onDie(Creature lastAttacker)
 	{		
 		Player player = this.getOwner();
 		
@@ -577,7 +577,7 @@ public class PlayerController extends CreatureController<Player>
 	{
 		Player player = getOwner();
 
-		PlayerStatsTemplate statsTemplate = sp.getPlayerService().getPlayerStatsData().getTemplate(player);
+		PlayerStatsTemplate statsTemplate = DataManager.PLAYER_STATS_DATA.getTemplate(player);
 		player.setPlayerStatsTemplate(statsTemplate);
 		// update stats after setting new template
 		player.getGameStats().doLevelUpgrade();

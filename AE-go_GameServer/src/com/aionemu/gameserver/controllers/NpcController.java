@@ -60,7 +60,6 @@ import com.aionemu.gameserver.services.WarehouseService;
 import com.aionemu.gameserver.utils.MathUtil;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.internal.Nullable;
 
 /**
  * This class is for controlling Npc's
@@ -137,7 +136,7 @@ public class NpcController extends CreatureController<Npc>
 	}
 
 	@Override
-	public void onDie(@Nullable Creature lastAttacker)
+	public void onDie(Creature lastAttacker)
 	{
 		super.onDie(lastAttacker);
 		Npc owner = getOwner();

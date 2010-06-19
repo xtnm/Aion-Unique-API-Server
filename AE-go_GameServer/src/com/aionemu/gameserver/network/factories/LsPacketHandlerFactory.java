@@ -16,6 +16,7 @@
  */
 package com.aionemu.gameserver.network.factories;
 
+
 import com.aionemu.gameserver.network.loginserver.LsClientPacket;
 import com.aionemu.gameserver.network.loginserver.LsPacketHandler;
 import com.aionemu.gameserver.network.loginserver.LoginServerConnection.State;
@@ -33,10 +34,15 @@ public class LsPacketHandlerFactory
 {
 	private LsPacketHandler	handler	= new LsPacketHandler();
 
+	public static final LsPacketHandlerFactory getInstance()
+	{
+		return SingletonHolder.instance;
+	}
+
 	/**
 	 * @param loginServer
 	 */
-	public LsPacketHandlerFactory()
+	private LsPacketHandlerFactory()
 	{
 
 		addPacket(new CM_ACCOUNT_RECONNECT_KEY(0x03), State.AUTHED);
@@ -55,5 +61,11 @@ public class LsPacketHandlerFactory
 	public LsPacketHandler getPacketHandler()
 	{
 		return handler;
+	}
+	
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final LsPacketHandlerFactory instance = new LsPacketHandlerFactory();
 	}
 }

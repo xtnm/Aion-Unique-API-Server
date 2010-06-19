@@ -24,7 +24,6 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_BLOCK_RESPONSE;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.services.SocialService;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author Ben
@@ -36,8 +35,6 @@ public class CM_BLOCK_ADD extends AionClientPacket
 	
 	private String 			targetName;
 	private String			reason;
-	@Inject
-	private SocialService 	socialService;
 	
 	public CM_BLOCK_ADD(int opcode)
 	{
@@ -95,7 +92,7 @@ public class CM_BLOCK_ADD extends AionClientPacket
 		}
 		
 		//Try and block player
-		else if (!socialService.addBlockedUser(activePlayer, targetPlayer, reason))
+		else if (!SocialService.addBlockedUser(activePlayer, targetPlayer, reason))
 		{
 			log.error("Failed to add " + targetPlayer.getName() + " to the block list for " + activePlayer.getName() + " - check database setup.");
 		}

@@ -28,8 +28,6 @@ import com.aionemu.commons.network.AConnection;
 import com.aionemu.commons.network.Dispatcher;
 import com.aionemu.gameserver.network.chatserver.serverpackets.SM_CS_AUTH;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
-import com.google.inject.Inject;
-import com.google.inject.assistedinject.Assisted;
 
 /**
  * @author ATracer
@@ -70,12 +68,11 @@ public class ChatServerConnection extends AConnection
 	 * @param d
 	 * @throws IOException
 	 */
-	@Inject
-	public ChatServerConnection(@Assisted SocketChannel sc, @Assisted Dispatcher d, ChatServer chatServer,
-		CsPacketHandler csPacketHandler) throws IOException
+
+	public ChatServerConnection(SocketChannel sc, Dispatcher d, CsPacketHandler csPacketHandler) throws IOException
 	{
 		super(sc, d);
-		this.chatServer = chatServer;
+		this.chatServer = ChatServer.getInstance();
 		this.csPacketHandler = csPacketHandler;
 
 		state = State.CONNECTED;

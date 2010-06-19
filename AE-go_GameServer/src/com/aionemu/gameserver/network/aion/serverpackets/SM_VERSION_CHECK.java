@@ -30,14 +30,12 @@ import com.aionemu.gameserver.services.ChatService;
 
 public class SM_VERSION_CHECK extends AionServerPacket
 {
-	private ChatService			chatService;
 
 	/**
 	 * @param chatService
 	 */
-	public SM_VERSION_CHECK(ChatService chatService)
+	public SM_VERSION_CHECK()
 	{
-		this.chatService = chatService;
 	}
 
 	/**
@@ -109,8 +107,8 @@ public class SM_VERSION_CHECK extends AionServerPacket
 			writeH(buf, 2561);
 			writeH(buf, 2561);
 			writeD(buf, 266);
-			writeB(buf, chatService.getIp());
-			writeH(buf, chatService.getPort());
+			writeB(buf, ChatService.getIp());
+			writeH(buf, ChatService.getPort());
 		}
 	}
 
@@ -133,8 +131,8 @@ public class SM_VERSION_CHECK extends AionServerPacket
 		writeH(buf, 2561);
 		writeH(buf, 2561);
 		writeD(buf, 266);
-		writeB(buf, chatService.getIp());
-		writeH(buf, chatService.getPort());
+		writeB(buf, ChatService.getIp());
+		writeH(buf, ChatService.getPort());
 	}
 
 	private void writeCoutnryCode_7(AionConnection con, ByteBuffer buf)
@@ -155,7 +153,7 @@ public class SM_VERSION_CHECK extends AionServerPacket
 		writeH(buf, 2561);
 		writeH(buf, 2561);
 		writeD(buf, 266);
-		writeB(buf, chatService.getIp());
-		writeH(buf, chatService.getPort());
+		writeB(buf, ChatService.getIp());
+		writeH(buf, ChatService.getPort());
 	}
 }

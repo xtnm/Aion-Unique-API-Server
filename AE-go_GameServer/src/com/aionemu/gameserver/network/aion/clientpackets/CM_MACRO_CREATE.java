@@ -22,7 +22,6 @@ import org.apache.log4j.Logger;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_MACRO_RESULT;
 import com.aionemu.gameserver.services.PlayerService;
-import com.google.inject.Inject;
 
 /**
  * Request to create
@@ -46,9 +45,6 @@ public class CM_MACRO_CREATE extends AionClientPacket
 	 * XML that represents the macro
 	 */
 	private String				macroXML;
-
-	@Inject
-	private PlayerService playerService;
 
 	/**
 	 * Constructs new client packet instance.
@@ -77,7 +73,7 @@ public class CM_MACRO_CREATE extends AionClientPacket
 	{
 		log.debug(String.format("Created Macro #%d: %s", macroPosition, macroXML));
 
-		playerService.addMacro(getConnection().getActivePlayer(), macroPosition, macroXML);
+		PlayerService.addMacro(getConnection().getActivePlayer(), macroPosition, macroXML);
 		
 		sendPacket(SM_MACRO_RESULT.SM_MACRO_CREATED);
 	}

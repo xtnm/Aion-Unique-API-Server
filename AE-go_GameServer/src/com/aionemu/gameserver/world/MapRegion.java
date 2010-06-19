@@ -36,7 +36,7 @@ public class MapRegion
 	/**
 	 * Region id of this map region [NOT WORLD ID!]
 	 */
-	private final int					regionId;
+	private final Integer				regionId;
 	/**
 	 * WorldMapInstance witch is parent of this map region.
 	 */
@@ -56,7 +56,7 @@ public class MapRegion
 	 * @param id
 	 * @param parent
 	 */
-	MapRegion(int id, WorldMapInstance parent)
+	MapRegion(Integer id, WorldMapInstance parent)
 	{
 		this.regionId = id;
 		this.parent = parent;
@@ -68,7 +68,7 @@ public class MapRegion
 	 * 
 	 * @return world map id
 	 */
-	public int getMapId()
+	public Integer getMapId()
 	{
 		return getParent().getMapId();
 	}
@@ -83,7 +83,7 @@ public class MapRegion
 	 * 
 	 * @return region id.
 	 */
-	public int getRegionId()
+	public Integer getRegionId()
 	{
 		return regionId;
 	}

@@ -12,7 +12,7 @@
 	<classpathentry kind="src" path="config/main"/>
 	<classpathentry kind="src" path="config/network"/>
 	<classpathentry excluding="administration/|main/|network/" kind="src" path="config"/>
-	<classpathentry kind="lib" path="lib/ae_commons.jar" sourcepath="/AE-go_Commons/src/com/aionemu/commons"/>
+	<classpathentry kind="lib" path="lib/ae_commons.jar" sourcepath="/AE-go_Commons/"/>
 	<classpathentry kind="lib" path="lib/commons-io-1.4.jar"/>
 	<classpathentry kind="lib" path="lib/javac.jar"/>
 	<classpathentry kind="lib" path="lib/javassist.jar"/>
@@ -20,8 +20,6 @@
 	<classpathentry kind="lib" path="lib/aopalliance.jar"/>
 	<classpathentry kind="lib" path="lib/commons-pool-1.5.4.jar"/>
 	<classpathentry kind="lib" path="lib/javax.inject.jar"/>
-	<classpathentry kind="lib" path="lib/guice-assistedinject-snapshot-r1148.jar" sourcepath="/AE-go_Commons/libsrc/guice-assistedinject-snapshot-r1148-src.jar"/>
-	<classpathentry kind="lib" path="lib/guice-snapshot-r1148.jar" sourcepath="/AE-go_Commons/libsrc/guice-snapshot-r1148-src.jar"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.12-bin.jar" sourcepath="/AE-go_Commons/libsrc/mysql-connector-java-5.1.12-src.zip"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.16.jar"/>
 	<classpathentry kind="lib" path="lib/commons-dbcp-1.4.jar"/>

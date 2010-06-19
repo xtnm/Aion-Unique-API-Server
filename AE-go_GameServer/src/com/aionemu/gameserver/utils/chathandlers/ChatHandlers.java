@@ -30,10 +30,16 @@ import java.util.List;
  */
 public class ChatHandlers implements Iterable<ChatHandler>
 {
-	private List<ChatHandler>	handlers	= new ArrayList<ChatHandler>();
+	private List<ChatHandler>	handlers;
 
-	ChatHandlers()
+	public static final ChatHandlers getInstance()
 	{
+		return SingletonHolder.instance;
+	}
+
+	private ChatHandlers()
+	{
+		handlers	= new ArrayList<ChatHandler>();
 	}
 
 	/**
@@ -48,5 +54,10 @@ public class ChatHandlers implements Iterable<ChatHandler>
 	void addChatHandler(ChatHandler ch)
 	{
 		handlers.add(ch);
+	}
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final ChatHandlers instance = new ChatHandlers();
 	}
 }

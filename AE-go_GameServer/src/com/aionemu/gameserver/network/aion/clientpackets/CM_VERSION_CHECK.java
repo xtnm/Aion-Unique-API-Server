@@ -18,8 +18,6 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_VERSION_CHECK;
-import com.aionemu.gameserver.services.ChatService;
-import com.google.inject.Inject;
 
 /**
  * @author -Nemesiss-
@@ -27,8 +25,6 @@ import com.google.inject.Inject;
  */
 public class CM_VERSION_CHECK extends AionClientPacket
 {
-	@Inject
-	private ChatService			chatService;
 
 	@SuppressWarnings("unused")
 	private int	unk1;
@@ -60,6 +56,6 @@ public class CM_VERSION_CHECK extends AionClientPacket
 	@Override
 	protected void runImpl()
 	{
-		sendPacket(new SM_VERSION_CHECK(chatService));
+		sendPacket(new SM_VERSION_CHECK());
 	}
 }

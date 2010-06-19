@@ -37,7 +37,6 @@ import com.aionemu.gameserver.model.templates.WorldMapTemplate;
 import com.aionemu.gameserver.model.templates.spawn.SpawnGroup;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.chathandlers.AdminCommand;
-import com.google.inject.Inject;
 
 /**
  * @author Luno
@@ -49,9 +48,6 @@ public class SaveSpawnData extends AdminCommand
 {
 
 	private static Logger log = Logger.getLogger(SaveSpawnData.class);
-
-	@Inject
-	private SpawnsData	spawnsData;
 
 	public SaveSpawnData()
 	{
@@ -83,8 +79,9 @@ public class SaveSpawnData extends AdminCommand
 		
 		boolean isAllSave = params.length == 1 && "all".equalsIgnoreCase(params[0]);
 		
+		SpawnsData spawnsData = DataManager.SPAWNS_DATA;
 		for(WorldMapTemplate template : DataManager.WORLD_MAPS_DATA)
-		{		
+		{
 			List<SpawnGroup> spawnsForWorld = null;
 			if(isAllSave)
 				spawnsForWorld = spawnsData.getSpawnsForWorld(template.getMapId());

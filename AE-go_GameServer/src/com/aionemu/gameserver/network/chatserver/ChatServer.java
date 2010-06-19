@@ -26,9 +26,8 @@ import com.aionemu.gameserver.configs.network.NetworkConfig;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.chatserver.serverpackets.SM_CS_PLAYER_AUTH;
 import com.aionemu.gameserver.network.chatserver.serverpackets.SM_CS_PLAYER_LOGOUT;
-import com.aionemu.gameserver.network.factories.ChatServerConnectionFactory;
+import com.aionemu.gameserver.network.factories.CsPacketHandlerFactory;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer
@@ -39,20 +38,21 @@ public class ChatServer
 
 	private ChatServerConnection		chatServer;
 	private NioServer					nioServer;
-	private ChatServerConnectionFactory	cscFactory;
 
 	private boolean						serverShutdown	= false;
 	
-	@Inject
+	public static final ChatServer getInstance()
+	{
+		return SingletonHolder.instance;
+	}
+
+	private ChatServer()
+	{
+	}
+	
 	public void setNioServer(NioServer nioServer)
 	{
 		this.nioServer = nioServer;
-	}
-
-	@Inject
-	public void setLSConnectionFactory(ChatServerConnectionFactory cscFactory)
-	{
-		this.cscFactory = cscFactory;
 	}
 
 	/**
@@ -70,7 +70,8 @@ public class ChatServer
 				sc = SocketChannel.open(NetworkConfig.CHAT_ADDRESS);
 				sc.configureBlocking(false);
 				Dispatcher d = nioServer.getReadWriteDispatcher();
-				chatServer = cscFactory.createConnection(sc, d);
+				CsPacketHandlerFactory csPacketHandlerFactory = new CsPacketHandlerFactory();
+				chatServer = new ChatServerConnection(sc, d, csPacketHandlerFactory.getPacketHandler());
 				return chatServer;
 			}
 			catch(Exception e)
@@ -129,5 +130,11 @@ public class ChatServer
 	{
 		if(chatServer != null)
 			chatServer.sendPacket(new SM_CS_PLAYER_LOGOUT(player.getObjectId()));
+	}
+	
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final ChatServer instance = new ChatServer();
 	}
 }

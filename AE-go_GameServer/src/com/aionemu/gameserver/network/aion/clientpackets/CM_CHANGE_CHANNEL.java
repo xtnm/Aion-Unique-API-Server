@@ -19,7 +19,6 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.services.TeleportService;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer
@@ -27,9 +26,7 @@ import com.google.inject.Inject;
  */
 public class CM_CHANGE_CHANNEL extends AionClientPacket
 {
-	@Inject
-	TeleportService teleportService;
-	
+
 	private int channel;
 	
 	public CM_CHANGE_CHANNEL(int opcode)
@@ -47,6 +44,6 @@ public class CM_CHANGE_CHANNEL extends AionClientPacket
 	protected void runImpl()
 	{
 		Player activePlayer = getConnection().getActivePlayer();
-		teleportService.changeChannel(activePlayer, channel);
+		TeleportService.changeChannel(activePlayer, channel);
 	}	
 }

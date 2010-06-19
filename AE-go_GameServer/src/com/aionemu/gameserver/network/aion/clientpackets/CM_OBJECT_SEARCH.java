@@ -18,11 +18,10 @@
 package com.aionemu.gameserver.network.aion.clientpackets;
 
 
-import com.aionemu.gameserver.dataholders.SpawnsData;
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.model.templates.spawn.SpawnTemplate;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SHOW_NPC_ON_MAP;
-import com.google.inject.Inject;
 
 /**
  * @author Lyahim
@@ -30,9 +29,6 @@ import com.google.inject.Inject;
 public class CM_OBJECT_SEARCH extends AionClientPacket
 {
 	private int npcId;
-
-	@Inject
-	private SpawnsData spawnsData;
 	/**
 	 * Constructs new client packet instance.
 	 * @param opcode
@@ -58,7 +54,7 @@ public class CM_OBJECT_SEARCH extends AionClientPacket
 	@Override
 	protected void runImpl()
 	{	
-		SpawnTemplate spawnTemplate = spawnsData.getFirstSpawnByNpcId(npcId);
+		SpawnTemplate spawnTemplate = DataManager.SPAWNS_DATA.getFirstSpawnByNpcId(npcId);
 		if(spawnTemplate != null)
 		{
 			sendPacket(new SM_SHOW_NPC_ON_MAP(npcId, spawnTemplate.getWorldId(), spawnTemplate.getX(), 

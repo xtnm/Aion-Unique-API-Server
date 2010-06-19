@@ -28,12 +28,10 @@ import com.aionemu.gameserver.questEngine.handlers.QuestHandler;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
-import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.zone.ZoneName;
-import com.google.inject.Inject;
 
 /**
  * @author Rhys2002
@@ -43,9 +41,6 @@ public class _2136TheLostAxe extends QuestHandler
 {
 	private final static int	questId	= 2136;
 	private final static int[]	npc_ids	= { 700146, 790009 };
-	
-	@Inject
-	ItemService	itemService;
 
 	public _2136TheLostAxe()
 	{

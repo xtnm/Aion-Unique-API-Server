@@ -27,7 +27,6 @@ import com.aionemu.gameserver.utils.AEVersions;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.utils.chathandlers.AdminCommand;
-import com.google.inject.Inject;
 
 /**
  * @author lord_rex
@@ -41,8 +40,6 @@ import com.google.inject.Inject;
  */
 public class AESystem extends AdminCommand
 {
-	@Inject
-	private ShutdownHook shutdownHook;
 	
 	public AESystem()
 	{
@@ -117,7 +114,7 @@ public class AESystem extends AdminCommand
 			{
 				int val = Integer.parseInt(params[1]);
 				int announceInterval = Integer.parseInt(params[2]);
-				shutdownHook.doShutdown(val, announceInterval, ShutdownMode.SHUTDOWN);
+				ShutdownHook.doShutdown(val, announceInterval, ShutdownMode.SHUTDOWN);
 				PacketSendUtility.sendMessage(admin, "Server will shutdown in " + val + " seconds.");
 			}
 			catch(ArrayIndexOutOfBoundsException e)
@@ -135,7 +132,7 @@ public class AESystem extends AdminCommand
 			{
 				int val = Integer.parseInt(params[1]);
 				int announceInterval = Integer.parseInt(params[2]);
-				shutdownHook.doShutdown(val, announceInterval, ShutdownMode.RESTART);
+				ShutdownHook.doShutdown(val, announceInterval, ShutdownMode.RESTART);
 				PacketSendUtility.sendMessage(admin, "Server will restart in " + val + " seconds.");
 			}
 			catch(ArrayIndexOutOfBoundsException e)

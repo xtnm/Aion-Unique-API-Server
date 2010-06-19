@@ -62,7 +62,6 @@ import com.aionemu.gameserver.services.StigmaService;
 import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.utils.rates.Rates;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * In this packets aion client is asking if given char [by oid] may login into game [ie start playing].
@@ -76,11 +75,6 @@ public class CM_ENTER_WORLD extends AionClientPacket
 	 * Object Id of player that is entering world
 	 */
 	private int					objectId;
-
-	@Inject
-	private PlayerService		playerService;
-	@Inject
-	private ChatService			chatService;
 	
 	/**
 	 * Constructs new instance of <tt>CM_ENTER_WORLD </tt> packet
@@ -117,7 +111,7 @@ public class CM_ENTER_WORLD extends AionClientPacket
 			return;
 		}
 
-		Player player = playerService.getPlayer(objectId, account);
+		Player player = PlayerService.getPlayer(objectId, account);
 
 		if(player != null && client.setActivePlayer(player))
 		{
@@ -181,7 +175,7 @@ public class CM_ENTER_WORLD extends AionClientPacket
 
 			sendPacket(new SM_INVENTORY_INFO());
 
-			playerService.playerLoggedIn(player);
+			PlayerService.playerLoggedIn(player);
 			
 			sendPacket(new SM_STATS_INFO(player));
 			sendPacket(new SM_CUBE_UPDATE(player, 6));
@@ -235,7 +229,7 @@ public class CM_ENTER_WORLD extends AionClientPacket
 			 * Start initializing chat connection(/1, /2, /3, /4 channels)
 			 */
 			if(!GSConfig.DISABLE_CHAT_SERVER)
-				chatService.onPlayerLogin(player);
+				ChatService.onPlayerLogin(player);
 		}
 		else
 		{

@@ -24,7 +24,6 @@ import com.aionemu.gameserver.network.chatserver.ChatServerConnection.State;
 import com.aionemu.gameserver.network.chatserver.serverpackets.SM_CS_AUTH;
 import com.aionemu.gameserver.services.ChatService;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
-import com.google.inject.Inject;
 
 /**
  * 
@@ -33,8 +32,6 @@ import com.google.inject.Inject;
  */
 public class CM_CS_AUTH_RESPONSE extends CsClientPacket
 {
-	@Inject
-	private ChatService			chatService;
 
 	/**
 	 * Logger for this class.
@@ -73,8 +70,8 @@ public class CM_CS_AUTH_RESPONSE extends CsClientPacket
 			case 0: // Authed
 				log.info("GameServer authed successfully IP :"+ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3]+" Port: " +port);
 				getConnection().setState(State.AUTHED);
-				chatService.setIp(ip);
-				chatService.setPort(port);
+				ChatService.setIp(ip);
+				ChatService.setPort(port);
 				break;
 			case 1: // NotAuthed
 				log.fatal("GameServer is not authenticated at ChatServer side");

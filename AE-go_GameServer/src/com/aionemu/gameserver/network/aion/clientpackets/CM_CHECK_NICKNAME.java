@@ -22,8 +22,6 @@ import com.aionemu.gameserver.network.aion.AionConnection;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_CREATE_CHARACTER;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_NICKNAME_CHECK_RESPONSE;
 import com.aionemu.gameserver.services.PlayerService;
-import com.google.inject.Inject;
-
 /**
  * In this packets aion client is asking if given nickname is ok/free?.
  * 
@@ -36,9 +34,6 @@ public class CM_CHECK_NICKNAME extends AionClientPacket
 	 * nick name that need to be checked
 	 */
 	private String	nick;
-
-	@Inject
-	private PlayerService playerService;
 	
 	/**
 	 * Constructs new instance of <tt>CM_CHECK_NICKNAME </tt> packet
@@ -66,11 +61,11 @@ public class CM_CHECK_NICKNAME extends AionClientPacket
 	{
 		AionConnection client = getConnection();
 
-		if(!playerService.isValidName(nick))
+		if(!PlayerService.isValidName(nick))
 		{
 			client.sendPacket(new SM_NICKNAME_CHECK_RESPONSE(SM_CREATE_CHARACTER.RESPONSE_INVALID_NAME));
 		}
-		else if(!playerService.isFreeName(nick))
+		else if(!PlayerService.isFreeName(nick))
 		{
 			client.sendPacket(new SM_NICKNAME_CHECK_RESPONSE(SM_CREATE_CHARACTER.RESPONSE_NAME_ALREADY_USED));
 		}

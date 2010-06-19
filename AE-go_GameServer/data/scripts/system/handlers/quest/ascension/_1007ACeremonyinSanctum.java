@@ -30,7 +30,6 @@ import com.aionemu.gameserver.questEngine.model.QuestStatus;
 import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author MrPoke + Dune11
@@ -40,7 +39,6 @@ public class _1007ACeremonyinSanctum extends QuestHandler
 {
 	private final static int	questId	= 1007;
 
-	@Inject
 	public _1007ACeremonyinSanctum()
 	{
 		super(questId);

@@ -35,7 +35,7 @@ public class LsPacketHandler
 	 */
 	private static final Logger							log					= Logger.getLogger(LsPacketHandler.class);
 
-	private Map<State, Map<Integer, LsClientPacket>>	packetPrototypes	= new HashMap<State, Map<Integer, LsClientPacket>>();
+	private static Map<State, Map<Integer, LsClientPacket>>	packetPrototypes	= new HashMap<State, Map<Integer, LsClientPacket>>();
 
 	/**
 	 * Reads one packet from given ByteBuffer

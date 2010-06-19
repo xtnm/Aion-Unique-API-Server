@@ -23,7 +23,6 @@ import com.aionemu.gameserver.network.aion.AionConnection;
 import com.aionemu.gameserver.network.aion.AionConnection.State;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_QUIT_RESPONSE;
 import com.aionemu.gameserver.services.PlayerService;
-import com.google.inject.Inject;
 
 /**
  * In this packets aion client is asking if may quit.
@@ -37,8 +36,6 @@ public class CM_QUIT extends AionClientPacket
 	 * Logout - if true player is wanted to go to character selection.
 	 */
 	private boolean	logout;
-	@Inject
-	private PlayerService playerService;
 	
 	/**
 	 * Constructs new instance of <tt>CM_QUIT </tt> packet
@@ -72,7 +69,7 @@ public class CM_QUIT extends AionClientPacket
 
 			Player player = client.getActivePlayer();
 
-			playerService.playerLoggedOut(player);
+			PlayerService.playerLoggedOut(player);
 
 			/**
 			 * clear active player.

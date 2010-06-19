@@ -25,13 +25,17 @@ import com.aionemu.commons.database.DatabaseFactory;
 import com.aionemu.commons.database.dao.DAOManager;
 import com.aionemu.commons.log4j.exceptions.Log4jInitializationError;
 import com.aionemu.commons.network.NioServer;
+import com.aionemu.commons.network.ServerCfg;
 import com.aionemu.commons.services.LoggingService;
 import com.aionemu.commons.utils.AEInfos;
 import com.aionemu.gameserver.configs.Config;
 import com.aionemu.gameserver.configs.main.GSConfig;
 import com.aionemu.gameserver.configs.main.TaskManagerConfig;
 import com.aionemu.gameserver.configs.main.ThreadConfig;
+import com.aionemu.gameserver.configs.network.NetworkConfig;
 import com.aionemu.gameserver.dao.PlayerDAO;
+import com.aionemu.gameserver.dataholders.DataManager;
+import com.aionemu.gameserver.network.aion.GameConnectionFactoryImpl;
 import com.aionemu.gameserver.network.chatserver.ChatServer;
 import com.aionemu.gameserver.network.loginserver.LoginServer;
 import com.aionemu.gameserver.questEngine.QuestEngine;
@@ -55,12 +59,8 @@ import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.utils.ThreadUncaughtExceptionHandler;
 import com.aionemu.gameserver.utils.Util;
 import com.aionemu.gameserver.utils.gametime.GameTimeManager;
-import com.aionemu.gameserver.utils.guice.DataInjectionModule;
-import com.aionemu.gameserver.utils.guice.NetworkInjectionModule;
 import com.aionemu.gameserver.utils.idfactory.IDFactory;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
 
 /**
  * <tt>GameServer</tt> is the main class of the application and represents the whole game server.<br>
@@ -74,25 +74,15 @@ public class GameServer
 	/** Logger for gameserver */
 	private static final Logger	log	= Logger.getLogger(GameServer.class);
 
-	private Injector			injector;
-
 	/**
 	 * Creates instance of GameServer, which includes loading static data, initializing world.
 	 */
 	private GameServer()
 	{
-		// Inits the injection module and injector itself
-		// This will trigger creating singletons that are defined
-		// in InjectionModule with asEagerSingleton() call
-		DataInjectionModule dataIM = new DataInjectionModule();
-		NetworkInjectionModule networkIM = new NetworkInjectionModule();
-
-		injector = Guice.createInjector(dataIM, networkIM);
-		dataIM.setInjector(injector);
-		networkIM.setInjector(injector);
-		
+		DataManager.getInstance();
 		IDFactory.getInstance();
 		World.getInstance();
+		
 	}
 
 	/**
@@ -161,7 +151,7 @@ public class GameServer
 			new Thread(new DeadlockDetector(TaskManagerConfig.DEADLOCK_DETECTOR_INTERVAL)).start();
 		}
 
-		Runtime.getRuntime().addShutdownHook(gs.injector.getInstance(ShutdownHook.class));
+		Runtime.getRuntime().addShutdownHook(new ShutdownHook());
 
 		// gs.injector.getInstance(com.aionemu.gameserver.utils.chathandlers.ChatHandlers.class);
 		onStartup();
@@ -172,10 +162,15 @@ public class GameServer
 	 */
 	private void startServers()
 	{
-		NioServer nioServer = injector.getInstance(NioServer.class);
+		
+		ServerCfg aion = new ServerCfg(NetworkConfig.GAME_BIND_ADDRESS, NetworkConfig.GAME_PORT, "Game Connections", new GameConnectionFactoryImpl());
+		//ServerCfg login = new ServerCfg(NetworkConfig.LOGIN_ADDRESS.getHostName(), NetworkConfig.LOGIN_ADDRESS.getPort(), "Login Connections", new LoginConnectionFactoryImpl());
+		NioServer nioServer = new NioServer(1, ThreadPoolManager.getInstance(), aion);
+
 		LoginServer loginServer = LoginServer.getInstance();
-		ChatServer chatServer = injector.getInstance(ChatServer.class);
+		ChatServer chatServer = ChatServer.getInstance();
 		loginServer.setNioServer(nioServer);
+		chatServer.setNioServer(nioServer);
 		// Nio must go first
 		nioServer.connect();
 		loginServer.connect();

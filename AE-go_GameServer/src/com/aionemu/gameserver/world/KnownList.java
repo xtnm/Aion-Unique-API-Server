@@ -40,10 +40,10 @@ public class KnownList implements Iterable<VisibleObject>
 	 */
 
 	// how far player will see visible object
-	private static final int						VisibilityDistance			= 95;
+	private static final float						VisibilityDistance			= 95;
 	
 	// maxZvisibleDistance
-	private static final int						maxZvisibleDistance 		= 95;
+	private static final float						maxZvisibleDistance 		= 95;
 
 	/**
 	 * Owner of this KnownList.

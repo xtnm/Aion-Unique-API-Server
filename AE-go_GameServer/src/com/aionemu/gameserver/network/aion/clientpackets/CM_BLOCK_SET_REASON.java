@@ -21,7 +21,6 @@ import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.services.SocialService;
-import com.google.inject.Inject;
 
 /**
  * @author Ben
@@ -32,8 +31,6 @@ public class CM_BLOCK_SET_REASON extends AionClientPacket
 	
 	String					targetName;
 	String 					reason;
-	@Inject
-	private SocialService 	socialService;
 	
 	public CM_BLOCK_SET_REASON(int opcode)
 	{
@@ -65,7 +62,7 @@ public class CM_BLOCK_SET_REASON extends AionClientPacket
 		
 		else 
 		{
-			socialService.setBlockedReason(activePlayer, target, reason);
+			SocialService.setBlockedReason(activePlayer, target, reason);
 
 		}
 

@@ -17,13 +17,13 @@
 package admincommands;
 
 import com.aionemu.gameserver.configs.administration.AdminConfig;
+import com.aionemu.gameserver.dataholders.DataManager;
 import com.aionemu.gameserver.dataholders.SpawnsData;
 import com.aionemu.gameserver.model.gameobjects.Npc;
 import com.aionemu.gameserver.model.gameobjects.VisibleObject;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.chathandlers.AdminCommand;
-import com.google.inject.Inject;
 
 /**
  * @author Luno
@@ -32,13 +32,10 @@ import com.google.inject.Inject;
 
 public class DeleteSpawn extends AdminCommand
 {
-	private final SpawnsData		spawnsData;
 
-	@Inject
 	public DeleteSpawn(SpawnsData spawnsData)
 	{
 		super("delete");
-		this.spawnsData = spawnsData;
 	}
 
 	@Override
@@ -57,7 +54,7 @@ public class DeleteSpawn extends AdminCommand
 			return;
 		}
 		Npc npc = (Npc) cre;
-		spawnsData.removeSpawn(npc.getSpawn());
+		DataManager.SPAWNS_DATA.removeSpawn(npc.getSpawn());
 		npc.getController().delete();
 		PacketSendUtility.sendMessage(admin, "Spawn removed");
 	}

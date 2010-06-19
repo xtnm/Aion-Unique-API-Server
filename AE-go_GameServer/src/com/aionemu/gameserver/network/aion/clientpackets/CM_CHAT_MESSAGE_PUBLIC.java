@@ -32,7 +32,6 @@ import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.chathandlers.ChatHandler;
 import com.aionemu.gameserver.utils.chathandlers.ChatHandlerResponse;
 import com.aionemu.gameserver.utils.chathandlers.ChatHandlers;
-import com.google.inject.Inject;
 
 /**
  * Packet that reads normal chat messages.<br>
@@ -56,9 +55,6 @@ public class CM_CHAT_MESSAGE_PUBLIC extends AionClientPacket
 	 * Chat message
 	 */
 	private String				message;
-
-	@Inject
-	private ChatHandlers		chatHandlers;
 
 	/**
 	 * Constructs new client packet instance.
@@ -90,7 +86,7 @@ public class CM_CHAT_MESSAGE_PUBLIC extends AionClientPacket
 		final Player player = getConnection().getActivePlayer();
 
 		//log.info(String.format("Public Message [%s]: %s, Type: %s", player.getName(), message, type));
-
+		ChatHandlers chatHandlers = ChatHandlers.getInstance();
 		for(ChatHandler chatHandler : chatHandlers)
 		{
 			ChatHandlerResponse response = chatHandler.handleChatMessage(type, message, player);

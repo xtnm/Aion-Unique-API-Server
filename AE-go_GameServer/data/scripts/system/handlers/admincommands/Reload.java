@@ -54,7 +54,6 @@ import com.aionemu.gameserver.questEngine.QuestEngine;
 import com.aionemu.gameserver.skillengine.model.SkillTemplate;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.chathandlers.AdminCommand;
-import com.google.inject.Inject;
 
 /**
  * @author MrPoke
@@ -63,12 +62,6 @@ import com.google.inject.Inject;
 public class Reload extends AdminCommand
 {
 	private static final Logger	log	= Logger.getLogger(Reload.class);
-	@Inject
-	SkillData skillData;
-	@Inject
-	PortalData portalData;
-	@Inject
-	SpawnsData spawnsData;
 
 	public Reload()
 	{
@@ -138,7 +131,7 @@ public class Reload extends AdminCommand
 					if(data != null)
 						newTemplates.addAll(data.getSkillTemplates());
 				}
-				skillData.setSkillTemplates(newTemplates);
+				DataManager.SKILL_DATA.setSkillTemplates(newTemplates);
 			}
 			catch(Exception e)
 			{
@@ -165,7 +158,7 @@ public class Reload extends AdminCommand
 					if(data != null && data.getPortals() != null)
 						newTemplates.addAll(data.getPortals());
 				}
-				portalData.setPortals(newTemplates);
+				DataManager.PORTAL_DATA.setPortals(newTemplates);
 			}
 			catch(Exception e)
 			{
@@ -192,7 +185,7 @@ public class Reload extends AdminCommand
 					if(data != null && data.getSpawnGroups() != null)
 						newTemplates.addAll(data.getSpawnGroups());
 				}
-				spawnsData.setSpawns(newTemplates);
+				DataManager.SPAWNS_DATA.setSpawns(newTemplates);
 			}
 			catch(Exception e)
 			{

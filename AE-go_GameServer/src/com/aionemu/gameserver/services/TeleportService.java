@@ -47,7 +47,6 @@ import com.aionemu.gameserver.services.ZoneService.ZoneUpdateMode;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer , orz, Simple
@@ -60,9 +59,6 @@ public class TeleportService
 	private static final int	TELEPORT_DEFAULT_DELAY	= 2200;
 
 	private static final World				world = World.getInstance();
-
-	@Inject
-	private static PlayerService		playerService;
 
 	/**
 	 * Schedules teleport animation
@@ -352,7 +348,7 @@ public class TeleportService
 	/**
 	 * @param channel
 	 */
-	public void changeChannel(Player player, int channel)
+	public static void changeChannel(Player player, int channel)
 	{
 		world.despawn(player);
 		world.setPosition(player, player.getWorldId(), channel + 1, player.getX(), player.getY(), player.getZ(), player
@@ -397,7 +393,7 @@ public class TeleportService
 		}
 		else
 		{
-			LocationData locationData = playerService.getPlayerInitialData().getSpawnLocation(
+			LocationData locationData = DataManager.PLAYER_INITIAL_DATA.getSpawnLocation(
 				player.getCommonData().getRace());
 			worldId = locationData.getMapId();
 			x = locationData.getX();
@@ -460,7 +456,7 @@ public class TeleportService
 		teleportTo(player, worldId, exitPoint.getX(), exitPoint.getY(), exitPoint.getZ(), delay);
 	}
 	
-	public void teleportToNpc(Player player, int npcId)
+	public static void teleportToNpc(Player player, int npcId)
 	{
 		int delay = 0;
 		SpawnTemplate template = DataManager.SPAWNS_DATA.getFirstSpawnByNpcId(npcId);

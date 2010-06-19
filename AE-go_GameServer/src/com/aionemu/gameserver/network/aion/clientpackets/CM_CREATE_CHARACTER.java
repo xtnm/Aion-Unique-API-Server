@@ -36,7 +36,6 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_CREATE_CHARACTER;
 import com.aionemu.gameserver.services.PlayerService;
 import com.aionemu.gameserver.utils.Util;
 import com.aionemu.gameserver.utils.idfactory.IDFactory;
-import com.google.inject.Inject;
 
 /**
  * In this packets aion client is requesting creation of character.
@@ -50,9 +49,6 @@ public class CM_CREATE_CHARACTER extends AionClientPacket
 	private PlayerAppearance	playerAppearance;
 	/** Player base data */
 	private PlayerCommonData	playerCommonData;
-
-	@Inject
-	private PlayerService		playerService;
 
 	/**
 	 * Constructs new instance of <tt>CM_CREATE_CHARACTER </tt> packet
@@ -179,13 +175,13 @@ public class CM_CREATE_CHARACTER extends AionClientPacket
 		AionConnection client = getConnection();
 
 		/* Some reasons why player can' be created */
-		if(!playerService.isValidName(playerCommonData.getName()))
+		if(!PlayerService.isValidName(playerCommonData.getName()))
 		{
 			client.sendPacket(new SM_CREATE_CHARACTER(null, SM_CREATE_CHARACTER.RESPONSE_INVALID_NAME));
 			IDFactory.getInstance().releaseId(playerCommonData.getPlayerObjId());
 			return;
 		}
-		if(!playerService.isFreeName(playerCommonData.getName()))
+		if(!PlayerService.isFreeName(playerCommonData.getName()))
 		{
 			client.sendPacket(new SM_CREATE_CHARACTER(null, SM_CREATE_CHARACTER.RESPONSE_NAME_ALREADY_USED));
 			IDFactory.getInstance().releaseId(playerCommonData.getPlayerObjId());
@@ -198,11 +194,11 @@ public class CM_CREATE_CHARACTER extends AionClientPacket
 			return;
 		}
 
-		Player player = playerService.newPlayer(playerCommonData, playerAppearance);
+		Player player = PlayerService.newPlayer(playerCommonData, playerAppearance);
 
 		Account account = client.getAccount();
 
-		if(!playerService.storeNewPlayer(player, account.getName(), account.getId()))
+		if(!PlayerService.storeNewPlayer(player, account.getName(), account.getId()))
 		{
 			client.sendPacket(new SM_CREATE_CHARACTER(null, SM_CREATE_CHARACTER.RESPONSE_DB_ERROR));
 		}
@@ -212,7 +208,7 @@ public class CM_CREATE_CHARACTER extends AionClientPacket
 			PlayerAccountData accPlData = new PlayerAccountData(playerCommonData, playerAppearance, equipment, null);
 
 			accPlData.setCreationDate(new Timestamp(System.currentTimeMillis()));
-			playerService.storeCreationTime(player.getObjectId(), accPlData.getCreationDate());
+			PlayerService.storeCreationTime(player.getObjectId(), accPlData.getCreationDate());
 
 			account.addPlayerAccountData(accPlData);
 			client.sendPacket(new SM_CREATE_CHARACTER(accPlData, SM_CREATE_CHARACTER.RESPONSE_OK));

@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 import com.aionemu.commons.scripting.classlistener.ClassListener;
 import com.aionemu.commons.scripting.classlistener.DefaultClassListener;
 import com.aionemu.commons.utils.ClassUtils;
-import com.google.inject.Injector;
 
 /**
  * Created on: 12.09.2009 14:13:24
@@ -19,17 +18,15 @@ class ChatHandlersLoader
 		implements ClassListener
 {
 	private static final Logger logger = Logger.getLogger(ChatHandlersLoader.class);
-
-	private final Injector injector;
 	
 	private final AdminCommandChatHandler adminCCH;
 
-	public ChatHandlersLoader(Injector injector, AdminCommandChatHandler handler)
+	public ChatHandlersLoader(AdminCommandChatHandler handler)
 	{
-		this.injector = injector;
 		this.adminCCH = handler;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void postLoad(Class<?>[] classes)
 	{
@@ -43,7 +40,22 @@ class ChatHandlersLoader
 
 			if (ClassUtils.isSubclass(c, AdminCommand.class))
 			{
-				adminCCH.registerAdminCommand((AdminCommand) injector.getInstance(c));
+				Class<? extends AdminCommand> tmp = (Class<? extends AdminCommand>)c;
+				if (tmp != null)
+					try
+					{
+						adminCCH.registerAdminCommand(tmp.newInstance());
+					}
+					catch(InstantiationException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					catch(IllegalAccessException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 			}
 		}
 

@@ -47,6 +47,15 @@ public class XmlDataLoader
 	private static final String	CACHE_XML_FILE	= "./cache/static_data.xml";
 	private static final String	MAIN_XML_FILE	= "./data/static_data/static_data.xml";
 	
+	public static final XmlDataLoader getInstance()
+	{
+		return SingletonHolder.instance;
+	}
+
+	private XmlDataLoader()
+	{
+		
+	}
 	/**
 	 * Creates {@link StaticData} object based on xml files, starting from static_data.xml
 	 * 
@@ -126,5 +135,11 @@ public class XmlDataLoader
 			log.error("Error while merging xml files,e");
 			throw new Error("Error while merging xml files", e);
 		}
+	}
+	
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final XmlDataLoader instance = new XmlDataLoader();
 	}
 }

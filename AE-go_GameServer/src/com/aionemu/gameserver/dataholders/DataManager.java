@@ -16,8 +16,6 @@
  */
 package com.aionemu.gameserver.dataholders;
 
-import javax.inject.Inject;
-
 import org.apache.log4j.Logger;
 
 import com.aionemu.gameserver.dataholders.loadingutils.XmlDataLoader;
@@ -139,13 +137,18 @@ public final class DataManager
 	 * Constructor creating <tt>DataManager</tt> instance.<br>
 	 * NOTICE: calling constructor implies loading whole data from /data/static_data immediately
 	 */
-	@Inject
-	public DataManager(XmlDataLoader xmlDataLoader)
+
+	public static final DataManager getInstance()
+	{
+		return SingletonHolder.instance;
+	}
+
+	private DataManager()
 	{
 		Util.printSection("StaticDatas");
 		log.info("##### STATIC DATA [section beginning] #####");
 
-		this.loader = xmlDataLoader;
+		this.loader = XmlDataLoader.getInstance();
 
 		long start = System.currentTimeMillis();
 		StaticData data = loader.loadStaticData();
@@ -189,5 +192,10 @@ public final class DataManager
 		log.info("##### [load time: " + timeMsg + "] #####");
 		log.info("##### STATIC DATA [section end] #####");
 
+	}
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final DataManager instance = new DataManager();
 	}
 }

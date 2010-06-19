@@ -29,7 +29,6 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_FRIEND_LIST;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_FRIEND_NOTIFY;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_FRIEND_RESPONSE;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * Handles activities related to social groups ingame such as the buddy list, legions, etc
@@ -38,15 +37,6 @@ import com.google.inject.Inject;
  */
 public class SocialService
 {
-	private World 			world;
-	private PlayerService	playerService;
-	
-	@Inject
-	public SocialService(PlayerService playerService)
-	{
-		this.world = World.getInstance();
-		this.playerService = playerService;
-	}
 	
 	/**
 	 * Blocks the given object ID for the given player.<br />
@@ -57,7 +47,7 @@ public class SocialService
 	 * @param reason
 	 * @return Success
 	 */
-	public boolean addBlockedUser(Player player, Player blockedPlayer, String reason)
+	public static boolean addBlockedUser(Player player, Player blockedPlayer, String reason)
 	{
 		if (DAOManager.getDAO(BlockListDAO.class).addBlockedUser(player.getObjectId(),	blockedPlayer.getObjectId(), reason))
 		{
@@ -82,7 +72,7 @@ public class SocialService
 	 * 			ID of player to unblock
 	 * @return Success
 	 */
-	public boolean deleteBlockedUser(Player player, int blockedUserId)
+	public static boolean deleteBlockedUser(Player player, int blockedUserId)
 	{
 		if (DAOManager.getDAO(BlockListDAO.class).delBlockedUser(player.getObjectId(), blockedUserId))
 		{
@@ -110,7 +100,7 @@ public class SocialService
 	 * 			Reason to set
 	 * @return Success - May be false if the reason was the same and therefore not edited
 	 */
-	public boolean setBlockedReason(Player player, BlockedPlayer target, String reason)
+	public static boolean setBlockedReason(Player player, BlockedPlayer target, String reason)
 	{
 		
 		if (!target.getReason().equals(reason))
@@ -131,7 +121,7 @@ public class SocialService
 	 * @param friend1
 	 * @param friend2
 	 */
-	public void makeFriends(Player friend1, Player friend2)
+	public static void makeFriends(Player friend1, Player friend2)
 	{
 		DAOManager.getDAO(FriendListDAO.class).addFriends(friend1, friend2);
 
@@ -155,17 +145,17 @@ public class SocialService
 	 * @param deleter Player deleting a friend
 	 * @param exFriend2Id Object ID of the friend he is deleting	
 	 */
-	public void deleteFriend(Player deleter, int exFriend2Id)
+	public static void deleteFriend(Player deleter, int exFriend2Id)
 	{
 		
 		//If the DAO is successful
 		if (DAOManager.getDAO(FriendListDAO.class).delFriends(deleter.getObjectId(), exFriend2Id))
 		{
 			//Try to get the target player from the cache
-			Player friend2Player = playerService.getCachedPlayer(exFriend2Id);
+			Player friend2Player = PlayerService.getCachedPlayer(exFriend2Id);
 			//If the cache doesn't have this player, try to get him from the world
 			if (friend2Player == null)
-				friend2Player = world.findPlayer(exFriend2Id);
+				friend2Player = World.getInstance().findPlayer(exFriend2Id);
 			
 			String friend2Name = friend2Player != null ? friend2Player.getName() : 
 				DAOManager.getDAO(PlayerDAO.class).loadPlayerCommonData(exFriend2Id).getName();

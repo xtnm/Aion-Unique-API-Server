@@ -16,12 +16,10 @@
  */
 package admincommands;
 
-import com.aionemu.gameserver.dataholders.NpcData;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.services.TeleportService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.chathandlers.AdminCommand;
-import com.google.inject.Inject;
 
 /**
  * @author MrPoke and lord_rex
@@ -29,10 +27,6 @@ import com.google.inject.Inject;
  */
 public class MoveToNpc extends AdminCommand
 {
-	@Inject
-	TeleportService teleportService;
-	@Inject
-	NpcData npcData;
 	
 	public MoveToNpc()
 	{
@@ -51,7 +45,7 @@ public class MoveToNpc extends AdminCommand
 			try
 			{
 				npcId = Integer.valueOf(params[0]);
-				teleportService.teleportToNpc(admin, npcId);	
+				TeleportService.teleportToNpc(admin, npcId);	
 			}
 			catch(ArrayIndexOutOfBoundsException e)
 			{

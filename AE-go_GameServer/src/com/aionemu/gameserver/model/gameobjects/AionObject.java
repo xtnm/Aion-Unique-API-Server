@@ -31,9 +31,9 @@ public abstract class AionObject
 	/**
 	 * Unique id, for all game objects such as: items, players, monsters.
 	 */
-	private int	objectId;
+	private Integer	objectId;
 
-	public AionObject(int objId)
+	public AionObject(Integer objId)
 	{
 		this.objectId = objId;
 	}
@@ -43,7 +43,7 @@ public abstract class AionObject
 	 * 
 	 * @return Int ObjectId
 	 */
-	public int getObjectId()
+	public Integer getObjectId()
 	{
 		return objectId;
 	}

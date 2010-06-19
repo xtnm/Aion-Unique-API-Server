@@ -27,7 +27,6 @@ import com.aionemu.gameserver.network.chatserver.ChatServer;
 import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author ATracer
@@ -37,20 +36,17 @@ public class ChatService
 {
 	private static final Logger		log		= Logger.getLogger(ChatService.class);
 
-	@Inject
-	private ChatServer				chatServer;
+	private static Map<Integer, Player>	players	= new HashMap<Integer, Player>();
 
-	private Map<Integer, Player>	players	= new HashMap<Integer, Player>();
-
-	private byte[]					ip		= { 127, 0, 0, 1 };
-	private int						port	= 10241;
+	private static byte[]					ip		= { 127, 0, 0, 1 };
+	private static int						port	= 10241;
 
 	/**
 	 * Send token to chat server
 	 * 
 	 * @param player
 	 */
-	public void onPlayerLogin(final Player player)
+	public static void onPlayerLogin(final Player player)
 	{
 		ThreadPoolManager.getInstance().schedule(new Runnable(){
 
@@ -59,7 +55,7 @@ public class ChatService
 			{
 				if(!isPlayerConnected(player))
 				{
-					chatServer.sendPlayerLoginRequst(player);
+					ChatServer.getInstance().sendPlayerLoginRequst(player);
 				}
 				else
 				{
@@ -76,10 +72,10 @@ public class ChatService
 	 * 
 	 * @param player
 	 */
-	public void onPlayerLogout(Player player)
+	public static void onPlayerLogout(Player player)
 	{
 		players.remove(player.getObjectId());
-		chatServer.sendPlayerLogout(player);
+		ChatServer.getInstance().sendPlayerLogout(player);
 	}
 
 	/**
@@ -87,7 +83,7 @@ public class ChatService
 	 * @param player
 	 * @return
 	 */
-	public boolean isPlayerConnected(Player player)
+	public static boolean isPlayerConnected(Player player)
 	{
 		return players.containsKey(player.getObjectId());
 	}
@@ -96,7 +92,7 @@ public class ChatService
 	 * @param playerId
 	 * @param token
 	 */
-	public void playerAuthed(int playerId, byte[] token)
+	public static void playerAuthed(int playerId, byte[] token)
 	{
 		Player player = World.getInstance().findPlayer(playerId);
 		if(player != null)
@@ -109,7 +105,7 @@ public class ChatService
 	/**
 	 * @return the ip
 	 */
-	public byte[] getIp()
+	public static byte[] getIp()
 	{
 		return ip;
 	}
@@ -117,7 +113,7 @@ public class ChatService
 	/**
 	 * @return the port
 	 */
-	public int getPort()
+	public static int getPort()
 	{
 		return port;
 	}
@@ -125,16 +121,16 @@ public class ChatService
 	/**
 	 * @param ip the ip to set
 	 */
-	public void setIp(byte[] ip)
+	public static void setIp(byte[] _ip)
 	{
-		this.ip = ip;
+		ip = _ip;
 	}
 
 	/**
 	 * @param port the port to set
 	 */
-	public void setPort(int port)
+	public static void setPort(int _port)
 	{
-		this.port = port;
+		port = _port;
 	}
 }

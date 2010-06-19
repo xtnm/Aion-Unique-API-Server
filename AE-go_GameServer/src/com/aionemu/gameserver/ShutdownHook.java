@@ -32,7 +32,6 @@ import com.aionemu.gameserver.services.PlayerService;
 import com.aionemu.gameserver.utils.ThreadPoolManager;
 import com.aionemu.gameserver.utils.gametime.GameTimeManager;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * @author lord_rex
@@ -41,9 +40,6 @@ import com.google.inject.Inject;
 public class ShutdownHook extends Thread
 {
 	private static final Logger	log	= Logger.getLogger(ShutdownHook.class);
-
-	@Inject
-	private PlayerService		playerService;
 
 	@Override
 	public void run()
@@ -77,7 +73,7 @@ public class ShutdownHook extends Thread
 		}
 	}
 
-	private void sendShutdownMessage(int seconds)
+	private static void sendShutdownMessage(int seconds)
 	{
 		try
 		{
@@ -97,7 +93,7 @@ public class ShutdownHook extends Thread
 		}
 	}
 
-	private void sendShutdownStatus(boolean status)
+	private static void sendShutdownStatus(boolean status)
 	{
 		try
 		{
@@ -117,7 +113,7 @@ public class ShutdownHook extends Thread
 		}
 	}
 
-	private void shutdownHook(int duration, int interval, ShutdownMode mode)
+	private static void shutdownHook(int duration, int interval, ShutdownMode mode)
 	{
 		for(int i = duration; i >= interval; i -= interval)
 		{
@@ -161,7 +157,7 @@ public class ShutdownHook extends Thread
 			Player activePlayer = onlinePlayers.next();
 			try
 			{
-				playerService.playerLoggedOut(activePlayer);
+				PlayerService.playerLoggedOut(activePlayer);
 			}
 			catch(Exception e)
 			{
@@ -193,7 +189,7 @@ public class ShutdownHook extends Thread
 	 * @param announceInterval
 	 * @param mode
 	 */
-	public void doShutdown(int delay, int announceInterval, ShutdownMode mode)
+	public static void doShutdown(int delay, int announceInterval, ShutdownMode mode)
 	{
 		shutdownHook(delay, announceInterval, mode);
 	}

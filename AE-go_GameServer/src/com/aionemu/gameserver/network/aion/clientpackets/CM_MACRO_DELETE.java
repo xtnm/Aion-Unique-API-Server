@@ -22,7 +22,6 @@ import org.apache.log4j.Logger;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_MACRO_RESULT;
 import com.aionemu.gameserver.services.PlayerService;
-import com.google.inject.Inject;
 
 /**
  * Packet that is responsible for macro deletion.<br>
@@ -46,9 +45,6 @@ public class CM_MACRO_DELETE extends AionClientPacket
 	 * Macro id that has to be deleted
 	 */
 	private int					macroPosition;
-
-	@Inject
-	private PlayerService playerService;
 	
 	/**
 	 * Constructs new client packet instance.
@@ -76,7 +72,7 @@ public class CM_MACRO_DELETE extends AionClientPacket
 	{
 		log.debug("Request to delete macro #" + macroPosition);
 
-		playerService.removeMacro(getConnection().getActivePlayer(), macroPosition);
+		PlayerService.removeMacro(getConnection().getActivePlayer(), macroPosition);
 		
 		sendPacket(SM_MACRO_RESULT.SM_MACRO_DELETED);
 	}

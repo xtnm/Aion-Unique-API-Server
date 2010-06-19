@@ -23,7 +23,6 @@ import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.services.SocialService;
-import com.google.inject.Inject;
 
 /**
  * @author Ben
@@ -33,8 +32,6 @@ public class CM_FRIEND_DEL extends AionClientPacket
 {
 
 	private String 				targetName;
-	@Inject
-	private SocialService		socialService;
 	private static Logger		log				= Logger.getLogger(CM_FRIEND_DEL.class);
 	
 	public CM_FRIEND_DEL(int opcode)
@@ -68,7 +65,7 @@ public class CM_FRIEND_DEL extends AionClientPacket
 		}
 		else
 		{
-			socialService.deleteFriend(activePlayer, target.getOid());
+			SocialService.deleteFriend(activePlayer, target.getOid());
 			
 			
 		}

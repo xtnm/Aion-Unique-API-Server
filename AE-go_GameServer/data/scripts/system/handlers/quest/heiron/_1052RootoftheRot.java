@@ -23,10 +23,8 @@ import com.aionemu.gameserver.questEngine.handlers.QuestHandler;
 import com.aionemu.gameserver.questEngine.model.QuestEnv;
 import com.aionemu.gameserver.questEngine.model.QuestState;
 import com.aionemu.gameserver.questEngine.model.QuestStatus;
-import com.aionemu.gameserver.services.ItemService;
 import com.aionemu.gameserver.services.QuestService;
 import com.aionemu.gameserver.utils.PacketSendUtility;
-import com.google.inject.Inject;
 
 /**
  * @author Rhys2002
@@ -34,8 +32,6 @@ import com.google.inject.Inject;
  */
 public class _1052RootoftheRot extends QuestHandler
 {
-	@Inject
-	ItemService itemService;
 	
 	private final static int	questId	= 1052;
 	private final static int[]	npc_ids	= { 204549, 730026, 730024 };

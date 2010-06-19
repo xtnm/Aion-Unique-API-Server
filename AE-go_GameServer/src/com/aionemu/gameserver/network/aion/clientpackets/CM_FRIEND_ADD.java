@@ -26,7 +26,6 @@ import com.aionemu.gameserver.network.aion.serverpackets.SM_QUESTION_WINDOW;
 import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.services.SocialService;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * Received when a user tries to add someone as his friend
@@ -37,8 +36,6 @@ import com.google.inject.Inject;
 public class CM_FRIEND_ADD extends AionClientPacket
 {
 	private String 				targetName;
-	@Inject
-	private SocialService 		socialService;
 	
 	public CM_FRIEND_ADD(int opcode) {
 		super(opcode);
@@ -112,7 +109,7 @@ public class CM_FRIEND_ADD extends AionClientPacket
 					}
 					else
 					{
-						socialService.makeFriends((Player)requester, responder);
+						SocialService.makeFriends((Player)requester, responder);
 					}
 					
 				}

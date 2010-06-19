@@ -80,7 +80,6 @@ import com.aionemu.gameserver.utils.collections.cachemap.CacheMapFactory;
 import com.aionemu.gameserver.world.KnownList;
 import com.aionemu.gameserver.world.World;
 import com.aionemu.gameserver.world.WorldPosition;
-import com.google.inject.Inject;
 
 /**
  * 
@@ -93,19 +92,8 @@ import com.google.inject.Inject;
 public class PlayerService
 {
 	private static final Logger			log			= Logger.getLogger(PlayerService.class);
-	private CacheMap<Integer, Player>	playerCache	= CacheMapFactory.createSoftCacheMap("Player", "player");
+	private static final CacheMap<Integer, Player>	playerCache	= CacheMapFactory.createSoftCacheMap("Player", "player");
 
-	private PlayerStatsData				playerStatsData;
-	private PlayerInitialData			playerInitialData;
-	private ChatService					chatService;
-
-	@Inject
-	public PlayerService(ChatService chatService)
-	{
-		this.playerStatsData = DataManager.PLAYER_STATS_DATA;
-		this.playerInitialData = DataManager.PLAYER_INITIAL_DATA;
-		this.chatService = chatService;
-	}
 
 	/**
 	 * Checks if name is already taken or not
@@ -114,7 +102,7 @@ public class PlayerService
 	 *            character name
 	 * @return true if is free, false in other case
 	 */
-	public boolean isFreeName(String name)
+	public static boolean isFreeName(String name)
 	{
 		return !DAOManager.getDAO(PlayerDAO.class).isNameUsed(name);
 	}
@@ -126,7 +114,7 @@ public class PlayerService
 	 *            character name
 	 * @return true if name is valid, false overwise
 	 */
-	public boolean isValidName(String name)
+	public static boolean isValidName(String name)
 	{
 		return GSConfig.CHAR_NAME_PATTERN.matcher(name).matches();
 	}
@@ -138,7 +126,7 @@ public class PlayerService
 	 *            player to store
 	 * @return true if character was successful saved.
 	 */
-	public boolean storeNewPlayer(Player player, String accountName, int accountId)
+	public static boolean storeNewPlayer(Player player, String accountName, int accountId)
 	{
 		return DAOManager.getDAO(PlayerDAO.class).saveNewPlayer(player.getCommonData(), accountId, accountName)
 			&& DAOManager.getDAO(PlayerAppearanceDAO.class).store(player)
@@ -152,7 +140,7 @@ public class PlayerService
 	 * 
 	 * @param player
 	 */
-	public void storePlayer(Player player)
+	private static void storePlayer(Player player)
 	{
 		DAOManager.getDAO(PlayerDAO.class).storePlayer(player);
 		DAOManager.getDAO(PlayerSkillListDAO.class).storeSkills(player);
@@ -173,7 +161,7 @@ public class PlayerService
 	 * @param account 
 	 * @return Player
 	 */
-	public Player getPlayer(int playerObjId, Account account)
+	public static Player getPlayer(int playerObjId, Account account)
 	{
 		Player player = playerCache.get(playerObjId);
 		if(player != null)
@@ -207,7 +195,7 @@ public class PlayerService
 
 		DAOManager.getDAO(PlayerSettingsDAO.class).loadSettings(player);
 		DAOManager.getDAO(AbyssRankDAO.class).loadAbyssRank(player);
-
+		PlayerStatsData playerStatsData = DataManager.PLAYER_STATS_DATA;
 		player.setPlayerStatsTemplate(playerStatsData.getTemplate(player));
 
 		player.setGameStats(new PlayerGameStats(playerStatsData, player));
@@ -279,8 +267,9 @@ public class PlayerService
 	 * @param playerAppearance
 	 * @return Player
 	 */
-	public Player newPlayer(PlayerCommonData playerCommonData, PlayerAppearance playerAppearance)
+	public static Player newPlayer(PlayerCommonData playerCommonData, PlayerAppearance playerAppearance)
 	{
+		PlayerInitialData playerInitialData = DataManager.PLAYER_INITIAL_DATA;
 		LocationData ld = playerInitialData.getSpawnLocation(playerCommonData.getRace());
 
 		WorldPosition position = World.getInstance().createPosition(ld.getMapId(), ld.getX(), ld.getY(), ld.getZ(), ld.getHeading());
@@ -347,7 +336,7 @@ public class PlayerService
 	 * 
 	 * @param player
 	 */
-	public void playerLoggedIn(Player player)
+	public static void playerLoggedIn(Player player)
 	{
 		log.info("Player logged in: " + player.getName() + " Account: " + player.getClientConnection().getAccount().getName());
 		player.getCommonData().setOnline(true);
@@ -366,7 +355,7 @@ public class PlayerService
 	 * 
 	 * @param player
 	 */
-	public void playerLoggedOut(final Player player)
+	public static void playerLoggedOut(final Player player)
 	{
 		log.info("Player logged out: " + player.getName() + " Account: " + player.getClientConnection().getAccount().getName());
 		player.onLoggedOut();
@@ -405,13 +394,13 @@ public class PlayerService
 		DAOManager.getDAO(PlayerDAO.class).onlinePlayer(player, false);
 		
 		if(!GSConfig.DISABLE_CHAT_SERVER)
-			chatService.onPlayerLogout(player);
+			ChatService.onPlayerLogout(player);
 
 		storePlayer(player);
 		
 	}
 
-	public void playerLoggedOutDelay(final Player player, int delay)
+	public static void playerLoggedOutDelay(final Player player, int delay)
 	{
 		// force stop movement of player
 		player.getController().stopMoving();
@@ -433,7 +422,7 @@ public class PlayerService
 	 * 
 	 * @return True if deletion was successful canceled.
 	 */
-	public boolean cancelPlayerDeletion(PlayerAccountData accData)
+	public static boolean cancelPlayerDeletion(PlayerAccountData accData)
 	{
 		if(accData.getDeletionDate() == null)
 			return true;
@@ -454,7 +443,7 @@ public class PlayerService
 	 * @param accData
 	 *            PlayerAccountData
 	 */
-	public void deletePlayer(PlayerAccountData accData)
+	public static void deletePlayer(PlayerAccountData accData)
 	{
 		if(accData.getDeletionDate() != null)
 			return;
@@ -481,7 +470,7 @@ public class PlayerService
 	 * @param accData
 	 *            PlayerAccountData
 	 */
-	private void storeDeletionTime(PlayerAccountData accData)
+	private static void storeDeletionTime(PlayerAccountData accData)
 	{
 		DAOManager.getDAO(PlayerDAO.class).updateDeletionTime(accData.getPlayerCommonData().getPlayerObjId(),
 			accData.getDeletionDate());
@@ -492,7 +481,7 @@ public class PlayerService
 	 * @param objectId
 	 * @param creationDate
 	 */
-	public void storeCreationTime(int objectId, Timestamp creationDate)
+	public static void storeCreationTime(int objectId, Timestamp creationDate)
 	{
 		DAOManager.getDAO(PlayerDAO.class).storeCreationTime(objectId, creationDate);
 	}
@@ -507,7 +496,7 @@ public class PlayerService
 	 * @param macroXML
 	 *            Macro XML
 	 */
-	public void addMacro(Player player, int macroOrder, String macroXML)
+	public static void addMacro(Player player, int macroOrder, String macroXML)
 	{
 		if(player.getMacroList().addMacro(macroOrder, macroXML))
 		{
@@ -523,7 +512,7 @@ public class PlayerService
 	 * @param macroOrder
 	 *            Macro order index
 	 */
-	public void removeMacro(Player player, int macroOrder)
+	public static void removeMacro(Player player, int macroOrder)
 	{
 		if(player.getMacroList().removeMacro(macroOrder))
 		{
@@ -536,24 +525,8 @@ public class PlayerService
 	 * 
 	 * @return Player or null if not cached
 	 */
-	public Player getCachedPlayer(int playerObjectId)
+	public static Player getCachedPlayer(int playerObjectId)
 	{
 		return playerCache.get(playerObjectId);
-	}
-
-	/**
-	 * @return the playerStatsData
-	 */
-	public PlayerStatsData getPlayerStatsData()
-	{
-		return playerStatsData;
-	}
-
-	/**
-	 * @return the playerInitialData
-	 */
-	public PlayerInitialData getPlayerInitialData()
-	{
-		return playerInitialData;
 	}
 }

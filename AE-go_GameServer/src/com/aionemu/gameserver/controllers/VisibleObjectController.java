@@ -17,9 +17,7 @@
 package com.aionemu.gameserver.controllers;
 
 import com.aionemu.gameserver.model.gameobjects.VisibleObject;
-import com.aionemu.gameserver.services.ServiceProxy;
 import com.aionemu.gameserver.world.World;
-import com.google.inject.Inject;
 
 /**
  * This class is for controlling VisibleObjects [players, npc's etc].
@@ -30,8 +28,6 @@ import com.google.inject.Inject;
  */
 public abstract class VisibleObjectController<T extends VisibleObject>
 {
-	@Inject
-	protected ServiceProxy sp;
 	
 	/**
 	 * Object that is controlled by this controller.
