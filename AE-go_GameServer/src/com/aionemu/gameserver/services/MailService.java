@@ -82,7 +82,7 @@ public class MailService
 	{
 		if(express) // TODO express mail
 			return;
-
+		
 		if(recipientName.length() > 16)
 			return;
 
@@ -147,6 +147,10 @@ public class MailService
 		if(attachedItemObjId != 0)
 		{
 			Item senderItem = senderInventory.getItemByObjId(attachedItemObjId);
+
+            // Check Mailing Untradeable Hack
+            if (!senderItem.getItemTemplate().isTradeable())
+                return;
 
 			if(senderItem != null)
 			{
