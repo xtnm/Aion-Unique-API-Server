@@ -95,6 +95,9 @@ public class AdminConfig
 	@Property(key = "gameserver.administration.command.moveto", defaultValue = "3")
 	public static int	COMMAND_MOVETO;
 
+	@Property(key = "gameserver.administration.command.movetonpc", defaultValue = "3")
+	public static int	COMMAND_MOVETONPC;
+
 	@Property(key = "gameserver.administration.command.movetoplayer", defaultValue = "3")
 	public static int	COMMAND_MOVETOPLAYER;
 
