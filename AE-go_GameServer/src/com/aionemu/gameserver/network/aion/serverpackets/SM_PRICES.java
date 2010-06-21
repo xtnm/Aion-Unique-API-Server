@@ -18,24 +18,34 @@ package com.aionemu.gameserver.network.aion.serverpackets;
 
 import java.nio.ByteBuffer;
 
+import com.aionemu.gameserver.model.gameobjects.player.Prices;
 import com.aionemu.gameserver.network.aion.AionConnection;
 import com.aionemu.gameserver.network.aion.AionServerPacket;
 
 /**
- * @author xavier
+ * @author xavier, Sarynth
  * Price/tax in Influence ration dialog
  */
 public class SM_PRICES extends AionServerPacket
 {
-
+	private Prices prices;
+	
+	/**
+	 * @param prices
+	 */
+	public SM_PRICES(Prices prices)
+	{
+		this.prices = prices;
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	protected void writeImpl(AionConnection con, ByteBuffer buf)
 	{
-		writeC(buf, 100); // Display Buying Price %
-        writeC(buf, 50);  // Buying Modified Price %
-        writeC(buf, 100); // Tax = -100 + C %
+		writeC(buf, prices.getGlobalPrices());		// Display Buying Price %
+        writeC(buf, prices.getGlobalPricesModifier());	// Buying Modified Price %
+        writeC(buf, prices.getTaxes());				// Tax = -100 + C %
 	}
 }

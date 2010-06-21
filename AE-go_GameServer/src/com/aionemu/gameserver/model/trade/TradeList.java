@@ -84,11 +84,13 @@ public class TradeList
 	{
 		long availableKinah = player.getInventory().getKinahItem().getItemCount();
 		requiredKinah = 0;
+		
+		
 		for(TradeItem tradeItem : tradeItems)
 		{
-			requiredKinah += tradeItem.getItemTemplate().getPrice() * tradeItem.getCount();
+			requiredKinah += player.getPrices().getKinahForBuy(tradeItem.getItemTemplate().getPrice()) * tradeItem.getCount();
 		}
-		// TODO: Multiply requiredKinah by 1.00 + playerRaceTaxRate
+		
 		return availableKinah >= requiredKinah;
 	}
 	

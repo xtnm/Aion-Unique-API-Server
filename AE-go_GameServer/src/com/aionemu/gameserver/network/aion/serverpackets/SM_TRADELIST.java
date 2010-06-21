@@ -27,18 +27,20 @@ import com.aionemu.gameserver.network.aion.AionServerPacket;
 /**
  * 
  * @author alexa026
- * modified by ATracer
+ * modified by ATracer, Sarynth
  */
 public class SM_TRADELIST extends AionServerPacket
 {
 	
 	private int	targetObjectId;
 	private TradeListTemplate tlist;
-
-	public SM_TRADELIST(Npc npc, TradeListTemplate tlist)
+	private int buyPriceModifier;
+	
+	public SM_TRADELIST(Npc npc, TradeListTemplate tlist, int buyPriceModifier)
 	{
 		this.targetObjectId = npc.getObjectId();
 		this.tlist = tlist;
+		this.buyPriceModifier = buyPriceModifier;
 	}
 
 	@Override
@@ -48,10 +50,8 @@ public class SM_TRADELIST extends AionServerPacket
 		{
 			writeD(buf, targetObjectId);
 			writeC(buf, tlist.isAbyss() ? 2 : 1); //abyss or normal
-            writeC(buf, 200);
-			writeH(buf, 0);//unk
-			writeC(buf, 0); // unknown
-			writeH(buf, tlist.getCount()); // unknown
+            writeD(buf, buyPriceModifier); // Vendor Buy Price Modifier
+			writeH(buf, tlist.getCount());
 			for(TradeTab tradeTabl : tlist.getTradeTablist())
 			{
 				writeD(buf, tradeTabl.getId());

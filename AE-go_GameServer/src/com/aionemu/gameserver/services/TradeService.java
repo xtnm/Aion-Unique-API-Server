@@ -67,7 +67,7 @@ public class TradeService
 
 		if(!validateBuyItems(tradeList))
 		{
-			PacketSendUtility.sendMessage(player, "Some items are not allowed to be selled from this npc");
+			PacketSendUtility.sendMessage(player, "Some items are not allowed to be sold by this npc.");
 			return false;
 		}
 
@@ -207,6 +207,7 @@ public class TradeService
 				inventory.removeFromBag(item, true); // need to be here to avoid exploit by sending packet with many
 														// items with same unique ids
 				kinahReward += item.getItemTemplate().getPrice() * item.getItemCount();
+				
 				// TODO check retail packet here
 				PacketSendUtility.sendPacket(player, new SM_DELETE_ITEM(item.getObjectId()));
 			}
@@ -226,7 +227,8 @@ public class TradeService
 		}
 
 		Item kinahItem = inventory.getKinahItem();
-		inventory.increaseKinah(kinahReward / 5);
+		kinahReward = player.getPrices().getKinahForSell(kinahReward);
+		inventory.increaseKinah(kinahReward);
 		PacketSendUtility.sendPacket(player, new SM_UPDATE_ITEM(kinahItem));
 
 		return true;

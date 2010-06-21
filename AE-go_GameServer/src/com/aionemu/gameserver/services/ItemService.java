@@ -660,7 +660,7 @@ public class ItemService
 	public static void socketGodstone(Player player, int weaponId, int stoneId)
 	{
 		// TODO: Modify the price based on global price variable
-		int socketPrice = 50000;
+		int socketPrice = player.getPrices().getPriceForService(100000);
 		Item kinahItem = player.getInventory().getKinahItem();
 		if(kinahItem.getItemCount() < socketPrice)
 			return;

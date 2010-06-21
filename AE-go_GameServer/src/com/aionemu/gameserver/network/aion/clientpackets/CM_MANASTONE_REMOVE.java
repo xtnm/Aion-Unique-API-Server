@@ -19,7 +19,9 @@ package com.aionemu.gameserver.network.aion.clientpackets;
 import com.aionemu.gameserver.model.gameobjects.AionObject;
 import com.aionemu.gameserver.model.gameobjects.player.Player;
 import com.aionemu.gameserver.network.aion.AionClientPacket;
+import com.aionemu.gameserver.network.aion.serverpackets.SM_SYSTEM_MESSAGE;
 import com.aionemu.gameserver.services.ItemService;
+import com.aionemu.gameserver.utils.PacketSendUtility;
 import com.aionemu.gameserver.world.World;
 
 /**
@@ -53,10 +55,18 @@ public class CM_MANASTONE_REMOVE extends AionClientPacket
 		AionObject npc = World.getInstance().findAionObject(npcObjId);
 		Player player = getConnection().getActivePlayer();
 		
+		int price = player.getPrices().getPriceForService(500);
+		
+		if (player.getInventory().getKinahItem().getItemCount() < price)
+		{
+			PacketSendUtility.sendPacket(player, SM_SYSTEM_MESSAGE.NOT_ENOUGH_KINAH(price));
+			return;
+		}
+		
 		if(npc != null)
 		{
+			player.getInventory().decreaseKinah(price);
 			ItemService.removeManastone(player, itemObjId, slotNum);
 		}
 	}
-
 }

@@ -44,7 +44,7 @@ public class ItemRemodelService
 		Item keepItem = inventory.getItemByObjId(keepItemObjId);
 		Item extractItem = inventory.getItemByObjId(extractItemObjId);
 		
-		int remodelCost = 500;
+		int remodelCost = player.getPrices().getPriceForService(1000);
 		
 		if(keepItem == null || extractItem == null)
 		{ // NPE check.

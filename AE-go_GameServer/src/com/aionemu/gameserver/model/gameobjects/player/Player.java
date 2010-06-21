@@ -104,7 +104,9 @@ public class Player extends Creature
 	private int					flightDistance;
 	private Summon				summon;
 	private Kisk				kisk;
+	private Prices 				prices;
 	
+
 	private Map<Integer, ItemCooldown>	itemCoolDowns;
 	
 	/**
@@ -125,11 +127,11 @@ public class Player extends Creature
 		this.playerCommonData = plCommonData;
 		this.playerAppearance = appereance;
 
+		this.prices = new Prices();
 		this.requester = new ResponseRequester(this);
 		this.questStateList = new QuestStateList();
 		this.titleList = new TitleList();
 		controller.setOwner(this);
-
 	}
 
 	public PlayerCommonData getCommonData()
@@ -1194,5 +1196,13 @@ public class Player extends Creature
 		if(itemCoolDowns == null)
 			return;
 		itemCoolDowns.remove(itemMask);
+	}
+
+	/**
+	 * @return prices
+	 */
+	public Prices getPrices()
+	{
+		return this.prices;
 	}
 }

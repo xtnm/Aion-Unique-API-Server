@@ -176,7 +176,7 @@ public class TeleportService
 		Storage inventory = player.getInventory();
 		
 		// TODO: make this a global factor and link with SM_PRICES
-		int transportationPrice = location.getPrice() / 2;
+		int transportationPrice = player.getPrices().getPriceForService(location.getPrice());
 		
 		if(!inventory.decreaseKinah(transportationPrice))
 		{

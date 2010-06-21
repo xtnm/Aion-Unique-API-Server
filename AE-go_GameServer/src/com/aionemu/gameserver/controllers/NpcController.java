@@ -201,12 +201,12 @@ public class NpcController extends CreatureController<Npc>
 		switch(dialogId)
 		{
 			case 2:
-				PacketSendUtility.sendPacket(player, new SM_TRADELIST(npc, TradeService.getTradeListData()
-					.getTradeListTemplate(npc.getNpcId())));
+				PacketSendUtility.sendPacket(player, new SM_TRADELIST(npc,
+					TradeService.getTradeListData().getTradeListTemplate(npc.getNpcId()),
+					player.getPrices().getVendorBuyModifier()));
 				break;
 			case 3:
-				// Currently fixed at 20% of buy price
-				PacketSendUtility.sendPacket(player, new SM_SELL_ITEM(targetObjectId, 20));
+				PacketSendUtility.sendPacket(player, new SM_SELL_ITEM(targetObjectId, player.getPrices().getVendorSellModifier()));
 				break;
 			case 4:
 				// stigma
