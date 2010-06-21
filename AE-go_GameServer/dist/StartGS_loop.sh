@@ -7,5 +7,7 @@ do
 	[ -f log/console.log ] && mv log/console.log "log/console/`date +%Y-%m-%d_%H-%M-%S`_console.log"
 	java -Xms128m -Xmx1536m -ea -Xbootclasspath/p:./libs/jsr166.jar -javaagent:libs/ae_commons.jar -cp ./libs/*:ae_gameserver.jar com.aionemu.gameserver.GameServer > log/console.log 2>&1
 	err=$?
+	gspid=$!
+	echo ${gspid} > gameserver.pid
 	sleep 10
 done
