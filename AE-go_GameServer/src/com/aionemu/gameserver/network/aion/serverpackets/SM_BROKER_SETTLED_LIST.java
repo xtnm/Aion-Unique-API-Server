@@ -17,7 +17,6 @@
 package com.aionemu.gameserver.network.aion.serverpackets;
 
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.aionemu.gameserver.model.gameobjects.BrokerItem;
@@ -26,14 +25,15 @@ import com.aionemu.gameserver.network.aion.AionServerPacket;
 
 /**
  * @author kosyachok
- *
+ * @author Sarynth
  */
 public class SM_BROKER_SETTLED_LIST extends AionServerPacket
 {
 	List<BrokerItem> settledItems;
 	private long totalKinah;
+	
+	private boolean isIconUpdate;
 	private int haveItemsIcon;
-	private int unk;
 	
 	/**
 	 * Sending settled items list
@@ -42,52 +42,46 @@ public class SM_BROKER_SETTLED_LIST extends AionServerPacket
 	 */
 	public SM_BROKER_SETTLED_LIST(List<BrokerItem> settledItems, long totalKinah)
 	{
+		this.isIconUpdate = false;
 		this.settledItems = settledItems;
 		this.totalKinah = totalKinah;
-		this.haveItemsIcon = 0;
-		this.unk = 0;
 	}
 	
+	/**
+	 * Send itemsToSettle icon update. 
+	 * @param haveItems
+	 */
 	public SM_BROKER_SETTLED_LIST(boolean haveItems)
 	{
-		this.settledItems = new ArrayList<BrokerItem>();
-		this.totalKinah = 0;
-		if(haveItems)
+		this.isIconUpdate = true;
+		if (haveItems)
 			this.haveItemsIcon = 1;
 		else
 			this.haveItemsIcon = 0;
-		this.unk = 1;
 	}
 	
 	@Override
 	protected void writeImpl(AionConnection con, ByteBuffer buf)
 	{
-		writeQ(buf, totalKinah);
-        writeD(buf, haveItemsIcon);
-        writeH(buf, 0);//TODO: Pages
-        writeC(buf, unk);//
-		writeH(buf, settledItems.size());
-		if(settledItems.size() > 0)
+		if(this.isIconUpdate)
 		{
-			writeD(buf, settledItems.get(0).getItemId());
-			if(settledItems.get(0).isSold())
-				writeQ(buf, settledItems.get(0).getPrice());
-			else
-				writeQ(buf, 0);
-			writeQ(buf, settledItems.get(0).getItemCount());
-			writeQ(buf, settledItems.get(0).getItemCount());
-			writeD(buf, (int)(settledItems.get(0).getSettleTime().getTime() / 60000));
 			writeD(buf, 0);
-			writeD(buf, 0);
-			writeD(buf, 0);
-			writeD(buf, 0);
-			writeD(buf, 0);
-			writeD(buf, 0);
-			writeD(buf, 0);
-			writeD(buf, 0);
-			writeD(buf, 0);
-			writeD(buf, 0);
-			for(int i = 1; i < settledItems.size(); i++)
+			writeD(buf, this.haveItemsIcon);
+			writeH(buf, 1); // unk
+			writeD(buf, 0); // unk - pages?
+			writeC(buf, 1); // isIconUpdate
+			writeH(buf, 0); // 0 items size...
+		}
+		else
+		{
+			writeQ(buf, totalKinah);
+	        
+			writeH(buf, 1); // unk
+	        writeD(buf, 0); // TODO: Pages
+	        writeC(buf, 0); // isIconUpdate
+	        
+			writeH(buf, settledItems.size());
+			for(int i = 0; i < settledItems.size(); i++)
 			{
 				writeD(buf, settledItems.get(i).getItemId());
 				if(settledItems.get(i).isSold())
