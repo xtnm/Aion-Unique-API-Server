@@ -110,7 +110,7 @@ public class _1487BalaurBones extends QuestHandler
 		{
     	    long itemCount;
 			itemCount = player.getInventory().getItemCountByItemId(182201407);
-			if(qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0 && itemCount < 1)
+			if(qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0 && itemCount < 1)
 			{
 				final int targetObjectId = env.getVisibleObject().getObjectId();
 				PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, 37, 0, targetObjectId), true);
@@ -156,7 +156,7 @@ public class _1487BalaurBones extends QuestHandler
 		{
 			long itemCount2;
 			itemCount2 = player.getInventory().getItemCountByItemId(182201409);
-			if(qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0 && itemCount2 < 2)
+			if(qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 0 && itemCount2 < 2)
 			{
 				final int targetObjectId = env.getVisibleObject().getObjectId();
 				PacketSendUtility.broadcastPacket(player, new SM_EMOTION(player, 37, 0, targetObjectId), true);
