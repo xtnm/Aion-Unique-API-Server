@@ -222,6 +222,9 @@ public class ItemService
 		if(itemAmount == 0)
 			return;
 
+		if (sourceItemObjId == destinationObjId)
+			return;
+
 		Storage sourceStorage = player.getStorage(sourceStorageType);
 		Storage destinationStorage = player.getStorage(destinationStorageType);
 

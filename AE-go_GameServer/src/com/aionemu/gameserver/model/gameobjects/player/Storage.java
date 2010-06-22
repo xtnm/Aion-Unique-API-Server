@@ -62,7 +62,7 @@ public class Storage
 		switch(storageType)
 		{
 			case CUBE:
-				storage = new ItemStorage(108);
+				storage = new ItemStorage(109);
 				this.storageType = storageType.getId();
 				break;
 			case REGULAR_WAREHOUSE:
@@ -70,11 +70,11 @@ public class Storage
 				this.storageType = storageType.getId();
 				break;
 			case ACCOUNT_WAREHOUSE:
-				storage = new ItemStorage(16);
+				storage = new ItemStorage(17);
 				this.storageType = storageType.getId();
 				break;
 			case LEGION_WAREHOUSE:
-				storage = new ItemStorage(24); // TODO: FIND OUT WHAT MAX IS
+				storage = new ItemStorage(25); // TODO: FIND OUT WHAT MAX IS
 				this.storageType = storageType.getId();
 				break;
 		}
