@@ -34,7 +34,7 @@
 	</spawn>
 	<!-- Agamemnon (NPC Normal lvl:47)-->
 	<spawn map="110010000" npcid="203769" pool="1" interval="295">
-		<object x="1649.41170" y="1507.38000" z="548.87000" h="90"/>
+		<object x="1663" y="1549.6" z="548.8" h="90" w="28"/>
 	</spawn>
 	<!-- Aithra (NPC Normal lvl:40)-->
 	<spawn map="110010000" npcid="203754" pool="1" interval="295">
@@ -42,7 +42,7 @@
 	</spawn>
 	<!-- Akeas (NPC Normal lvl:47)-->
 	<spawn map="110010000" npcid="203722" pool="1" interval="295">
-		<object x="1358.27930" y="1511.96360" z="568.84015" h="60"/>
+		<object x="1395.8" y="1519.6" z="573" h="60" w="20"/>
 	</spawn>
 	<!-- Akeri (NPC Normal lvl:40)-->
 	<spawn map="110010000" npcid="203768" pool="1" interval="295">
@@ -94,11 +94,11 @@
 	</spawn>
 	<!-- Arion (NPC Normal lvl:40)-->
 	<spawn map="110010000" npcid="203871" pool="1" interval="295">
-		<object x="1666.09780" y="1357.50700" z="559.00000" h="51"/>
+		<object x="1576.1" y="1440.4" z="573" h="51" w="22"/>
 	</spawn>
 	<!-- Atia (NPC Normal lvl:47)-->
 	<spawn map="110010000" npcid="203825" pool="1" interval="295">
-		<object x="1893.01880" y="1602.77950" z="590.01184" h="42"/>
+		<object x="1859.3" y="1601.4" z="590" h="42" w="23"/>
 	</spawn>
 	<!-- Atifure (NPC Normal lvl:10)-->
 	<spawn map="110010000" npcid="203884" pool="1" interval="295">
@@ -110,7 +110,7 @@
 	</spawn>
 	<!-- Avrus (NPC Normal lvl:47)-->
 	<spawn map="110010000" npcid="203770" pool="1" interval="295">
-		<object x="1811.66080" y="1550.09480" z="579.05927" h="100"/>
+		<object x="1812.3" y="1412.2" z="579.1" h="100" w="34"/>
 	</spawn>
 	<!-- Ayurinrinerk (NPC Normal lvl:15)-->
 	<spawn map="110010000" npcid="798152" pool="1" interval="295">
@@ -286,7 +286,7 @@
 	</spawn>
 	<!-- Etere (NPC Normal lvl:40)-->
 	<spawn map="110010000" npcid="203873" pool="1" interval="295">
-		<object x="1529.65280" y="1559.76180" z="573.00000" h="38"/>
+		<object x="1539.8" y="1464.5" z="573.00000" h="38" w="25"/>
 	</spawn>
 	<!-- Ettamirel (NPC Normal lvl:20)-->
 	<spawn map="110010000" npcid="203316" pool="1" interval="295">
@@ -448,6 +448,10 @@
 	<spawn map="110010000" npcid="203812" pool="1" interval="295">
 		<object x="1945.17920" y="1577.92750" z="590.36365" h="96"/>
 	</spawn>
+	<!-- Jordan(NPC Normal lvl:5)-->
+	<spawn map="110010000" npcid="203747" pool="1" interval="295">
+		<object x="1574.4" y="1579.4" z="573" h="96" w="30"/>
+	</spawn>
 	<!-- Jucleas (NPC Normal lvl:50)-->
 	<spawn map="110010000" npcid="203752" pool="1" interval="295">
 		<object x="1390.89000" y="1692.88000" z="573.28613" h="100"/>
@@ -500,6 +504,10 @@
 	<spawn map="110010000" npcid="203765" pool="1" interval="295">
 		<object x="1662.58170" y="1367.37260" z="558.50000" h="60"/>
 	</spawn>
+	<!-- Kris (NPC Normal lvl:5)-->
+	<spawn map="110010000" npcid="203746" pool="1" interval="295">
+		<object x="1579.8048" y="1580.2493" z="573.0318" h="60" w="30"/>
+	</spawn>
 	<!-- Kumnen (NPC Normal lvl:3)-->
 	<spawn map="110010000" npcid="203743" pool="1" interval="295">
 		<object x="1573.17740" y="1372.21080" z="564.57715" h="37"/>
@@ -518,7 +526,7 @@
 	</spawn>
 	<!-- Laitos (NPC Normal lvl:10)-->
 	<spawn map="110010000" npcid="203867" pool="1" interval="295">
-		<object x="1791.04740" y="2174.77560" z="528.99866" h="63"/>
+		<object x="1827" y="2163.4" z="527.9" h="63" w="31"/>
 	</spawn>
 	<!-- Lamid (NPC Junk lvl:20)-->
 	<spawn map="110010000" npcid="203895" pool="1" interval="295">
@@ -546,7 +554,7 @@
 	</spawn>
 	<!-- Layrunerk (NPC Normal lvl:15)-->
 	<spawn map="110010000" npcid="798020" pool="1" interval="295">
-		<object x="1844.28760" y="2043.18330" z="517.90730" h="22"/>
+		<object x="1861.3" y="2127.9" z="527.7" h="22" w="33"/>
 	</spawn>
 	<!-- Leah (NPC Normal lvl:40)-->
 	<spawn map="110010000" npcid="203725" pool="1" interval="295">
@@ -570,7 +578,7 @@
 	</spawn>
 	<!-- Libitina (NPC Normal lvl:10)-->
 	<spawn map="110010000" npcid="203870" pool="1" interval="295">
-		<object x="1496.31870" y="1446.32680" z="574.00000" h="22"/>
+		<object x="1459.6" y="1468.2" z="572.9" h="22" w="26"/>
 	</spawn>
 	<!-- Likesan (NPC Normal lvl:50)-->
 	<spawn map="110010000" npcid="203703" pool="1" interval="295">
@@ -610,7 +618,7 @@
 	</spawn>
 	<!-- Lustiena (NPC Normal lvl:40)-->
 	<spawn map="110010000" npcid="203868" pool="1" interval="295">
-		<object x="1655.82730" y="1649.79130" z="549.40550" h="100"/>
+		<object x="1648.1" y="1620" z="548.7" h="100" w="27"/>
 	</spawn>
 	<!-- Macus (NPC Normal lvl:50)-->
 	<spawn map="110010000" npcid="203758" pool="1" interval="295">
@@ -667,6 +675,10 @@
 	<!-- Menon (NPC Normal lvl:10)-->
 	<spawn map="110010000" npcid="203848" pool="1" interval="295">
 		<object x="1877.33650" y="2198.49540" z="528.68580" h="34"/>
+	</spawn>
+	<!-- Mich (NPC Normal lvl:5)-->
+	<spawn map="110010000" npcid="203745" pool="1" interval="295">
+		<object x="1576.6385" y="1580.4438" z="573.0396" h="34" w="30"/>
 	</spawn>
 	<!-- Mikarinerk (NPC Normal lvl:45)-->
 	<spawn map="110010000" npcid="798320" pool="1" interval="295">
@@ -726,7 +738,7 @@
 	</spawn>
 	<!-- Morgana (NPC Normal lvl:47)-->
 	<spawn map="110010000" npcid="203865" pool="1" interval="295">
-		<object x="1787.38600" y="2079.79440" z="529.00000" h="31"/>
+		<object x="1788.2" y="2179.5" z="527.9" h="31" w="32"/>
 	</spawn>
 	<!-- Mustapino (NPC Normal lvl:10)-->
 	<spawn map="110010000" npcid="203859" pool="1" interval="295">
@@ -742,7 +754,7 @@
 	</spawn>
 	<!-- Nephalion (NPC Normal lvl:47)-->
 	<spawn map="110010000" npcid="203824" pool="1" interval="295">
-		<object x="1887.86910" y="1412.61040" z="590.00840" h="47"/>
+		<object x="1854.6" y="1398.5" z="590" h="47" w="24"/>
 	</spawn>
 	<!-- Nepis (NPC Normal lvl:40)-->
 	<spawn map="110010000" npcid="203875" pool="1" interval="295">
@@ -814,7 +826,7 @@
 	</spawn>
 	<!-- Phogus (NPC Normal lvl:10)-->
 	<spawn map="110010000" npcid="203851" pool="1" interval="295">
-		<object x="1659.92030" y="1502.60730" z="544.00000" h="41"/>
+		<object x="1659.92030" y="1502.60730" z="544.00000" h="70"/>
 	</spawn>
 	<!-- Pilianae (NPC Normal lvl:47)-->
 	<spawn map="110010000" npcid="203720" pool="1" interval="295">
@@ -966,7 +978,7 @@
 	</spawn>
 	<!-- Ulbert (NPC Normal lvl:50)-->
 	<spawn map="110010000" npcid="203723" pool="1" interval="295">
-		<object x="1398.77430" y="1512.14840" z="572.99426" h="120"/>
+		<object x="1391.1" y="1502.3" z="573.1" h="120" w="21"/>
 	</spawn>
 	<!-- Unirus (NPC Normal lvl:47)-->
 	<spawn map="110010000" npcid="203721" pool="1" interval="295">
